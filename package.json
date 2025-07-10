@@ -7,11 +7,21 @@
         "dev": "vite"
     },
     "devDependencies": {
+        "@srexi/purecounterjs": "^1.5.0",
         "@tailwindcss/vite": "^4.0.0",
+        "aos": "^2.3.4",
         "axios": "^1.8.2",
+        "bootstrap": "^5.3.7",
+        "bootstrap-icons": "^1.13.1",
+        "boxicons": "^2.1.4",
         "concurrently": "^9.0.1",
+        "glightbox": "^3.3.1",
+        "isotope-layout": "^3.0.6",
         "laravel-vite-plugin": "^1.2.0",
+        "swiper": "^11.2.10",
         "tailwindcss": "^4.0.0",
-        "vite": "^6.2.4"
+        "typed.js": "^2.1.0",
+        "vite": "^6.2.4",
+        "waypoints": "^4.0.1"
     }
 }
