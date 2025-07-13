@@ -1,84 +1,67 @@
-  @media (min-width: 1200px) {
-    #header, #footer {
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
+/* ======================================================================= */
+/* ARCHIVO: resources/css/custom.css                                     */
+/* Reemplaza todo el contenido de tu archivo con este código.              */
+/* ======================================================================= */
 
-    #main {
-      transition: margin-left 0.3s ease;
-    }
+/* --- ESTILOS PARA VIDEOS DEL PORTAFOLIO --- */
+.portfolio-item { margin-bottom: 30px; }
+.portfolio-wrap { position: relative; overflow: hidden; height: 360px; background: #1a1814; }
+.portfolio-wrap video, .portfolio-wrap img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
 
-    /* Estado oculto */
-    .header-hidden, .footer-hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-  }
-  
-  .zoom-button {
-  transition: transform 0.3s ease;
-  cursor: pointer;
-}
+/* --- ESTILOS PARA VIDEO DE FONDO DEL HERO --- */
+#hero { position: relative; overflow: hidden; height: 100vh; background: none; }
+#hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
 
-.zoom-button:hover,
-.zoom-button:focus {
-  transform: scale(1.2);
-}
-.zoom-button:active {
-  transform: scale(0.9);
-  transition: transform 0.1s ease;
-}
+/* --- ESTILOS PARA BOTONES DE LA BARRA LATERAL (VERSIÓN FINAL) --- */
 
-.whatsapp-float {
-  position: fixed;
-  width: 60px;
-  height: 60px;
-  bottom: 120px;
-  right: 15px;
-  z-index: 999;
-  background-color: #25d366;
+/* BOTÓN PARA OCULTAR (flecha izquierda, dentro del header) */
+#hideSidebarButton {
+  position: absolute;
+  top: 50%;
+  right: -20px;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: #149ddd;
+  color: white;
   border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+@media (min-width: 992px) { #hideSidebarButton { display: flex; } }
+#hideSidebarButton:hover { transform: translateY(-50%) scale(1.1); background-color: #2eafec; }
+
+/* BOTÓN PARA MOSTRAR (flecha derecha, fuera del header) */
+#toggleIconBody {
+  position: fixed;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  width: auto;
+  padding: 8px 16px 8px 12px;
+  background-color: #149ddd;
+  color: white;
+  border-radius: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s ease;
-}
-.whatsapp-float img {
-  width: 35px;
-  height: 35px;
-}
-.whatsapp-float:hover,
-.whatsapp-float:focus {
-  transform: scale(1.2);
-}
-.whatsapp-float:active {
-  transform: scale(0.9);
-  transition: transform 0.1s ease;
+  font-size: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 999;
 }
 
-.back-to-top {
-  transition: transform 0.3s ease;
-}
-.back-to-top:hover,
-.back-to-top:focus {
-  transform: scale(1.2);
-}
-.back-to-top:active {
-  transform: scale(0.9);
-  transition: transform 0.1s ease;
-}
-#hero {
-  position: relative;
-  overflow: hidden;
-  height: 100vh;
-  background: none;
-}
+#toggleIconBody:hover { background-color: #2eafec; }
 
-#hero-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
-}
+/* --- ESTILOS PARA BOTÓN DE WHATSAPP Y VOLVER ARRIBA --- */
+.whatsapp-float, .back-to-top { transition: transform 0.3s ease; }
+.whatsapp-float:hover, .whatsapp-float:focus, .back-to-top:hover, .back-to-top:focus { transform: scale(1.2); }
+.whatsapp-float:active, .back-to-top:active { transform: scale(0.9); transition: transform 0.1s ease; }
+.whatsapp-float { position: fixed; width: 60px; height: 60px; bottom: 120px; right: 15px; z-index: 999; background-color: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.whatsapp-float img { width: 35px; height: 35px; }

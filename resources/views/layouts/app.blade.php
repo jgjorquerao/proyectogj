@@ -1,6 +1,6 @@
 {{-- ======================================================================= --}}
-{{-- ARCHIVO 1: resources/views/layouts/app.blade.php                      --}}
-{{-- Reemplaza todo el contenido de tu app.blade.php con este código limpio. --}}
+{{-- ARCHIVO: resources/views/layouts/app.blade.php                      --}}
+{{-- Reemplaza todo el contenido de tu archivo con este código.              --}}
 {{-- ======================================================================= --}}
 
 <!doctype html>
@@ -14,14 +14,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicons -->
-    {{-- Corregí la ruta para que use la carpeta 'public/img' --}}
     <link href="{{ asset('img/favicon.ico') }}" rel="icon">
     <link href="{{ asset('img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-    {{-- Esta es la única línea que necesitas. Carga todo el CSS y JS compilado por Vite. --}}
+    {{-- Vite carga los estilos de las librerías --}}
     @vite(['resources/js/app.js'])
 </head>
 
@@ -39,6 +38,9 @@
     @include('header')
 
     <main id="main">
+        {{-- Botón para MOSTRAR el menú (flecha derecha) --}}
+        <i onclick="showHideSidebar('show')" id="toggleIconBody" class="mobile-nav-toggle bi bi-arrow-right-short d-none" style="margin-top:10px;width:100px;height:50px;left:-35px;top:42%;padding-right: 10px; justify-content: right;"></i>
+
         {{-- Incluimos todas las secciones de la página --}}
         @include('hero')
         @include('about')
@@ -55,10 +57,8 @@
     {{-- Incluimos el footer --}}
     @include('footer')
 
-    {{-- El botón de "volver arriba" debería estar en el footer para más orden --}}
-    {{-- pero lo dejamos aquí si así lo prefieres. --}}
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-    {{-- NO MÁS SCRIPTS AQUÍ. Vite se encarga de todo. --}}
+    
 </body>
 </html>
