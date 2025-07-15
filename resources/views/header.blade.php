@@ -1,15 +1,8 @@
-{{-- ======================================================================= --}}
-{{-- ARCHIVO: resources/views/header.blade.php                             --}}
-{{-- Reemplaza todo el contenido de tu archivo con este código.              --}}
-{{-- ======================================================================= --}}
-
-
-
 <header id="header">
     <div class="d-flex flex-column">
         <div class="profile">
             {{-- Usamos el botón con el onclick que funciona --}}
-            <i onclick="showHideSidebar('hide')" class="mobile-nav-toggle bi bi-arrow-left-short zoom-button d-none d-xl-flex" style="margin-top:10px;float: right; width:50px;height:50px;left:275px;top:42%;"></i>
+            <i id="hideSidebarButton" class="sidebar-toggle-button bi bi-arrow-left-short"></i>
             
             {{-- Corregimos la ruta de la imagen con asset() --}}
             <img src="{{ asset('img/profile-img4.jpg') }}" alt="Foto de Guillermo Jorquera" class="img-fluid rounded-circle">

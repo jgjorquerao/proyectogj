@@ -1,6 +1,5 @@
 {{-- ======================================================================= --}}
 {{-- ARCHIVO: resources/views/portfolio.blade.php                          --}}
-{{-- Reemplaza todo el contenido de tu archivo con este código.              --}}
 {{-- ======================================================================= --}}
 
 <section id="portfolio" class="portfolio section-bg">
@@ -25,52 +24,50 @@
         </div>
 
         {{-- BOTONES DE FILTRO --}}
-<div class="row" data-aos="fade-up">
-    <div class="col-lg-12 d-flex justify-content-center">
-        <ul id="portfolio-flters">
-            {{-- ¡CORRECCIÓN! "Todo" ahora está primero. --}}
-            <li data-filter="*">Todo</li>
-            {{-- "Videos" sigue teniendo la clase 'filter-active' para que aparezca seleccionado. --}}
-            <li data-filter=".filter-videos" class="filter-active">Videos</li>
-            <li data-filter=".filter-logos">Logotipos</li>
-            <li data-filter=".filter-card">Cartas de presentación</li>
-            <li data-filter=".filter-web">Diseño gráfico</li>
-        </ul>
-    </div>
-</div>
+        <div class="row" data-aos="fade-up">
+            <div class="col-lg-12 d-flex justify-content-center">
+                <ul id="portfolio-flters">
+                    <li data-filter="*">Todo</li>
+                    <li data-filter=".filter-videos" class="filter-active">Videos</li>
+                    <li data-filter=".filter-logos">Logotipos</li>
+                    <li data-filter=".filter-card">Cartas de presentación</li>
+                    <li data-filter=".filter-web">Diseño gráfico</li>
+                </ul>
+            </div>
+        </div>
 
         {{-- CONTENEDOR DE PROYECTOS --}}
         <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
 
-            {{-- VIDEOS --}}
+            {{-- VIDEOS (AHORA SIN AUTOPLAY) --}}
             <div class="col-lg-4 col-md-6 portfolio-item filter-videos">
                 <div class="portfolio-wrap">
-                    <video autoplay muted playsinline loop><source src="{{ asset('videos/video-6.mp4') }}" type="video/mp4"></video>
+                    <video playsinline loop muted><source src="{{ asset('videos/video-6.mp4') }}" type="video/mp4"></video>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 portfolio-item filter-videos">
                 <div class="portfolio-wrap">
-                    <video autoplay muted playsinline loop><source src="{{ asset('videos/video-4.mp4') }}" type="video/mp4"></video>
+                    <video playsinline loop muted><source src="{{ asset('videos/video-4.mp4') }}" type="video/mp4"></video>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 portfolio-item filter-videos">
                 <div class="portfolio-wrap">
-                    <video autoplay muted playsinline loop><source src="{{ asset('videos/video-5.mp4') }}" type="video/mp4"></video>
+                    <video playsinline loop muted><source src="{{ asset('videos/video-5.mp4') }}" type="video/mp4"></video>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 portfolio-item filter-videos">
                 <div class="portfolio-wrap">
-                    <video autoplay muted playsinline loop><source src="{{ asset('videos/video-11.mp4') }}" type="video/mp4"></video>
+                    <video playsinline loop muted><source src="{{ asset('videos/video-11.mp4') }}" type="video/mp4"></video>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 portfolio-item filter-videos">
                 <div class="portfolio-wrap">
-                    <video autoplay muted playsinline loop><source src="{{ asset('videos/video-9.mp4') }}" type="video/mp4"></video>
+                    <video playsinline loop muted><source src="{{ asset('videos/video-9.mp4') }}" type="video/mp4"></video>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 portfolio-item filter-videos">
                 <div class="portfolio-wrap">
-                    <video autoplay muted playsinline loop><source src="{{ asset('videos/video-10.mp4') }}" type="video/mp4"></video>
+                    <video playsinline loop muted><source src="{{ asset('videos/video-10.mp4') }}" type="video/mp4"></video>
                 </div>
             </div>
 

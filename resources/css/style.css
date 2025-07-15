@@ -75,7 +75,6 @@ section {
   width: 300px;
   transition: all ease-in-out 0.5s;
   z-index: 9997;
-  transition: all 0.5s;
   padding: 0 15px;
   background: #040b14;
   overflow-y: auto;
@@ -127,6 +126,7 @@ section {
 
 #main {
   margin-left: 300px;
+  transition: all ease-in-out 0.5s; /* Añadido para que el contenido principal también se anime */
 }
 
 .container,
@@ -835,23 +835,6 @@ section {
   left: calc(50% - 20px);
 }
 
-.testimonials .swiper-pagination {
-  margin-top: 20px;
-  position: relative;
-}
-
-.testimonials .swiper-pagination .swiper-pagination-bullet {
-  width: 12px;
-  height: 12px;
-  background-color: #fff;
-  opacity: 1;
-  border: 1px solid #149ddd;
-}
-
-.testimonials .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: #149ddd;
-}
-
 /*--------------------------------------------------------------
 # Contact
 --------------------------------------------------------------*/
@@ -1097,6 +1080,7 @@ section {
   width: 300px;
   z-index: 9999;
   background: #040b14;
+  transition: all ease-in-out 0.5s; /* Añadido para que el footer también se anime */
 }
 
 #footer .copyright {
@@ -1271,4 +1255,3 @@ section {
     font-size: 14px;
   }
 }
-

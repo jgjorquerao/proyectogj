@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <!-- Miembros del equipo -->
+        <!-- Miembros del equipo 
         <div class="row text-center text-dark pt-4">
             <div class="col-12 col-md-4 mb-4">
                 <i class="bi bi-person-circle" style="font-size: 3rem;"></i>
@@ -41,7 +41,7 @@
                 <h5 class="mb-0">Leonardo Aros</h5>
                 <small>Programador web</small>
             </div>
-        </div>
+        </div>-->
         <!-- FIN NUEVO CONTENIDO -->
     </div>
 </section>

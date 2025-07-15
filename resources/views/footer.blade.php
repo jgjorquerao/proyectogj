@@ -5,7 +5,6 @@
         </div>
         <div class="credits">
             Todos los Derechos Reservados
-            <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
         </div>
     </div>
 </footer><!-- End  Footer -->

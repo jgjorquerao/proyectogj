@@ -1,8 +1,3 @@
-{{-- ======================================================================= --}}
-{{-- ARCHIVO: resources/views/layouts/app.blade.php                      --}}
-{{-- Reemplaza todo el contenido de tu archivo con este código.              --}}
-{{-- ======================================================================= --}}
-
 <!doctype html>
 <html lang="es">
 <head>
@@ -25,6 +20,8 @@
 </head>
 
 <body>
+    {{-- ESTE ES EL BOTÓN PARA EL MENÚ MÓVIL --}}
+    <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
 
     {{-- Botón flotante de WhatsApp --}}
     <a href="https://wa.me/56961607574?text=Hola!,%2C%20vi%20tu%20sitio%20web%20y%20me%20interesa%20tus%20servicios%20de%20edici%C3%B3n%20de%20video"
@@ -39,7 +36,7 @@
 
     <main id="main">
         {{-- Botón para MOSTRAR el menú (flecha derecha) --}}
-        <i onclick="showHideSidebar('show')" id="toggleIconBody" class="mobile-nav-toggle bi bi-arrow-right-short d-none" style="margin-top:10px;width:100px;height:50px;left:-35px;top:42%;padding-right: 10px; justify-content: right;"></i>
+        <i id="toggleIconBody" class="sidebar-toggle-button bi bi-arrow-right-short d-none"></i>
 
         {{-- Incluimos todas las secciones de la página --}}
         @include('hero')

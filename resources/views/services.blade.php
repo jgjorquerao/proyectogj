@@ -15,7 +15,7 @@
             </div>
             <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
                 <div class="icon"><i class="bi bi-palette"></i></div>
-                <h4 class="title">Diseño gráfico</h4>
+                <h4 class="title">Diseño Gráfico</h4>
                 <p class="description">Transforma tus redes sociales en una potente herramienta de marketing con
                     nuestros servicios de diseño gráfico personalizado.</p>
             </div>
@@ -27,7 +27,7 @@
             </div>-->
             <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
                 <div class="icon"><i class="bi bi-bar-chart"></i></div>
-                <h4 class="title">Acompañamiento 1 a 1</h4>
+                <h4 class="title">Marketing Digital</h4>
                 <p class="description">Iremos de la mano trabajando juntos para obtener mayor alcance en tus redes sociales mediante contenido atractivo y campañas de marketing.</p>
             </div>
         </div>
