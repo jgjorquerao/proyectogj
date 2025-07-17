@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Guillermo Jorquera</title>
+    <title>Gyler Digital</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -19,7 +19,9 @@
     @vite(['resources/js/app.js'])
 </head>
 
-<body>
+{{-- AÑADIMOS LA CLASE 'dark-mode' PARA ACTIVAR LOS ESTILOS OSCUROS --}}
+<body class="dark-mode">
+
     {{-- ESTE ES EL BOTÓN PARA EL MENÚ MÓVIL --}}
     <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
 
@@ -46,7 +48,6 @@
         @include('pricing')
         @include('facts')
         @include('skills')
-        @include('resume')
         @include('testimonials')
         @include('contact')
     </main>
@@ -56,6 +57,5 @@
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-    
 </body>
 </html>

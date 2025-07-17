@@ -1,4 +1,5 @@
-<section id="contact" class="contact">
+{{-- SE HA AÑADIDO LA CLASE 'section-bg' PARA RESTAURAR EL PATRÓN DE COLORES --}}
+<section id="contact" class="contact section-bg">
     <div class="container">
 
         <div class="section-title">

@@ -1,8 +1,3 @@
-/* --- ESTILOS PARA VIDEOS DEL PORTAFOLIO --- */
-.portfolio-item { margin-bottom: 30px; }
-.portfolio-wrap { position: relative; overflow: hidden; height: 360px; background: #1a1814; }
-.portfolio-wrap video, .portfolio-wrap img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-
 /* --- ESTILOS PARA VIDEO DE FONDO DEL HERO --- */
 #hero { position: relative; overflow: hidden; height: 100vh; background: none; }
 #hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
@@ -11,33 +6,12 @@
 /* ESTILOS FINALES PARA BOTONES DE LA BARRA LATERAL (SIDEBAR)              */
 /* ======================================================================= */
 
-/* --- Estilo para el botón de OCULTAR (el que se mueve con la barra) --- */
-#hideSidebarButton {
-  background: #149ddd;
-  color: #fff;
-  position: absolute; /* Cambio clave: Posición relativa al header */
-  top: 50%;
-  left: 230px; /* AJUSTE: 300px (ancho sidebar) - 60px (ancho botón) = 240px */
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 999;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  font-size: 36px;
-}
-
-/* --- Estilo para el botón de MOSTRAR (el que queda fijo en la página) --- */
+/* Botón para MOSTRAR (->) */
 #toggleIconBody {
   background: #149ddd;
   color: #fff;
-  position: fixed; /* Correcto: Posición fija en la ventana */
+  position: fixed;
   top: 50%;
-  left: 20px;
   transform: translateY(-50%);
   display: flex;
   align-items: center;
@@ -45,340 +19,85 @@
   cursor: pointer;
   transition: all 0.3s ease;
   z-index: 999;
-  height: 50px;
-  border-radius: 50px;
-  padding: 0 20px 0 18px;
-  font-size: 36px;
-}
-
-/* --- Efecto hover para ambos botones --- */
-#hideSidebarButton:hover,
-#toggleIconBody:hover {
-  background: #2eafec;
-  transform: translateY(-50%) scale(1.1); /* Combina el centrado y el escalado */
-}
-
-/* --- Clase para ocultar los botones (manejada por JavaScript) --- */
-/* Se mantiene igual, ya que los botones tienen IDs únicos para ser seleccionados */
-.sidebar-toggle-button.d-none {
-  display: none !important;
-}
-
-/* --- Clases para la funcionalidad de ocultar Header y Footer --- */
-/* Esto está bien y no necesita cambios */
-#header.header-hidden, #footer.footer-hidden {
-  left: -300px;
-}
-
-
-/* --- ESTILOS PARA BOTÓN DE WHATSAPP Y VOLVER ARRIBA (CORREGIDO) --- */
-.whatsapp-float,
-.back-to-top {
-  position: fixed;
-  width: 60px;
-  height: 60px;
-  right: 15px;
-  z-index: 999;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-.whatsapp-float {
-  bottom: 110px;
-  background-color: #25d366;
-}
-.back-to-top {
-  bottom: 40px;
-  background-color: #149ddd;
-  color: #fff;
-  font-size: 28px;
-}
-.whatsapp-float img {
-  width: 35px;
-  height: 35px;
-}
-.whatsapp-float:hover,
-.back-to-top:hover {
-  transform: scale(1.1);
-}
-.whatsapp-float:active,
-.back-to-top:active {
-  transform: scale(0.95);
-  transition-duration: 0.1s;
-}
-
-/* ======================================================================= */
-/* SEPARACIÓN FINAL DE LÓGICA MÓVIL Y ESCRITORIO                           */
-/* ======================================================================= */
-@media (max-width: 1199px) {
-  .sidebar-toggle-button {
-    display: none !important;
-  }
-}
-.mobile-nav-toggle {
-  position: fixed;
-  right: 15px;
-  top: 15px;
-  z-index: 9998;
-  background: rgba(20, 157, 221, 0.9);
-  font-size: 28px;
-  transition: all 0.4s;
-  width: 40px;
   height: 40px;
-  border-radius: 50px;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 40px;
+  border-radius: 50%;
+  font-size: 28px;
+  left: 20px;
+  padding: 0;
 }
-.mobile-nav-active .mobile-nav-toggle {
-  background-color: #d9232d;
-}
-/* FIX: Asegura que el header se muestre en móvil, anulando la lógica de escritorio */
-body.mobile-nav-active #header {
-    left: 0 !important;
-}
-/* --- Estilos para la animación de las barras de progreso --- */
-.skills-content .progress-bar {
-  width: 0;
-  transition: width 0.6s ease-in-out;
-}
+#toggleIconBody:hover { background: #2eafec; transform: translateY(-50%) scale(1.1); }
+
+/* Botón para OCULTAR (<-) */
+#hideSidebarButton { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); width: 40px; height: 40px; background: #30363d; color: #fff; border-radius: 50%; font-size: 28px; z-index: 9998; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; }
+#hideSidebarButton:hover { background: #58a6ff; }
+
+#hideSidebarButton.d-none, #toggleIconBody.d-none { display: none !important; }
+#header.header-hidden, #footer.footer-hidden { left: -300px; }
+
+/* --- ESTILOS PARA BOTONES FLOTANTES --- */
+.whatsapp-float, .back-to-top { position: fixed; width: 60px; height: 60px; right: 15px; z-index: 999; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); }
+.whatsapp-float { bottom: 150px; background-color: #25d366; }
+.back-to-top { bottom: 40px; width: 40px; height: 40px; background-color: #149ddd; color: #fff; font-size: 24px; }
+.whatsapp-float img { width: 35px; height: 35px; }
+.whatsapp-float:hover, .back-to-top:hover { transform: scale(1.1); }
+.whatsapp-float:active, .back-to-top:active { transform: scale(0.95); transition-duration: 0.1s; }
+
+/* --- LÓGICA MÓVIL/ESCRITORIO --- */
+@media (max-width: 1199px) { #hideSidebarButton, #toggleIconBody { display: none !important; } }
+.mobile-nav-toggle { position: fixed; right: 15px; top: 15px; z-index: 9998; background: rgba(20, 157, 221, 0.9); font-size: 28px; transition: all 0.4s; width: 40px; height: 40px; border-radius: 50px; color: #fff; display: flex; align-items: center; justify-content: center; }
+.mobile-nav-active .mobile-nav-toggle { background-color: #d9232d; }
+body.mobile-nav-active #header { left: 0 !important; }
+
+/* --- BARRAS DE PROGRESO --- */
+.skills-content .progress-bar { width: 0; transition: width 0.6s ease-in-out; }
+
+/* --- PAGINACIÓN DE TESTIMONIOS --- */
+.testimonials .testimonials-slider { position: relative; padding-bottom: 50px; }
+.testimonials .swiper-pagination { position: absolute; bottom: 15px; left: 0; right: 0; display: flex; justify-content: center; z-index: 10; }
+.testimonials .swiper-pagination .swiper-pagination-bullet { width: 12px; height: 12px; background-color: #fff; border: 1px solid #149ddd; opacity: 1; margin: 0 5px; }
+.testimonials .swiper-pagination .swiper-pagination-bullet-active { background-color: #149ddd; }
+
+/* --- SECCIÓN DE PLANES --- */
+.pricing-item { display: flex; flex-direction: column; height: 100%; text-align: left; transform-style: preserve-3d; transition: transform 0.4s ease, box-shadow 0.4s ease; position: relative; background-color: #fff; padding: 40px; border-radius: 16px; }
+.pricing-item.featured { padding: 0; border: 2px solid #eaf6ff; }
+.pricing-item:hover { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08); }
+.pricing-content-wrapper { position: relative; overflow: hidden; height: 100%; width: 100%; display: flex; flex-direction: column; padding: 40px; border-radius: 14px; }
+.pricing-item .description { margin-bottom: 20px; }
+.pricing .pricing-item .btn-pricing { background-color: #28a745 !important; color: #fff !important; border: none !important; margin-bottom: 20px; padding: 10px 30px; transition: background-color 0.3s ease; text-decoration: none !important; }
+.pricing .pricing-item .btn-pricing:hover { background-color: #218838 !important; color: #fff !important; text-decoration: none !important; }
+.pricing-item .features-wrapper { flex-grow: 1; display: flex; flex-direction: column; }
+.features-list { padding-left: 0; list-style: none; flex-grow: 1; }
+.features-list li { padding-bottom: 10px; line-height: 1.5; }
+.features-list li.collapsible { max-height: 0; padding-top: 0 !important; padding-bottom: 0 !important; margin-top: 0 !important; margin-bottom: 0 !important; overflow: hidden; opacity: 0; transition: all 0.4s ease-out; }
+.features-list.expanded li.collapsible { max-height: 100px; padding-bottom: 10px !important; opacity: 1; }
+.toggle-features { display: block; cursor: pointer; background-color: #eaf6ff; color: #149ddd; font-weight: 600; font-size: 14px; margin: auto auto 25px; padding: 8px 25px; border-radius: 50px; transition: all 0.3s ease-in-out; width: fit-content; text-decoration: none; border: 1px solid transparent; }
+.toggle-features:hover { background-color: #149ddd; color: #fff; text-decoration: none; }
+.price-block { margin-top: 20px; text-align: center; }
+.pricing-item .annual-saving { font-size: 0.85rem; margin-bottom: 5px; }
+.pricing-content-wrapper::after { content: ""; position: absolute; top: 18px; right: -35px; width: 140px; height: 28px; background-color: #ffc107; transform: rotate(45deg); box-shadow: 0 2px 4px rgba(0,0,0,0.15); z-index: 1; }
+.pricing-item.featured .pricing-badge { position: relative; z-index: 2; }
+
+/* --- SECCIÓN RESUMEN DESPLEGABLE --- */
+.btn-toggle-section { display: block; margin: 30px auto 0; padding: 10px 25px; background-color: #eaf6ff; color: #149ddd; border-radius: 50px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; width: fit-content; text-decoration: none; border: 1px solid #149ddd; }
+.btn-toggle-section:hover { background-color: #149ddd; color: #fff; }
+.btn-toggle-section i { transition: transform 0.3s ease; vertical-align: middle; }
+.btn-toggle-section.active i { transform: rotate(180deg); }
+.collapsible-section-content { max-height: 0; overflow: hidden; transition: max-height 0.7s ease-in-out; }
+.collapsible-section-content .resume-item { margin-left: 10px; }
+.collapsible-section-content.expanded { max-height: 2000px; }
 
 /* ======================================================================= */
-/* ESTILOS PARA LA PAGINACIÓN DE TESTIMONIOS (SOLUCIÓN REFINADA v5)      */
+/* ESTILOS PARA VIDEOS DEL PORTAFOLIO Y SUS CONTROLES (RESTAURADOS)        */
 /* ======================================================================= */
-/*
-  Esta regla evita que el texto se pueda seleccionar y cambia el
-  cursor a la flecha normal, en lugar del cursor de texto.
-*/
-.testimonial-item p {
-  cursor: default; /* Cambia el cursor a la flecha normal */
-  user-select: none; /* Evita que el texto se pueda seleccionar */
-  -webkit-user-select: none; /* Para navegadores Safari/Chrome antiguos */
-  -moz-user-select: none;    /* Para Firefox */
-  -ms-user-select: none;     /* Para Internet Explorer/Edge */
-}
-/*
-  OBJETIVO: Trabajar CON la regla 'overflow: hidden' en lugar de
-  luchar contra ella.
-*/
-
-/*
-  PASO 1: Al contenedor del carrusel, le añadimos posición relativa
-  (para que los elementos hijos absolutos se basen en él) y un
-  espacio interno en la parte inferior (padding) donde vivirán los puntos.
-*/
-.testimonials .testimonials-slider {
-  position: relative;
-  padding-bottom: 50px; /* Espacio interno para los puntos */
-}
-
-/*
-  PASO 2: Posicionamos el contenedor de la paginación de forma
-  absoluta en la parte inferior del carrusel. Gracias al padding
-  anterior, este espacio es visible y no queda recortado.
-*/
-.testimonials .swiper-pagination {
-  position: absolute;
-  bottom: 15px;      /* Lo posicionamos dentro del padding */
-  left: 0;
-  right: 0;
-  z-index: 10;
-}
-
-/*
-  PASO 3: Estilos para los puntos individuales para que sean visibles.
-*/
-.testimonials .swiper-pagination .swiper-pagination-bullet {
-  width: 12px;
-  height: 12px;
-  background-color: #c4c4c4; /* Gris claro para inactivos */
-  opacity: 1;
-}
-
-/*
-  PASO 4: Estilo para el punto activo.
-*/
-.testimonials .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: #149ddd; /* Azul del tema para el activo */
-}
-
-
-/* --- ESTILOS PARA LA SECCIÓN DE PLANES (SOLUCIÓN DEFINITIVA) --- */
-
-/* 1. Estructura de la tarjeta */
-.pricing-item {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  text-align: left;
-  transform-style: preserve-3d;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  position: relative; /* Para la insignia */
-  background-color: #fff; /* Fondo base */
-  padding: 40px;
-  border-radius: 16px;
-}
-
-.pricing-item.featured {
-    padding: 0; /* Quitamos el padding para que el wrapper interno lo controle */
-    border: 2px solid #eaf6ff;
-}
-
-.pricing-item:hover {
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-}
-
-/* 2. Nuevo contenedor interno para el contenido y el listón */
-.pricing-content-wrapper {
-    position: relative;
-    overflow: hidden; /* El overflow se aplica aquí */
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: 40px;
-    border-radius: 14px; /* Un poco menos para que no se solape con el borde padre */
-}
-
-.pricing-item .description {
-  margin-bottom: 20px;
-}
-
-/* 3. Estilos para el botón Cotizar (Verde) */
-.pricing .pricing-item .btn-pricing {
-  background-color: #28a745 !important;
-  color: #fff !important;
-  border: none !important;
-  margin-bottom: 20px;
-  padding: 10px 30px;
-  transition: background-color 0.3s ease;
-  text-decoration: none !important;
-}
-
-.pricing .pricing-item .btn-pricing:hover {
-  background-color: #218838 !important;
-  color: #fff !important;
-  text-decoration: none !important;
-}
-
-.pricing .pricing-item.featured .btn-pricing,
-.pricing .pricing-item.featured .btn-pricing:hover {
-    background-color: #28a745 !important;
-    color: #fff !important;
-}
-
-/* 4. El contenedor de características se convierte en un contenedor flex y crece */
-.pricing-item .features-wrapper {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-/* 5. La lista de características ahora crece para empujar el botón "Ver más" hacia abajo */
-.features-list {
-  padding-left: 0;
-  list-style: none;
-  flex-grow: 1;
-}
-
-.features-list li {
-  padding-bottom: 10px;
-  line-height: 1.5;
-}
-
-/* 6. Oculta los ítems extra de forma TOTAL y segura */
-.features-list li.collapsible {
-  max-height: 0;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-  overflow: hidden;
-  opacity: 0;
-  transition: all 0.4s ease-out;
-}
-
-/* 7. Muestra los ítems cuando la lista está expandida */
-.features-list.expanded li.collapsible {
-  max-height: 100px;
-  padding-bottom: 10px !important;
-  opacity: 1;
-}
-
-/* 8. Estilos para el botón "Ver más" */
-.toggle-features {
-  display: block;
-  cursor: pointer;
-  background-color: #eaf6ff;
-  color: #149ddd;
-  font-weight: 600;
-  font-size: 14px;
-  margin: auto auto 25px;
-  padding: 8px 25px;
-  border-radius: 50px;
-  transition: all 0.3s ease-in-out;
-  width: fit-content;
-  text-decoration: none;
-  border: 1px solid transparent;
-}
-
-.toggle-features:hover {
-  background-color: #149ddd;
-  color: #fff;
-  text-decoration: none;
-}
-
-/* 9. Bloque de precios */
-.price-block {
-  margin-top: 20px;
-  text-align: center;
-}
-
-/* 10. Listón amarillo (AHORA EN EL CONTENEDOR INTERNO) */
-.pricing-content-wrapper::after {
-  content: "";
-  position: absolute;
-  top: 18px;
-  right: -35px;
-  width: 140px;
-  height: 28px;
-  background-color: #ffc107;
-  transform: rotate(45deg);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-  z-index: 1;
-}
-
-/* 11. Insignia "Más popular" (Vuelve a su posición original) */
-.pricing-item.featured .pricing-badge {
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2; /* Por encima de todo */
-    background-color: #149ddd;
-    color: #fff;
-    padding: 6px 20px;
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 600;
-}
-/* --- ESTILOS PARA VIDEOS DEL PORTAFOLIO Y SUS CONTROLES (VERSIÓN FINAL) --- */
-
-/* 1. Contenedor del video con aspecto de Reel (9:16) */
 .portfolio-item.filter-videos .portfolio-wrap {
     position: relative;
     background: #1a1814;
-    aspect-ratio: 9 / 16; /* Proporción para reels verticales */
-    height: auto !important; /* Anulamos la altura fija de style.css */
+    aspect-ratio: 9 / 16;
+    height: auto !important;
     overflow: hidden;
     margin-bottom: 30px;
 }
-
-/* 2. El video llena el nuevo contenedor vertical */
 .portfolio-item.filter-videos .portfolio-wrap video {
     position: absolute;
     top: 0;
@@ -387,34 +106,25 @@ body.mobile-nav-active #header {
     height: 100%;
     object-fit: cover;
 }
-
-/* 3. Capa semitransparente sobre el video pausado */
 .portfolio-wrap::before {
   content: "";
-  background: rgba(0, 0, 0, 0.4); /* Fondo oscuro semitransparente */
+  background: rgba(0, 0, 0, 0.4);
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  transition: all 0.3s ease-in-out;
+  left: 0; right: 0; top: 0; bottom: 0;
+  transition: all ease-in-out 0.3s;
   z-index: 2;
   opacity: 1;
 }
-
-/* Cuando el video está en reproducción, la capa desaparece */
 .portfolio-wrap.is-playing::before {
   opacity: 0;
 }
-
-/* 4. Estilo del botón de Play/Pausa */
 .video-play-button {
   position: absolute;
   z-index: 3;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(20, 157, 221, 0.8); /* Azul de la plantilla con transparencia */
+  background-color: rgba(20, 157, 221, 0.8);
   border-radius: 50%;
   width: 70px;
   height: 70px;
@@ -425,73 +135,203 @@ body.mobile-nav-active #header {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 .video-play-button i {
   color: #fff;
   font-size: 36px;
   line-height: 0;
-  padding-left: 4px; /* Pequeño ajuste para centrar el ícono de play */
+  padding-left: 4px;
 }
-
 .video-play-button:hover {
-  background-color: rgba(20, 157, 221, 1); /* Azul sólido al pasar el mouse */
+  background-color: rgba(20, 157, 221, 1);
 }
-
-/* Cuando el video está en reproducción, el botón se oculta */
 .portfolio-wrap.is-playing .video-play-button {
   opacity: 0;
   visibility: hidden;
 }
-
-/* Pero reaparece si pasas el mouse sobre el video en reproducción */
 .portfolio-wrap.is-playing:hover .video-play-button {
   opacity: 1;
   visibility: visible;
 }
-/* --- ESTILOS PARA SECCIÓN RESUMEN DESPLEGABLE --- */
 
-/* Botón para mostrar/ocultar la sección */
-.btn-toggle-section {
-  display: block;
-  margin: 30px auto 0; /* Margen superior para separarlo del párrafo */
-  padding: 10px 25px;
-  background-color: #eaf6ff;
-  color: #149ddd;
-  border-radius: 50px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: fit-content;
-  text-decoration: none;
-  border: 1px solid #149ddd;
+
+/* ======================================================================= */
+/* ESTILOS PARA EL MODO OSCURO (CORREGIDO Y AMPLIADO)                      */
+/* ======================================================================= */
+
+body.dark-mode {
+  color: #c9d1d9;
+  background: #0d1117;
 }
 
-.btn-toggle-section:hover {
-  background-color: #149ddd;
-  color: #fff;
+body.dark-mode section {
+  background-color: #0d1117;
 }
 
-.btn-toggle-section i {
-  transition: transform 0.3s ease;
-  vertical-align: middle;
+body.dark-mode .section-bg {
+  background: #161b22;
 }
 
-.btn-toggle-section.active i {
-  transform: rotate(180deg);
+/* --- Títulos y Texto --- */
+body.dark-mode .section-title h2,
+body.dark-mode .about .content h3,
+body.dark-mode .resume .resume-title,
+body.dark-mode .contact .info h4,
+body.dark-mode .pricing .pricing-item h3,
+body.dark-mode .facts .count-box p,
+body.dark-mode .facts .count-box span,
+body.dark-mode h3, body.dark-mode h4, body.dark-mode h5,
+body.dark-mode .text-dark,
+body.dark-mode .skills .progress .skill {
+  color: #f0f6fc !important;
 }
 
-/* Contenido de la sección que se oculta */
-.collapsible-section-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.7s ease-in-out;
-}
-/* FIX: Añade un pequeño margen para que los círculos no se corten */
-.collapsible-section-content .resume-item {
-    margin-left: 10px;
+body.dark-mode .section-title p,
+body.dark-mode .resume .resume-item p,
+body.dark-mode .about .content p,
+body.dark-mode .contact .info p {
+  color: #8b949e;
 }
 
-/* Estado expandido del contenido */
-.collapsible-section-content.expanded {
-  max-height: 2000px; /* Un valor suficientemente grande para que quepa todo */
+/* --- Links --- */
+body.dark-mode a {
+  color: #58a6ff;
+}
+body.dark-mode a:hover {
+  color: #79c0ff;
+}
+
+/* --- Header y Footer --- */
+body.dark-mode #header,
+body.dark-mode #footer {
+  background: #040b14;
+  border-color: #30363d;
+}
+body.dark-mode #header .profile img {
+  border-color: #30363d;
+}
+body.dark-mode #header .profile .social-links a {
+  background: #30363d;
+  color: #f0f6fc;
+}
+body.dark-mode #header .profile .social-links a:hover {
+  background: #58a6ff;
+}
+body.dark-mode .nav-menu a, body.dark-mode .nav-menu a:focus {
+  color: #8b949e;
+}
+body.dark-mode .nav-menu a:hover, body.dark-mode .nav-menu .active, body.dark-mode .nav-menu li:hover > a {
+  color: #f0f6fc;
+}
+body.dark-mode .nav-menu a i, body.dark-mode .nav-menu a:focus i {
+  color: #8b949e;
+}
+body.dark-mode .nav-menu a:hover i, body.dark-mode .nav-menu .active i, body.dark-mode .nav-menu li:hover > a i {
+  color: #58a6ff;
+}
+
+/* --- Tarjetas y Elementos de UI --- */
+body.dark-mode .resume .resume-item,
+body.dark-mode .pricing .pricing-item,
+body.dark-mode .pricing-content-wrapper {
+  background: #161b22;
+  box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.4);
+}
+body.dark-mode .resume .resume-item {
+    border-left-color: #30363d;
+}
+body.dark-mode .resume .resume-item::before {
+    background: #0d1117;
+    border-color: #58a6ff;
+}
+body.dark-mode .resume .resume-item h5 {
+    background: #30363d;
+    color: #f0f6fc;
+}
+body.dark-mode .skills .progress-bar-wrap {
+    background: #30363d;
+}
+body.dark-mode .contact .info i {
+    background: #30363d;
+    color: #58a6ff;
+}
+body.dark-mode .contact .info .email:hover i,
+body.dark-mode .contact .info .address:hover i,
+body.dark-mode .contact .info .phone:hover i {
+    background: #58a6ff;
+    color: #fff;
+}
+body.dark-mode .contact .php-email-form input,
+body.dark-mode .contact .php-email-form textarea {
+    background: #0d1117;
+    border-color: #30363d;
+    color: #c9d1d9;
+}
+body.dark-mode .pricing .pricing-item.featured {
+    border-color: #30363d;
+}
+
+/* --- Testimonios --- */
+body.dark-mode .testimonials .testimonial-item p {
+    background: #161b22;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.3);
+}
+body.dark-mode .testimonials .testimonial-item p::after {
+    border-top-color: #161b22;
+}
+
+/* --- Filtros de Portafolio --- */
+body.dark-mode .portfolio #portfolio-flters {
+    background: #161b22;
+}
+body.dark-mode .portfolio #portfolio-flters li {
+    color: #c9d1d9;
+}
+body.dark-mode .portfolio #portfolio-flters li:hover,
+body.dark-mode .portfolio #portfolio-flters li.filter-active {
+    color: #58a6ff;
+}
+
+/* --- Botones Principales (Hero, Contacto) --- */
+body.dark-mode #hero .btn-lg,
+body.dark-mode .contact .php-email-form button[type=submit] {
+    color: #f0f6fc;
+    border: 2px solid #58a6ff;
+    background: transparent;
+    padding: 10px 25px;
+    font-size: 16px;
+    border-radius: 50px;
+}
+body.dark-mode #hero .btn-lg:hover,
+body.dark-mode .contact .php-email-form button[type=submit]:hover {
+    background: #58a6ff;
+    color: #0d1117;
+}
+
+/* --- Botones Desplegables ("Ver más", "Ver Experiencia") --- */
+body.dark-mode .toggle-features,
+body.dark-mode .btn-toggle-section {
+    background-color: transparent;
+    color: #58a6ff;
+    border-color: #58a6ff;
+}
+body.dark-mode .toggle-features:hover,
+body.dark-mode .btn-toggle-section:hover {
+    background-color: #58a6ff;
+    color: #0d1117;
+}
+
+/* --- Botones Flotantes en Dark Mode --- */
+body.dark-mode .back-to-top {
+    background-color: #30363d;
+    color: #58a6ff;
+}
+body.dark-mode .back-to-top:hover {
+    background-color: #58a6ff;
+    color: #0d1117;
+}
+
+/* --- CORRECCIÓN: Fondo de las tarjetas de Contacto --- */
+body.dark-mode .contact .info,
+body.dark-mode .contact .php-email-form {
+  background: #0d1117; /* Fondo principal oscuro para contraste */
 }

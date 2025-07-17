@@ -3,7 +3,8 @@
     $edad = Carbon::parse('05-01-1999')->age;
 @endphp
 
-<section id="about" class="about py-5" style="background: #ffffff">
+{{-- SE HA ELIMINADO EL style="background: #ffffff" DE LA ETIQUETA SECTION --}}
+<section id="about" class="about py-5">
     <div class="container">
         <div class="section-title">
             <h2 class="text-dark">Sobre nosotros</h2>
@@ -13,7 +14,7 @@
         <div class="row text-dark align-items-center py-4">
             <!-- Imagen tipo carnet -->
             <div class="col-12 col-md-3 text-center mb-3 mb-md-0">
-                <img src="assets/img/logo.png" class="img-fluid" alt="Logo" style="max-width: 150px;">
+                <img src="{{ asset('img/logo.png') }}" class="img-fluid" alt="Logo" style="max-width: 150px;">
             </div>
 
             <!-- Texto descriptivo -->
@@ -23,25 +24,5 @@
                 </p>
             </div>
         </div>
-
-        <!-- Miembros del equipo 
-        <div class="row text-center text-dark pt-4">
-            <div class="col-12 col-md-4 mb-4">
-                <i class="bi bi-person-circle" style="font-size: 3rem;"></i>
-                <h5 class="mb-0">Emir Reinado</h5>
-                <small>Editor audiovisual</small>
-            </div>
-            <div class="col-12 col-md-4 mb-4">
-                <i class="bi bi-person-circle" style="font-size: 3rem;"></i>
-                <h5 class="mb-0">Guillermo Jorquera</h5>
-                <small>Director estratégico</small>
-            </div>
-            <div class="col-12 col-md-4 mb-4">
-                <i class="bi bi-person-circle" style="font-size: 3rem;"></i>
-                <h5 class="mb-0">Leonardo Aros</h5>
-                <small>Programador web</small>
-            </div>
-        </div>-->
-        <!-- FIN NUEVO CONTENIDO -->
     </div>
 </section>

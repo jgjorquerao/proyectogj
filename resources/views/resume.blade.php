@@ -1,4 +1,5 @@
 <!-- ======= Resume Section ======= -->
+{{-- SE HA ELIMINADO LA CLASE 'section-bg' PARA QUE HEREDE EL FONDO OSCURO --}}
 <section id="resume" class="resume">
     <div class="container">
 

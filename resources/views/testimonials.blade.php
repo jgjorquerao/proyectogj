@@ -1,4 +1,5 @@
-<section id="testimonials" class="testimonials section-bg">
+{{-- SE HA ELIMINADO LA CLASE 'section-bg' PARA RESTAURAR EL PATRÓN DE COLORES --}}
+<section id="testimonials" class="testimonials">
     <div class="container">
 
         <div class="section-title">
