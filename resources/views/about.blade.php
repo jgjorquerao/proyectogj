@@ -14,7 +14,7 @@
         <div class="row text-dark align-items-center py-4">
             <!-- Imagen tipo carnet -->
             <div class="col-12 col-md-3 text-center mb-3 mb-md-0">
-                <img src="{{ asset('img/logo.png') }}" class="img-fluid" alt="Logo" style="max-width: 150px;">
+                <img src="{{ asset('img/logo3.svg') }}" class="img-fluid" alt="Logo" style="max-width: 150px;">
             </div>
 
             <!-- Texto descriptivo -->

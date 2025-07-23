@@ -5,9 +5,9 @@
             <i id="hideSidebarButton" class="sidebar-toggle-button bi bi-arrow-left-short"></i>
             
             {{-- Corregimos la ruta de la imagen con asset() --}}
-            <img src="{{ asset('img/profile-img4.jpg') }}" alt="Foto de Guillermo Jorquera" class="img-fluid rounded-circle">
+            <img src="{{ asset('img/gylerdigital1.png') }}" alt="Foto de Guillermo Jorquera" class="img-fluid">
 
-            <h1 class="text-light"><a href="index.html">Guillermo Jorquera</a></h1>
+            <!--<h1 class="text-light"><a href="index.html">Guillermo Jorquera</a></h1>-->
             <div class="social-links mt-3 text-center">
                 <a href="https://github.com/josejorquerao?tab=repositories" class="github" target="_blank"><i class="bi bi-github"></i></a>
                 <a href="https://www.linkedin.com/in/jgjorquerao/" class="linkedin" target="_blank"><i class="bx bxl-linkedin"></i></a>

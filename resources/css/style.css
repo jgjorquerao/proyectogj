@@ -67,6 +67,9 @@ section {
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
 #header {
   position: fixed;
   top: 0;
@@ -80,11 +83,20 @@ section {
   overflow-y: auto;
 }
 
+#header .profile { /* REGLA AGREGADA/MODIFICADA */
+    padding-bottom: 5px; /* Reduce el espacio debajo del perfil */
+    margin-bottom: 0px; /* Asegura que no haya margen inferior */
+}
+
 #header .profile img {
-  margin: 15px auto;
+  margin: 15px auto 0px auto; /* Mantén 0px de margen inferior para pegarlo al contenido de abajo */
   display: block;
-  width: 120px;
-  border: 8px solid #2c2f3f;
+  width: 150px !important;
+  border: none !important;
+  outline: none !important;
+  padding-top: 0;
+  padding-bottom: 0px !important; /* Asegura que no tenga padding inferior */
+  margin-bottom: 0px !important;
 }
 
 #header .profile h1 {
@@ -103,6 +115,14 @@ section {
   text-decoration: none;
 }
 
+/* --- REGLA CORREGIDA para el CONTENEDOR de los social links --- */
+#header .profile .social-links {
+  margin-top: 5px !important; /* Prueba con 0px, 5px, 10px hasta que te guste */
+  text-align: center; /* Centra los iconos */
+  padding: 0 !important; /* Asegura que no haya padding interno */
+}
+
+
 #header .profile .social-links a {
   font-size: 18px;
   display: inline-block;
@@ -112,10 +132,10 @@ section {
   padding: 8px 0;
   margin-right: 4px;
   border-radius: 50%;
-  text-align: center;
   width: 36px;
   height: 36px;
   transition: 0.3s;
+  /* YA NO DEBES TENER NINGÚN 'margin-top', 'text-align' o 'padding: 0' AQUÍ */
 }
 
 #header .profile .social-links a:hover {
@@ -124,6 +144,7 @@ section {
   text-decoration: none;
 }
 
+/* ... el resto de tu CSS ... */
 #main {
   margin-left: 300px;
   transition: all ease-in-out 0.5s; /* Añadido para que el contenido principal también se anime */
@@ -156,13 +177,15 @@ section {
 --------------------------------------------------------------*/
 /* Desktop Navigation */
 .nav-menu {
-  padding: 30px 0 0 0;
+  padding: 0px 0 0 0; /* REDUCIDO el padding-top para subir el menú */
+  padding-top: 10px !important; /* Prueba con 0px, 5px, 10px hasta que te guste */
 }
 
 .nav-menu * {
   margin: 0;
   padding: 0;
   list-style: none;
+  padding-top: 10px !important; /* Prueba con 0px, 5px, 10px hasta que te guste */
 }
 
 .nav-menu>ul>li {
