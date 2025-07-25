@@ -31,7 +31,7 @@ jobs:
         username: ${{ secrets.HOSTINGER_USER }}
         password: ${{ secrets.HOSTINGER_PASS }}
         local-dir: ./public/img/
-        server-dir: /domains/gyler.cl/public_html/build/
+        server-dir: /domains/gyler.cl/public_html/img/
 
     # Subir carpeta videos/
     - name: Subir carpeta videos/
@@ -41,4 +41,4 @@ jobs:
         username: ${{ secrets.HOSTINGER_USER }}
         password: ${{ secrets.HOSTINGER_PASS }}
         local-dir: ./public/videos/
-        server-dir: /domains/gyler.cl/public_html/build/
+        server-dir: /domains/gyler.cl/public_html/videos/
