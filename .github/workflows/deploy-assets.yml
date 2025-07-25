@@ -1,0 +1,44 @@
+name: Subir assets a public_html
+
+on:
+  push:
+    branches:
+      - main  # O tu rama principal
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clonar repositorio
+      uses: actions/checkout@v3
+
+    - name: Subir carpeta build/
+      uses: wangyucode/sftp-upload-action@v1.0
+      with:
+        host: ${{ secrets.HOSTINGER_HOST }}
+        port: ${{ secrets.HOSTINGER_PORT }}
+        username: ${{ secrets.HOSTINGER_USER }}
+        password: ${{ secrets.HOSTINGER_PASS }}
+        localDir: ./public/build
+        remoteDir: /public_html/build
+
+    - name: Subir carpeta img/
+      uses: wangyucode/sftp-upload-action@v1.0
+      with:
+        host: ${{ secrets.HOSTINGER_HOST }}
+        port: ${{ secrets.HOSTINGER_PORT }}
+        username: ${{ secrets.HOSTINGER_USER }}
+        password: ${{ secrets.HOSTINGER_PASS }}
+        localDir: ./public/img
+        remoteDir: /public_html/img
+
+    - name: Subir carpeta videos/
+      uses: wangyucode/sftp-upload-action@v1.0
+      with:
+        host: ${{ secrets.HOSTINGER_HOST }}
+        port: ${{ secrets.HOSTINGER_PORT }}
+        username: ${{ secrets.HOSTINGER_USER }}
+        password: ${{ secrets.HOSTINGER_PASS }}
+        localDir: ./public/videos
+        remoteDir: /public_html/videos
