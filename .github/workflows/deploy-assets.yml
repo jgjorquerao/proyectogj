@@ -20,9 +20,8 @@ jobs:
         server: ${{ secrets.HOSTINGER_HOST }}
         username: ${{ secrets.HOSTINGER_USER }}
         password: ${{ secrets.HOSTINGER_PASS }}
-        local-dir: ./public/build
+        local-dir: ./public/build/
         server-dir: /public_html/build
-        git-ftp-args: --insecure
 
     # Subir carpeta img/
     - name: Subir carpeta img/
@@ -31,9 +30,8 @@ jobs:
         server: ${{ secrets.HOSTINGER_HOST }}
         username: ${{ secrets.HOSTINGER_USER }}
         password: ${{ secrets.HOSTINGER_PASS }}
-        local-dir: ./public/img
+        local-dir: ./public/img/
         server-dir: /public_html/img
-        git-ftp-args: --insecure
 
     # Subir carpeta videos/
     - name: Subir carpeta videos/
@@ -42,6 +40,5 @@ jobs:
         server: ${{ secrets.HOSTINGER_HOST }}
         username: ${{ secrets.HOSTINGER_USER }}
         password: ${{ secrets.HOSTINGER_PASS }}
-        local-dir: ./public/videos
+        local-dir: ./public/videos/
         server-dir: /public_html/videos
-        git-ftp-args: --insecure
