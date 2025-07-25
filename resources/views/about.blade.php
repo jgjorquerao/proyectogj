@@ -7,7 +7,7 @@
 <section id="about" class="about py-5">
     <div class="container">
         <div class="section-title">
-            <h2 class="text-dark">Sobre nosotros</h2>
+            <h2 class="text-dark">About us</h2>
         </div>
 
         <!-- NUEVO CONTENIDO -->
@@ -15,7 +15,7 @@
             <!-- Imagen tipo carnet -->
             <div class="col-12 col-md-3 text-center mb-3 mb-md-0">
                 <!-- <img src="{{ asset('img/logo3.svg') }}" class="img-fluid" alt="Logo" style="max-width: 150px;"> -->
-                <img src="{{ asset('img/vaso.png') }}" class="img-fluid" alt="Logo" style="max-width: 150px;">
+                <img src="{{ asset('img/gato.jpg') }}" class="img-fluid" alt="Logo" style="max-width: 150px;">
             </div>
 
             <!-- Texto descriptivo -->
