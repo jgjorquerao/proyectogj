@@ -13,32 +13,35 @@ jobs:
     - name: Clonar repositorio
       uses: actions/checkout@v3
 
+    # Subir carpeta build/
     - name: Subir carpeta build/
-      uses: wangyucode/sftp-upload-action@v1.0
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
-        host: ${{ secrets.HOSTINGER_HOST }}
-        port: ${{ secrets.HOSTINGER_PORT }}
+        server: ${{ secrets.HOSTINGER_HOST }}
         username: ${{ secrets.HOSTINGER_USER }}
         password: ${{ secrets.HOSTINGER_PASS }}
-        localDir: ./public/build
-        remoteDir: /public_html/build
+        local-dir: ./public/build
+        server-dir: /public_html/build
+        git-ftp-args: --insecure
 
+    # Subir carpeta img/
     - name: Subir carpeta img/
-      uses: wangyucode/sftp-upload-action@v1.0
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
-        host: ${{ secrets.HOSTINGER_HOST }}
-        port: ${{ secrets.HOSTINGER_PORT }}
+        server: ${{ secrets.HOSTINGER_HOST }}
         username: ${{ secrets.HOSTINGER_USER }}
         password: ${{ secrets.HOSTINGER_PASS }}
-        localDir: ./public/img
-        remoteDir: /public_html/img
+        local-dir: ./public/img
+        server-dir: /public_html/img
+        git-ftp-args: --insecure
 
+    # Subir carpeta videos/
     - name: Subir carpeta videos/
-      uses: wangyucode/sftp-upload-action@v1.0
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
-        host: ${{ secrets.HOSTINGER_HOST }}
-        port: ${{ secrets.HOSTINGER_PORT }}
+        server: ${{ secrets.HOSTINGER_HOST }}
         username: ${{ secrets.HOSTINGER_USER }}
         password: ${{ secrets.HOSTINGER_PASS }}
-        localDir: ./public/videos
-        remoteDir: /public_html/videos
+        local-dir: ./public/videos
+        server-dir: /public_html/videos
+        git-ftp-args: --insecure
