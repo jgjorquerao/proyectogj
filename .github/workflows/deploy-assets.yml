@@ -21,7 +21,7 @@ jobs:
         username: ${{ secrets.HOSTINGER_USER }}
         password: ${{ secrets.HOSTINGER_PASS }}
         local-dir: ./public/build/
-        server-dir: /public_html/build
+        server-dir: /public_html/build/
 
     # Subir carpeta img/
     - name: Subir carpeta img/
@@ -31,7 +31,7 @@ jobs:
         username: ${{ secrets.HOSTINGER_USER }}
         password: ${{ secrets.HOSTINGER_PASS }}
         local-dir: ./public/img/
-        server-dir: /public_html/img
+        server-dir: /public_html/img/
 
     # Subir carpeta videos/
     - name: Subir carpeta videos/
@@ -41,4 +41,4 @@ jobs:
         username: ${{ secrets.HOSTINGER_USER }}
         password: ${{ secrets.HOSTINGER_PASS }}
         local-dir: ./public/videos/
-        server-dir: /public_html/videos
+        server-dir: /public_html/videos/
