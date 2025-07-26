@@ -76,7 +76,7 @@
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
                 <div class="pricing-item">
                     <div class="pricing-icon"><i class="bi bi-star-fill"></i></div>
-                    <h3> Ultimate</h3>
+                    <h3> Competitivo</h3>
                     <a href="#contact" class="btn-pricing">Cotizar</a>
                     <p class="description">Pensado para automotoras que quieren posicionarse como líderes en su zona, atraer más clientes y diferenciarse con contenido de alto nivel.</p>
                     <div class="features-wrapper">
