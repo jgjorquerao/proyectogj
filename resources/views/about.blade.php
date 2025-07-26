@@ -7,7 +7,7 @@
 <section id="about" class="about py-5">
     <div class="container">
         <div class="section-title">
-            <h2 class="text-dark">Sobre nosotros</h2>
+            <h2 class="text-dark">Sobre nosotroz</h2>
         </div>
 
         <!-- NUEVO CONTENIDO -->
