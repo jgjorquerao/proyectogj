@@ -38,7 +38,7 @@ class HomeController extends Controller
         ]);
 
         try {
-            Mail::to('jgjorquerao@gmail.com')->send(new ContactMessage($data));
+            Mail::to('equipo@gyler.cl')->send(new ContactMessage($data));
 
             // Respuesta de éxito en formato JSON
             return response()->json([

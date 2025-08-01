@@ -20,7 +20,7 @@
                     <div class="email">
                         <i class="bi bi-envelope"></i>
                         <h4>Email:</h4>
-                        <p>jgjorquerao@gmail.com</p>
+                        <p>equipo@gyler.cl</p>
                     </div>
 
                     <div class="phone">
