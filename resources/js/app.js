@@ -328,6 +328,77 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+    // ... (tu código app.js existente) ...
+    // ... (tu lógica principal existente de app.js) ...
 
+    // --- Lógica para gráficos circulares de Habilidades (Chart.js) ---
+    const skillData = {
+        capcut: 100,
+        premiere: 90,
+        photoshop: 75,
+        illustrator: 80,
+        gimp: 90,
+        metaAds: 75
+    };
 
+    function createPieChart(canvasId, percentage) {
+        const ctx = document.getElementById(canvasId);
+        if (!ctx) {
+            console.error(`Canvas element with ID '${canvasId}' not found.`);
+            return;
+        }
+
+        // Forzar dimensiones del canvas en JS también, como respaldo al CSS
+        ctx.width = 150;
+        ctx.height = 150;
+
+        const remaining = 100 - percentage;
+        let mainColor = '#149ddd'; // Color principal del gráfico (para modo claro)
+        let backgroundColor = '#f3f3f3'; // Color de fondo para el porcentaje restante (modo claro)
+
+        // Adaptar colores para el modo oscuro
+        if (document.body.classList.contains('dark-mode')) {
+            mainColor = '#50C878'; // Nuevo verde principal para el modo oscuro
+            backgroundColor = '#2B2E27'; // Fondo más oscuro para el porcentaje restante en modo oscuro
+        }
+
+        // Destruir gráficos existentes para evitar errores si se reinicia la función o la página no se recarga completamente
+        const existingChart = Chart.getChart(ctx);
+        if (existingChart) {
+            existingChart.destroy();
+        }
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [percentage, remaining],
+                    backgroundColor: [mainColor, backgroundColor],
+                    borderWidth: 0,
+                    cutout: '70%', // Para crear un gráfico de dona
+                    circumference: 360,
+                    rotation: -90, // Inicia desde arriba
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false }
+                }
+            }
+        });
+        console.log(`Gráfico ${canvasId} inicializado. Dimensiones: ${ctx.width}x${ctx.height}`); // Log para depuración
+    }
+
+    // Inicializar los gráficos
+    createPieChart('capcutChart', skillData.capcut);
+    createPieChart('premiereChart', skillData.premiere);
+    createPieChart('photoshopChart', skillData.photoshop);
+    createPieChart('illustratorChart', skillData.illustrator);
+    createPieChart('gimpChart', skillData.gimp);
+    createPieChart('metaAdsChart', skillData.metaAds);
+
+    // ... (resto de tu lógica app.js) ...
 }); // Fin del DOMContentLoaded

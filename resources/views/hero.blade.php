@@ -12,7 +12,7 @@
             <p><span class="typed" data-typed-items="Video Reels, Producción Audiovisual, Diseño Gráfico, Marketing Digital, Inteligencia Artificial, Desarrollo Web"></span></p>
             <div class="text-center">
                 {{-- SE HAN QUITADO LOS ESTILOS EN LÍNEA PARA QUE LOS CONTROLE EL CSS --}}
-                <a href="#portfolio" class="btn btn-dark btn-lg">Cotizar planes</a>
+                <a href="#pricing" class="btn btn-dark btn-lg">Cotizar planes</a>
             </div>
         </div>
     </div>

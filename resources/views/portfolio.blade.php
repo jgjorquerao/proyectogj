@@ -12,9 +12,9 @@
         <div class="row text-center pb-3" style="align-items: center;">
             <div class="col"><img src="{{ asset('img/l1.png') }}" class="img-fluid" alt="Logo Cliente 1" style="width: 130px; height: auto;"></div>
             <div class="col"><img src="{{ asset('img/l3.png') }}" class="img-fluid" alt="Logo Cliente 2" style="width: 150px; height: auto;"></div>
-            <div class="col"><img src="{{ asset('img/l4.png') }}" class="img-fluid" alt="Logo Cliente 3" style="width: 150px; height: auto;"></div>
-            <div class="col"><img src="{{ asset('img/l6.png') }}" class="img-fluid" alt="Logo Cliente 4" style="width: 150px; height: auto;"></div>
-            <div class="col"><img src="{{ asset('img/l9.png') }}" class="img-fluid" alt="Logo Cliente 5" style="width: 150px; height: auto;"></div>
+            <div class="col"><img src="{{ asset('img/bita.png') }}" class="img-fluid" alt="Logo Cliente 3" style="width: 150px; height: auto;"></div>
+            <div class="col"><img src="{{ asset('img/romec.svg') }}" class="img-fluid" alt="Logo Cliente 4" style="width: 150px; height: auto;"></div>
+            <div class="col"><img src="{{ asset('img/egana.png') }}" class="img-fluid" alt="Logo Cliente 5" style="width: 150px; height: auto;"></div>
             <div class="col"><img src="{{ asset('img/l10.png') }}" class="img-fluid" alt="Logo Cliente 6" style="width: 150px; height: auto;"></div>
         </div>
 
