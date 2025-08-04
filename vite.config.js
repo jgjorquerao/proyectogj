@@ -10,4 +10,8 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    // ¡AÑADE ESTO para decirle a Vite cómo gestionar Three.js!
+    optimizeDeps: {
+        include: ['three'],
+    },
 });
