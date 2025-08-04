@@ -492,3 +492,16 @@ body.dark-mode .contact .php-email-form {
     border-radius: 16px;
     overflow: hidden;
 }
+
+/* ======================================================================= */
+/* ESTILOS PARA LA ANIMACIÓN INTERACTIVA EN LA SECCIÓN HERO                */
+/* ======================================================================= */
+
+#hero-animation-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Coloca el canvas detrás del contenido */
+}

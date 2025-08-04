@@ -7,6 +7,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'boxicons/css/boxicons.min.css';
 import 'glightbox/dist/css/glightbox.min.css';
 import 'swiper/swiper-bundle.css';
+import * as THREE from 'three';
 
 // --- 2. IMPORTAR LIBRERÍAS (JAVASCRIPT) ---
 //import AOS from 'aos';
@@ -400,5 +401,92 @@ document.addEventListener('DOMContentLoaded', () => {
     createPieChart('gimpChart', skillData.gimp);
     createPieChart('metaAdsChart', skillData.metaAds);
 
-    // ... (resto de tu lógica app.js) ...
+    // --- Lógica para la Animación 3D en el Hero ---
+const canvas = document.getElementById('hero-animation-canvas');
+if (!canvas) {
+    console.error('Canvas element not found!');
+    return;
+}
+
+// Crear la escena, la cámara y el renderer
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+
+// Configurar el renderer
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+
+// Colocar la cámara
+camera.position.z = 100;
+
+// Configurar la luz
+const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+scene.add(ambientLight);
+
+const mouse = new THREE.Vector2();
+const cubeGroup = new THREE.Group();
+const cubes = [];
+
+// Inicializar los cubos en una cuadrícula 3D
+function initCubes() {
+    cubeGroup.remove(...cubeGroup.children);
+    cubes.length = 0;
+
+    const gridSize = 6; // ¡CLAVE! Reducimos el tamaño de la cuadrícula a 7x7x7
+    const cubeSize =1;
+    const spacing = 10;
+
+    // Crear la cuadrícula 3D de cubos
+    for (let x = -gridSize; x <= gridSize; x++) {
+        for (let y = -gridSize; y <= gridSize; y++) {
+            for (let z = -gridSize; z <= gridSize; z++) {
+                const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
+                const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+                const cube = new THREE.Mesh(geometry, material);
+
+                cube.position.set(x * spacing, y * spacing, z * spacing);
+                cubes.push(cube);
+                cubeGroup.add(cube);
+            }
+        }
+    }
+
+    scene.add(cubeGroup);
+    cubeGroup.position.set(0, 0, 0);
+}
+
+// Detección de mouse
+window.addEventListener('mousemove', (event) => {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+});
+
+// Bucle de animación
+function animate() {
+    requestAnimationFrame(animate);
+
+    // Rotación automática por defecto
+    cubeGroup.rotation.x += 0.005;
+    cubeGroup.rotation.y += 0.005;
+
+    // Rotación adicional basada en el mouse
+    const mouseRotationSpeed = 0.02;
+    cubeGroup.rotation.x += mouse.y * mouseRotationSpeed;
+    cubeGroup.rotation.y += mouse.x * mouseRotationSpeed;
+
+    renderer.render(scene, camera);
+}
+
+// Evento de redimensionamiento de ventana
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// Inicio de la animación
+camera.position.z = 200; // ¡CLAVE! Ajustamos la cámara para que el cubo se vea más pequeño
+initCubes();
+animate();
 }); // Fin del DOMContentLoaded
