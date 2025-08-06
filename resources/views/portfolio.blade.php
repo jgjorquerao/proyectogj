@@ -1,5 +1,5 @@
 {{-- ======================================================================= --}}
-{{-- ARCHIVO: resources/views/portfolio.blade.php                          --}}
+{{-- ARCHIVO: resources/views/portfolio.blade.php --}}
 {{-- ======================================================================= --}}
 
 <section id="portfolio" class="portfolio section-bg">
@@ -9,25 +9,37 @@
         <div class="section-title">
             <h2>Nuestra experiencia nos avala</h2>
         </div>
-        <div class="row text-center pb-3" style="align-items: center;">
-            <div class="col"><img src="{{ asset('img/ads.png') }}" class="img-fluid" alt="Logo Cliente 1" style="width: 130px; height: auto;"></div>
-            <div class="col"><img src="{{ asset('img/autoefec.png') }}" class="img-fluid" alt="Logo Cliente 2" style="width: 150px; height: auto;"></div>
-            <div class="col"><img src="{{ asset('img/bita.png') }}" class="img-fluid" alt="Logo Cliente 3" style="width: 150px; height: auto;"></div>
-            <div class="col"><img src="{{ asset('img/romec.svg') }}" class="img-fluid" alt="Logo Cliente 4" style="width: 150px; height: auto;"></div>
-            <div class="col"><img src="{{ asset('img/egana.png') }}" class="img-fluid" alt="Logo Cliente 5" style="width: 150px; height: auto;"></div>
-            <div class="col"><img src="{{ asset('img/rapmotors.png') }}" class="img-fluid" alt="Logo Cliente 6" style="width: 150px; height: auto;"></div>
-        </div>{{-- SECCIÓN DE PORTAFOLIO --}}
+        <div class="logos-slider">
+            <div class="logos-slide">
+                <img src="{{ asset('img/ads.png') }}" alt="Logo Cliente 1">
+                <img src="{{ asset('img/autoefec.png') }}" alt="Logo Cliente 2">
+                <img src="{{ asset('img/bita.png') }}" alt="Logo Cliente 3">
+                <img src="{{ asset('img/romec.svg') }}" alt="Logo Cliente 4">
+                <img src="{{ asset('img/egana.png') }}" alt="Logo Cliente 5">
+                <img src="{{ asset('img/rapmotors.png') }}" alt="Logo Cliente 6">
+
+                <img src="{{ asset('img/ads.png') }}" alt="Logo Cliente 1">
+                <img src="{{ asset('img/autoefec.png') }}" alt="Logo Cliente 2">
+                <img src="{{ asset('img/bita.png') }}" alt="Logo Cliente 3">
+                <img src="{{ asset('img/romec.svg') }}" alt="Logo Cliente 4">
+                <img src="{{ asset('img/egana.png') }}" alt="Logo Cliente 5">
+                <img src="{{ asset('img/rapmotors.png') }}" alt="Logo Cliente 6">
+            </div>
+        </div>
 
         {{-- SECCIÓN DE PORTAFOLIO --}}
         <div class="section-title">
-            <p>Revisa algunos de los proyectos que hemos desarrollado, desde videos promocionales hasta piezas gráficas diseñadas para destacar la identidad de cada cliente. Cada trabajo refleja nuestro enfoque profesional, creativo y orientado a resultados. Inspírate y descubre cómo podemos ayudarte a potenciar la imagen de tu automotora.</p>
+            <p>Revisa algunos de los proyectos que hemos desarrollado, desde videos promocionales hasta piezas gráficas
+                diseñadas para destacar la identidad de cada cliente. Cada trabajo refleja nuestro enfoque profesional,
+                creativo y orientado a resultados. Inspírate y descubre cómo podemos ayudarte a potenciar la imagen de
+                tu automotora.</p>
         </div>
 
         {{-- BOTONES DE FILTRO --}}
         <div class="row" data-aos="fade-up">
             <div class="col-lg-12 d-flex justify-content-center">
                 <ul id="portfolio-flters">
-                    <li data-filter="*">Todo</li>
+                   {{-- <li data-filter="*">Todo</li>--}}
                     <li data-filter=".filter-videos" class="filter-active">Videos</li>
                     <li data-filter=".filter-logos">Logotipos</li>
                     <li data-filter=".filter-card">Cartas de presentación</li>
@@ -42,32 +54,44 @@
             {{-- VIDEOS (AHORA SIN AUTOPLAY) --}}
             <div class="col-lg-4 col-md-6 portfolio-item filter-videos">
                 <div class="portfolio-wrap">
-                    <video playsinline loop muted><source src="{{ asset('videos/video-6.mp4') }}" type="video/mp4"></video>
+                    <video playsinline loop muted>
+                        <source src="{{ asset('videos/video-6.mp4') }}" type="video/mp4">
+                    </video>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 portfolio-item filter-videos">
                 <div class="portfolio-wrap">
-                    <video playsinline loop muted><source src="{{ asset('videos/video-4.mp4') }}" type="video/mp4"></video>
+                    <video playsinline loop muted>
+                        <source src="{{ asset('videos/video-4.mp4') }}" type="video/mp4">
+                    </video>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 portfolio-item filter-videos">
                 <div class="portfolio-wrap">
-                    <video playsinline loop muted><source src="{{ asset('videos/video-5.mp4') }}" type="video/mp4"></video>
+                    <video playsinline loop muted>
+                        <source src="{{ asset('videos/video-5.mp4') }}" type="video/mp4">
+                    </video>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 portfolio-item filter-videos">
                 <div class="portfolio-wrap">
-                    <video playsinline loop muted><source src="{{ asset('videos/video-11.mp4') }}" type="video/mp4"></video>
+                    <video playsinline loop muted>
+                        <source src="{{ asset('videos/video-11.mp4') }}" type="video/mp4">
+                    </video>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 portfolio-item filter-videos">
                 <div class="portfolio-wrap">
-                    <video playsinline loop muted><source src="{{ asset('videos/video-9.mp4') }}" type="video/mp4"></video>
+                    <video playsinline loop muted>
+                        <source src="{{ asset('videos/video-9.mp4') }}" type="video/mp4">
+                    </video>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 portfolio-item filter-videos">
                 <div class="portfolio-wrap">
-                    <video playsinline loop muted><source src="{{ asset('videos/video-10.mp4') }}" type="video/mp4"></video>
+                    <video playsinline loop muted>
+                        <source src="{{ asset('videos/video-10.mp4') }}" type="video/mp4">
+                    </video>
                 </div>
             </div>
 
@@ -75,19 +99,54 @@
             <div class="col-lg-4 col-md-6 portfolio-item filter-web">
                 <div class="portfolio-wrap">
                     <img src="{{ asset('img/portfolio/portfolio-1.jpg') }}" class="img-fluid" alt="">
-                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-1.jpg') }}" data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Diseño 1"><i class="bx bx-plus"></i></a></div>
+                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-1.jpg') }}"
+                            data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Diseño 1"></a></div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 portfolio-item filter-web">
                 <div class="portfolio-wrap">
                     <img src="{{ asset('img/portfolio/portfolio-2.jpg') }}" class="img-fluid" alt="">
-                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-2.jpg') }}" data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Diseño 2"><i class="bx bx-plus"></i></a></div>
+                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-2.jpg') }}"
+                            data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Diseño 2"></a></div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 portfolio-item filter-web">
                 <div class="portfolio-wrap">
                     <img src="{{ asset('img/portfolio/portfolio-3.jpg') }}" class="img-fluid" alt="">
-                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-3.jpg') }}" data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Diseño 3"><i class="bx bx-plus"></i></a></div>
+                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-3.jpg') }}"
+                            data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Diseño 3"></a></div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+                <div class="portfolio-wrap">
+                    <img src="{{ asset('img/portfolio/portfolio-5.jpg') }}" class="img-fluid" alt="">
+                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-3.jpg') }}"
+                            data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Diseño 3"></a></div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+                <div class="portfolio-wrap">
+                    <img src="{{ asset('img/portfolio/portfolio-6.jpg') }}" class="img-fluid" alt="">
+                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-3.jpg') }}"
+                            data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Diseño 3"></a></div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+                <div class="portfolio-wrap">
+                    <img src="{{ asset('img/portfolio/portfolio-7.jpg') }}" class="img-fluid" alt="">
+                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-3.jpg') }}"
+                            data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Diseño 3"></a></div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+                <div class="portfolio-wrap">
+                    <img src="{{ asset('img/portfolio/portfolio-9.jpg') }}" class="img-fluid" alt="">
+                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-3.jpg') }}"
+                            data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Diseño 3"></a></div>
                 </div>
             </div>
 
@@ -95,19 +154,15 @@
             <div class="col-lg-4 col-md-6 portfolio-item filter-card">
                 <div class="portfolio-wrap">
                     <img src="{{ asset('img/portfolio/portfolio-4.jpg') }}" class="img-fluid" alt="">
-                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-4.jpg') }}" data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Carta 1"><i class="bx bx-plus"></i></a></div>
+                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-4.jpg') }}"
+                            data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Carta 1"></a></div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 portfolio-item filter-card">
                 <div class="portfolio-wrap">
-                    <img src="{{ asset('img/portfolio/portfolio-11.jpg') }}" class="img-fluid" alt="">
-                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-11.jpg') }}" data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Carta 2"><i class="bx bx-plus"></i></a></div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                <div class="portfolio-wrap">
-                    <img src="{{ asset('img/portfolio/portfolio-12.jpg') }}" class="img-fluid" alt="">
-                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-12.jpg') }}" data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Carta 3"><i class="bx bx-plus"></i></a></div>
+                    <img src="{{ asset('img/portfolio/portfolio-10.jpg') }}" class="img-fluid" alt="">
+                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-11.jpg') }}"
+                            data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Carta 2"></a></div>
                 </div>
             </div>
 
@@ -115,7 +170,25 @@
             <div class="col-lg-4 col-md-6 portfolio-item filter-logos">
                 <div class="portfolio-wrap">
                     <img src="{{ asset('img/portfolio/portfolio-8.jpg') }}" class="img-fluid" alt="">
-                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-8.jpg') }}" data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Logo 1"><i class="bx bx-plus"></i></a></div>
+                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-8.jpg') }}"
+                            data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Logo 1"></a></div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-logos">
+                <div class="portfolio-wrap">
+                    <img src="{{ asset('img/portfolio/portfolio-12.jpg') }}" class="img-fluid" alt="">
+                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-8.jpg') }}"
+                            data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Logo 1"></a></div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-logos">
+                <div class="portfolio-wrap">
+                    <img src="{{ asset('img/portfolio/portfolio-11.jpg') }}" class="img-fluid" alt="">
+                    <div class="portfolio-links"><a href="{{ asset('img/portfolio/portfolio-8.jpg') }}"
+                            data-gallery="portfolioGallery" class="portfolio-lightbox w-100" title="Logo 1"></a></div>
                 </div>
             </div>
 

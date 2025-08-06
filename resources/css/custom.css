@@ -943,15 +943,92 @@ body.dark-mode .contact .php-email-form {
   /* ¡Detiene la animación al pasar el ratón! */
 }
 
-/* Animación de Keyframes *//* Animación de Keyframes */
+/* Animación de Keyframes */
+/* Animación de Keyframes */
 @keyframes zoom-pulse {
   0% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.1);
   }
+
   100% {
     transform: scale(1);
   }
+}
+
+/* --- Estilos para el Carrusel de Logos (Versión Final) --- */
+
+.logos-slider {
+  overflow: hidden;
+  padding: 60px 0;
+  position: relative;
+  width: 100%;
+  
+  /* CAMBIO 1: Nuevo método para el desvanecimiento sin colores */
+  /* Esto crea una máscara que hace transparente los bordes */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+/* Los pseudo-elementos ::before y ::after ya no son necesarios para el efecto */
+/* Puedes eliminarlos o dejarlos vacíos si los usas para otra cosa. */
+.logos-slider::before,
+.logos-slider::after {
+  content: none; 
+}
+
+.logos-slide {
+  display: flex !important;
+  align-items: center !important;
+  animation: 35s slide infinite linear;
+}
+
+.logos-slide img {
+  /* CAMBIO 2: Tamaño de logos unificado */
+  width: 200px !important;      /* Ancho fijo para todos los logos */
+  height: auto !important;       /* Altura automática para mantener la proporción */
+  object-fit: contain;         /* Asegura que el logo quepa sin deformarse */
+  
+  margin: 0 40px !important;
+  flex-shrink: 0 !important;
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* ======================================================================= */
+/* EFECTO ZOOM PARA IMÁGENES DEL PORTAFOLIO (BASADO EN TU HTML)          */
+/* ======================================================================= */
+
+/* 1. Estilo para el contenedor '.portfolio-wrap'
+      Es CRUCIAL que tenga 'overflow: hidden' para que el zoom
+      de la imagen no se salga de su caja y rompa el diseño.
+      'position: relative' ya debería estar, pero es vital para
+      que el div '.portfolio-links' se posicione encima. */
+.portfolio-wrap {
+    position: relative;
+    overflow: hidden;
+}
+
+/* 2. Estilo para la imagen 'img' dentro del contenedor.
+      Le aplicamos una transición suave para que el efecto de zoom
+      no sea instantáneo y se vea fluido y profesional. */
+.portfolio-item .portfolio-wrap img {
+    transition: transform 0.4s ease;
+}
+
+/* 3. El efecto de ZOOM al pasar el mouse.
+      Cuando el cursor está sobre '.portfolio-wrap' (el contenedor),
+      la 'img' que está adentro crece un 10%. */
+.portfolio-item .portfolio-wrap:hover img {
+    transform: scale(1.1); /* Puedes cambiar este valor (ej: 1.05 o 1.2) */
 }
