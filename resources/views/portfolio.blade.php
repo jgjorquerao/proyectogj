@@ -16,7 +16,7 @@
             <div class="col"><img src="{{ asset('img/romec.svg') }}" class="img-fluid" alt="Logo Cliente 4" style="width: 150px; height: auto;"></div>
             <div class="col"><img src="{{ asset('img/egana.png') }}" class="img-fluid" alt="Logo Cliente 5" style="width: 150px; height: auto;"></div>
             <div class="col"><img src="{{ asset('img/rapmotors.png') }}" class="img-fluid" alt="Logo Cliente 6" style="width: 150px; height: auto;"></div>
-        </div>
+        </div>{{-- SECCIÓN DE PORTAFOLIO --}}
 
         {{-- SECCIÓN DE PORTAFOLIO --}}
         <div class="section-title">

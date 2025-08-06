@@ -943,7 +943,7 @@ body.dark-mode .contact .php-email-form {
   /* ¡Detiene la animación al pasar el ratón! */
 }
 
-/* Animación de Keyframes */
+/* Animación de Keyframes *//* Animación de Keyframes */
 @keyframes zoom-pulse {
   0% {
     transform: scale(1);

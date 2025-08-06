@@ -537,7 +537,7 @@ window.addEventListener('resize', () => {
     scene.add(newBackgroundMesh);
 });
 
-// Inicio de la animación
+// Inicio de la animación// Inicio de la animación
 camera.position.z = 50;
 initSpheres();
 animate();

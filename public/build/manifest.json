@@ -28,17 +28,17 @@
     "src": "node_modules/boxicons/fonts/boxicons.woff2"
   },
   "resources/css/app.css": {
-    "file": "assets/app-PIHUU7us.css",
+    "file": "assets/app-Dc3Mlx_Q.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-CJZ12uPN.js",
+    "file": "assets/app-CNmqQtUk.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-uDzVKuet.css"
+      "assets/app-evm9c3PS.css"
     ],
     "assets": [
       "assets/bootstrap-icons-mSm7cUeB.woff2",
