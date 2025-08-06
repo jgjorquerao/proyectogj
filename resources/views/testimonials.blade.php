@@ -29,7 +29,7 @@
                             "Gracias a Guillermo pudimos darle un giro tremendo a nuestro negocio online. Se maneja muy bien con el diseño y entiende perfecto cómo funciona el mundo digital. Fue una muy buena experiencia trabajar con él. ¡Totalmente recomendable!"
                             <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                         </p>
-                        <img src="{{ asset('img/testimonials/testimonials-3.jpg') }}" class="testimonial-img" alt="">
+                        <img src="{{ asset('img/testimonials/testimonials-2.jpg') }}" class="testimonial-img" alt="">
                         <h3>Daniel Provoste</h3>
                         <h4>Artista independiente</h4>
                     </div>
@@ -42,7 +42,7 @@
                             "Colaborar con Guillermo fue realmente enriquecedor. Siempre estuvo atento a lo que necesitábamos y respondió súper rápido con soluciones prácticas, sobre todo cuando tuvimos que preparar las cartas de presentación para la empresa. Se pasó."
                             <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                         </p>
-                        <img src="{{ asset('img/testimonials/testimonials-4.jpg') }}" class="testimonial-img" alt="">
+                        <img src="{{ asset('img/testimonials/testimonials-3.jpg') }}" class="testimonial-img" alt="">
                         <h3>Enzo Montaña</h3>
                         <h4>Ingeniero en Recursos Naturales</h4>
                     </div>
@@ -55,7 +55,7 @@
                             "Guillermo nos ayudó a darle un impulso real a nuestro negocio digital. Tiene mucha experiencia en marketing y diseño web, y eso se notó desde el primer día. Gracias a su trabajo, hoy tenemos una ventaja frente a la competencia. ¡Muy recomendado!"
                             <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                         </p>
-                        <img src="{{ asset('img/testimonials/testimonials-5.jpg') }}" class="testimonial-img" alt="">
+                        <img src="{{ asset('img/testimonials/testimonials-4.jpg') }}" class="testimonial-img" alt="">
                         <h3>Andres Diaz</h3>
                         <h4>Personal trainer</h4>
                     </div>
@@ -68,7 +68,7 @@
                             "Tiene una forma muy clara de enfocar las cosas, siempre con una estrategia bien pensada. Nos ayudó a crecer y a tener presencia real en internet. Lo recomendamos a ojos cerrados."
                             <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                         </p>
-                        <img src="{{ asset('img/testimonials/testimonials-2.jpg') }}" class="testimonial-img" alt="">
+                        <img src="{{ asset('img/testimonials/testimonials-5.jpg') }}" class="testimonial-img" alt="">
                         <h3>Said Moreno</h3>
                         <h4>Emprendedor</h4>
                     </div>

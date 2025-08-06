@@ -894,7 +894,6 @@ body.dark-mode .contact .php-email-form {
 .custom-arrow-container {
   position: absolute;
   bottom: -120px;
-  /* Ajusta la distancia desde la parte inferior, puedes modificar este valor */
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
@@ -903,61 +902,39 @@ body.dark-mode .contact .php-email-form {
   align-items: center;
 }
 
+/* Base de la flecha con transición para suavizar el efecto */
 .custom-arrow {
   position: relative;
-  /* Contenedor para el pseudo-elemento */
   display: flex;
   justify-content: center;
   align-items: center;
   width: 60px;
-  /* Tamaño del área de la flecha */
   height: 60px;
   background: transparent;
-  transition: transform 0.3s ease-in-out;
-  animation: zoom-pulse 2s infinite;
-  /* ¡Añade la animación de zoom/pulso! */
+  cursor: pointer; /* Añadimos un cursor para indicar que es clickeable */
+  transition: transform 0.3s ease; /* AÑADIDO: Transición para el zoom suave */
 }
 
 .custom-arrow::before {
   content: '';
   position: absolute;
   width: 50px;
-  /* Ancho de rgb(3, 1, 1)echa */
   height: 50px;
-  /* Altura de la flecha */
   border-right: 10px solid white;
-  /* Borde derecho grueso */
   border-bottom: 10px solid white;
-  /* Borde inferior grueso */
   transform: rotate(45deg);
-  /* Rotación para formar la punta */
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
+/* Estado :hover con el efecto de zoom */
 .custom-arrow:hover {
-  transform: scale(1.2);
-  /* Efecto de zoom sutil al pasar el mouse */
-  animation: none;
-  /* ¡Detiene la animación al pasar el ratón! */
+  transform: scale(1.2); /* AÑADIDO: Zoom del 20% al pasar el mouse */
 }
 
-/* Animación de Keyframes */
-/* Animación de Keyframes */
-@keyframes zoom-pulse {
-  0% {
-    transform: scale(1);
-  }
+/* La animación de keyframes ha sido eliminada. */
 
-  50% {
-    transform: scale(1.1);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
 
 /* --- Estilos para el Carrusel de Logos (Versión Final) --- */
 
