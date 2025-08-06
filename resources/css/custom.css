@@ -1,6 +1,20 @@
 /* --- ESTILOS PARA VIDEO DE FONDO DEL HERO --- */
-#hero { position: relative; overflow: hidden; height: 100vh; background: none; }
-#hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
+#hero {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  background: none;
+}
+
+#hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
 
 /* ======================================================================= */
 /* ESTILOS FINALES PARA BOTONES DE LA BARRA LATERAL (SIDEBAR)              */
@@ -8,7 +22,8 @@
 
 /* Botón para MOSTRAR (->) */
 #toggleIconBody {
-  background: #149ddd; /* REVERTIDO a AZUL, este es un botón de funcionalidad, no de color de tema */
+  background: #149ddd;
+  /* REVERTIDO a AZUL, este es un botón de funcionalidad, no de color de tema */
   color: #fff;
   position: fixed;
   top: 50%;
@@ -26,28 +41,132 @@
   left: 20px;
   padding: 0;
 }
-#toggleIconBody:hover { background: #37b3ed; transform: translateY(-50%) scale(1.1); /* REVERTIDO a AZUL */ }
+
+#toggleIconBody:hover {
+  background: #37b3ed;
+  transform: translateY(-50%) scale(1.1);
+  /* REVERTIDO a AZUL */
+}
 
 /* Botón para OCULTAR (<-) */
-#hideSidebarButton { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); width: 40px; height: 40px; background: #30363d; color: #fff; border-radius: 50%; font-size: 28px; z-index: 9998; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; }
-#hideSidebarButton:hover { background: #58a6ff; } /* REVERTIDO a azul */
+#hideSidebarButton {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: #30363d;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 28px;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-#hideSidebarButton.d-none, #toggleIconBody.d-none { display: none !important; }
-#header.header-hidden, #footer.footer-hidden { left: -300px; }
+#hideSidebarButton:hover {
+  background: #58a6ff;
+}
+
+/* REVERTIDO a azul */
+
+#hideSidebarButton.d-none,
+#toggleIconBody.d-none {
+  display: none !important;
+}
+
+#header.header-hidden,
+#footer.footer-hidden {
+  left: -300px;
+}
 
 /* --- ESTILOS PARA BOTONES FLOTANTES --- */
-.whatsapp-float, .back-to-top { position: fixed; width: 60px; height: 60px; right: 15px; z-index: 999; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); }
-.whatsapp-float { bottom: 150px; background-color: #25d366; } /* VERDE ESPECÍFICO DE WHATSAPP, NO CAMBIADO */
-.back-to-top { bottom: 40px; width: 40px; height: 40px; background-color: #149ddd; /* REVERTIDO a AZUL */ color: #fff; font-size: 24px; }
-.whatsapp-float img { width: 35px; height: 35px; }
-.whatsapp-float:hover, .back-to-top:hover { transform: scale(1.1); }
-.whatsapp-float:active, .back-to-top:active { transform: scale(0.95); transition-duration: 0.1s; }
+.whatsapp-float,
+.back-to-top {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  right: 15px;
+  z-index: 999;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.whatsapp-float {
+  bottom: 150px;
+  background-color: #25d366;
+}
+
+/* VERDE ESPECÍFICO DE WHATSAPP, NO CAMBIADO */
+.back-to-top {
+  bottom: 40px;
+  width: 40px;
+  height: 40px;
+  background-color: #149ddd;
+  /* REVERTIDO a AZUL */
+  color: #fff;
+  font-size: 24px;
+}
+
+.whatsapp-float img {
+  width: 35px;
+  height: 35px;
+}
+
+.whatsapp-float:hover,
+.back-to-top:hover {
+  transform: scale(1.1);
+}
+
+.whatsapp-float:active,
+.back-to-top:active {
+  transform: scale(0.95);
+  transition-duration: 0.1s;
+}
 
 /* --- LÓGICA MÓVIL/ESCRITORIO --- */
-@media (max-width: 1199px) { #hideSidebarButton, #toggleIconBody { display: none !important; } }
-.mobile-nav-toggle { position: fixed; right: 15px; top: 15px; z-index: 9998; background: rgba(20, 157, 221, 0.9); /* REVERTIDO a AZUL */ font-size: 28px; transition: all 0.4s; width: 40px; height: 40px; border-radius: 50px; color: #fff; display: inline-flex; align-items: center; justify-content: center; }
-.mobile-nav-active .mobile-nav-toggle { background-color: #d9232d; }
-body.mobile-nav-active #header { left: 0 !important; }
+@media (max-width: 1199px) {
+
+  #hideSidebarButton,
+  #toggleIconBody {
+    display: none !important;
+  }
+}
+
+.mobile-nav-toggle {
+  position: fixed;
+  right: 15px;
+  top: 15px;
+  z-index: 9998;
+  background: rgba(20, 157, 221, 0.9);
+  /* REVERTIDO a AZUL */
+  font-size: 28px;
+  transition: all 0.4s;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-nav-active .mobile-nav-toggle {
+  background-color: #d9232d;
+}
+
+body.mobile-nav-active #header {
+  left: 0 !important;
+}
+
 /* ... (custom.css hasta la sección de Gráficos Circulares) ... */
 /* ... (custom.css hasta la sección de Gráficos Circulares) ... */
 
@@ -56,191 +175,400 @@ body.mobile-nav-active #header { left: 0 !important; }
 /* ======================================================================= */
 
 .skills-content {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    gap: 30px !important;
-    align-items: stretch !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    padding: 0 !important;
-    margin: 0 auto !important;
-    min-height: 1px;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  gap: 30px !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  min-height: 1px;
 }
 
 /* ¡NUEVA REGLA! Espacio entre la primera y segunda fila de gráficos */
 .skills-row-spacing {
-    margin-bottom: 30px !important; /* Añade un margen inferior para separar las filas */
+  margin-bottom: 30px !important;
+  /* Añade un margen inferior para separar las filas */
 }
 
 .skill-item {
-    text-align: center !important;
-    padding: 20px !important;
-    margin: 0 !important; /* Elimina márgenes externos, 'gap' se encarga */
-    position: relative !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-    
-    min-height: 250px !important; /* Altura mínima para cada tarjeta */
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    align-items: center !important;
+  text-align: center !important;
+  padding: 20px !important;
+  margin: 0 !important;
+  /* Elimina márgenes externos, 'gap' se encarga */
+  position: relative !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
 
-    /* Reglas para RESPONSIVE - Mantenemos */
-    flex-basis: 100% !important;
-    max-width: 250px !important;
-    min-width: 150px !important;
+  min-height: 250px !important;
+  /* Altura mínima para cada tarjeta */
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+
+  /* Reglas para RESPONSIVE - Mantenemos */
+  flex-basis: 100% !important;
+  max-width: 250px !important;
+  min-width: 150px !important;
 }
 
 @media (min-width: 576px) {
-    .skill-item {
-        flex-basis: calc(50% - 15px) !important;
-        max-width: calc(50% - 15px) !important;
-    }
+  .skill-item {
+    flex-basis: calc(50% - 15px) !important;
+    max-width: calc(50% - 15px) !important;
+  }
 }
 
 @media (min-width: 992px) {
-    .skill-item {
-        flex-basis: calc(33.333% - 20px) !important;
-        max-width: calc(33.333% - 20px) !important;
-    }
+  .skill-item {
+    flex-basis: calc(33.333% - 20px) !important;
+    max-width: calc(33.333% - 20px) !important;
+  }
 }
 
 @media (min-width: 1200px) {
-    .skill-item {
-        flex-basis: calc(33.333% - 20px) !important;
-        max-width: 200px !important;
-    }
+  .skill-item {
+    flex-basis: calc(33.333% - 20px) !important;
+    max-width: 200px !important;
+  }
 }
 
 /* --- Ajuste para el TÍTULO de la habilidad (h4) --- */
 .skill-item h4 {
-    height: 3em !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-    line-height: 1.2 !important;
-    margin-bottom: 10px !important;
-    flex-shrink: 0 !important;
+  height: 3em !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  line-height: 1.2 !important;
+  margin-bottom: 10px !important;
+  flex-shrink: 0 !important;
 }
 
 /* --- Aseguramos que el contenedor del gráfico y el canvas tengan un tamaño fijo --- */
 .chart-container {
-    position: relative !important;
-    height: 150px !important;
-    width: 150px !important;
-    margin: 20px auto !important;
-    overflow: hidden !important;
-    flex-shrink: 0 !important;
+  position: relative !important;
+  height: 150px !important;
+  width: 150px !important;
+  margin: 20px auto !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
 }
 
 .chart-label {
-    position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    font-size: 24px !important;
-    font-weight: bold !important;
-    color: #050d18; /* Color para el modo claro */
-    z-index: 1 !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  font-size: 24px !important;
+  font-weight: bold !important;
+  color: #050d18;
+  /* Color para el modo claro */
+  z-index: 1 !important;
 }
 
 /* --- Adaptación para el modo oscuro --- */
 body.dark-mode .chart-label {
-    color: #f0f6fc !important;
+  color: #f0f6fc !important;
 }
 
 /* OCULTAR BARRAS DE PROGRESO ANTIGUAS */
 body.dark-mode .skills .progress-bar-wrap,
 body.dark-mode .skills .progress,
 body.dark-mode .skills .progress .skill {
-    display: none !important;
+  display: none !important;
 }
 
 /* Fondo de cada tarjeta de habilidad en modo oscuro */
 body.dark-mode .skills-content .skill-item {
-    background-color: #1B1B1B !important;
-    border-radius: 10px !important;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4) !important;
+  background-color: #1B1B1B !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4) !important;
 }
 
 body.dark-mode .skills-content .skill-item h4 {
-    color: #f0f6fc !important;
+  color: #f0f6fc !important;
 }
+
 /* --- PAGINACIÓN DE TESTIMONIOS --- */
-.testimonials .testimonials-slider { position: relative; padding-bottom: 50px; }
-.testimonials .swiper-pagination { position: absolute; bottom: 15px; left: 0; right: 0; display: flex; justify-content: center; z-index: 10; }
-.testimonials .swiper-pagination .swiper-pagination-bullet { width: 12px; height: 12px; background-color: #fff; border: 1px solid #149ddd; /* REVERTIDO a AZUL */ opacity: 1; margin: 0 5px; }
-.testimonials .swiper-pagination .swiper-pagination-bullet-active { background-color: #149ddd; /* REVERTIDO a AZUL */ }
+.testimonials .testimonials-slider {
+  position: relative;
+  padding-bottom: 50px;
+}
+
+.testimonials .swiper-pagination {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+}
+
+.testimonials .swiper-pagination .swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
+  border: 1px solid #149ddd;
+  /* REVERTIDO a AZUL */
+  opacity: 1;
+  margin: 0 5px;
+}
+
+.testimonials .swiper-pagination .swiper-pagination-bullet-active {
+  background-color: #149ddd;
+  /* REVERTIDO a AZUL */
+}
 
 /* --- SECCIÓN DE PLANES --- */
-.pricing-item { display: flex; flex-direction: column; height: 100%; text-align: left; transform-style: preserve-3d; transition: transform 0.4s ease, box-shadow 0.4s ease; position: relative; background-color: #fff; padding: 40px; border-radius: 16px; }
-.pricing-item.featured { padding: 0; border: 2px solid #eaf6ff; }
-.pricing-item:hover { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08); }
-.pricing-content-wrapper { position: relative; overflow: hidden; height: 100%; width: 100%; display: flex; flex-direction: column; padding: 40px; border-radius: 14px; }
-.pricing-item .description { margin-bottom: 20px; }
-.pricing .pricing-item .btn-pricing { background-color: #28a745 !important; color: #fff !important; border: none !important; margin-bottom: 20px; padding: 10px 30px; transition: background-color 0.3s ease; text-decoration: none !important; } /* Este es un verde diferente, no se toca */
-.pricing .pricing-item .btn-pricing:hover { background-color: #218838 !important; color: #fff !important; text-decoration: none !important; } /* Este es un verde diferente, no se toca */
-.pricing-item .features-wrapper { flex-grow: 1; display: flex; flex-direction: column; }
-.features-list { padding-left: 0; list-style: none; flex-grow: 1; }
-.features-list li { padding-bottom: 10px; line-height: 1.5; }
-.features-list li.collapsible { max-height: 0; padding-top: 0 !important; padding-bottom: 0 !important; margin-top: 0 !important; margin-bottom: 0 !important; overflow: hidden; opacity: 0; transition: all 0.4s ease-out; }
-.features-list.expanded li.collapsible { max-height: 100px; padding-bottom: 10px !important; opacity: 1; }
-.toggle-features { display: block; cursor: pointer; background-color: #eaf6ff; color: #149ddd; /* REVERTIDO a color original */ font-weight: 600; font-size: 14px; margin: auto auto 25px; padding: 8px 25px; border-radius: 50px; transition: all 0.3s ease-in-out; width: fit-content; text-decoration: none; border: 1px solid transparent; }
-.toggle-features:hover { background-color: #149ddd; /* REVERTIDO a color original */ color: #fff; text-decoration: none; }
-.price-block { margin-top: 20px; text-align: center; }
-.pricing-item .annual-saving { font-size: 0.85rem; margin-bottom: 5px; }
-.pricing-content-wrapper::after { content: ""; position: absolute; top: 18px; right: -35px; width: 140px; height: 28px; background-color: #ffc107; transform: rotate(45deg); box-shadow: 0 2px 4px rgba(0,0,0,0.15); z-index: 1; }
-.pricing-item.featured .pricing-badge { position: relative; z-index: 2; }
+.pricing-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-align: left;
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 16px;
+}
+
+.pricing-item.featured {
+  padding: 0;
+  border: 2px solid #eaf6ff;
+}
+
+.pricing-item:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+.pricing-content-wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  border-radius: 14px;
+}
+
+.pricing-item .description {
+  margin-bottom: 20px;
+}
+
+.pricing .pricing-item .btn-pricing {
+  background-color: #28a745 !important;
+  color: #fff !important;
+  border: none !important;
+  margin-bottom: 20px;
+  padding: 10px 30px;
+  transition: background-color 0.3s ease;
+  text-decoration: none !important;
+}
+
+/* Este es un verde diferente, no se toca */
+.pricing .pricing-item .btn-pricing:hover {
+  background-color: #218838 !important;
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+/* Este es un verde diferente, no se toca */
+.pricing-item .features-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.features-list {
+  padding-left: 0;
+  list-style: none;
+  flex-grow: 1;
+}
+
+.features-list li {
+  padding-bottom: 10px;
+  line-height: 1.5;
+}
+
+.features-list li.collapsible {
+  max-height: 0;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.4s ease-out;
+}
+
+.features-list.expanded li.collapsible {
+  max-height: 100px;
+  padding-bottom: 10px !important;
+  opacity: 1;
+}
+
+.toggle-features {
+  display: block;
+  cursor: pointer;
+  background-color: #eaf6ff;
+  color: #149ddd;
+  /* REVERTIDO a color original */
+  font-weight: 600;
+  font-size: 14px;
+  margin: auto auto 25px;
+  padding: 8px 25px;
+  border-radius: 50px;
+  transition: all 0.3s ease-in-out;
+  width: fit-content;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.toggle-features:hover {
+  background-color: #149ddd;
+  /* REVERTIDO a color original */
+  color: #fff;
+  text-decoration: none;
+}
+
+.price-block {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pricing-item .annual-saving {
+  font-size: 0.85rem;
+  margin-bottom: 5px;
+}
+
+.pricing-content-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 18px;
+  right: -35px;
+  width: 140px;
+  height: 28px;
+  background-color: #ffc107;
+  transform: rotate(45deg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+}
+
+.pricing-item.featured .pricing-badge {
+  position: relative;
+  z-index: 2;
+}
 
 /* --- SECCIÓN RESUMEN DESPLEGABLE --- */
-.btn-toggle-section { display: block; margin: 30px auto 0; padding: 10px 25px; background-color: #eaf6ff; color: #149ddd; /* REVERTIDO a color original */ border-radius: 50px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; width: fit-content; text-decoration: none; border: 1px solid #149ddd; /* REVERTIDO a color original */ }
-.btn-toggle-section:hover { background-color: #149ddd; /* REVERTIDO a color original */ color: #fff; }
-.btn-toggle-section i { transition: transform 0.3s ease; vertical-align: middle; }
-.btn-toggle-section.active i { transform: rotate(180deg); }
-.collapsible-section-content { max-height: 0; overflow: hidden; transition: max-height 0.7s ease-in-out; }
-.collapsible-section-content .resume-item { margin-left: 10px; }
-.collapsible-section-content.expanded { max-height: 2000px; }
+.btn-toggle-section {
+  display: block;
+  margin: 30px auto 0;
+  padding: 10px 25px;
+  background-color: #eaf6ff;
+  color: #149ddd;
+  /* REVERTIDO a color original */
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: fit-content;
+  text-decoration: none;
+  border: 1px solid #149ddd;
+  /* REVERTIDO a color original */
+}
+
+.btn-toggle-section:hover {
+  background-color: #149ddd;
+  /* REVERTIDO a color original */
+  color: #fff;
+}
+
+.btn-toggle-section i {
+  transition: transform 0.3s ease;
+  vertical-align: middle;
+}
+
+.btn-toggle-section.active i {
+  transform: rotate(180deg);
+}
+
+.collapsible-section-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.7s ease-in-out;
+}
+
+.collapsible-section-content .resume-item {
+  margin-left: 10px;
+}
+
+.collapsible-section-content.expanded {
+  max-height: 2000px;
+}
 
 /* ======================================================================= */
 /* ESTILOS PARA VIDEOS DEL PORTAFOLIO Y SUS CONTROLES (AJUSTES FINALES)    */
 /* ======================================================================= */
 .portfolio-item.filter-videos .portfolio-wrap {
-    position: relative;
-    background: #1a1814;
-    aspect-ratio: 9 / 16; /* ¡CRÍTICO! Asegura la relación de aspecto del CONTENEDOR */
-    height: auto !important; /* Mantenido para que se ajuste, pero combinado con object-fit */
-    overflow: hidden;
-    margin-bottom: 30px;
-    border-radius: 16px !important; /* ¡Aseguramos el borde curvo con !important! */
-    cursor: pointer;
+  position: relative;
+  background: #1a1814;
+  aspect-ratio: 9 / 16;
+  /* ¡CRÍTICO! Asegura la relación de aspecto del CONTENEDOR */
+  height: auto !important;
+  /* Mantenido para que se ajuste, pero combinado con object-fit */
+  overflow: hidden;
+  margin-bottom: 30px;
+  border-radius: 16px !important;
+  /* ¡Aseguramos el borde curvo con !important! */
+  cursor: pointer;
 }
+
 .portfolio-item.filter-videos .portfolio-wrap video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100% !important; /* ¡Aseguramos el 100% de ancho con !important! */
-    height: 100% !important; /* ¡Aseguramos el 100% de alto con !important! */
-    object-fit: cover !important; /* ¡CRÍTICO! Mantiene la relación de aspecto y cubre el contenedor */
-    border-radius: 16px !important; /* ¡Aseguramos el borde curvo con !important! */
-    transform: scale(1.0); /* Valor inicial del zoom */
-    transition: transform 0.3s ease-in-out; /* Transición suave para el zoom */
-    z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  /* ¡Aseguramos el 100% de ancho con !important! */
+  height: 100% !important;
+  /* ¡Aseguramos el 100% de alto con !important! */
+  object-fit: cover !important;
+  /* ¡CRÍTICO! Mantiene la relación de aspecto y cubre el contenedor */
+  border-radius: 16px !important;
+  /* ¡Aseguramos el borde curvo con !important! */
+  transform: scale(1.0);
+  /* Valor inicial del zoom */
+  transition: transform 0.3s ease-in-out;
+  /* Transición suave para el zoom */
+  z-index: 1;
 }
+
 .portfolio-wrap::before {
   content: "";
-  background: rgba(0, 0, 0, 0.4); /* Mantiene un fondo oscuro leve inicial */
+  background: rgba(0, 0, 0, 0.4);
+  /* Mantiene un fondo oscuro leve inicial */
   position: absolute;
-  left: 0; right: 0; top: 0; bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
   transition: all ease-in-out 0.3s;
   z-index: 2;
-  opacity: 1; /* Opacidad inicial del overlay */
+  opacity: 1;
+  /* Opacidad inicial del overlay */
 }
+
 .portfolio-wrap.is-playing::before {
-  opacity: 0; /* No overlay cuando el video está reproduciéndose */
+  opacity: 0;
+  /* No overlay cuando el video está reproduciéndose */
 }
+
 .video-play-button {
   position: absolute;
   z-index: 3;
@@ -258,30 +586,39 @@ body.dark-mode .skills-content .skill-item h4 {
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
 .video-play-button i {
   color: #fff;
   font-size: 36px;
   line-height: 0;
   padding-left: 4px;
 }
+
 .video-play-button:hover {
   background-color: rgba(80, 200, 120, 1);
 }
+
 /* Efectos de Hover para el video y su overlay */
 .portfolio-wrap:hover video {
-    transform: scale(1.05) !important; /* ¡Aseguramos el zoom con !important! */
+  transform: scale(1.05) !important;
+  /* ¡Aseguramos el zoom con !important! */
 }
+
 .portfolio-wrap:hover::before {
-    opacity: 0 !important; /* ¡Eliminamos la opacidad al hacer hover con !important! */
+  opacity: 0 !important;
+  /* ¡Eliminamos la opacidad al hacer hover con !important! */
 }
+
 .portfolio-wrap.is-playing .video-play-button {
   opacity: 0;
   visibility: hidden;
 }
+
 .portfolio-wrap.is-playing:hover .video-play-button {
   opacity: 1;
   visibility: visible;
 }
+
 /* ======================================================================= */
 /* ESTILOS PARA EL MODO OSCURO (CORREGIDO Y AMPLIADO)                      */
 /* ======================================================================= */
@@ -307,7 +644,9 @@ body.dark-mode .contact .info h4,
 body.dark-mode .pricing .pricing-item h3,
 body.dark-mode .facts .count-box p,
 body.dark-mode .facts .count-box span,
-body.dark-mode h3, body.dark-mode h4, body.dark-mode h5,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
 body.dark-mode .text-dark,
 body.dark-mode .skills .progress .skill {
   color: #f0f6fc !important;
@@ -322,39 +661,58 @@ body.dark-mode .contact .info p {
 
 /* --- Links --- */
 body.dark-mode a {
-  color: #58a6ff; /* REVERTIDO a azul */
+  color: #58a6ff;
+  /* REVERTIDO a azul */
 }
+
 body.dark-mode a:hover {
-  color: #79c0ff; /* REVERTIDO a azul */
+  color: #79c0ff;
+  /* REVERTIDO a azul */
 }
 
 /* --- Header y Footer --- */
 body.dark-mode #header,
 body.dark-mode #footer {
-  background: #131313; /* REVERTIDO a color principal */
+  background: #131313;
+  /* REVERTIDO a color principal */
   border-color: #2B2E27;
 }
+
 body.dark-mode #header .profile img {
   border-color: #2B2E27;
 }
+
 body.dark-mode #header .profile .social-links a {
   background: #2B2E27;
   color: #f0f6fc;
 }
+
 body.dark-mode #header .profile .social-links a:hover {
-  background: #149ddd; /* REVERTIDO a azul */
+  background: #149ddd;
+  /* REVERTIDO a azul */
 }
-body.dark-mode .nav-menu a, body.dark-mode .nav-menu a:focus {
+
+body.dark-mode .nav-menu a,
+body.dark-mode .nav-menu a:focus {
   color: #8b949e;
 }
-body.dark-mode .nav-menu a:hover, body.dark-mode .nav-menu .active, body.dark-mode .nav-menu li:hover > a {
+
+body.dark-mode .nav-menu a:hover,
+body.dark-mode .nav-menu .active,
+body.dark-mode .nav-menu li:hover>a {
   color: #f0f6fc;
 }
-body.dark-mode .nav-menu a i, body.dark-mode .nav-menu a:focus i {
+
+body.dark-mode .nav-menu a i,
+body.dark-mode .nav-menu a:focus i {
   color: #8b949e;
 }
-body.dark-mode .nav-menu a:hover i, body.dark-mode .nav-menu .active i, body.dark-mode .nav-menu li:hover > a i {
-  color: #149ddd; /* REVERTIDO a azul */
+
+body.dark-mode .nav-menu a:hover i,
+body.dark-mode .nav-menu .active i,
+body.dark-mode .nav-menu li:hover>a i {
+  color: #149ddd;
+  /* REVERTIDO a azul */
 }
 
 /* --- Tarjetas y Elementos de UI --- */
@@ -364,99 +722,124 @@ body.dark-mode .pricing-content-wrapper {
   background: #1B1B1B;
   box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.4);
 }
+
 body.dark-mode .resume .resume-item {
-    border-left-color: #2B2E27;
+  border-left-color: #2B2E27;
 }
+
 body.dark-mode .resume .resume-item::before {
-    background: #100C08;
-    border-color: #149ddd; /* REVERTIDO a azul */
+  background: #100C08;
+  border-color: #149ddd;
+  /* REVERTIDO a azul */
 }
+
 body.dark-mode .resume .resume-item h5 {
-    background: #2B2E27;
-    color: #f0f6fc;
+  background: #2B2E27;
+  color: #f0f6fc;
 }
+
 body.dark-mode .skills .progress-bar-wrap {
-    background: #2E2D2D;
+  background: #2E2D2D;
 }
+
 body.dark-mode .contact .info i {
-    background: #2B2E27;
-    color: #149ddd; /* REVERTIDO a azul */
+  background: #2B2E27;
+  color: #149ddd;
+  /* REVERTIDO a azul */
 }
+
 body.dark-mode .contact .info .email:hover i,
 body.dark-mode .contact .info .address:hover i,
 body.dark-mode .contact .info .phone:hover i {
-    background: #149ddd; /* REVERTIDO a azul */
-    color: #fff;
+  background: #149ddd;
+  /* REVERTIDO a azul */
+  color: #fff;
 }
+
 body.dark-mode .contact .php-email-form input,
 body.dark-mode .contact .php-email-form textarea {
-    background: #1b1b1b;
-    border-color: #36454F;
-    color: #f0f6fc;
-    border-radius: 16px;
+  background: #1b1b1b;
+  border-color: #36454F;
+  color: #f0f6fc;
+  border-radius: 16px;
 }
+
 body.dark-mode .pricing .pricing-item.featured {
-    border-color: #2E2D2D;
+  border-color: #2E2D2D;
 }
 
 /* --- Testimonios --- */
 body.dark-mode .testimonials .testimonial-item p {
-    background: #1B1B1B;
-    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.3);
+  background: #1B1B1B;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.3);
 }
+
 body.dark-mode .testimonials .testimonial-item p::after {
-    border-top-color: #1B1B1B;
+  border-top-color: #1B1B1B;
 }
 
 /* --- Filtros de Portafolio --- */
 body.dark-mode .portfolio #portfolio-flters {
-    background: #1B1B1B;
+  background: #1B1B1B;
 }
+
 body.dark-mode .portfolio #portfolio-flters li {
-    color: #c9d1d9;
+  color: #c9d1d9;
 }
+
 body.dark-mode .portfolio #portfolio-flters li:hover,
 body.dark-mode .portfolio #portfolio-flters li.filter-active {
-    color: #149ddd; /* REVERTIDO a azul */
+  color: #149ddd;
+  /* REVERTIDO a azul */
 }
 
 /* --- Botones Principales (Hero, Contacto) --- */
 body.dark-mode #hero .btn-lg,
 body.dark-mode .contact .php-email-form button[type=submit] {
-    color: #f0f6fc;
-    border: 2px solid #149ddd; /* REVERTIDO a azul */
-    background: transparent;
-    padding: 10px 25px;
-    font-size: 16px;
-    border-radius: 50px;
+  color: #f0f6fc;
+  border: 2px solid #149ddd;
+  /* REVERTIDO a azul */
+  background: transparent;
+  padding: 10px 25px;
+  font-size: 16px;
+  border-radius: 50px;
 }
+
 body.dark-mode #hero .btn-lg:hover,
 body.dark-mode .contact .php-email-form button[type=submit]:hover {
-    background: #149ddd; /* REVERTIDO a azul */
-    color: #100C08;
+  background: #149ddd;
+  /* REVERTIDO a azul */
+  color: #100C08;
 }
 
 /* --- Botones Desplegables ("Ver más", "Ver Experiencia") --- */
 body.dark-mode .toggle-features,
 body.dark-mode .btn-toggle-section {
-    background-color: transparent;
-    color: #149ddd; /* REVERTIDO a azul */
-    border-color: #149ddd; /* REVERTIDO a azul */
+  background-color: transparent;
+  color: #149ddd;
+  /* REVERTIDO a azul */
+  border-color: #149ddd;
+  /* REVERTIDO a azul */
 }
+
 body.dark-mode .toggle-features:hover,
 body.dark-mode .btn-toggle-section:hover {
-    background-color: #149ddd; /* REVERTIDO a azul */
-    color: #100C08;
+  background-color: #149ddd;
+  /* REVERTIDO a azul */
+  color: #100C08;
 }
 
 /* --- Botones Flotantes en Dark Mode --- */
 body.dark-mode .back-to-top {
-    background-color: #2B2E27;
-    color: #149ddd; /* REVERTIDO a azul */
+  background-color: #2B2E27;
+  color: #149ddd;
+  /* REVERTIDO a azul */
 }
+
 body.dark-mode .back-to-top:hover {
-    background-color: #149ddd; /* REVERTIDO a azul */
-    color: #100C08;
+  background-color: #149ddd;
+  /* REVERTIDO a azul */
+  color: #100C08;
 }
 
 /* --- CORRECCIÓN: Fondo de las tarjetas de Contacto --- */
@@ -469,28 +852,28 @@ body.dark-mode .contact .php-email-form {
 
 /* CAMBIO: Contenedor del mapa de Google Maps */
 .contact .info .maps {
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 /* CAMBIO: El iframe del mapa en sí */
 .contact .info .maps iframe {
-    border-radius: 16px;
-    border: none;
+  border-radius: 16px;
+  border: none;
 }
 
 /* CAMBIO: Imágenes del Portafolio */
 .portfolio-item img {
-    border-radius: 16px;
-    transition: all 0.3s ease-in-out;
-    transform: translateZ(0);
+  border-radius: 16px;
+  transition: all 0.3s ease-in-out;
+  transform: translateZ(0);
 }
 
 /* Es importante que el contenedor de la imagen también tenga overflow: hidden; si la imagen se sale */
 .portfolio .portfolio-wrap {
-    border-radius: 16px;
-    overflow: hidden;
+  border-radius: 16px;
+  overflow: hidden;
 }
 
 /* ======================================================================= */
@@ -498,10 +881,77 @@ body.dark-mode .contact .php-email-form {
 /* ======================================================================= */
 
 #hero-animation-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* Coloca el canvas detrás del contenido */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  /* Coloca el canvas detrás del contenido */
+}
+
+/* --- ESTILOS PARA LA FLECHA EN LA SECCIÓN HERO (FORMA DE "V" DE BORDES) --- */
+.custom-arrow-container {
+  position: absolute;
+  bottom: -120px;
+  /* Ajusta la distancia desde la parte inferior, puedes modificar este valor */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-arrow {
+  position: relative;
+  /* Contenedor para el pseudo-elemento */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  /* Tamaño del área de la flecha */
+  height: 60px;
+  background: transparent;
+  transition: transform 0.3s ease-in-out;
+  animation: zoom-pulse 2s infinite;
+  /* ¡Añade la animación de zoom/pulso! */
+}
+
+.custom-arrow::before {
+  content: '';
+  position: absolute;
+  width: 50px;
+  /* Ancho de rgb(3, 1, 1)echa */
+  height: 50px;
+  /* Altura de la flecha */
+  border-right: 10px solid white;
+  /* Borde derecho grueso */
+  border-bottom: 10px solid white;
+  /* Borde inferior grueso */
+  transform: rotate(45deg);
+  /* Rotación para formar la punta */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.custom-arrow:hover {
+  transform: scale(1.2);
+  /* Efecto de zoom sutil al pasar el mouse */
+  animation: none;
+  /* ¡Detiene la animación al pasar el ratón! */
+}
+
+/* Animación de Keyframes */
+@keyframes zoom-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

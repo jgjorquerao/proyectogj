@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Lógica del Menú para MÓVILES (Original de la plantilla) ---
-    on('click', '.mobile-nav-toggle', function(e) {
+    on('click', '.mobile-nav-toggle', function (e) {
         select('body').classList.toggle('mobile-nav-active');
         this.classList.toggle('bi-list');
         this.classList.toggle('bi-x');
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 filter: '.filter-videos'
             });
             let portfolioFilters = select('#portfolio-flters li', true);
-            on('click', '#portfolio-flters li', function(e) {
+            on('click', '#portfolio-flters li', function (e) {
                 e.preventDefault();
                 portfolioFilters.forEach(el => el.classList.remove('filter-active'));
                 this.classList.add('filter-active');
@@ -102,26 +102,26 @@ document.addEventListener('DOMContentLoaded', () => {
     GLightbox({ selector: '.portfolio-lightbox' });
 
     new Swiper('.testimonials-slider', {
-    modules: [Autoplay, Pagination], // Esta línea activa los módulos
-    speed: 600,
-    loop: true,
-    autoplay: {
-        delay: 5000,
-        disableOnInteraction: false
-    },
-    slidesPerView: 1,
-    spaceBetween: 20,
-    pagination: {
-        el: '.swiper-pagination',
-        type: 'bullets',
-        clickable: true
-    },
-    breakpoints: {
-        992: {
-            slidesPerView: 3,
+        modules: [Autoplay, Pagination], // Esta línea activa los módulos
+        speed: 600,
+        loop: true,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false
+        },
+        slidesPerView: 1,
+        spaceBetween: 20,
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'bullets',
+            clickable: true
+        },
+        breakpoints: {
+            992: {
+                slidesPerView: 3,
+            }
         }
-    }
-});
+    });
     const typed = select('.typed');
     if (typed) {
         let typed_strings = typed.getAttribute('data-typed-items').split(',');
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
         new Waypoint({
             element: skillsContent,
             offset: '25%',
-            handler: function(direction) {
+            handler: function (direction) {
                 let progress = select('.progress .progress-bar', true);
                 progress.forEach((el) => {
                     el.style.width = el.getAttribute('aria-valuenow') + '%';
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
             for (let i = 3; i < allFeatures.length; i++) {
                 allFeatures[i].classList.add('collapsible');
             }
-            toggleButton.addEventListener('click', function(e) {
+            toggleButton.addEventListener('click', function (e) {
                 e.preventDefault();
                 this.classList.toggle('active');
                 featureList.classList.toggle('expanded');
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-      // --- Lógica para controles de video del portafolio ---
+    // --- Lógica para controles de video del portafolio ---
     let currentlyPlayingVideo = null;
 
     document.querySelectorAll('.portfolio-item.filter-videos .portfolio-wrap').forEach(wrap => {
@@ -257,10 +257,10 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     });
 
-        // --- Lógica para el formulario de contacto con AJAX ---
+    // --- Lógica para el formulario de contacto con AJAX ---
     const contactForm = select('.php-email-form');
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', function (e) {
             e.preventDefault(); // Evita que la página se recargue
 
             let thisForm = this;
@@ -282,41 +282,41 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Accept': 'application/json',
                 }
             })
-            .then(response => {
-                // Si la respuesta del servidor es buena, la procesamos
-                if (response.ok) {
-                    return response.json();
-                }
-                // Si hay un error de servidor, lo lanzamos para que lo capture el .catch()
-                throw new Error('Hubo un problema con el servidor.');
-            })
-            .then(data => {
-                loading.style.display = 'none';
-                if (data.success) {
-                    // Si todo fue bien, muestra el mensaje de éxito
-                    sentMessage.style.display = 'block';
-                    thisForm.reset(); // Limpia los campos del formulario
-                } else {
-                    // Si el servidor devolvió un error, muestra el mensaje de error
-                    errorMessage.innerHTML = data.message || 'Ocurrió un error inesperado.';
+                .then(response => {
+                    // Si la respuesta del servidor es buena, la procesamos
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    // Si hay un error de servidor, lo lanzamos para que lo capture el .catch()
+                    throw new Error('Hubo un problema con el servidor.');
+                })
+                .then(data => {
+                    loading.style.display = 'none';
+                    if (data.success) {
+                        // Si todo fue bien, muestra el mensaje de éxito
+                        sentMessage.style.display = 'block';
+                        thisForm.reset(); // Limpia los campos del formulario
+                    } else {
+                        // Si el servidor devolvió un error, muestra el mensaje de error
+                        errorMessage.innerHTML = data.message || 'Ocurrió un error inesperado.';
+                        errorMessage.style.display = 'block';
+                    }
+                })
+                .catch((error) => {
+                    // Si hubo un error de red o de servidor, muestra un mensaje genérico
+                    loading.style.display = 'none';
+                    errorMessage.innerHTML = 'No se pudo conectar con el servidor. Por favor, revisa tu conexión a internet.';
                     errorMessage.style.display = 'block';
-                }
-            })
-            .catch((error) => {
-                // Si hubo un error de red o de servidor, muestra un mensaje genérico
-                loading.style.display = 'none';
-                errorMessage.innerHTML = 'No se pudo conectar con el servidor. Por favor, revisa tu conexión a internet.';
-                errorMessage.style.display = 'block';
-                console.error('Error en la solicitud Fetch:', error);
-            });
+                    console.error('Error en la solicitud Fetch:', error);
+                });
         });
     }
-        // --- Lógica para desplegar la sección de Resumen ---
+    // --- Lógica para desplegar la sección de Resumen ---
     const toggleResumeButton = select('#toggle-resume-button');
     if (toggleResumeButton) {
         const resumeContent = select('#resume-content');
         if (resumeContent) {
-            toggleResumeButton.addEventListener('click', function(e) {
+            toggleResumeButton.addEventListener('click', function (e) {
                 e.preventDefault();
                 this.classList.toggle('active');
                 resumeContent.classList.toggle('expanded');
@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createPieChart('illustratorChart', skillData.illustrator);
     createPieChart('gimpChart', skillData.gimp);
     createPieChart('metaAdsChart', skillData.metaAds);
-
+    
     // --- Lógica para la Animación 3D en el Hero ---
 const canvas = document.getElementById('hero-animation-canvas');
 if (!canvas) {
@@ -425,36 +425,78 @@ const ambientLight = new THREE.AmbientLight(0xffffff, 1);
 scene.add(ambientLight);
 
 const mouse = new THREE.Vector2();
-const cubeGroup = new THREE.Group();
-const cubes = [];
+const sphereGroup = new THREE.Group();
+const spheres = [];
 
-// Inicializar los cubos en una cuadrícula 3D
-function initCubes() {
-    cubeGroup.remove(...cubeGroup.children);
-    cubes.length = 0;
+// Inicializar las esferas en una cuadrícula 3D para formar una esfera grande
+function initSpheres() {
+    sphereGroup.remove(...sphereGroup.children);
+    spheres.length = 0;
 
-    const gridSize = 6; // ¡CLAVE! Reducimos el tamaño de la cuadrícula a 7x7x7
-    const cubeSize =1;
-    const spacing = 10;
+    const gridSize = 5;
+    const sphereSize = 0.25;
+    const spacing = 6.35;
 
-    // Crear la cuadrícula 3D de cubos
     for (let x = -gridSize; x <= gridSize; x++) {
         for (let y = -gridSize; y <= gridSize; y++) {
             for (let z = -gridSize; z <= gridSize; z++) {
-                const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
-                const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
-                const cube = new THREE.Mesh(geometry, material);
+                const distance = Math.sqrt(x * x + y * y + z * z);
+                if (distance > gridSize * 0.9) continue;
 
-                cube.position.set(x * spacing, y * spacing, z * spacing);
-                cubes.push(cube);
-                cubeGroup.add(cube);
+                const geometry = new THREE.SphereGeometry(sphereSize, 12, 12);
+                const material = new THREE.MeshBasicMaterial({ color: 0xcccccc });
+                const sphere = new THREE.Mesh(geometry, material);
+
+                sphere.position.set(x * spacing, y * spacing, z * spacing);
+                spheres.push(sphere);
+                sphereGroup.add(sphere);
             }
         }
     }
 
-    scene.add(cubeGroup);
-    cubeGroup.position.set(0, 0, 0);
+    scene.add(sphereGroup);
+    sphereGroup.position.set(0, 0, 0);
 }
+
+// --- CREACIÓN DEL FONDO CON DEGRADADO (CORREGIDO) ---
+// La lista de colores ahora se define fuera del bucle para no recrearla
+const backgroundColors = [
+    new THREE.Color(0x4A4A4A), new THREE.Color(0x2B2E27), new THREE.Color(0x333333), new THREE.Color(0x2A2A2A),
+    new THREE.Color(0x262626), new THREE.Color(0x36454F), new THREE.Color(0x343434), new THREE.Color(0x1F262A)
+];
+const backgroundColor1 = backgroundColors[(Math.floor(Math.random() * backgroundColors.length))];
+const backgroundColor2 = backgroundColors[(Math.floor(Math.random() * backgroundColors.length))];
+
+const backgroundGeometry = new THREE.PlaneGeometry(window.innerWidth * 2, window.innerHeight * 2);
+const backgroundMaterial = new THREE.ShaderMaterial({
+    uniforms: {
+        color1: { value: backgroundColor1 },
+        color2: { value: backgroundColor2 },
+        u_time: { value: 0.25 },
+    },
+    vertexShader: `
+        void main() {
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+    `,
+    fragmentShader: `
+        uniform vec3 color1;
+        uniform vec3 color2;
+        uniform float u_time;
+
+        void main() {
+            vec2 uv = gl_FragCoord.xy / vec2(gl_FragCoord.x, gl_FragCoord.y);
+            float gradient = (sin(uv.x * 3.0 + u_time) + 1.0) / 2.0;
+            vec3 color = mix(color1, color2, gradient);
+            gl_FragColor = vec4(color, 1.0);
+        }
+    `,
+    depthWrite: false
+});
+
+const backgroundMesh = new THREE.Mesh(backgroundGeometry, backgroundMaterial);
+backgroundMesh.position.z = -500;
+scene.add(backgroundMesh);
 
 // Detección de mouse
 window.addEventListener('mousemove', (event) => {
@@ -467,13 +509,16 @@ function animate() {
     requestAnimationFrame(animate);
 
     // Rotación automática por defecto
-    cubeGroup.rotation.x += 0.005;
-    cubeGroup.rotation.y += 0.005;
+    sphereGroup.rotation.x += 0.0025;
+    sphereGroup.rotation.y += 0.0025;
 
     // Rotación adicional basada en el mouse
-    const mouseRotationSpeed = 0.02;
-    cubeGroup.rotation.x += mouse.y * mouseRotationSpeed;
-    cubeGroup.rotation.y += mouse.x * mouseRotationSpeed;
+    const mouseRotationSpeed = 0.005;
+    sphereGroup.rotation.x += mouse.y * mouseRotationSpeed;
+    sphereGroup.rotation.y += mouse.x * mouseRotationSpeed;
+
+    // Actualizar el tiempo para la animación del degradado
+    backgroundMaterial.uniforms.u_time.value = performance.now() / 1000;
 
     renderer.render(scene, camera);
 }
@@ -483,10 +528,17 @@ window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+
+    // Recrear el fondo para ajustar el tamaño del viewport
+    scene.remove(backgroundMesh);
+    const newBackgroundGeometry = new THREE.PlaneGeometry(window.innerWidth * 2, window.innerHeight * 2);
+    const newBackgroundMesh = new THREE.Mesh(newBackgroundGeometry, backgroundMaterial);
+    newBackgroundMesh.position.z = -500;
+    scene.add(newBackgroundMesh);
 });
 
 // Inicio de la animación
-camera.position.z = 200; // ¡CLAVE! Ajustamos la cámara para que el cubo se vea más pequeño
-initCubes();
+camera.position.z = 50;
+initSpheres();
 animate();
-}); // Fin del DOMContentLoaded
+});
