@@ -1009,3 +1009,61 @@ body.dark-mode .contact .php-email-form {
 .portfolio-item .portfolio-wrap:hover img {
     transform: scale(1.1); /* Puedes cambiar este valor (ej: 1.05 o 1.2) */
 }
+
+/* ======================================================================= */
+/* ESTILOS PARA FILTROS DEL PORTAFOLIO (EFECTO CRISTAL / GLASSMORPHISM)    */
+/* ======================================================================= */
+
+/* 1. Contenedor principal de los filtros */
+.portfolio #portfolio-flters {
+  /* CAMBIO: Un fondo más oscuro y sólido para un efecto de vidrio ahumado */
+  background: rgba(40, 40, 40, 0.75);
+  
+  /* El desenfoque que crea el efecto de vidrio esmerilado */
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  
+  /* CAMBIO: Un borde ligeramente más visible para definir el panel */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  
+  /* Mantenemos la forma de píldora */
+  border-radius: 50px;
+  
+  /* CAMBIO: Una sombra más pronunciada para darle profundidad y separarlo del fondo */
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  
+  padding: 10px 20px; /* Ajustamos el padding para que se vea mejor */
+  margin-bottom: 40px; /* Aumentamos el espacio inferior */
+}
+
+/* 2. Estilo de cada botón (li) dentro de la barra */
+.portfolio #portfolio-flters li {
+  color: #f0f6fc; /* Texto de color claro para que contraste */
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-radius: 50px; /* Hacemos que cada item también sea redondeado */
+  padding: 10px 20px;
+  margin: 0 5px; /* Espacio entre botones */
+  background: transparent; /* Sin fondo por defecto */
+}
+
+/* 3. Estilo para el botón ACTIVO */
+.portfolio #portfolio-flters li.filter-active {
+  /* El botón activo tiene un fondo blanco más sólido para destacar */
+  background: rgba(46, 46, 46, 0.9);
+  color: #040b14; /* Texto oscuro para el botón activo */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 4. Estilo para el hover (cuando el mouse pasa por encima) */
+.portfolio #portfolio-flters li:hover {
+  /* Al pasar el mouse, se ilumina ligeramente si no está activo */
+  background: rgba(255, 255, 255, 0.2);
+  color: #6b6b6b;
+}
+
+/* Hacemos que el hover no afecte al botón que ya está activo */
+.portfolio #portfolio-flters li.filter-active:hover {
+  background: rgba(46, 46, 46, 0.9);
+  color: #040b14;
+}
