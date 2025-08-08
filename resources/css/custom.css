@@ -2563,9 +2563,9 @@ body.dark-mode .contact .php-email-form {
 
 /* CORRECCIÓN: Logo más grande */
 #header .logo img {
-  max-height: 25px !important;
-  height: 25px !important;
-  width: auto !important;
+  max-height: 25px !important;/* CORRECCIÓN: Logo más grande */
+  height: 25px !important;/* CORRECCIÓN: Logo más grande */
+  width: auto !important;/* CORRECCIÓN: Logo más grande */
 }
 
 /* Navegación Principal */
