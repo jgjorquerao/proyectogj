@@ -2270,7 +2270,7 @@ body.dark-mode .btn-toggle-section:hover {
 /* --- Botones Flotantes en Dark Mode --- */
 body.dark-mode .back-to-top {
   background-color: #2B2E27;
-  color: ##c2c2c2;
+  color: #c2c2c2;
   /* REVERTIDO a azul */
 }
 
@@ -2563,7 +2563,9 @@ body.dark-mode .contact .php-email-form {
 
 /* CORRECCIÓN: Logo más grande */
 #header .logo img {
-  max-height: 25px;
+  max-height: 25px !important;
+  height: 25px !important;
+  width: auto !important;
 }
 
 /* Navegación Principal */
