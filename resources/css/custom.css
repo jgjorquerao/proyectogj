@@ -1577,45 +1577,6 @@ section {
   transform: scale(0.95);
   transition-duration: 0.1s;
 }
-
-/* --- LÓGICA MÓVIL/ESCRITORIO --- */
-@media (max-width: 1199px) {
-
-  #hideSidebarButton,
-  #toggleIconBody {
-    display: none !important;
-  }
-}
-
-.mobile-nav-toggle {
-  position: fixed;
-  right: 15px;
-  top: 15px;
-  z-index: 9998;
-  background: rgba(112, 112, 112, 0.9);
-  /* REVERTIDO a AZUL */
-  font-size: 28px;
-  transition: all 0.4s;
-  width: 40px;
-  height: 40px;
-  border-radius: 50px;
-  color: #fff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.mobile-nav-active .mobile-nav-toggle {
-  background-color: #d9232d;
-}
-
-body.mobile-nav-active #header {
-  left: 0 !important;
-}
-
-/* ... (custom.css hasta la sección de Gráficos Circulares) ... */
-/* ... (custom.css hasta la sección de Gráficos Circulares) ... */
-
 /* ======================================================================= */
 /* ESTILOS PARA GRÁFICOS CIRCULARES DE HABILIDADES (SOLUCIÓN FINAL 3x2)    */
 /* ======================================================================= */
@@ -1759,14 +1720,14 @@ body.dark-mode .skills-content .skill-item h4 {
   width: 12px;
   height: 12px;
   background-color: #fff;
-  border: 1px solid #149ddd;
+  border: 1px solid #c2c2c2;
   /* REVERTIDO a AZUL */
   opacity: 1;
   margin: 0 5px;
 }
 
 .testimonials .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: #149ddd;
+  background-color: #c2c2c2;
   /* REVERTIDO a AZUL */
 }
 
@@ -2653,80 +2614,96 @@ body.dark-mode .contact .php-email-form {
   padding-top: 5px;
 }
 
-/* --- Ocultar elementos del layout antiguo --- */
-#header .profile,
-#hideSidebarButton,
-#toggleIconBody {
-  display: none !important;
-}
-
 /* --- Adaptación para Móviles --- */
-@media (max-width: 992px) {
+@media (max-width: 1200px) {
+  /* Ocultamos las redes sociales en pantallas más pequeñas para dar espacio al menú */
   .header-social-links {
     display: none;
   }
 }
 
 .mobile-nav-toggle {
-  color: #fff;
-  font-size: 28px;
-  cursor: pointer;
-  display: none;
-  line-height: 0;
-  transition: 0.5s;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    display: none;
+    line-height: 0;
+    transition: 0.5s;
 }
 
+/* CORRECCIÓN #1: Media query para activar la vista móvil */
 @media (max-width: 991px) {
-  .mobile-nav-toggle {
-    display: block;
-  }
-
-  .navbar ul {
-    display: none;
-  }
+    /* Ocultamos el menú de escritorio */
+    .navbar ul {
+        display: none !important;
+    }
+    /* Mostramos el ícono de hamburguesa */
+    .mobile-nav-toggle {
+        display: block !important;
+    }
+    /* Reducimos el padding del header en móvil */
+    #header .container {
+        padding: 0 15px !important;
+    }
+    /* Reducimos el tamaño del logo en móvil */
+    #header .logo img {
+        max-height: 25px !important;
+        height: 25px !important;
+    }
+     /* CORRECCIÓN: Hacemos que las redes sociales se vean */
+    .header-social-links {
+        display: flex !important;
+    }
+    /* CORRECCIÓN: Centramos el logo y agrupamos íconos a la derecha */
+    #header .container {
+        justify-content: flex-start !important; /* Alineamos todo al inicio */
+    }
+    #header .logo {
+        margin-right: auto; /* Empujamos todo lo demás a la derecha */
+    }
+    #header .navbar {
+        margin-left: 0; /* Reseteamos el margen */
+    }
 }
 
 .navbar-mobile {
-  position: fixed;
-  overflow: hidden;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  background: rgba(4, 5, 5, 0.9);
-  transition: 0.3s;
-  z-index: 999;
+    position: fixed;
+    overflow: hidden;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(4, 5, 5, 0.9);
+    transition: 0.3s;
+    z-index: 999;
 }
 
 .navbar-mobile .mobile-nav-toggle {
-  position: absolute;
-  top: 15px;
-  right: 15px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
 }
 
 .navbar-mobile ul {
-  display: block;
-  position: absolute;
-  top: 55px;
-  right: 15px;
-  bottom: 15px;
-  left: 15px;
-  padding: 10px 0;
-  border-radius: 10px;
-  background-color: #0d0d0d;
-  overflow-y: auto;
-  transition: 0.3s;
+    display: block;
+    position: absolute;
+    top: 55px;
+    right: 15px;
+    bottom: 15px;
+    left: 15px;
+    padding: 10px 0;
+    border-radius: 10px;
+    background-color: #0d0d0d;
+    overflow-y: auto;
+    transition: 0.3s;
 }
 
-.navbar-mobile a,
-.navbar-mobile a:focus {
-  padding: 10px 20px;
-  font-size: 15px;
-  color: #f0f6fc;
+.navbar-mobile a, .navbar-mobile a:focus {
+    padding: 10px 20px;
+    font-size: 15px;
+    color: #f0f6fc;
 }
 
-.navbar-mobile a:hover,
-.navbar-mobile .active,
-.navbar-mobile li:hover>a {
-  color: #58a6ff;
+.navbar-mobile a:hover, .navbar-mobile .active, .navbar-mobile li:hover > a {
+    color: #58a6ff;
 }

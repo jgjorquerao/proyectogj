@@ -2,7 +2,7 @@
     <div class="container d-flex align-items-center justify-content-between">
 
         <!-- Logo -->
-        <a href="index.html" class="logo">
+        <a href="" class="logo">
             <img src="{{ asset('img/gylerdigital1.png') }}" alt="Logo Gyler Digital" class="img-fluid">
         </a>
 
@@ -16,7 +16,6 @@
                 <li><a class="nav-link scrollto" href="#pricing">Planes</a></li>
                 <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
             </ul>
-            <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>
 
         <!-- Redes Sociales (Opcional, puedes moverlas o quitarlas) -->
