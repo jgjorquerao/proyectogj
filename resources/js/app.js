@@ -1,5 +1,4 @@
 // --- 1. IMPORTAR ESTILOS ---
-import '../css/style.css';
 import '../css/custom.css';
 //import 'aos/dist/aos.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -38,46 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-
-    // --- Lógica del Menú para MÓVILES (Original de la plantilla) ---
-    on('click', '.mobile-nav-toggle', function (e) {
-        select('body').classList.toggle('mobile-nav-active');
-        this.classList.toggle('bi-list');
-        this.classList.toggle('bi-x');
-    });
-
-    // --- Lógica del Menú para ESCRITORIO (Sidebar) ---
-    const header = select('#header');
-    const footer = select('#footer');
-    const main = select('#main');
-    const hideButton = select('#hideSidebarButton');
-    const showButton = select('#toggleIconBody');
-
-    // --- ESTADO INICIAL: Sidebar oculto por defecto en escritorio ---
-    if (window.innerWidth >= 1200) { // Solo se aplica en vistas de escritorio
-        if (header) header.classList.add('header-hidden');
-        if (footer) footer.classList.add('footer-hidden');
-        if (main) main.style.marginLeft = '0px';
-        if (hideButton) hideButton.classList.add('d-none');
-        if (showButton) showButton.classList.remove('d-none');
-    }
-
-    // --- Eventos de Clic para mostrar/ocultar ---
-    on('click', '#hideSidebarButton', () => {
-        if (header) header.classList.add('header-hidden');
-        if (footer) footer.classList.add('footer-hidden');
-        if (main) main.style.marginLeft = '0px';
-        if (hideButton) hideButton.classList.add('d-none');
-        if (showButton) showButton.classList.remove('d-none');
-    });
-
-    on('click', '#toggleIconBody', () => {
-        if (header) header.classList.remove('header-hidden');
-        if (footer) footer.classList.remove('footer-hidden');
-        if (main) main.style.marginLeft = '300px';
-        if (showButton) showButton.classList.add('d-none');
-        if (hideButton) hideButton.classList.remove('d-none');
-    });
 
     // --- Inicialización de otras librerías ---
     new PureCounter();
