@@ -22,6 +22,7 @@ import 'waypoints/lib/noframework.waypoints.js';
 // --- 3. LÓGICA PRINCIPAL ---
 document.addEventListener('DOMContentLoaded', () => {
 
+
     const select = (el, all = false) => {
         el = el.trim();
         return all ? [...document.querySelectorAll(el)] : document.querySelector(el);
@@ -359,86 +360,86 @@ document.addEventListener('DOMContentLoaded', () => {
     createPieChart('illustratorChart', skillData.illustrator);
     createPieChart('gimpChart', skillData.gimp);
     createPieChart('metaAdsChart', skillData.metaAds);
-    
+
     // --- Lógica para la Animación 3D en el Hero ---
-const canvas = document.getElementById('hero-animation-canvas');
-if (!canvas) {
-    console.error('Canvas element not found!');
-    return;
-}
-
-// Crear la escena, la cámara y el renderer
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-
-// Configurar el renderer
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
-
-// Colocar la cámara
-camera.position.z = 100;
-
-// Configurar la luz
-const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-scene.add(ambientLight);
-
-const mouse = new THREE.Vector2();
-const sphereGroup = new THREE.Group();
-const spheres = [];
-
-// Inicializar las esferas en una cuadrícula 3D para formar una esfera grande
-function initSpheres() {
-    sphereGroup.remove(...sphereGroup.children);
-    spheres.length = 0;
-
-    const gridSize = 5;
-    const sphereSize = 0.25;
-    const spacing = 6.35;
-
-    for (let x = -gridSize; x <= gridSize; x++) {
-        for (let y = -gridSize; y <= gridSize; y++) {
-            for (let z = -gridSize; z <= gridSize; z++) {
-                const distance = Math.sqrt(x * x + y * y + z * z);
-                if (distance > gridSize * 0.9) continue;
-
-                const geometry = new THREE.SphereGeometry(sphereSize, 12, 12);
-                const material = new THREE.MeshBasicMaterial({ color: 0xcccccc });
-                const sphere = new THREE.Mesh(geometry, material);
-
-                sphere.position.set(x * spacing, y * spacing, z * spacing);
-                spheres.push(sphere);
-                sphereGroup.add(sphere);
-            }
-        }
+    const canvas = document.getElementById('hero-animation-canvas');
+    if (!canvas) {
+        console.error('Canvas element not found!');
+        return;
     }
 
-    scene.add(sphereGroup);
-    sphereGroup.position.set(0, 0, 0);
-}
+    // Crear la escena, la cámara y el renderer
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
 
-// --- CREACIÓN DEL FONDO CON DEGRADADO (CORREGIDO) ---
-// La lista de colores ahora se define fuera del bucle para no recrearla
-const backgroundColors = [
-    new THREE.Color(0x4A4A4A), new THREE.Color(0x2B2E27), new THREE.Color(0x333333), new THREE.Color(0x2A2A2A),
-    new THREE.Color(0x262626), new THREE.Color(0x36454F), new THREE.Color(0x343434), new THREE.Color(0x1F262A)
-];
-const backgroundColor1 = backgroundColors[(Math.floor(Math.random() * backgroundColors.length))];
-const backgroundColor2 = backgroundColors[(Math.floor(Math.random() * backgroundColors.length))];
+    // Configurar el renderer
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
 
-const backgroundGeometry = new THREE.PlaneGeometry(window.innerWidth * 2, window.innerHeight * 2);
-const backgroundMaterial = new THREE.ShaderMaterial({
-    uniforms: {
-        color1: { value: backgroundColor1 },
-        color2: { value: backgroundColor2 },
-        u_time: { value: 0.25 },
-    },
-    vertexShader: `
+    // Colocar la cámara
+    camera.position.z = 100;
+
+    // Configurar la luz
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    scene.add(ambientLight);
+
+    const mouse = new THREE.Vector2();
+    const sphereGroup = new THREE.Group();
+    const spheres = [];
+
+    // Inicializar las esferas en una cuadrícula 3D para formar una esfera grande
+    function initSpheres() {
+        sphereGroup.remove(...sphereGroup.children);
+        spheres.length = 0;
+
+        const gridSize = 5;
+        const sphereSize = 0.25;
+        const spacing = 6.35;
+
+        for (let x = -gridSize; x <= gridSize; x++) {
+            for (let y = -gridSize; y <= gridSize; y++) {
+                for (let z = -gridSize; z <= gridSize; z++) {
+                    const distance = Math.sqrt(x * x + y * y + z * z);
+                    if (distance > gridSize * 0.9) continue;
+
+                    const geometry = new THREE.SphereGeometry(sphereSize, 12, 12);
+                    const material = new THREE.MeshBasicMaterial({ color: 0xcccccc });
+                    const sphere = new THREE.Mesh(geometry, material);
+
+                    sphere.position.set(x * spacing, y * spacing, z * spacing);
+                    spheres.push(sphere);
+                    sphereGroup.add(sphere);
+                }
+            }
+        }
+
+        scene.add(sphereGroup);
+        sphereGroup.position.set(0, 0, 0);
+    }
+
+    // --- CREACIÓN DEL FONDO CON DEGRADADO (CORREGIDO) ---
+    // La lista de colores ahora se define fuera del bucle para no recrearla
+    const backgroundColors = [
+        new THREE.Color(0x4A4A4A), new THREE.Color(0x2B2E27), new THREE.Color(0x333333), new THREE.Color(0x2A2A2A),
+        new THREE.Color(0x262626), new THREE.Color(0x36454F), new THREE.Color(0x343434), new THREE.Color(0x1F262A)
+    ];
+    const backgroundColor1 = backgroundColors[(Math.floor(Math.random() * backgroundColors.length))];
+    const backgroundColor2 = backgroundColors[(Math.floor(Math.random() * backgroundColors.length))];
+
+    const backgroundGeometry = new THREE.PlaneGeometry(window.innerWidth * 2, window.innerHeight * 2);
+    const backgroundMaterial = new THREE.ShaderMaterial({
+        uniforms: {
+            color1: { value: backgroundColor1 },
+            color2: { value: backgroundColor2 },
+            u_time: { value: 0.25 },
+        },
+        vertexShader: `
         void main() {
             gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }
     `,
-    fragmentShader: `
+        fragmentShader: `
         uniform vec3 color1;
         uniform vec3 color2;
         uniform float u_time;
@@ -450,54 +451,404 @@ const backgroundMaterial = new THREE.ShaderMaterial({
             gl_FragColor = vec4(color, 1.0);
         }
     `,
-    depthWrite: false
+        depthWrite: false
+    });
+
+    const backgroundMesh = new THREE.Mesh(backgroundGeometry, backgroundMaterial);
+    backgroundMesh.position.z = -500;
+    scene.add(backgroundMesh);
+
+    // Detección de mouse
+    window.addEventListener('mousemove', (event) => {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    // Bucle de animación
+    function animate() {
+        requestAnimationFrame(animate);
+
+        // Rotación automática por defecto
+        sphereGroup.rotation.x += 0.0025;
+        sphereGroup.rotation.y += 0.0025;
+
+        // Rotación adicional basada en el mouse
+        const mouseRotationSpeed = 0.005;
+        sphereGroup.rotation.x += mouse.y * mouseRotationSpeed;
+        sphereGroup.rotation.y += mouse.x * mouseRotationSpeed;
+
+        // Actualizar el tiempo para la animación del degradado
+        backgroundMaterial.uniforms.u_time.value = performance.now() / 1000;
+
+        renderer.render(scene, camera);
+    }
+
+    // Evento de redimensionamiento de ventana
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // Recrear el fondo para ajustar el tamaño del viewport
+        scene.remove(backgroundMesh);
+        const newBackgroundGeometry = new THREE.PlaneGeometry(window.innerWidth * 2, window.innerHeight * 2);
+        const newBackgroundMesh = new THREE.Mesh(newBackgroundGeometry, backgroundMaterial);
+        newBackgroundMesh.position.z = -500;
+        scene.add(newBackgroundMesh);
+    });
+
+    // Inicio de la animación// Inicio de la animación
+    camera.position.z = 50;
+    initSpheres();
+    animate();
+
+    const slider = document.querySelector('.logos-slider');
+
+    if (slider) {
+        const slideContainer = slider.querySelector('.logos-slide');
+
+        // --- Lógica para el carrusel infinito ---
+        // 1. Clonar todos los logos
+        const originalLogos = slideContainer.innerHTML;
+        // 2. Duplicar el contenido para crear el bucle
+        slideContainer.innerHTML += originalLogos;
+
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        let velocity = 0;
+        let momentumID;
+        // CORRECCIÓN: Límite máximo para la velocidad de la inercia
+        const maxVelocity = 40;
+
+        // Función para actualizar la posición y crear el bucle infinito
+        const updateScroll = () => {
+            // Si se desplaza más allá de la mitad (donde empiezan los clones)
+            if (slider.scrollLeft >= slideContainer.offsetWidth / 2) {
+                // Vuelve al principio sin que el usuario lo note
+                slider.scrollLeft -= slideContainer.offsetWidth / 2;
+                scrollLeft = slider.scrollLeft; // Actualiza la posición de scroll para el próximo arrastre
+            }
+            // Si se desplaza hacia la izquierda antes del inicio
+            else if (slider.scrollLeft <= 0) {
+                // Vuelve al final (al inicio de los clones) sin que el usuario lo note
+                slider.scrollLeft += slideContainer.offsetWidth / 2;
+                scrollLeft = slider.scrollLeft; // Actualiza la posición de scroll
+            }
+        };
+
+        const startDragging = (e) => {
+            isDown = true;
+            slider.classList.add('active');
+            startX = e.pageX || e.touches[0].pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+            cancelAnimationFrame(momentumID);
+            velocity = 0;
+        };
+
+        const stopDragging = () => {
+            isDown = false;
+            slider.classList.remove('active');
+            beginMomentum();
+        };
+
+        const whileDragging = (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+
+            const x = e.pageX || e.touches[0].pageX - slider.offsetLeft;
+            const walk = (x - startX);
+            const prevScrollLeft = slider.scrollLeft;
+            slider.scrollLeft = scrollLeft - walk;
+
+            velocity = slider.scrollLeft - prevScrollLeft;
+
+            // Comprueba y actualiza el scroll para el bucle infinito MIENTRAS se arrastra
+            updateScroll();
+        };
+
+        const beginMomentum = () => {
+            cancelAnimationFrame(momentumID);
+            const momentumLoop = () => {
+                slider.scrollLeft += velocity;
+                velocity *= 0.95; // Fricción
+
+                // Comprueba y actualiza el scroll durante la inercia
+                updateScroll();
+
+                if (Math.abs(velocity) > 0.5) {
+                    momentumID = requestAnimationFrame(momentumLoop);
+                }
+            };
+            momentumLoop();
+        };
+
+        // Asigna los eventos
+        slider.addEventListener('mousedown', startDragging);
+        slider.addEventListener('mouseleave', stopDragging);
+        slider.addEventListener('mouseup', stopDragging);
+        slider.addEventListener('mousemove', whileDragging);
+        slider.addEventListener('touchstart', startDragging);
+        slider.addEventListener('touchend', stopDragging);
+        slider.addEventListener('touchmove', whileDragging);
+        // CORRECCIÓN PARA MÓVIL
+        slider.addEventListener('touchmove', whileDragging, { passive: false });
+        // Evento de scroll para el caso de usar la barra de scroll (aunque esté oculta)
+        slider.addEventListener('scroll', updateScroll);
+    }
+
+    // Selecciona el contenedor de los filtros del portafolio.
+    const filtersContainer = document.querySelector('.portfolio #portfolio-flters');
+
+    // Solo ejecuta el código si el contenedor existe.
+    if (filtersContainer) {
+        const maxTilt = 10; // Grados máximos de inclinación. Ajústalo para un efecto más o menos sutil.
+
+        // Evento que se dispara cuando el mouse se mueve sobre el contenedor.
+        filtersContainer.addEventListener('mousemove', (e) => {
+            const rect = filtersContainer.getBoundingClientRect();
+
+            // Calcula la posición del mouse (X, Y) dentro del elemento.
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Calcula el centro del elemento.
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            // Calcula la rotación en los ejes X e Y.
+            // El valor se normaliza (-1 a 1) y se multiplica por la inclinación máxima.
+            const rotateX = ((y - centerY) / centerY) * -maxTilt;
+            const rotateY = ((x - centerX) / centerX) * maxTilt;
+
+            // Aplica la transformación 3D al estilo del elemento.
+            filtersContainer.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        // Evento que se dispara cuando el mouse sale del contenedor.
+        filtersContainer.addEventListener('mouseleave', () => {
+            // Resetea la transformación para que vuelva a su estado original.
+            filtersContainer.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        });
+    }
+    createPieChart();
+    initSkillsChartsAnimation();
+    initVideoCarousel();
+
 });
+/**
+ * Inicializa el carrusel de videos del portafolio con autoplay.
+ */
+function initVideoCarousel() {
+    const container = document.querySelector('.video-carousel-container');
+    if (!container) return;
 
-const backgroundMesh = new THREE.Mesh(backgroundGeometry, backgroundMaterial);
-backgroundMesh.position.z = -500;
-scene.add(backgroundMesh);
+    const slider = container.querySelector('.video-carousel-slider');
+    const track = container.querySelector('.video-carousel-track');
+    const prevButton = document.getElementById('prevVideo');
+    const nextButton = document.getElementById('nextVideo');
+    const slides = Array.from(track.children);
 
-// Detección de mouse
-window.addEventListener('mousemove', (event) => {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-});
+    if (!slider || !track || !prevButton || !nextButton || slides.length === 0) {
+        console.error('Faltan elementos para inicializar el carrusel de videos.');
+        return;
+    }
 
-// Bucle de animación
-function animate() {
-    requestAnimationFrame(animate);
+    let currentIndex = 0;
+    let isDragging = false;
+    let startPos = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+    let animationID;
+    let autoPlayInterval;
+    const autoPlayDelay = 5000; // 5 segundos
 
-    // Rotación automática por defecto
-    sphereGroup.rotation.x += 0.0025;
-    sphereGroup.rotation.y += 0.0025;
+    // --- Funciones del Carrusel ---
 
-    // Rotación adicional basada en el mouse
-    const mouseRotationSpeed = 0.005;
-    sphereGroup.rotation.x += mouse.y * mouseRotationSpeed;
-    sphereGroup.rotation.y += mouse.x * mouseRotationSpeed;
+    function getSlideWidth() {
+        return slides[0].getBoundingClientRect().width;
+    }
 
-    // Actualizar el tiempo para la animación del degradado
-    backgroundMaterial.uniforms.u_time.value = performance.now() / 1000;
+    function setSliderPosition() {
+        track.style.transform = `translateX(${currentTranslate}px)`;
+    }
 
-    renderer.render(scene, camera);
+    function updateArrows() {
+        const slideWidth = getSlideWidth();
+        const visibleSlides = Math.round(slider.offsetWidth / slideWidth);
+        prevButton.disabled = currentIndex === 0;
+        nextButton.disabled = currentIndex >= slides.length - visibleSlides;
+    }
+
+    function moveTo(index) {
+        const slideWidth = getSlideWidth();
+        const visibleSlides = Math.round(slider.offsetWidth / slideWidth);
+
+        // Lógica para el bucle del autoplay
+        if (index >= slides.length - visibleSlides + 1) {
+            index = 0;
+        }
+        if (index < 0) {
+            index = slides.length - visibleSlides;
+        }
+
+        currentIndex = index;
+        currentTranslate = currentIndex * -slideWidth;
+        prevTranslate = currentTranslate;
+        track.style.transition = 'transform 0.5s ease';
+        setSliderPosition();
+        updateArrows();
+    }
+
+    // --- Funciones de Autoplay ---
+    function startAutoPlay() {
+        stopAutoPlay(); // Limpia cualquier intervalo anterior
+        autoPlayInterval = setInterval(() => {
+            moveTo(currentIndex + 1);
+        }, autoPlayDelay);
+    }
+
+    function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+    }
+
+
+    // --- Manejadores de Eventos ---
+
+    function dragStart(e) {
+        stopAutoPlay();
+        isDragging = true;
+        startPos = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+        track.style.transition = 'none';
+        animationID = requestAnimationFrame(animationLoop);
+    }
+
+    function animationLoop() {
+        setSliderPosition();
+        if (isDragging) requestAnimationFrame(animationLoop);
+    }
+
+    function dragMove(e) {
+        if (!isDragging) return;
+        const currentPosition = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+        currentTranslate = prevTranslate + currentPosition - startPos;
+    }
+
+    function dragEnd(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        cancelAnimationFrame(animationID);
+        const movedBy = currentTranslate - prevTranslate;
+
+        if (movedBy < -100) moveTo(currentIndex + 1);
+        else if (movedBy > 100) moveTo(currentIndex - 1);
+        else moveTo(currentIndex);
+    }
+
+    // --- Asignación de Eventos ---
+
+    container.addEventListener('mouseenter', stopAutoPlay);
+    container.addEventListener('mouseleave', startAutoPlay);
+
+    prevButton.addEventListener('click', () => {
+        stopAutoPlay();
+        moveTo(currentIndex - 1);
+    });
+
+    nextButton.addEventListener('click', () => {
+        stopAutoPlay();
+        moveTo(currentIndex + 1);
+    });
+
+    slider.addEventListener('mousedown', dragStart);
+    slider.addEventListener('mouseup', dragEnd);
+    slider.addEventListener('mouseleave', dragEnd);
+    slider.addEventListener('mousemove', dragMove);
+
+    slider.addEventListener('touchstart', dragStart, { passive: true });
+    slider.addEventListener('touchend', dragEnd);
+    slider.addEventListener('touchmove', dragMove, { passive: true });
+
+    window.addEventListener('resize', () => {
+        moveTo(currentIndex);
+    });
+
+    // Inicia todo
+    moveTo(currentIndex);
+    startAutoPlay();
 }
 
-// Evento de redimensionamiento de ventana
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+/**
+ * Lógica para observar y animar los gráficos de habilidades cuando son visibles.
+ */
+function initSkillsChartsAnimation() {
+    const skillsSection = document.getElementById('skills');
+    if (!skillsSection) return;
 
-    // Recrear el fondo para ajustar el tamaño del viewport
-    scene.remove(backgroundMesh);
-    const newBackgroundGeometry = new THREE.PlaneGeometry(window.innerWidth * 2, window.innerHeight * 2);
-    const newBackgroundMesh = new THREE.Mesh(newBackgroundGeometry, backgroundMaterial);
-    newBackgroundMesh.position.z = -500;
-    scene.add(newBackgroundMesh);
-});
+    // El Intersection Observer se encargará de activar la animación.
+    const observer = new IntersectionObserver((entries) => {
+        // entries[0] es la sección de "skills".
+        if (entries[0].isIntersecting) {
+            // Busca TODOS los canvas dentro de la sección de skills.
+            document.querySelectorAll('#skills .chart-container canvas').forEach(canvas => {
+                const percentage = canvas.getAttribute('data-percent');
+                if (percentage) {
+                    createPieChart(canvas.id, parseInt(percentage, 10));
+                }
+            });
+            // Una vez que se animan, dejamos de observar para no repetir la animación.
+            observer.unobserve(skillsSection);
+        }
+    }, {
+        threshold: 0.5 // Se activa cuando el 50% de la sección es visible.
+    });
 
-// Inicio de la animación// Inicio de la animación
-camera.position.z = 50;
-initSpheres();
-animate();
-});
+    // Inicia la observación de la sección de habilidades.
+    observer.observe(skillsSection);
+}
+
+// Llama a la función de inicialización desde tu DOMContentLoaded principal.
+// Asegúrate de que esta llamada esté dentro de tu listener principal.
+// Ejemplo:
+// document.addEventListener('DOMContentLoaded', () => {
+//     initSkillsChartsAnimation();
+//     // ... tu otro código ...
+// });
+function createPieChart(canvasId, percentage) {
+    const ctx = document.getElementById(canvasId);
+    if (!ctx) return; // Si no encuentra el canvas, no hace nada.
+
+    // Destruye cualquier gráfico que ya exista en este canvas para evitar errores.
+    const existingChart = Chart.getChart(ctx);
+    if (existingChart) {
+        existingChart.destroy();
+    }
+
+    const remaining = 100 - percentage;
+    const mainColor = document.body.classList.contains('dark-mode') ? '#50C878' : '#149ddd';
+    const backgroundColor = document.body.classList.contains('dark-mode') ? '#2B2E27' : '#f3f3f3';
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [percentage, remaining],
+                backgroundColor: [mainColor, backgroundColor],
+                borderWidth: 0,
+                cutout: '70%',
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: { enabled: false }
+            }
+        }
+    });
+}

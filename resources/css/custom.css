@@ -1032,7 +1032,7 @@ section {
 
 .testimonials .testimonial-item .quote-icon-left,
 .testimonials .testimonial-item .quote-icon-right {
-  color: #c3e8fa;
+  color: #ffffff;
   font-size: 26px;
 }
 
@@ -1465,7 +1465,7 @@ section {
   top: -14px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #c2c2c2;
+  background-color: #ffc107;
   /* REVERTIDO a color original */
   color: #fff;
   padding: 6px 20px;
@@ -1577,6 +1577,7 @@ section {
   transform: scale(0.95);
   transition-duration: 0.1s;
 }
+
 /* ======================================================================= */
 /* ESTILOS PARA GRÁFICOS CIRCULARES DE HABILIDADES (SOLUCIÓN FINAL 3x2)    */
 /* ======================================================================= */
@@ -2244,7 +2245,7 @@ body.dark-mode .back-to-top:hover {
 /* --- CORRECCIÓN: Fondo de las tarjetas de Contacto --- */
 body.dark-mode .contact .info,
 body.dark-mode .contact .php-email-form {
-  background: #100C08;
+  background: #171717;
   border-radius: 16px;
   box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.2);
 }
@@ -2350,6 +2351,11 @@ body.dark-mode .contact .php-email-form {
   /* Esto crea una máscara que hace transparente los bordes */
   -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  -ms-overflow-style: none;
+  /* Oculta scrollbar en IE y Edge */
+  scrollbar-width: none;
+  /* Oculta scrollbar en Firefox */
+  touch-action: pan-y;
 }
 
 /* Los pseudo-elementos ::before y ::after ya no son necesarios para el efecto */
@@ -2376,6 +2382,27 @@ body.dark-mode .contact .php-email-form {
 
   margin: 0 40px !important;
   flex-shrink: 0 !important;
+
+  /* CORRECCIÓN: Evitar selección de imagen */
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10+ */
+  user-select: none;
+  /* Estándar */
+  pointer-events: none;
+  /* Opcional: deshabilita clics en la imagen si no es un enlace */
+}
+
+/* CAMBIO: Oculta scrollbar en Chrome, Safari y Opera */
+.logos-slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* CAMBIO: Cambia el cursor mientras se arrastra */
+.logos-slider.active {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
 }
 
 @keyframes slide {
@@ -2524,9 +2551,12 @@ body.dark-mode .contact .php-email-form {
 
 /* CORRECCIÓN: Logo más grande */
 #header .logo img {
-  max-height: 25px !important;/* CORRECCIÓN: Logo más grande */
-  height: 25px !important;/* CORRECCIÓN: Logo más grande */
-  width: auto !important;/* CORRECCIÓN: Logo más grande */
+  max-height: 25px !important;
+  /* CORRECCIÓN: Logo más grande */
+  height: 25px !important;
+  /* CORRECCIÓN: Logo más grande */
+  width: auto !important;
+  /* CORRECCIÓN: Logo más grande */
 }
 
 /* Navegación Principal */
@@ -2616,6 +2646,7 @@ body.dark-mode .contact .php-email-form {
 
 /* --- Adaptación para Móviles --- */
 @media (max-width: 1200px) {
+
   /* Ocultamos las redes sociales en pantallas más pequeñas para dar espacio al menú */
   .header-social-links {
     display: none;
@@ -2623,87 +2654,371 @@ body.dark-mode .contact .php-email-form {
 }
 
 .mobile-nav-toggle {
-    color: #fff;
-    font-size: 28px;
-    cursor: pointer;
-    display: none;
-    line-height: 0;
-    transition: 0.5s;
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  display: none;
+  line-height: 0;
+  transition: 0.5s;
 }
 
 /* CORRECCIÓN #1: Media query para activar la vista móvil */
 @media (max-width: 991px) {
-    /* Ocultamos el menú de escritorio */
-    .navbar ul {
-        display: none !important;
-    }
-    /* Mostramos el ícono de hamburguesa */
-    .mobile-nav-toggle {
-        display: block !important;
-    }
-    /* Reducimos el padding del header en móvil */
-    #header .container {
-        padding: 0 15px !important;
-    }
-    /* Reducimos el tamaño del logo en móvil */
-    #header .logo img {
-        max-height: 25px !important;
-        height: 25px !important;
-    }
-     /* CORRECCIÓN: Hacemos que las redes sociales se vean */
-    .header-social-links {
-        display: flex !important;
-    }
-    /* CORRECCIÓN: Centramos el logo y agrupamos íconos a la derecha */
-    #header .container {
-        justify-content: flex-start !important; /* Alineamos todo al inicio */
-    }
-    #header .logo {
-        margin-right: auto; /* Empujamos todo lo demás a la derecha */
-    }
-    #header .navbar {
-        margin-left: 0; /* Reseteamos el margen */
-    }
+
+  /* Ocultamos el menú de escritorio */
+  .navbar ul {
+    display: none !important;
+  }
+
+  /* Mostramos el ícono de hamburguesa */
+  .mobile-nav-toggle {
+    display: block !important;
+  }
+
+  /* Reducimos el padding del header en móvil */
+  #header .container {
+    padding: 0 15px !important;
+  }
+
+  /* Reducimos el tamaño del logo en móvil */
+  #header .logo img {
+    max-height: 25px !important;
+    height: 25px !important;
+  }
+
+  /* CORRECCIÓN: Hacemos que las redes sociales se vean */
+  .header-social-links {
+    display: flex !important;
+  }
+
+  /* CORRECCIÓN: Centramos el logo y agrupamos íconos a la derecha */
+  #header .container {
+    justify-content: flex-start !important;
+    /* Alineamos todo al inicio */
+  }
+
+  #header .logo {
+    margin-right: auto;
+    /* Empujamos todo lo demás a la derecha */
+  }
+
+  #header .navbar {
+    margin-left: 0;
+    /* Reseteamos el margen */
+  }
 }
 
 .navbar-mobile {
-    position: fixed;
-    overflow: hidden;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    background: rgba(4, 5, 5, 0.9);
-    transition: 0.3s;
-    z-index: 999;
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(4, 5, 5, 0.9);
+  transition: 0.3s;
+  z-index: 999;
 }
 
 .navbar-mobile .mobile-nav-toggle {
-    position: absolute;
-    top: 15px;
-    right: 15px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
 }
 
 .navbar-mobile ul {
-    display: block;
-    position: absolute;
-    top: 55px;
-    right: 15px;
-    bottom: 15px;
-    left: 15px;
-    padding: 10px 0;
-    border-radius: 10px;
-    background-color: #0d0d0d;
-    overflow-y: auto;
-    transition: 0.3s;
+  display: block;
+  position: absolute;
+  top: 55px;
+  right: 15px;
+  bottom: 15px;
+  left: 15px;
+  padding: 10px 0;
+  border-radius: 10px;
+  background-color: #0d0d0d;
+  overflow-y: auto;
+  transition: 0.3s;
 }
 
-.navbar-mobile a, .navbar-mobile a:focus {
-    padding: 10px 20px;
-    font-size: 15px;
-    color: #f0f6fc;
+.navbar-mobile a,
+.navbar-mobile a:focus {
+  padding: 10px 20px;
+  font-size: 15px;
+  color: #f0f6fc;
 }
 
-.navbar-mobile a:hover, .navbar-mobile .active, .navbar-mobile li:hover > a {
-    color: #58a6ff;
+.navbar-mobile a:hover,
+.navbar-mobile .active,
+.navbar-mobile li:hover>a {
+  color: #58a6ff;
+}
+
+.portfolio #portfolio-flters {
+  /* Añade una transición suave para el movimiento de inclinación y retorno */
+  transition: transform 0.1s linear;
+  /* Prepara el contenedor para que sus hijos puedan ser transformados en 3D */
+  transform-style: preserve-3d;
+}
+
+/* ======================================================================= */
+/* ESTILOS PARA EL CARRUSEL DE VIDEOS DEL PORTAFOLIO (CORREGIDO)           */
+/* ======================================================================= */
+
+.video-carousel-container {
+  position: relative;
+  width: 100%;
+  padding: 0 60px;
+  /* Espacio para las flechas */
+  box-sizing: border-box;
+  margin-bottom: 30px;
+}
+
+.video-carousel-slider {
+  overflow: hidden;
+  cursor: grab;
+}
+
+.video-carousel-slider.active {
+  cursor: grabbing;
+}
+
+.video-carousel-track {
+  display: flex;
+}
+
+/* Estilos para CADA slide dentro del carrusel */
+.carousel-slide {
+  flex: 0 0 33.333%;
+  /* Muestra 3 videos a la vez en escritorio */
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+/* MUY IMPORTANTE: Asegurarnos que el .portfolio-wrap mantenga su altura */
+.carousel-slide .portfolio-wrap {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  /* Mantiene la proporción vertical de los videos */
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  background-color: #000;
+  /* Fondo mientras carga el video */
+}
+
+.carousel-slide .portfolio-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Flechas de navegación */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(30, 30, 30, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 24px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.carousel-arrow:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.carousel-arrow.prev {
+  left: 0;
+}
+
+.carousel-arrow.next {
+  right: 0;
+}
+
+.carousel-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* --- Adaptación para Móviles --- */
+@media (max-width: 991px) {
+  .carousel-slide {
+    flex-basis: 50%;
+    /* Muestra 2 videos en tablets */
+  }
+}
+
+@media (max-width: 767px) {
+  .video-carousel-container {
+    padding: 0 50px;
+  }
+
+  .carousel-slide {
+    flex-basis: 100%;
+    /* Muestra 1 video a la vez en móviles */
+  }
+}
+
+/* ======================================================================= */
+/* CORRECCIÓN PARA FILTROS DEL PORTAFOLIO EN MÓVIL (VERSIÓN 2)             */
+/* ======================================================================= */
+
+@media (max-width: 767px) {
+
+  /* Contenedor principal de los filtros */
+  .portfolio #portfolio-flters {
+    /* CORRECCIÓN CLAVE: Convertimos la lista en un contenedor flexible */
+    display: flex;
+    /* Habilitamos el scroll horizontal */
+    overflow-x: auto;
+    /* Evitamos que los botones salten de línea */
+    flex-wrap: nowrap;
+    /* Hacemos que el contenedor no se encoja */
+    width: 100%;
+    /* Centramos el contenido verticalmente */
+    align-items: center;
+    /* Justificamos desde el inicio para que el scroll se sienta natural */
+    justify-content: flex-start;
+    /* Ocultamos la barra de scroll */
+    -ms-overflow-style: none;
+    /* IE y Edge */
+    scrollbar-width: none;
+    /* Firefox */
+    /* Añadimos un poco de padding para que no se pegue a los bordes */
+    padding: 10px 15px;
+  }
+
+  /* Ocultamos la barra de scroll en Chrome, Safari y Opera */
+  .portfolio #portfolio-flters::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Aseguramos que los botones no se encojan */
+  .portfolio #portfolio-flters li {
+    flex-shrink: 0;
+  }
+}
+
+/* ======================================================================= */
+/* ESTILOS PARA EL CARRUSEL DE HABILIDADES                                 */
+/* ======================================================================= */
+
+.skills-carousel-container {
+  width: 100%;
+  overflow: hidden;
+  /* Opcional: añade una máscara de degradado en los bordes */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.skills-carousel-track {
+  display: flex;
+  /* Ancho total del doble de las tarjetas para el bucle */
+  width: calc(200px * 12 + 30px * 12);
+  /* (ancho_tarjeta * 12) + (gap * 12) */
+  animation: scrollSkills 40s linear infinite;
+}
+
+/* Duplicamos las tarjetas para el efecto infinito */
+.skills-carousel-track::after {
+  content: "";
+  display: flex;
+}
+
+/* Animación de scroll horizontal */
+@keyframes scrollSkills {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    /* Mueve la mitad del track (la longitud de las 6 tarjetas originales) */
+    transform: translateX(calc(-230px * 6));
+  }
+}
+
+
+/* Estilos para cada tarjeta dentro del carrusel */
+.skills-carousel-track .skill-item {
+  flex: 0 0 200px;
+  /* Ancho fijo para cada tarjeta */
+  margin: 0 15px;
+  /* Espacio entre tarjetas */
+  max-width: 200px;
+  /* CORRECCIÓN: Evitar selección de texto y elementos */
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10+ */
+  user-select: none;
+  /* Estándar */
+}
+
+/* ======================================================================= */
+/* NUEVOS ESTILOS PARA EL BOTÓN VOLVER ARRIBA (VERSIÓN FINAL)              */
+/* ======================================================================= */
+
+/* Contenedor principal de la flecha */
+.back-to-top {
+  /* Eliminamos el fondo, borde y tamaño fijo del círculo */
+  background: none !important;
+  width: auto; /* Ancho automático */
+  height: auto; /* Altura automática */
+  border-radius: 0; /* Sin bordes redondeados */
+  
+  /* Ajustamos la posición para que quede bien en la esquina */
+  right: 30px;
+  bottom: 30px;
+  
+  /* Mantenemos la visibilidad y transición */
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 996;
+  transition: all 0.4s;
+}
+
+/* Eliminamos los estilos del ícono anterior */
+.back-to-top i {
+  display: none !important;
+}
+
+/* Creamos la nueva flecha usando un pseudo-elemento ::before */
+.back-to-top::before {
+  content: '';
+  position: relative; /* Cambiado a relativo para que el contenedor se ajuste */
+  display: block;
+  
+  /* Dimensiones y grosor de la flecha */
+  width: 30px;
+  height: 30px;
+  border-top: 5px solid white;
+  border-left: 5px solid white;
+  
+  /* Rotamos los bordes para formar la punta de la flecha hacia arriba */
+  transform: rotate(45deg);
+  
+  transition: all 0.3s ease;
+}
+
+/* Efecto al pasar el mouse */
+.back-to-top:hover::before {
+  /* Hacemos que los bordes sean más brillantes */
+
+  /* Opcional: un ligero movimiento hacia arriba */
+  transform: rotate(45deg) translateY(-3px);
+}
+
+/* Reglas para mostrar el botón al hacer scroll */
+.back-to-top.active {
+  visibility: visible;
+  opacity: 1;
 }
