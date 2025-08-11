@@ -1531,8 +1531,7 @@ section {
 }
 
 /* --- ESTILOS PARA BOTONES FLOTANTES --- */
-.whatsapp-float,
-.back-to-top {
+.whatsapp-float {
   position: fixed;
   width: 60px;
   height: 60px;
@@ -1544,22 +1543,10 @@ section {
   justify-content: center;
   transition: transform 0.3s ease;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.whatsapp-float {
-  bottom: 150px;
+  bottom: 250px;
   background-color: #25d366;
-}
-
-/* VERDE ESPECÍFICO DE WHATSAPP, NO CAMBIADO */
-.back-to-top {
-  bottom: 40px;
-  width: 40px;
-  height: 40px;
-  background-color: #149ddd;
-  /* REVERTIDO a AZUL */
-  color: #fff;
-  font-size: 24px;
+  left: 15px;
+  /* Lo mueve a la izquierda */
 }
 
 .whatsapp-float img {
@@ -2145,7 +2132,7 @@ body.dark-mode .skills .progress-bar-wrap {
 }
 
 body.dark-mode .contact .info i {
-  background: #2B2E27;
+  background: #3d3d3d;
   color: #c2c2c2;
 }
 
@@ -2158,8 +2145,8 @@ body.dark-mode .contact .info .phone:hover i {
 
 body.dark-mode .contact .php-email-form input,
 body.dark-mode .contact .php-email-form textarea {
-  background: #1b1b1b;
-  border-color: #36454F;
+  background: #3d3d3d;
+  border-color: #3d3d3d;
   color: #f0f6fc;
   border-radius: 16px;
 }
@@ -2197,7 +2184,7 @@ body.dark-mode .portfolio #portfolio-flters li.filter-active {
 body.dark-mode #hero .btn-lg,
 body.dark-mode .contact .php-email-form button[type=submit] {
   color: #f0f6fc;
-  border: 2px solid #c2c2c2;
+  border: 1px solid #3d3d3d;
   /* REVERTIDO a azul */
   background: transparent;
   padding: 10px 25px;
@@ -2412,6 +2399,14 @@ body.dark-mode .contact .php-email-form {
 
   to {
     transform: translateX(-100%);
+  }
+}
+
+/* Ajusta la velocidad del carrusel de logos en móviles */
+@media (max-width: 767px) {
+  .logos-slide {
+    animation-duration: 20s;
+    /* Reduce la duración para que se vea más rápido */
   }
 }
 
@@ -2865,6 +2860,17 @@ body.dark-mode .contact .php-email-form {
     flex-basis: 100%;
     /* Muestra 1 video a la vez en móviles */
   }
+
+  /* CORRECCIÓN: Ocultar flechas y ajustar padding en móvil */
+  .video-carousel-container {
+    padding: 0 15px;
+    /* Reducimos el padding lateral ya que no hay flechas */
+  }
+
+  .carousel-arrow {
+    display: none;
+    /* Ocultamos las flechas */
+  }
 }
 
 /* ======================================================================= */
@@ -2970,14 +2976,17 @@ body.dark-mode .contact .php-email-form {
 .back-to-top {
   /* Eliminamos el fondo, borde y tamaño fijo del círculo */
   background: none !important;
-  width: auto; /* Ancho automático */
-  height: auto; /* Altura automática */
-  border-radius: 0; /* Sin bordes redondeados */
-  
+  width: auto;
+  /* Ancho automático */
+  height: auto;
+  /* Altura automática */
+  border-radius: 0;
+  /* Sin bordes redondeados */
+
   /* Ajustamos la posición para que quede bien en la esquina */
   right: 30px;
   bottom: 30px;
-  
+
   /* Mantenemos la visibilidad y transición */
   position: fixed;
   visibility: hidden;
@@ -2994,18 +3003,19 @@ body.dark-mode .contact .php-email-form {
 /* Creamos la nueva flecha usando un pseudo-elemento ::before */
 .back-to-top::before {
   content: '';
-  position: relative; /* Cambiado a relativo para que el contenedor se ajuste */
+  position: relative;
+  /* Cambiado a relativo para que el contenedor se ajuste */
   display: block;
-  
+
   /* Dimensiones y grosor de la flecha */
   width: 30px;
   height: 30px;
-  border-top: 5px solid white;
-  border-left: 5px solid white;
-  
+  border-top: 8px solid white;
+  border-left: 8px solid white;
+
   /* Rotamos los bordes para formar la punta de la flecha hacia arriba */
   transform: rotate(45deg);
-  
+
   transition: all 0.3s ease;
 }
 
