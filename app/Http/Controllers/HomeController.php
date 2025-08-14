@@ -57,4 +57,9 @@ class HomeController extends Controller
             ], 500);
         }
     }
+
+    public function privacy_policies()
+    {
+        return view('privacypolicies');
+    }
 }
