@@ -634,7 +634,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createPieChart();
     initSkillsChartsAnimation();
     initVideoCarousel();
-
+    initFloatingButtons();
 });
 /**
  * Inicializa el carrusel de videos del portafolio con autoplay.
@@ -851,4 +851,30 @@ function createPieChart(canvasId, percentage) {
             }
         }
     });
+}
+
+function initFloatingButtons() {
+    const backToTopButton = document.querySelector('.back-to-top');
+    const whatsappButton = document.querySelector('.whatsapp-float');
+    const heroSection = document.getElementById('hero');
+
+    // Si no se encuentran los elementos necesarios, no hace nada.
+    if (!backToTopButton || !whatsappButton || !heroSection) {
+        return;
+    }
+
+    const toggleButtons = () => {
+        // Muestra los botones si el scroll ha pasado la altura de la sección hero.
+        if (window.scrollY > heroSection.offsetHeight) {
+            backToTopButton.classList.add('active');
+            whatsappButton.classList.add('active');
+        } else {
+            backToTopButton.classList.remove('active');
+            whatsappButton.classList.remove('active');
+        }
+    };
+
+    // Ejecuta la función al cargar la página y al hacer scroll.
+    window.addEventListener('load', toggleButtons);
+    document.addEventListener('scroll', toggleButtons);
 }

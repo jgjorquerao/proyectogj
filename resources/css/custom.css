@@ -1547,7 +1547,10 @@ section {
   background-color: #25d366;
   left: 15px;
   /* Lo mueve a la izquierda */
-}
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.4s;
+} 
 
 .whatsapp-float img {
   width: 35px;
@@ -1559,10 +1562,9 @@ section {
   transform: scale(1.1);
 }
 
-.whatsapp-float:active,
-.back-to-top:active {
-  transform: scale(0.95);
-  transition-duration: 0.1s;
+.whatsapp-float:active {
+  visibility: visible;
+  opacity: 1;
 }
 
 /* ======================================================================= */
