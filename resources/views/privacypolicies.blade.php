@@ -20,7 +20,7 @@
 
 <body class="dark-mode">
     <main id="main">
-        @include('header_privacy')
+        @include('header_short')
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 mt-5 mb-5">
