@@ -1,4 +1,15 @@
 {
+  "__commonjsHelpers-CqkleIqs.js": {
+    "file": "assets/_commonjsHelpers-CqkleIqs.js",
+    "name": "_commonjsHelpers"
+  },
+  "_pusher-BoS8NtKK.js": {
+    "file": "assets/pusher-BoS8NtKK.js",
+    "name": "pusher",
+    "imports": [
+      "__commonjsHelpers-CqkleIqs.js"
+    ]
+  },
   "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff": {
     "file": "assets/bootstrap-icons-BeopsB42.woff",
     "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff"
@@ -27,18 +38,29 @@
     "file": "assets/boxicons-CeGEncwm.woff2",
     "src": "node_modules/boxicons/fonts/boxicons.woff2"
   },
-  "resources/css/app.css": {
-    "file": "assets/app-BOFxpi9l.css",
-    "src": "resources/css/app.css",
+  "resources/css/panel.css": {
+    "file": "assets/panel--6gdfN10.css",
+    "src": "resources/css/panel.css",
     "isEntry": true
   },
   "resources/js/app.js": {
+<<<<<<< Updated upstream
     "file": "assets/app-CE7XyPwf.js",
+=======
+    "file": "assets/app-eZycGYjq.js",
+>>>>>>> Stashed changes
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
+    "imports": [
+      "__commonjsHelpers-CqkleIqs.js"
+    ],
     "css": [
+<<<<<<< Updated upstream
       "assets/app-C05Qr1mb.css"
+=======
+      "assets/app-CGqwQ1rl.css"
+>>>>>>> Stashed changes
     ],
     "assets": [
       "assets/bootstrap-icons-mSm7cUeB.woff2",
@@ -49,5 +71,39 @@
       "assets/boxicons-EIQNrSje.ttf",
       "assets/boxicons-Dp7W9qN3.svg"
     ]
+  },
+  "resources/js/panel.js": {
+    "file": "assets/panel-KPLXl1vu.js",
+    "name": "panel",
+    "src": "resources/js/panel.js",
+    "isEntry": true,
+    "imports": [
+      "_pusher-BoS8NtKK.js",
+      "__commonjsHelpers-CqkleIqs.js"
+    ],
+    "css": [
+      "assets/panel-CdiSv373.css"
+    ]
+  },
+  "resources/js/pusher_setup.js": {
+    "file": "assets/pusher_setup-9cHJkLr2.js",
+    "name": "pusher_setup",
+    "src": "resources/js/pusher_setup.js",
+    "isEntry": true,
+    "imports": [
+      "_pusher-BoS8NtKK.js",
+      "__commonjsHelpers-CqkleIqs.js"
+    ]
+  },
+  "resources/js/user.js": {
+    "file": "assets/user-DMX1Dhi-.js",
+    "name": "user",
+    "src": "resources/js/user.js",
+    "isEntry": true
+  },
+  "resources/sass/app.scss": {
+    "file": "assets/app-DuGosLi4.css",
+    "src": "resources/sass/app.scss",
+    "isEntry": true
   }
 }

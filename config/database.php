@@ -112,6 +112,16 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
+        //BD Hostinger Cliente 1
+        'chat_db_1' => [
+            'driver' => 'mysql',
+            'host' => 'srv1487.hstgr.io',
+            'database' => 'u909215590_n8n',
+            'username' => 'u909215590_n8n',
+            'password' => 'N8n.2025',
+            'port'     => '3306',
+        ],
+
     ],
 
     /*
