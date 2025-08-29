@@ -2,7 +2,19 @@
     <div class="container">
         <canvas id="hero-animation-canvas"></canvas>
         <div class="hero-container" data-aos="fade-in">
-            <h1>Potencia la imagen de tu Automotora, Rent a Car o Detailing</h1>
+            <div class="animated-title">
+                <div class="static-text">Potencia la imagen de tu</div>
+                <div class="dynamic-text-container">
+                    <ul>
+                        <li><span>Automotora</span></li>
+                        <li><span>Rent a Car</span></li>
+                        <li><span>Detailing</span></li>
+                        <li><span>Concecionario</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--             <h1> Automotora, Rent a Car o Detailing</h1> -->
             <p><span class="typed"
                     data-typed-items="Video Reels, Producción Audiovisual, Diseño Gráfico, Marketing Digital, Inteligencia Artificial, Desarrollo Web"></span>
             </p>
@@ -15,3 +27,4 @@
         </div>
     </div>
 </section>
+

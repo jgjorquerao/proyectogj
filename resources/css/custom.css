@@ -1,3 +1,4 @@
+
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
@@ -504,7 +505,6 @@ section {
 #hero {
   width: 100%;
   height: 100vh;
-  /*background: url("../img/hero-bg.jpg") top center;*/
   background-size: cover;
 }
 
@@ -1550,7 +1550,7 @@ section {
   visibility: hidden;
   opacity: 0;
   transition: all 0.4s;
-} 
+}
 
 .whatsapp-float img {
   width: 35px;
@@ -2523,7 +2523,7 @@ body.dark-mode .contact .php-email-form {
   left: 0;
   width: 100%;
   height: 90px;
-  background: rgba(4, 8, 11, 0.664) !important;
+  background: rgba(40, 62, 78, 0.575) !important;
   backdrop-filter: blur(10px);
   z-index: 9997;
   transition: all 0.3s ease;
@@ -2548,9 +2548,9 @@ body.dark-mode .contact .php-email-form {
 
 /* CORRECCIÓN: Logo más grande */
 #header .logo img {
-  max-height: 35px !important;
+  max-height: 40px !important;
   /* CORRECCIÓN: Logo más grande */
-  height: 35px !important;
+  height: 40px !important;
   /* CORRECCIÓN: Logo más grande */
   width: auto !important;
   /* CORRECCIÓN: Logo más grande */
@@ -3033,4 +3033,185 @@ body.dark-mode .contact .php-email-form {
 .back-to-top.active {
   visibility: visible;
   opacity: 1;
+}
+
+/* ======================================================================= */
+/* CORRECCIÓN PARA TEXTO DEL LOGO (AJUSTE FINAL)                           */
+/* ======================================================================= */
+
+/* Asegura que el contenedor del logo no tenga subrayado */
+#header .logo {
+  text-decoration: none;
+  /* <-- AÑADIDO: Esto quita el subrayado */
+}
+
+/* Ajusta el texto "Gyler" */
+.logo .logo-text {
+  font-weight: bold;
+  color: #ffffff;
+  margin-left: 5px;
+  /* <-- CAMBIADO: Reducido de 10px a 8px para acercarlo */
+  font-size: 15px;
+}
+
+/* ======================================================================= */
+/* ESTILOS PARA TÍTULO ANIMADO VERTICALMENTE (HERO)                      */
+/* ======================================================================= */
+
+.animated-title {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  font-family: "Raleway", sans-serif;
+  font-weight: 800;
+  /* Letra más gruesa */
+  font-size: 48px;
+  /* Tamaño de la fuente, ajústalo si es necesario */
+  line-height: 1.2;
+  color: #fff;
+  /* Color del texto */
+  margin-bottom: 30px;
+}
+
+.animated-title .static-text {
+  white-space: nowrap;
+  /* Evita que el texto se parta en dos líneas */
+}
+
+.animated-title .dynamic-text-container {
+  margin: 0 0 10px 0;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 56px;
+  color: #fff;
+  margin-left: 15px;
+  /* Espacio entre el texto estático y el dinámico */
+  height: 58px;
+  /* Altura del contenedor, debe coincidir con line-height * font-size */
+  overflow: hidden;
+  /* Oculta las palabras que no se están mostrando */
+}
+
+.dynamic-text-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  animation: slide-vertical 15s infinite;
+  /* 15s es la duración total (3s por 5 palabras) */
+}
+
+.dynamic-text-container li {
+  height: 58px;
+  /* Misma altura que el contenedor */
+}
+
+.dynamic-text-container span {
+  display: block;
+  color: #149ddd;
+  /* Color azul para el texto dinámico, como en la imagen */
+}
+
+/* Animación que mueve la lista hacia arriba */
+@keyframes slide-vertical {
+  0% {
+    transform: translateY(0);
+  }
+
+  16% {
+    /* Mantiene la primera palabra visible por un tiempo */
+    transform: translateY(0);
+  }
+
+  20% {
+    /* Comienza a moverse a la segunda palabra */
+    transform: translateY(-58px);
+  }
+
+  36% {
+    /* Mantiene la segunda palabra */
+    transform: translateY(-58px);
+  }
+
+  40% {
+    /* ...y así sucesivamente */
+    transform: translateY(-116px);
+  }
+
+  56% {
+    transform: translateY(-116px);
+  }
+
+  60% {
+    transform: translateY(-174px);
+  }
+
+  76% {
+    transform: translateY(-174px);
+  }
+
+  80% {
+    transform: translateY(-232px);
+  }
+
+  96% {
+    transform: translateY(-232px);
+  }
+
+  100% {
+    /* Vuelve al inicio */
+    transform: translateY(0);
+  }
+}
+
+/* Ajustes para pantallas más pequeñas (móviles) */
+@media (max-width: 768px) {
+  .animated-title {
+    font-size: 32px;
+    /* Reducimos el tamaño del texto */
+    flex-direction: column;
+    /* Lo ponemos uno encima del otro */
+    text-align: center;
+  }
+
+  .animated-title .dynamic-text-container {
+    margin-left: 0;
+    height: 38px;
+  }
+
+  .dynamic-text-container li {
+    height: 38px;
+  }
+
+  /* Se necesita re-calcular la animación para la nueva altura */
+  @keyframes slide-vertical {
+
+    0%,
+    16% {
+      transform: translateY(0);
+    }
+
+    20%,
+    36% {
+      transform: translateY(-38px);
+    }
+
+    40%,
+    56% {
+      transform: translateY(-76px);
+    }
+
+    60%,
+    76% {
+      transform: translateY(-114px);
+    }
+
+    80%,
+    96% {
+      transform: translateY(-152px);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
+  }
 }
