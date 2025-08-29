@@ -9,7 +9,7 @@
                         <li><span>Automotora</span></li>
                         <li><span>Rent a Car</span></li>
                         <li><span>Detailing</span></li>
-                        <li><span>Concecionario</span></li>
+                        <li><span>Concesionario</span></li>
                     </ul>
                 </div>
             </div>
@@ -19,7 +19,7 @@
                     data-typed-items="Video Reels, Producción Audiovisual, Diseño Gráfico, Marketing Digital, Inteligencia Artificial, Desarrollo Web"></span>
             </p>
             <div class="text-center">
-                {{-- Contenedor y enlace para la flecha --}}
+                {{-- Contenedor y enlace para la flecha soy un cocos--}}
                 <div class="custom-arrow-container">
                     <a href="#pricing" class="custom-arrow"></a>
                 </div>
