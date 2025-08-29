@@ -7,7 +7,7 @@
                     data-typed-items="Video Reels, Producción Audiovisual, Diseño Gráfico, Marketing Digital, Inteligencia Artificial, Desarrollo Web"></span>
             </p>
             <div class="text-center">
-                {{-- Contenedor y enlace para la flecha --}}
+                {{-- Contenedor y enlace para la flecrgergergergerreha --}}
                 <div class="custom-arrow-container">
                     <a href="#pricing" class="custom-arrow"></a>
                 </div>
