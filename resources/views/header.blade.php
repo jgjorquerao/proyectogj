@@ -3,7 +3,8 @@
 
         <!-- Logo -->
         <a href="" class="logo">
-            <img src="{{ asset('img/gylerlogoagosto.png') }}" alt="Logo Gyler Digital" class="img-fluid">
+            <img src="{{ asset('img/LOGOGYLER4.png') }}" alt="Logo Gyler Digital" class="img-fluid">
+            <!-- <span class="logo-text">gyler.ai</span> -->
         </a>
 
         <!-- Menú de Navegación -->
@@ -20,9 +21,12 @@
 
         <!-- Redes Sociales (Opcional, puedes moverlas o quitarlas) -->
         <div class="header-social-links">
-            <a href="https://github.com/josejorquerao?tab=repositories" class="github" target="_blank"><i class="bi bi-github"></i></a>
-            <a href="https://www.linkedin.com/in/jgjorquerao/" class="linkedin" target="_blank"><i class="bx bxl-linkedin"></i></a>
-            <a href="https://www.instagram.com/josefgyler" class="instagram" target="_blank"><i class="bx bxl-instagram"></i></a>
+            <a href="https://github.com/josejorquerao?tab=repositories" class="github" target="_blank"><i
+                    class="bi bi-github"></i></a>
+            <a href="https://www.linkedin.com/in/jgjorquerao/" class="linkedin" target="_blank"><i
+                    class="bx bxl-linkedin"></i></a>
+            <a href="https://www.instagram.com/josefgyler" class="instagram" target="_blank"><i
+                    class="bx bxl-instagram"></i></a>
         </div>
 
         <div class="ms-4">

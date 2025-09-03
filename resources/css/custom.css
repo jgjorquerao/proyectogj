@@ -504,7 +504,6 @@ section {
 #hero {
   width: 100%;
   height: 100vh;
-  /*background: url("../img/hero-bg.jpg") top center;*/
   background-size: cover;
 }
 
@@ -538,14 +537,24 @@ section {
   margin-bottom: 50px;
   font-size: 26px;
   font-family: "Poppins", sans-serif;
+  display: inline-block;
+  text-align: left;
+  margin-left: 10px;
 }
 
 #hero p span {
   color: #fff;
   padding-bottom: 4px;
   letter-spacing: 1px;
-  border-bottom: 3px solid #c2c2c2;
   /* MANTENIDO AZUL */
+}
+
+.hero-text-content {
+  display: flex;
+  align-items: center;
+  /* Alinea los elementos verticalmente en el centro */
+  flex-wrap: wrap;
+  /* Permite que los elementos se envuelvan en pantallas pequeñas */
 }
 
 #hero .hero-container a[class="btn btn-dark"] {
@@ -1550,7 +1559,7 @@ section {
   visibility: hidden;
   opacity: 0;
   transition: all 0.4s;
-} 
+}
 
 .whatsapp-float img {
   width: 35px;
@@ -2325,92 +2334,36 @@ body.dark-mode .contact .php-email-form {
   /* AÑADIDO: Zoom del 20% al pasar el mouse */
 }
 
-/* La animación de keyframes ha sido eliminada. */
-
-
-/* --- Estilos para el Carrusel de Logos (Versión Final) --- */
+/* ======================================================================= */
+/* --- Estilos para el Carrusel de Logos (Solución Definitiva) --- */
+/* ======================================================================= */
 
 .logos-slider {
   overflow: hidden;
   padding: 60px 0;
   position: relative;
   width: 100%;
-
-  /* CAMBIO 1: Nuevo método para el desvanecimiento sin colores */
-  /* Esto crea una máscara que hace transparente los bordes */
   -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-  -ms-overflow-style: none;
-  /* Oculta scrollbar en IE y Edge */
-  scrollbar-width: none;
-  /* Oculta scrollbar en Firefox */
-  touch-action: pan-y;
-}
-
-/* Los pseudo-elementos ::before y ::after ya no son necesarios para el efecto */
-/* Puedes eliminarlos o dejarlos vacíos si los usas para otra cosa. */
-.logos-slider::before,
-.logos-slider::after {
-  content: none;
 }
 
 .logos-slide {
   display: flex !important;
   align-items: center !important;
-  animation: 35s slide infinite linear;
 }
 
 .logos-slide img {
-  /* CAMBIO 2: Tamaño de logos unificado */
   width: 200px !important;
-  /* Ancho fijo para todos los logos */
   height: auto !important;
-  /* Altura automática para mantener la proporción */
   object-fit: contain;
-  /* Asegura que el logo quepa sin deformarse */
-
   margin: 0 40px !important;
   flex-shrink: 0 !important;
-
-  /* CORRECCIÓN: Evitar selección de imagen */
   -webkit-user-select: none;
-  /* Safari */
   -ms-user-select: none;
-  /* IE 10+ */
   user-select: none;
-  /* Estándar */
   pointer-events: none;
-  /* Opcional: deshabilita clics en la imagen si no es un enlace */
 }
 
-/* CAMBIO: Oculta scrollbar en Chrome, Safari y Opera */
-.logos-slider::-webkit-scrollbar {
-  display: none;
-}
-
-/* CAMBIO: Cambia el cursor mientras se arrastra */
-.logos-slider.active {
-  cursor: grabbing;
-  cursor: -webkit-grabbing;
-}
-
-@keyframes slide {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-100%);
-  }
-}
-
-/* Ajusta la velocidad del carrusel de logos en móviles */
-@media (max-width: 767px) {
-  .logos-slide {
-    animation-duration: 20s;
-    /* Reduce la duración para que se vea más rápido */
-  }
-}
 
 /* ======================================================================= */
 /* EFECTO ZOOM PARA IMÁGENES DEL PORTAFOLIO (BASADO EN TU HTML)          */
@@ -2523,7 +2476,7 @@ body.dark-mode .contact .php-email-form {
   left: 0;
   width: 100%;
   height: 90px;
-  background: rgba(4, 8, 11, 0.664) !important;
+  background: rgba(40, 62, 78, 0.575) !important;
   backdrop-filter: blur(10px);
   z-index: 9997;
   transition: all 0.3s ease;
@@ -2548,9 +2501,9 @@ body.dark-mode .contact .php-email-form {
 
 /* CORRECCIÓN: Logo más grande */
 #header .logo img {
-  max-height: 35px !important;
+  max-height: 40px !important;
   /* CORRECCIÓN: Logo más grande */
-  height: 35px !important;
+  height: 40px !important;
   /* CORRECCIÓN: Logo más grande */
   width: auto !important;
   /* CORRECCIÓN: Logo más grande */
@@ -3033,4 +2986,87 @@ body.dark-mode .contact .php-email-form {
 .back-to-top.active {
   visibility: visible;
   opacity: 1;
+}
+
+/* ======================================================================= */
+/* CORRECCIÓN PARA TEXTO DEL LOGO (AJUSTE FINAL)                           */
+/* ======================================================================= */
+
+/* Asegura que el contenedor del logo no tenga subrayado */
+#header .logo {
+  text-decoration: none;
+  /* <-- AÑADIDO: Esto quita el subrayado */
+}
+
+/* Ajusta el texto "Gyler" */
+.logo .logo-text {
+  font-weight: bold;
+  color: #ffffff;
+  margin-left: 5px;
+  /* <-- CAMBIADO: Reducido de 10px a 8px para acercarlo */
+  font-size: 15px;
+}
+
+/* ======================================================================= */
+/* ESTILOS PARA TÍTULO ANIMADO VERTICALMENTE (HERO)                      */
+/* ======================================================================= */
+
+/* ======================================================================= */
+/* ESTILOS PARA TÍTULO ANIMADO VERTICALMENTE (HERO)                      */
+/* ======================================================================= */
+
+.animated-title {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  font-family: "Raleway", sans-serif;
+  font-weight: 800;
+  /* Letra más gruesa */
+  font-size: 48px;
+  /* Tamaño de la fuente, ajústalo si es necesario */
+  line-height: 1.2;
+  color: #fff;
+  /* Color del texto */
+  margin-bottom: 10px;
+
+}
+
+.animated-title .dynamic-text-container {
+  margin: 0 0 10px 0;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 56px;
+  color: #fff;
+  margin-left: 15px;
+  /* Espacio entre el texto estático y el dinámico */
+  height: 58px;
+  /* Altura del contenedor, debe coincidir con line-height * font-size */
+  overflow: hidden;
+  /* Oculta las palabras que no se están mostrando */
+}
+
+
+.dynamic-text-container span {
+  /*display: block;*/
+  color: #149ddd;
+  /* Color azul para el texto dinámico, como en la imagen */
+}
+
+/* Añade este bloque al final del archivo custom.css */
+.fade-in-up {
+  animation: fadeInUp 0.4s ease forwards;
+  /* Más rápido y fluido */
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    /* Movimiento más sutil */
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

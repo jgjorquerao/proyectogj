@@ -58,32 +58,50 @@
                             {{-- Los videos van aquí, envueltos en un div 'carousel-slide' --}}
                             <div class="carousel-slide">
                                 <div class="portfolio-wrap">
-                                    <video playsinline loop muted><source src="{{ asset('videos/video-6.mp4') }}" type="video/mp4"></video>
+                                    <video playsinline loop muted loading="lazy"
+                                        poster="{{ asset('videos/1.jpg') }}">
+                                        <source src="{{ asset('videos/1.mp4') }}" type="video/mp4">
+                                    </video>
                                 </div>
                             </div>
                             <div class="carousel-slide">
                                 <div class="portfolio-wrap">
-                                    <video playsinline loop muted><source src="{{ asset('videos/video-4.mp4') }}" type="video/mp4"></video>
+                                    <video playsinline loop muted loading="lazy"
+                                        poster="{{ asset('videos/2.jpg') }}">
+                                        <source src="{{ asset('videos/2.mp4') }}" type="video/mp4">
+                                    </video>
                                 </div>
                             </div>
                             <div class="carousel-slide">
                                 <div class="portfolio-wrap">
-                                    <video playsinline loop muted><source src="{{ asset('videos/video-5.mp4') }}" type="video/mp4"></video>
+                                    <video playsinline loop muted loading="lazy"
+                                        poster="{{ asset('videos/3.jpg') }}">
+                                        <source src="{{ asset('videos/3.mp4') }}" type="video/mp4">
+                                    </video>
                                 </div>
                             </div>
                             <div class="carousel-slide">
                                 <div class="portfolio-wrap">
-                                    <video playsinline loop muted><source src="{{ asset('videos/video-11.mp4') }}" type="video/mp4"></video>
+                                    <video playsinline loop muted loading="lazy"
+                                        poster="{{ asset('videos/4.jpg') }}">
+                                        <source src="{{ asset('videos/4.mp4') }}" type="video/mp4">
+                                    </video>
                                 </div>
                             </div>
                             <div class="carousel-slide">
                                 <div class="portfolio-wrap">
-                                    <video playsinline loop muted><source src="{{ asset('videos/video-9.mp4') }}" type="video/mp4"></video>
+                                    <video playsinline loop muted loading="lazy"
+                                        poster="{{ asset('videos/5.jpg') }}">
+                                        <source src="{{ asset('videos/5.mp4') }}" type="video/mp4">
+                                    </video>
                                 </div>
                             </div>
                             <div class="carousel-slide">
                                 <div class="portfolio-wrap">
-                                    <video playsinline loop muted><source src="{{ asset('videos/video-10.mp4') }}" type="video/mp4"></video>
+                                    <video playsinline loop muted loading="lazy"
+                                        poster="{{ asset('videos/6.jpg') }}">
+                                        <source src="{{ asset('videos/6.mp4') }}" type="video/mp4">
+                                    </video>
                                 </div>
                             </div>
                         </div>
