@@ -1,4 +1,19 @@
 {
+  "__commonjsHelpers-CqkleIqs.js": {
+    "file": "assets/_commonjsHelpers-CqkleIqs.js",
+    "name": "_commonjsHelpers"
+  },
+  "_index-NIGUFBhG.js": {
+    "file": "assets/index-NIGUFBhG.js",
+    "name": "index"
+  },
+  "_pusher-BoS8NtKK.js": {
+    "file": "assets/pusher-BoS8NtKK.js",
+    "name": "pusher",
+    "imports": [
+      "__commonjsHelpers-CqkleIqs.js"
+    ]
+  },
   "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff": {
     "file": "assets/bootstrap-icons-BeopsB42.woff",
     "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff"
@@ -27,18 +42,21 @@
     "file": "assets/boxicons-CeGEncwm.woff2",
     "src": "node_modules/boxicons/fonts/boxicons.woff2"
   },
-  "resources/css/app.css": {
-    "file": "assets/app-C_hsG7WK.css",
-    "src": "resources/css/app.css",
+  "resources/css/panel.css": {
+    "file": "assets/panel-BMZYQwZP.css",
+    "src": "resources/css/panel.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-DiBqhRO5.js",
+    "file": "assets/app-BiG4IgzO.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
+    "imports": [
+      "__commonjsHelpers-CqkleIqs.js"
+    ],
     "css": [
-      "assets/app-CdMmEluq.css"
+      "assets/app-Dyw7SFqi.css"
     ],
     "assets": [
       "assets/bootstrap-icons-mSm7cUeB.woff2",
@@ -49,5 +67,43 @@
       "assets/boxicons-EIQNrSje.ttf",
       "assets/boxicons-Dp7W9qN3.svg"
     ]
+  },
+  "resources/js/panel.js": {
+    "file": "assets/panel-BkB0Qzxk.js",
+    "name": "panel",
+    "src": "resources/js/panel.js",
+    "isEntry": true,
+    "imports": [
+      "_index-NIGUFBhG.js",
+      "_pusher-BoS8NtKK.js",
+      "__commonjsHelpers-CqkleIqs.js"
+    ],
+    "css": [
+      "assets/panel-CBxcUUxS.css"
+    ]
+  },
+  "resources/js/pusher_setup.js": {
+    "file": "assets/pusher_setup-CBfJKFuh.js",
+    "name": "pusher_setup",
+    "src": "resources/js/pusher_setup.js",
+    "isEntry": true,
+    "imports": [
+      "_pusher-BoS8NtKK.js",
+      "__commonjsHelpers-CqkleIqs.js"
+    ]
+  },
+  "resources/js/user.js": {
+    "file": "assets/user-iX52eTf3.js",
+    "name": "user",
+    "src": "resources/js/user.js",
+    "isEntry": true,
+    "imports": [
+      "_index-NIGUFBhG.js"
+    ]
+  },
+  "resources/sass/app.scss": {
+    "file": "assets/app-DuGosLi4.css",
+    "src": "resources/sass/app.scss",
+    "isEntry": true
   }
 }

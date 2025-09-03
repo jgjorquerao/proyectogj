@@ -1,0 +1,82 @@
+/* Estilos para el contenedor de la tarjeta */
+.card-custom {
+    background-color: #2d3748 !important;
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Estilos para el encabezado de la tarjeta */
+.card-header-custom {
+    border-bottom: 1px solid #4a5568;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Estilos para los labels */
+.form-label-custom {
+    color: #a0aec0;
+}
+
+/* Estilos para los inputs */
+.form-control-custom {
+    background-color: #4a5568 !important;
+    border: 1px solid #718096 !important;
+    color: #fff !important;
+    border-radius: 0.5rem;
+}
+
+.form-control-custom:focus {
+    background-color: #4a5568;
+    color: #fff !important;
+    border-color: #4c51bf;
+    box-shadow: 0 0 0 0.25rem rgba(76, 81, 191, 0.25);
+}
+
+/* Estilos para el checkbox */
+.form-check-input-custom {
+    background-color: #4a5568 !important;
+    border-color: #718096;
+}
+
+.form-check-input-custom:checked {
+    background-color: #4c51bf !important;
+    border-color: #4c51bf !important;
+}
+
+/* Estilos para el botón de login */
+.btn-custom {
+    background-image: linear-gradient(to right, #4c51bf, #805ad5);
+    border: none;
+    color: white !important;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    transform: scale(1.0);
+}
+
+.btn-custom:hover {
+    transform: scale(1.05);
+    background-image: linear-gradient(to right, #434190, #6641a2);
+    color: white;
+}
+
+/* Estilos para el enlace de "Olvidaste tu contraseña?" */
+.btn-link-custom {
+    color: #667eea;
+}
+
+.btn-link-custom:hover {
+    color: #9f7aea;
+}
+
+/* Corrección para el autofill del navegador */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px #4a5568 inset !important;
+    -webkit-text-fill-color: #fff !important;
+    border-color: #718096 !important;
+    transition: background-color 50000s ease-in-out 0s !important;
+}
