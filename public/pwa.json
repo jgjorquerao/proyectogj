@@ -1,0 +1,20 @@
+{
+  "name": "gyler.ai",
+  "short_name": "gyler.ai",
+  "start_url": "/panel",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#111827",
+  "icons": [
+    {
+      "src": "img/logo192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "img/logo512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

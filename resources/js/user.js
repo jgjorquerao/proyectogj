@@ -13,7 +13,9 @@ let openAddModal,
     errorName,
     errorEmail,
     userListContainer,
-    detailPanelContainer;
+    detailPanelContainer,
+    appContainer,
+    menuButton;
 let deleteModal,
     closeDeleteModal,
     confirmDeleteBtn,
@@ -46,6 +48,8 @@ window.initUserSection = () => {
     userNameToDeleteEl = document.getElementById("userNameToDelete");
     messageModal = document.getElementById("messageModal");
     messageTextEl = document.getElementById("messageText");
+    appContainer = document.getElementById("app-container");
+    menuButton = document.getElementById("menu-button");
 
     if (!openAddModal || !closeAddModal || !addModal) return;
 
@@ -120,30 +124,6 @@ async function fetchUsers() {
 }
 
 // Render listado
-/* function renderUserList() {
-    const container = document.getElementById("user-list");
-    container.innerHTML = "";
-
-    users.forEach((user) => {
-        const item = document.createElement("div");
-        item.className =
-            "p-4 flex items-center space-x-4 border-b border-gray-200 cursor-pointer hover:bg-gray-100";
-        item.dataset.userId = user.id;
-
-        item.innerHTML = `
-            <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-white font-bold">
-                ${user.name.charAt(0).toUpperCase()}
-            </div>
-            <div class="flex-1">
-                <div class="font-semibold">${user.name}</div>
-                <div class="text-sm text-gray-500">${user.email}</div>
-            </div>
-        `;
-
-        item.addEventListener("click", () => handleSelectUser(user.id));
-        container.appendChild(item);
-    });
-} */
 function renderUserList() {
     userListContainer.innerHTML = "";
     users.forEach((user) => {
@@ -174,7 +154,7 @@ function renderUserList() {
 }
 
 // Función para manejar el submit del formulario
-async function handleAddUser(e) {
+/* async function handleAddUser(e) {
     e.preventDefault();
 
     // Limpiar errores anteriores
@@ -206,17 +186,53 @@ async function handleAddUser(e) {
             alert("Ocurrió un error. Intenta nuevamente.");
         }
     }
+} */
+async function handleAddUser(e) {
+    e.preventDefault();
+
+    // Limpiar errores anteriores
+    errorName.textContent = "";
+    errorEmail.textContent = "";
+
+    const submitBtn = addUserForm.querySelector('button[type="submit"]');
+    const originalBtnHTML = submitBtn.innerHTML;
+
+    // Bloquear botón y mostrar loader
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="loader"></span>';
+
+    const formData = new FormData(addUserForm);
+
+    try {
+        const response = await axios.post("/panel/store_user", {
+            name: formData.get("name"),
+            email: formData.get("email"),
+        });
+
+        const newUser = response.data.user; // Usuario recién creado desde el backend
+
+        users.unshift(newUser); // Agregar al inicio del array
+        renderUserList();
+
+        // Cerrar modal y limpiar form
+        addModal.classList.add("hidden");
+        addUserForm.reset();
+    } catch (error) {
+        if (error.response && error.response.status === 422) {
+            const errors = error.response.data.errors;
+            if (errors.name) errorName.textContent = errors.name[0];
+            if (errors.email) errorEmail.textContent = errors.email[0];
+        } else {
+            alert("Ocurrió un error. Intenta nuevamente.");
+        }
+    } finally {
+        // Desbloquear botón y restaurar texto
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnHTML;
+    }
 }
 
 // Manejar selección de usuario
-/* function handleSelectUser(userId) {
-    window.selectedUserId = userId;
-    const user = users.find((u) => u.id === userId);
-    if (!user) return;
-
-    const detailPanel = document.getElementById("user-detail-panel");
-    detailPanel.innerHTML = createUserDetail(user);
-} */
 function handleSelectUser(userId) {
     selectedUserId = userId;
     const user = users.find((u) => u.id === userId);
@@ -231,118 +247,49 @@ function handleSelectUser(userId) {
         selectedItem.classList.add("active");
     }
 
+    // Manejo de color del chat seleccionado
+    highlightSelectedItem("[data-user-id]", userId);
+
+    const backButton = document.getElementById("back-button");
+    backButton.addEventListener("click", handleBack);
+    appContainer.classList.add("user-active");
     renderUserDetail(user);
+    updateMenuButtonVisibility();
 }
 
 // Crear panel de detalle
-/* function createUserDetail(user) {
-    return `
-        <div class="flex flex-col h-full bg-gray-50">
-            <!-- Header -->
-            <div class="flex items-center p-4 bg-white border-b border-gray-200 shadow-sm">
-                <div class="w-12 h-12 bg-gray-400 rounded-full flex items-center justify-center text-white font-bold mr-4">
-                    ${user.name.charAt(0).toUpperCase()}
-                </div>
-                <h3 class="font-semibold text-lg">${user.name}</h3>
-            </div>
-
-            <!-- Body -->
-            <div class="flex-1 p-6 space-y-4 overflow-y-auto">
-                <div>
-                    <p class="text-sm font-bold text-gray-600">Correo:</p>
-                    <p class="text-gray-800">${user.email}</p>
-                </div>
-                <div>
-                    <p class="text-sm font-bold text-gray-600">Creado:</p>
-                    <p class="text-gray-800">${new Date(
-                        user.created_at
-                    ).toLocaleDateString()}</p>
-                </div>
-                <div>
-                    <p class="text-sm font-bold text-gray-600">Rol:</p>
-                    <p class="text-gray-800">${user.role ?? "No asignado"}</p>
-                </div>
-            </div>
-
-            <!-- Footer (acciones) -->
-            <div class="flex items-center justify-end p-4 border-t border-gray-200 bg-white space-x-2">
-                <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Editar</button>
-                <button class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">Eliminar</button>
-            </div>
-        </div>
-    `;
-} */
 function renderUserDetail(user) {
-    detailPanelContainer.innerHTML = `
-                <div class="w-full max-w-xl m-auto bg-white rounded-xl shadow-2xl overflow-hidden animate-fade-in transition-all">
-                    <!-- Cabecera del perfil -->
-                    <div class="p-8 bg-gray-800 text-white flex items-center justify-between space-x-6">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-16 h-16 flex-shrink-0 bg-emerald-700 rounded-full flex items-center justify-center text-3xl font-bold border-2 border-white border-opacity-30 shadow-inner">
-                                ${user.name.charAt(0).toUpperCase()}
-                            </div>
-                            <!-- Usamos un span para el nombre para que sea editable -->
-                            <span class="font-bold text-2xl" data-field="name" data-id="${
-                                user.id
-                            }">${user.name}</span>
-                        </div>
-                        <!-- Botón de eliminar con icono de papelera -->
-                        <button id="deleteUserBtn" data-id="${
-                            user.id
-                        }" class="text-white hover:text-red-300 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                                <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                    </div>
+    const emptyState = document.getElementById("user-empty-state");
+    const detailCard = document.getElementById("user-detail-card");
 
-                    <!-- Cuerpo de la tarjeta con los detalles -->
-                    <div class="p-8 space-y-6">
-                        <div>
-                            <p class="text-sm font-bold text-gray-600 mb-1">Correo Electrónico:</p>
-                            <!-- Usamos un span para el correo -->
-                            <span class="text-gray-800 text-lg" data-field="email" data-id="${
-                                user.id
-                            }">${user.email}</span>
-                        </div>
-                        <div>
-                            <p class="text-sm font-bold text-gray-600 mb-1">Clave:</p>
-                            <div class="flex items-center justify-between space-x-2">
-                                <!-- Usamos un span para la clave que se puede editar en línea -->
-                                <span class="text-gray-800 text-lg" data-field="password" data-id="${
-                                    user.id
-                                }">${
-        user.password ? "********" : "Sin clave"
-    }</span>
-                                <!-- Botón para enviar correo de restablecimiento -->
-                                <button onclick="handleSendPasswordResetEmail(${
-                                    user.id
-                                })" class="px-3 py-1 text-sm bg-indigo-800 text-white rounded-lg hover:bg-indigo-900 transition-colors">
-                                    Enviar correo
-                                </button>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="text-sm font-bold text-gray-600 mb-1">Rol:</p>
-                            <span class="text-gray-800 text-lg" data-field="role" data-id="${
-                                user.id
-                            }">${user.role ?? "Vendedor"}</span>
-                        </div>
-                        <div>
-                            <p class="text-sm font-bold text-gray-600 mb-1">Creado:</p>
-                            <p class="text-gray-800 text-lg">${new Date(
-                                user.created_at
-                            ).toLocaleDateString()}</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-    // Agrega los eventos de doble clic a los campos editables
+    // Ocultar mensaje inicial y mostrar card
+    emptyState.classList.add("hidden");
+    detailCard.classList.remove("hidden");
+
+    // Rellenar info
+    document.getElementById("user-avatar").textContent = user.name
+        .charAt(0)
+        .toUpperCase();
+    document.getElementById("user-name").textContent = user.name;
+    document.getElementById("user-email").textContent = user.email;
+    document.getElementById("user-password").textContent = user.password
+        ? "********"
+        : "Sin clave";
+    document.getElementById("user-role").textContent = user.role ?? "Vendedor";
+    document.getElementById("user-created").textContent = new Date(
+        user.created_at
+    ).toLocaleDateString();
+
+    // Botón eliminar
+    const deleteBtn = document.getElementById("deleteUserBtn");
+    deleteBtn.onclick = () => showDeleteConfirmationModal(user);
+
+    // Botón reset
+    const resetBtn = document.getElementById("sendResetBtn");
+    resetBtn.onclick = () => handleSendPasswordResetEmail(user.id);
+
+    // Activar inline edit (doble click en spans con data-field)
     addInlineEditListeners();
-    // Agrega el evento para el botón de eliminar
-    document.getElementById("deleteUserBtn").addEventListener("click", () => {
-        showDeleteConfirmationModal(user);
-    });
 }
 
 // Agrega listeners para la edición en línea
@@ -463,3 +410,21 @@ function showMessage(text, type = "info") {
         messageModal.classList.remove("animate-fade-in");
     }, 3000);
 }
+
+// Botón volver en móvil
+const handleBack = () => {
+    selectedUserId = null;
+    appContainer.classList.remove("user-active");
+    updateMenuButtonVisibility();
+};
+
+//Toggle Burguer menu and back button
+const updateMenuButtonVisibility = () => {
+    if (!menuButton) return;
+
+    if (selectedUserId) {
+        menuButton.classList.add("hidden"); // Oculta cuando hay chat abierto
+    } else {
+        menuButton.classList.remove("hidden"); // Muestra cuando estamos en listado
+    }
+};

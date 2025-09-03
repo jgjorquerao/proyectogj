@@ -15,6 +15,8 @@ window.selectedChatId = null;
 let appContainer;
 let chatItemsContainer;
 let chatWindowPanel;
+let menuButton
+
 
 // Al cargar la página
 window.addEventListener("load", function () {
@@ -27,15 +29,16 @@ window.initChatSection = () => {
     appContainer = document.getElementById("app-container");
     chatItemsContainer = document.getElementById("chat-items-container");
     chatWindowPanel = document.getElementById("chat-window-panel");
+    menuButton = document.getElementById("menu-button");
 
     if (!chatItemsContainer || !chatWindowPanel) return;
 
     // Carga chats
-    cargarChats();
+    fetchChats();
 };
 
 // Cargar chats desde la API
-window.cargarChats = async function () {
+window.fetchChats = async function () {
     try {
         const response = await fetch("/chat/get_chats");
         chats = await response.json();
@@ -92,96 +95,79 @@ window.renderChatList = () => {
     );
 };
 
-// Renderizar ventana de chat
+//Renderizar chat
 const createChatWindow = (chat) => {
-    const chatWindow = document.createElement("div");
-    chatWindow.className = "flex flex-col h-full bg-gray-100";
+    const template = document.getElementById("chat-window-template");
+    const chatWindow = template.content.cloneNode(true);
 
-    chatWindow.innerHTML = `
-        <div class="flex items-center p-4 bg-white border-b border-gray-200 shadow-sm">
-            <button id="back-button" class="md:hidden mr-4 p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
-            </button>
-            <img src="${chat.avatar}" alt="${chat.name}" class="w-10 h-10 rounded-full mr-4" 
-                 onerror="this.onerror=null;this.src='https://placehold.co/100x100/A3A3A3/FFFFFF?text=U';">
-            <h3 class="font-semibold">${chat.name}</h3>
-            <!-- Switch -->
-            <div class="ml-auto">
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" id="ai-manual-toggle" class="sr-only peer">
-                    <div id="toggle-container" class="w-20 h-8 flex items-center justify-center rounded-full bg-gray-400 peer-checked:bg-green-500 transition-colors">
-                        <span id="label-manual" class="text-xs font-medium text-white">Manual</span>
-                        <span id="label-ia" class="hidden text-xs font-medium text-white">Agente IA</span>
-                    </div>
-                </label>
-            </div>
-        </div>
-        <div id="messages-container" class="flex-1 p-4 overflow-y-auto space-y-3"></div>
-        <div class="flex items-center p-4 border-t border-gray-200 bg-white">
-            <input type="text" id="message-input" placeholder="Escribe un mensaje" class="flex-1 px-4 py-2 text-sm bg-gray-100 rounded-full focus:outline-none">
-            <button id="send-button" class="ml-2 p-2 bg-blue-500 text-white rounded-full transition-transform transform active:scale-95">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
-            </button>
-        </div>
-    `;
+    // Referencias
+    const avatar = chatWindow.querySelector(".chat-avatar");
+    const name = chatWindow.querySelector(".chat-name");
+    const aiManualToggle = chatWindow.querySelector(".ai-manual-toggle");
+    const labelIA = chatWindow.querySelector(".label-ia");
+    const labelManual = chatWindow.querySelector(".label-manual");
+    const toggleContainer = chatWindow.querySelector(".toggle-container");
+    /* const messagesContainer = chatWindow.querySelector(".messages-container"); */
 
-    const aiManualToggle = chatWindow.querySelector("#ai-manual-toggle");
-    const labelIA = chatWindow.querySelector("#label-ia");
-    const labelManual = chatWindow.querySelector("#label-manual");
-    const toggleContainer = chatWindow.querySelector("#toggle-container");
-    // 🔹 Función para actualizar el estado del UI
+    // Rellenar datos
+    avatar.src = chat.avatar;
+    name.textContent = chat.name;
+
+    // Función para actualizar UI
     const updateUI = (isChecked) => {
+        aiManualToggle.checked = isChecked;
         if (isChecked) {
-            // Agente IA: activa el checkbox, muestra el texto y añade la animación
-            aiManualToggle.checked = true;
-            labelIA.classList.remove("hidden");
             labelManual.classList.add("hidden");
+            labelIA.classList.remove("hidden");
             toggleContainer.classList.add("is-breathing");
         } else {
-            // Manual: desactiva el checkbox, muestra el texto y elimina la animación
-            aiManualToggle.checked = false;
             labelManual.classList.remove("hidden");
             labelIA.classList.add("hidden");
             toggleContainer.classList.remove("is-breathing");
         }
     };
 
-    // 🔹 Setear el UI según el control_status inicial
+    // Estado inicial
     updateUI(chat.control_status == 1);
 
-    // 🔹 Referencias al modal del Blade
+    // Modal
     const modal = document.getElementById("changeStatusModal");
     const statusName = document.getElementById("statusName");
     const btnConfirm = document.getElementById("confirmChangeStatusBtn");
     const btnCancel = document.getElementById("cancelChangeStatusBtn");
     const btnClose = document.getElementById("closeChangeStatusModal");
 
-    // Mostrar modal al cambiar el checkbox
     aiManualToggle.addEventListener("click", (e) => {
         e.preventDefault();
 
         const nuevoEstado = aiManualToggle.checked ? "Agente IA" : "Manual";
-        // Invertimos porque el checkbox aún no cambió
         statusName.textContent = nuevoEstado;
         modal.classList.remove("hidden");
 
         btnConfirm.onclick = () => {
+            aiManualToggle.disabled = true;
+            btnConfirm.disabled = true;
+            btnCancel.disabled = true;
+            btnClose.disabled = true;
+
+            btnConfirm.innerHTML = '<span class="loader"></span>';
+
             axios
                 .post(`/chat/toggle_status/${chat.id}`)
                 .then(() => {
-                    const nuevoEstadoToggle = !aiManualToggle.checked; // cambia el toggle
-                    labelIA.classList.toggle("hidden");
-                    labelManual.classList.toggle("hidden");
-                    modal.classList.add("hidden");
+                    const nuevoEstadoToggle = !aiManualToggle.checked;
                     updateUI(nuevoEstadoToggle);
+                    modal.classList.add("hidden");
                 })
                 .catch((error) => {
                     console.error("Error al actualizar estado:", error);
-                    // Podrías mostrar un mensaje de error en tu modal de mensajes
+                })
+                .finally(() => {
+                    aiManualToggle.disabled = false;
+                    btnConfirm.disabled = false;
+                    btnCancel.disabled = false;
+                    btnClose.disabled = false;
+                    btnConfirm.innerHTML = "Confirmar";
                 });
         };
 
@@ -194,7 +180,7 @@ const createChatWindow = (chat) => {
 };
 
 // Renderizar mensajes
-window.renderMessages = (messages) => {
+/* window.renderMessages = (messages) => {
     const messagesContainer = document.getElementById("messages-container");
     if (!messagesContainer) return;
     messagesContainer.innerHTML = "";
@@ -210,7 +196,7 @@ window.renderMessages = (messages) => {
             max-w-xs md:max-w-md p-3 rounded-xl
             ${
                 msg.sender === "user"
-                    ? "bg-blue-500 text-white rounded-br-none"
+                    ? "bg-sky-700 text-white rounded-br-none"
                     : "bg-white text-gray-800 rounded-bl-none"
             }
             relative
@@ -233,6 +219,26 @@ window.renderMessages = (messages) => {
     setTimeout(() => {
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }, 0);
+}; */
+window.renderMessages = (messages) => {
+    const messagesContainer = document.getElementById("messages-container");
+    if (!messagesContainer) return;
+    messagesContainer.innerHTML = "";
+
+    messages.forEach((msg) => {
+        const bubble = createMessageBubble({
+            id: msg.id,
+            message: msg.text,
+            currentdate: msg.date,
+            client_message: msg.sender === "user" ? 0 : 1, // 👈 normalizamos
+            status: "sent",
+        });
+        messagesContainer.appendChild(bubble);
+    });
+
+    setTimeout(() => {
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }, 0);
 };
 
 // Seleccionar chat
@@ -248,7 +254,9 @@ const handleSelectChat = (chatId) => {
     window.updateDocumentTitle();
 
     chatWindowPanel.innerHTML = "";
-    chatWindowPanel.appendChild(createChatWindow(selectedChat));
+    document
+        .getElementById("chat-window-panel")
+        .appendChild(createChatWindow(selectedChat));
     window.renderMessages(selectedChat.messages);
 
     const messageInput = document.getElementById("message-input");
@@ -262,7 +270,13 @@ const handleSelectChat = (chatId) => {
     backButton.addEventListener("click", handleBack);
 
     appContainer.classList.add("chat-active");
+
+    highlightSelectedItem("[data-chat-id]", chatId);
+    updateMenuButtonVisibility(); 
 };
+
+// Variable global para guardar el tiempo de inicio de la animación
+let animationStartTime = null;
 
 // Enviar mensaje
 const handleSendMessage = async () => {
@@ -271,13 +285,67 @@ const handleSendMessage = async () => {
     if (!messageText || !window.selectedChatId) return;
     messageInput.value = "";
 
+    // 🆕 Si es el primer mensaje "sending", guarda el tiempo de inicio de la animación.
+    if (!animationStartTime) {
+        animationStartTime = performance.now();
+    }
+
+    // 🔹 Crear un mensaje "temporal"
+    const tempId = Date.now(); // ID temporal único
+    const tempMessage = {
+        id: tempId,
+        conversation_id: window.selectedChatId,
+        message: messageText,
+        currentdate: new Date().toISOString(),
+        status: "sending", // estado temporal
+        client_message: 0,
+    };
+
+    // Pintar mensaje en UI de inmediato
+    if (window.addMessageToChat) window.addMessageToChat(tempMessage);
+
     try {
         await axios.post("/chat/send_message", {
             conversation_id: window.selectedChatId,
             message: messageText,
+            temp_id: tempId,
         });
     } catch (error) {
         console.error("Error al enviar mensaje:", error);
+        if (window.updateMessageStatus) {
+            window.updateMessageStatus(tempId, "error");
+        }
+    }
+};
+
+// Reemplazar mensaje temporal por definitivo
+window.replaceTempMessage = (realMessage) => {
+    if (!realMessage.temp_id) return false;
+    const tempDiv = document.querySelector(
+        `[data-id='${realMessage.temp_id}']`
+    );
+    if (tempDiv) {
+        const newBubble = createMessageBubble(realMessage);
+        newBubble.dataset.id = realMessage.id;
+        tempDiv.replaceWith(newBubble);
+        return true;
+    }
+    return false;
+};
+
+// Actualizar estado de un mensaje (por ejemplo a "error")
+window.updateMessageStatus = (tempId, status) => {
+    const msgDiv = document.querySelector(`[data-id='${tempId}']`);
+    if (msgDiv) {
+        msgDiv.remove(); // si prefieres borrarlo
+        // o cambiar visualmente:
+        const newBubble = createMessageBubble({
+            id: tempId,
+            conversation_id: window.selectedChatId,
+            message: msgDiv.textContent.trim(),
+            status: status,
+        });
+        msgDiv.replaceWith(newBubble);
     }
 };
 
@@ -285,10 +353,10 @@ const handleSendMessage = async () => {
 const handleBack = () => {
     window.selectedChatId = null;
     appContainer.classList.remove("chat-active");
+    updateMenuButtonVisibility();
 };
 
 window.addMessageToChat = (message) => {
-    // Si el chat abierto es el mismo que el del nuevo mensaje
     if (
         window.selectedChatId &&
         window.selectedChatId == message.conversation_id
@@ -296,13 +364,61 @@ window.addMessageToChat = (message) => {
         const messagesContainer = document.getElementById("messages-container");
         if (messagesContainer) {
             const messageBubble = createMessageBubble(message);
+            messageBubble.dataset.id = message.id; // 👈 importante para identificar luego
             messagesContainer.appendChild(messageBubble);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
     }
 };
 
-// Crea una función auxiliar para generar un solo elemento de mensaje
+/* const createMessageBubble = (msg) => {
+    const messageBubble = document.createElement("div");
+    messageBubble.className = `flex ${
+        msg.client_message === 0 ? "justify-end" : "justify-start"
+    }`;
+
+    const bubbleContent = document.createElement("div");
+    bubbleContent.className = `
+        max-w-xs md:max-w-md p-3 rounded-xl
+        ${
+            msg.client_message === 0
+                ? "bg-sky-700text-white rounded-br-none"
+                : "bg-white text-gray-800 rounded-bl-none"
+        }
+        relative min-w-10
+    `;
+
+    // Si el mensaje es temporal, agregamos la clase "respirando"
+    if (msg.status === "sending") {
+        bubbleContent.classList.add("bubble-breathing");
+        if (animationStartTime) {
+            const animationDuration = 1000; // 1s en milisegundos
+            const elapsedTime = performance.now() - animationStartTime;
+            const cycleTime = elapsedTime % animationDuration;
+            const delay = -cycleTime / 1000; // Convertir a segundos y hacer negativo
+            bubbleContent.style.animationDelay = `${delay}s`;
+        }
+    }
+
+    const date = new Date(msg.currentdate || Date.now());
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+
+    bubbleContent.innerHTML = `
+        <p class="text-sm mb-2 break-words">${msg.message}</p>
+        <span class="text-[10px] ${
+            msg.client_message === 0 ? "text-gray-100" : "text-gray-400"
+        } absolute bottom-1 right-2">
+            ${hours}:${minutes}
+        </span>
+    `;
+
+    messageBubble.appendChild(bubbleContent);
+
+    if (msg.id) messageBubble.dataset.id = msg.id;
+
+    return messageBubble;
+}; */
 const createMessageBubble = (msg) => {
     const messageBubble = document.createElement("div");
     messageBubble.className = `flex ${
@@ -314,25 +430,41 @@ const createMessageBubble = (msg) => {
         max-w-xs md:max-w-md p-3 rounded-xl
         ${
             msg.client_message === 0
-                ? "bg-blue-500 text-white rounded-br-none"
+                ? "bg-sky-700 text-white rounded-br-none"
                 : "bg-white text-gray-800 rounded-bl-none"
         }
-        relative
-        min-w-10
+        relative min-w-10
     `;
 
-    // Asegúrate de que tu objeto de mensaje tenga una propiedad de fecha
-    const date = new Date(msg.currentdate); // O la propiedad que uses para la fecha
+    // Si el mensaje está en envío
+    if (msg.status === "sending") {
+        bubbleContent.classList.add("bubble-breathing");
+        if (animationStartTime) {
+            const animationDuration = 1000;
+            const elapsedTime = performance.now() - animationStartTime;
+            const cycleTime = elapsedTime % animationDuration;
+            const delay = -cycleTime / 1000;
+            bubbleContent.style.animationDelay = `${delay}s`;
+        }
+    }
+
+    const date = new Date(msg.currentdate || Date.now());
     const hours = date.getHours().toString().padStart(2, "0");
     const minutes = date.getMinutes().toString().padStart(2, "0");
 
     bubbleContent.innerHTML = `
-        <p class="text-sm mb-2 break-words"">${msg.message}</p>
+        <p class="text-sm mb-2 break-words">${msg.message}</p>
         <span class="text-[10px] ${
             msg.client_message === 0 ? "text-gray-100" : "text-gray-400"
-        } absolute bottom-1 right-2">${hours}:${minutes}</span>
+        } absolute bottom-1 right-2">
+            ${hours}:${minutes}
+        </span>
     `;
+
     messageBubble.appendChild(bubbleContent);
+
+    if (msg.id) messageBubble.dataset.id = msg.id;
+
     return messageBubble;
 };
 
@@ -357,6 +489,10 @@ window.updateChatListDOM = () => {
             item.className = `flex items-center p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ${
                 chat.isUnread ? "bg-blue-50" : ""
             }`;
+
+            // Si es el seleccionado actual, aplica el highlight
+            highlightSelectedItem("[data-chat-id]", window.selectedChatId);
+
             const existingIndicator = item.querySelector(
                 ".bg-blue-500.rounded-full"
             );
@@ -390,12 +526,39 @@ window.updateDocumentTitle = () => {
     }
 };
 
-/* document.addEventListener("visibilitychange", () => {
-    // Si la página es visible, "leemos" todos los mensajes
-    if (document.visibilityState === "visible") {
-        chats.forEach((chat) => (chat.isUnread = false));
-        window.updateChatListDOM();
-        window.updateDocumentTitle();
+//FALTA USAR
+const handleDeleteMessage = async (messageId) => {
+    if (!window.selectedChatId) return;
+
+    try {
+        // 1️⃣ Primero, eliminar en la UI
+        const msgDiv = document.querySelector(`[data-id='${messageId}']`);
+        if (msgDiv) msgDiv.remove();
+
+        // 2️⃣ Eliminar en tu BD via API
+        await axios.post("/chat/delete_message", {
+            conversation_id: window.selectedChatId,
+            message_id: messageId,
+        });
+
+        // 3️⃣ Opcional: actualizar el último mensaje del chat
+        const selectedChat = chats.find((c) => c.id === window.selectedChatId);
+        if (selectedChat) {
+            selectedChat.lastMessage = "Mensaje eliminado"; // o recalcular
+            window.updateChatListDOM();
+        }
+    } catch (error) {
+        console.error("Error al eliminar mensaje:", error);
     }
-});
- */
+};
+
+//Toggle Burguer menu and back button
+const updateMenuButtonVisibility = () => {
+    if (!menuButton) return;
+
+    if (window.selectedChatId) {
+        menuButton.classList.add("hidden"); // Oculta cuando hay chat abierto
+    } else {
+        menuButton.classList.remove("hidden"); // Muestra cuando estamos en listado
+    }
+};

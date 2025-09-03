@@ -1,35 +1,11 @@
-<style>
-    /* Estilo del pseudo-elemento para el texto del switch */
-    .toggle-label::after {
-        content: "Manual";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        white-space: nowrap;
-        font-weight: 600;
-        color: #4b5563;
-        /* Color de texto para el estado "Manual" */
-        transition: color 0.3s ease-in-out;
-    }
-
-    /* Cambia el texto y el color del texto cuando el checkbox está activado */
-    /* Corrección: Se cambió '.toggle-peer:checked' a '.peer:checked' para que funcione correctamente */
-    .peer:checked+.toggle-label::after {
-        content: "Agente IA";
-        color: white;
-        /* Color de texto para el estado "Agente IA" */
-    }
-</style>
-
 <!-- Panel de lista de usuarios -->
 <div id="user-list-panel" class="w-full md:w-1/3 h-full flex-shrink-0">
     <div class="flex flex-col h-full content-list border-r border-gray-200">
         <!-- Título y botón de nuevo chat -->
         <div class="p-4 flex justify-center items-center border-b border-gray-200 relative">
             <h2 class="text-xl font-bold">Usuarios</h2>
-            <button id="openModal" class="absolute right-4 flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
-                <x-heroicon-s-plus-circle class="w-6 h-6 text-gray-500" />
+            <button id="openModal" class="absolute right-4 flex btn-custom font-semibold py-2 px-4 rounded-lg shadow-md">
+                <x-heroicon-s-user-plus class="w-6 h-6" />
             </button>
         </div>
         <!-- Barra de búsqueda de chats -->
@@ -73,11 +49,58 @@
 
 <!-- Panel de ventana de usuario -->
 <div id="user-detail-panel" class="w-full md:w-2/3 h-full flex-shrink-0 flex flex-col">
-    <div class="flex items-center justify-center h-full text-gray-500">
+    <div id="user-empty-state" class="flex items-center justify-center h-full text-gray-500">
         <span class="hidden md:block text-lg">Selecciona un usuario</span>
+    </div>
+
+    <div id="user-detail-card" class="w-[90%] h-[90%] m-auto bg-white rounded-xl shadow-2xl overflow-hidden hidden">
+        <!-- Cabecera del perfil -->
+        <div class="p-8 bg-gray-800 text-white flex items-center justify-between space-x-6">
+             <div class="flex items-center space-x-4">
+        <button id="back-button" class="md:hidden p-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+        <div id="user-avatar" class="w-16 h-16 flex-shrink-0 bg-emerald-700 rounded-full flex items-center justify-center text-3xl font-bold border-2 border-white border-opacity-30 shadow-inner">
+            A
+        </div>
+        <span id="user-name" data-field="name" class="font-bold text-2xl"></span>
+    </div>
+            <button id="deleteUserBtn" class="text-white hover:text-red-300 transition-colors">
+                <x-heroicon-s-trash class="w-6 h-6" />
+            </button>
+        </div>
+
+        <!-- Cuerpo -->
+        <div class="p-8 space-y-6">
+            <div>
+                <p class="text-sm font-bold text-gray-600 mb-1">Correo Electrónico:</p>
+                <span id="user-email" data-field="email" class="text-gray-800 text-lg"></span>
+            </div>
+            <div>
+                <p class="text-sm font-bold text-gray-600 mb-1">Clave:</p>
+                <div class="flex items-center justify-between space-x-2">
+                    <span id="user-password" data-field="password" class="text-gray-800 text-lg">********</span>
+                    <button id="sendResetBtn" class="btn-custom font-semibold py-2 px-4 rounded-lg shadow-md">
+                        Enviar correo
+                    </button>
+                </div>
+            </div>
+            <div>
+                <p class="text-sm font-bold text-gray-600 mb-1">Rol:</p>
+                <span id="user-role" data-field="role" class="text-gray-800 text-lg"></span>
+            </div>
+            <div>
+                <p class="text-sm font-bold text-gray-600 mb-1">Creado:</p>
+                <p id="user-created" class="text-gray-800 text-lg"></p>
+            </div>
+        </div>
     </div>
 </div>
 
+
+<!-- Modal ADD -->
 <div id="addUserModal" class="fixed inset-0 flex items-center justify-center hidden bg-black/30 backdrop-blur-[2px]">
     <div class="card-custom rounded-lg w-96 p-6 relative shadow-2xl">
         <button id="closeAddModal" class="absolute top-2 right-2 text-white mr-4 hover:text-gray-500">✕</button>
@@ -93,7 +116,7 @@
                 <input id="email" type="email" class="form-control form-control-custom w-full px-4 py-1" name="email" value="" autocomplete="email" required="" autofocus="">
                 <div class="text-red-500 text-sm mt-1" id="errorEmail"></div>
             </div>
-            <button type="submit" class="w-full btn-custom text-white py-2 rounded-lg hover:bg-blue-600 mt-4">Agregar</button>
+            <button type="submit" class="w-full btn-custom text-white py-2 rounded-lg hover:bg-blue-600 mt-4 w-30">Agregar</button>
         </form>
 
     </div>

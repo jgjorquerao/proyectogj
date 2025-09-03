@@ -3,7 +3,7 @@
 @include('header_short')
 
 @section('content')
-<div class="container d-flex justify-content-center mt-5" style="min-height: 100vh;">
+<div class="container d-flex justify-content-center mt-5">
     <div class="row w-100 justify-content-center">
         <div class="col-md-8 col-lg-5">
             <div class="card card-custom p-4">

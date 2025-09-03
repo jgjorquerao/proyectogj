@@ -92,7 +92,7 @@ class ChatController extends Controller
         $msg->client_message = 0; // enviado por nosotros
         $msg->processed = 1;
         $msg->currentdate = now();
-        $msg->save();
+        /* $msg->save(); */
 
         $clientPhone = $conversation->client->phone;
         $clientPhone = ltrim($clientPhone, '+');
@@ -110,7 +110,11 @@ class ChatController extends Controller
                     "text" => ["body" => $request->message],
                 ]);
 
-            event(new NewMessage($msg));
+            $waData = $response->json();
+            $msg->wa_message_id = $waData['messages'][0]['id'] ?? null;
+            $msg->save();
+
+            event(new NewMessage($msg, $request->temp_id));
 
             return response()->json([
                 'success' => true,
@@ -125,88 +129,49 @@ class ChatController extends Controller
         }
     }
 
-
-
-    //Evento llamado desde n8n
-    /* public function triggerEvent(Request $request)
+    //FALTA USAR
+    public function deleteMessage(Request $request)
     {
-        $conexion = 'chat_db_1';
-
         $request->validate([
-            'client_phone' => 'required|string',
-            'message' => 'required|string',
+            'conversation_id' => 'required|integer',
+            'message_id' => 'required|integer',
         ]);
 
-        $msg = new Whatsapp();
-        $msg->setConnection($conexion);
-        $msg->client_phone = $request->client_phone;
-        $msg->message = $request->message;
-        $msg->client_message = $request->client_message;
-        $msg->currentdate = now();
-        $msg->save();
+        $message = Whatsapp::find($request->message_id);
 
-        if (!$msg) {
+        if (!$message) {
             return response()->json([
                 'success' => false,
-                'error' => 'Mensaje no encontrado'
+                'error' => 'Mensaje no encontrado',
             ], 404);
         }
 
-        // Disparar el evento Pusher
-        event(new NewMessage($msg));
+        // 1️⃣ Eliminar en WhatsApp usando la API oficial
+        if ($message->wa_message_id) { // este campo debe existir y contener el id de WhatsApp
+            $url = "https://graph.facebook.com/v22.0/" . env('WHATSAPP_PHONE_ID') . "/messages";
+            try {
+                $response = Http::withToken(env('WHATSAPP_TOKEN'))
+                    ->post($url, [
+                        "messaging_product" => "whatsapp",
+                        "status" => "deleted",
+                        "message_id" => $message->wa_message_id,
+                    ]);
+
+                // Opcional: loguear la respuesta
+                \Log::info("WhatsApp delete response", $response->json());
+            } catch (\Exception $e) {
+                \Log::error("Error al eliminar mensaje en WhatsApp: " . $e->getMessage());
+                // Puedes decidir continuar o retornar error
+            }
+        }
+
+        // 2️⃣ Eliminar en tu base de datos
+        $message->delete();
 
         return response()->json(['success' => true]);
-    } */
+    }
 
-    /* public function triggerEvent(Request $request)
-    {
-
-        $request->validate([
-            'client_phone' => 'required|string',
-            'message' => 'required|string',
-            'client_message' => 'required|boolean',
-            'company_id' => 'required|integer',
-        ]);
-
-        // 1. Buscar si ya existe una conversación con ese número y esa company
-        $conversation = Conversation::where('client_phone', $request->client_phone)
-            ->where('company_id', $request->company_id)
-            ->first();
-
-        // 2. Si no existe, la creamos
-        if (!$conversation) {
-            $conversation = new Conversation();
-            $conversation->name = $request->name;
-            $conversation->client_phone = $request->client_phone;
-            $conversation->company_id = $request->company_id;
-            $conversation->contro_status = 1; // por defecto IA
-            $conversation->save();
-        }
-
-        // 3. Crear el mensaje en WhatsApp asociado a la conversación
-        $msg = new Whatsapp();
-        $msg->message = $request->message;
-        $msg->client_message = $request->client_message;
-        $msg->currentdate = now();
-        $msg->conversation_id = $conversation->id;
-        $msg->save();
-
-        if (!$msg) {
-            return response()->json([
-                'success' => false,
-                'error' => 'Mensaje no encontrado'
-            ], 404);
-        }
-
-        // 4. Disparar el evento Pusher
-        event(new NewMessage($msg));
-
-        return response()->json([
-            'success' => true,
-            'conversation_id' => $conversation->id,
-            'message_id' => $msg->id
-        ]);
-    } */
+    //Evento desde n8n
     public function triggerEvent(Request $request)
     {
         $request->validate([
