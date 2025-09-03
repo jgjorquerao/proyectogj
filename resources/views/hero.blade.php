@@ -8,11 +8,11 @@
                         <div class="static-text">Potencia la imagen de tu <span id="hero-words"></span></div>
                     </div>
                 </div>
-                <div>
+                <!--<div>
                     <p><span class="typed"
                             data-typed-items="Video Reels, Producción Audiovisual, Diseño Gráfico, Marketing Digital, Inteligencia Artificial, Desarrollo Web"></span>
                     </p>
-                </div>
+                </div> -->
 
             </div>
             <div class="text-center">

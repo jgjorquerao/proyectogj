@@ -43,12 +43,12 @@
     "src": "node_modules/boxicons/fonts/boxicons.woff2"
   },
   "resources/css/panel.css": {
-    "file": "assets/panel-C3aO9Kh9.css",
+    "file": "assets/panel-Bb3EHRTa.css",
     "src": "resources/css/panel.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-DAVvvN48.js",
+    "file": "assets/app-DP7SI5gw.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -56,7 +56,7 @@
       "__commonjsHelpers-CqkleIqs.js"
     ],
     "css": [
-      "assets/app-CZHT3Z68.css"
+      "assets/app-Di3yWZwF.css"
     ],
     "assets": [
       "assets/bootstrap-icons-mSm7cUeB.woff2",
@@ -69,7 +69,7 @@
     ]
   },
   "resources/js/panel.js": {
-    "file": "assets/panel-CHNkKd6N.js",
+    "file": "assets/panel-m6MB_0KI.js",
     "name": "panel",
     "src": "resources/js/panel.js",
     "isEntry": true,
@@ -79,7 +79,7 @@
       "__commonjsHelpers-CqkleIqs.js"
     ],
     "css": [
-      "assets/panel-BlZX27i6.css"
+      "assets/panel-Dh92qxGh.css"
     ]
   },
   "resources/js/pusher_setup.js": {

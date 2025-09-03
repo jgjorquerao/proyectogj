@@ -15,8 +15,10 @@ body {
     }
 
     #nav-panel {
-        width: 16rem; /* Ancho completo en móvil */
+        width: 16rem;
+        /* Ancho completo en móvil */
         transform: translateX(-100%);
+        border-bottom-right-radius: 2rem;
     }
 
     .nav-active #nav-panel {
@@ -24,10 +26,10 @@ body {
     }
 
     .nav-active #menu-button-container {
-        left: 16rem; /* Ajustar el desplazamiento del botón */
-        background-color: rgb(
-            31 41 55
-        ); /* Color de fondo para que se integre con la barra de navegación */
+        left: 16rem;
+        /* Ajustar el desplazamiento del botón */
+        background-color: rgb(31 41 55);
+        /* Color de fondo para que se integre con la barra de navegación */
     }
 
     /* Ocultar el botón de menú de hamburguesa cuando el panel está activo */
@@ -85,10 +87,12 @@ body {
 
 /* Define la animación de "respiración" (AGENTE IA) */
 @keyframes pulse-green {
+
     0%,
     100% {
         box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
     }
+
     50% {
         box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
     }
@@ -113,6 +117,7 @@ body {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -120,15 +125,22 @@ body {
 
 /* Animación respirando para burbujas de chat */
 @keyframes pulse-chat {
+
     0%,
     100% {
         transform: scale(1);
         opacity: 0.8;
     }
+
     50% {
         transform: scale(1.03);
         opacity: 1;
     }
+}
+
+#chat-list-panel {
+    /* ... otros estilos */
+    border-top-left-radius: 2rem;
 }
 
 .bubble-breathing {
@@ -139,13 +151,17 @@ body {
 ::-webkit-scrollbar {
     width: 8px;
 }
+
 ::-webkit-scrollbar-thumb {
-    background-color: #cbd5e0; /* gris claro */
+    background-color: #cbd5e0;
+    /* gris claro */
     border-radius: 8px;
 }
+
 ::-webkit-scrollbar-track {
     background: transparent;
 }
+
 /* Firefox */
 /* Estilo solo para Firefox */
 @-moz-document url-prefix() {

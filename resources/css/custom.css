@@ -201,7 +201,7 @@ section {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(80, 200, 120, 0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 50%;
   width: 70px;
   height: 70px;
@@ -214,14 +214,14 @@ section {
 }
 
 .video-play-button i {
-  color: #fff;
+  color: #000000;
   font-size: 36px;
   line-height: 0;
   padding-left: 4px;
 }
 
 .video-play-button:hover {
-  background-color: rgba(80, 200, 120, 1);
+  background-color: rgb(172, 172, 172);
 }
 
 .portfolio-wrap:hover video {
@@ -961,16 +961,16 @@ section {
   justify-content: center;
   width: 54px;
   height: 54px;
-  background: #636363;
+  background: #ffffff;
   /* MANTENIDO AZUL */
   border-radius: 50%;
   transition: 0.5s;
-  border: 1px solid #ffffff;
+  border: 1px solid #919191;
   /* MANTENIDO AZUL */
 }
 
 .services .icon i {
-  color: #fff;
+  color: #000000;
   font-size: 24px;
   line-height: 0;
 }
@@ -980,7 +980,7 @@ section {
 }
 
 .services .icon-box:hover .icon i {
-  color: #149ddd;
+  color: #000000;
   /* MANTENIDO AZUL */
 }
 
@@ -996,7 +996,7 @@ section {
 }
 
 .services .title a:hover {
-  color: #149ddd;
+  color: #000000;
   /* MANTENIDO AZUL */
 }
 
@@ -1979,7 +1979,7 @@ body.dark-mode .skills-content .skill-item h4 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(80, 200, 120, 0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 50%;
   width: 70px;
   height: 70px;
@@ -1992,14 +1992,14 @@ body.dark-mode .skills-content .skill-item h4 {
 }
 
 .video-play-button i {
-  color: #fff;
+  color: #000000;
   font-size: 36px;
   line-height: 0;
   padding-left: 4px;
 }
 
 .video-play-button:hover {
-  background-color: rgba(80, 200, 120, 1);
+  background-color: rgb(206, 206, 206);
 }
 
 /* Efectos de Hover para el video y su overlay */
@@ -2345,11 +2345,18 @@ body.dark-mode .contact .php-email-form {
   width: 100%;
   -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  white-space: nowrap;
 }
 
 .logos-slide {
-  display: flex !important;
-  align-items: center !important;
+  display: flex;
+  animation: scroll 40s infinite linear;
+  /* Ajusta el tiempo y el tipo de animación si lo necesitas */
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  user-drag: none;
+  user-select: none;
 }
 
 .logos-slide img {
@@ -2362,6 +2369,19 @@ body.dark-mode .contact .php-email-form {
   -ms-user-select: none;
   user-select: none;
   pointer-events: none;
+  flex-shrink: 0;
+  /* Evita que las imágenes se encojan */
+}
+
+@keyframes scroll {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(calc(-200px *6));
+    transform: translateX(calc(-200px *6));
+  }
 }
 
 
@@ -3039,7 +3059,7 @@ body.dark-mode .contact .php-email-form {
   color: #fff;
   margin-left: 15px;
   /* Espacio entre el texto estático y el dinámico */
-  height: 58px;
+  height: 70px;
   /* Altura del contenedor, debe coincidir con line-height * font-size */
   overflow: hidden;
   /* Oculta las palabras que no se están mostrando */

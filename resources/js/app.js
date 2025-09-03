@@ -844,4 +844,3 @@ function initFloatingButtons() {
     window.addEventListener('load', toggleButtons);
     document.addEventListener('scroll', toggleButtons);
 }
-

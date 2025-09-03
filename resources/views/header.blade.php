@@ -3,7 +3,7 @@
 
         <!-- Logo -->
         <a href="" class="logo">
-            <img src="{{ asset('img/LOGOGYLER4.png') }}" alt="Logo Gyler Digital" class="img-fluid">
+            <img src="{{ asset('img/gylerai004.png') }}" alt="Logo Gyler Digital" class="img-fluid">
             <!-- <span class="logo-text">gyler.ai</span> -->
         </a>
 
@@ -31,32 +31,33 @@
 
         <div class="ms-4">
             @guest
-            @if (Route::has('login'))
-            <!-- <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a> -->
-            <a class="nav-link login-btn" href="{{ route('login') }}">
-                <i class="bi bi-person-circle"></i>
-            </a>
-            @endif
+                @if (Route::has('login'))
+                    <!-- <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a> -->
+                    <a class="nav-link login-btn" href="{{ route('login') }}">
+                        <i class="bi bi-person-fill" style="font-size: 24px;"></i>
+                    </a>
+                @endif
             @else
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{ Auth::user()->name }}
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                    <li>
-                        <a class="dropdown-item" href="{{ route('index') }}">
-                            Dashboard
-                        </a>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            Logout
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </li>
-                </ul>
-            </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ Auth::user()->name }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li>
+                            <a class="dropdown-item" href="{{ route('index') }}">
+                                Dashboard
+                            </a>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                </li>
             @endguest
         </div>
     </div>
