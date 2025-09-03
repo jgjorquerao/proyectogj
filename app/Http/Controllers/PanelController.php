@@ -13,7 +13,7 @@ class PanelController extends Controller
 
     public function index()
     {
-        $defaultMenu = "products";
+        $defaultMenu = "chat";
         return view('panel.index')->with('menu', $defaultMenu);
     }
 }
