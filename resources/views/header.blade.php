@@ -3,7 +3,7 @@
 
         <!-- Logo -->
         <a href="" class="logo">
-            <img src="{{ asset('img/LOGOGYLER2.png') }}" alt="Logo Gyler Digital" class="img-fluid">
+            <img src="{{ asset('img/LOGOGYLER4.png') }}" alt="Logo Gyler Digital" class="img-fluid">
             <!-- <span class="logo-text">gyler.ai</span> -->
         </a>
 

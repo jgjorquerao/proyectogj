@@ -2,24 +2,20 @@
     <div class="container">
         <canvas id="hero-animation-canvas"></canvas>
         <div class="hero-container" data-aos="fade-in">
-            <div class="animated-title">
-                <div class="static-text">Potencia la imagen de tu</div>
-                <div class="dynamic-text-container">
-                    <ul>
-                        <li><span>Automotora</span></li>
-                        <li><span>Rent a Car</span></li>
-                        <li><span>Detailing</span></li>
-                        <li><span>Concesionario</span></li>
-                    </ul>
+            <div class="hero-text-content">
+                <div class="animated-title">
+                    <div class="dynamic-text-container">
+                        <div class="static-text">Potencia la imagen de tu <span id="hero-words"></span></div>
+                    </div>
                 </div>
-            </div>
+                <div>
+                    <p><span class="typed"
+                            data-typed-items="Video Reels, Producción Audiovisual, Diseño Gráfico, Marketing Digital, Inteligencia Artificial, Desarrollo Web"></span>
+                    </p>
+                </div>
 
-            <!--             <h1> Automotora, Rent a Car o Detailing</h1> -->
-            <p><span class="typed"
-                    data-typed-items="Video Reels, Producción Audiovisual, Diseño Gráfico, Marketing Digital, Inteligencia Artificial, Desarrollo Web"></span>
-            </p>
+            </div>
             <div class="text-center">
-                {{-- Contenedor y enlace para la flecha soy un cocos--}}
                 <div class="custom-arrow-container">
                     <a href="#pricing" class="custom-arrow"></a>
                 </div>
@@ -27,4 +23,3 @@
         </div>
     </div>
 </section>
-

@@ -502,101 +502,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initSpheres();
     animate();
 
-    const slider = document.querySelector('.logos-slider');
-
-    if (slider) {
-        const slideContainer = slider.querySelector('.logos-slide');
-
-        // --- Lógica para el carrusel infinito ---
-        // 1. Clonar todos los logos
-        const originalLogos = slideContainer.innerHTML;
-        // 2. Duplicar el contenido para crear el bucle
-        slideContainer.innerHTML += originalLogos;
-
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-        let velocity = 0;
-        let momentumID;
-        // CORRECCIÓN: Límite máximo para la velocidad de la inercia
-        const maxVelocity = 40;
-
-        // Función para actualizar la posición y crear el bucle infinito
-        const updateScroll = () => {
-            // Si se desplaza más allá de la mitad (donde empiezan los clones)
-            if (slider.scrollLeft >= slideContainer.offsetWidth / 2) {
-                // Vuelve al principio sin que el usuario lo note
-                slider.scrollLeft -= slideContainer.offsetWidth / 2;
-                scrollLeft = slider.scrollLeft; // Actualiza la posición de scroll para el próximo arrastre
-            }
-            // Si se desplaza hacia la izquierda antes del inicio
-            else if (slider.scrollLeft <= 0) {
-                // Vuelve al final (al inicio de los clones) sin que el usuario lo note
-                slider.scrollLeft += slideContainer.offsetWidth / 2;
-                scrollLeft = slider.scrollLeft; // Actualiza la posición de scroll
-            }
-        };
-
-        const startDragging = (e) => {
-            isDown = true;
-            slider.classList.add('active');
-            startX = e.pageX || e.touches[0].pageX - slider.offsetLeft;
-            scrollLeft = slider.scrollLeft;
-            cancelAnimationFrame(momentumID);
-            velocity = 0;
-        };
-
-        const stopDragging = () => {
-            isDown = false;
-            slider.classList.remove('active');
-            beginMomentum();
-        };
-
-        const whileDragging = (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-
-            const x = e.pageX || e.touches[0].pageX - slider.offsetLeft;
-            const walk = (x - startX);
-            const prevScrollLeft = slider.scrollLeft;
-            slider.scrollLeft = scrollLeft - walk;
-
-            velocity = slider.scrollLeft - prevScrollLeft;
-
-            // Comprueba y actualiza el scroll para el bucle infinito MIENTRAS se arrastra
-            updateScroll();
-        };
-
-        const beginMomentum = () => {
-            cancelAnimationFrame(momentumID);
-            const momentumLoop = () => {
-                slider.scrollLeft += velocity;
-                velocity *= 0.95; // Fricción
-
-                // Comprueba y actualiza el scroll durante la inercia
-                updateScroll();
-
-                if (Math.abs(velocity) > 0.5) {
-                    momentumID = requestAnimationFrame(momentumLoop);
-                }
-            };
-            momentumLoop();
-        };
-
-        // Asigna los eventos
-        slider.addEventListener('mousedown', startDragging);
-        slider.addEventListener('mouseleave', stopDragging);
-        slider.addEventListener('mouseup', stopDragging);
-        slider.addEventListener('mousemove', whileDragging);
-        slider.addEventListener('touchstart', startDragging);
-        slider.addEventListener('touchend', stopDragging);
-        slider.addEventListener('touchmove', whileDragging);
-        // CORRECCIÓN PARA MÓVIL
-        slider.addEventListener('touchmove', whileDragging, { passive: false });
-        // Evento de scroll para el caso de usar la barra de scroll (aunque esté oculta)
-        slider.addEventListener('scroll', updateScroll);
-    }
-
     // Selecciona el contenedor de los filtros del portafolio.
     const filtersContainer = document.querySelector('.portfolio #portfolio-flters');
 
@@ -631,10 +536,50 @@ document.addEventListener('DOMContentLoaded', () => {
             filtersContainer.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
         });
     }
-    createPieChart();
+
+    // ✅ LÍNEA PROBLEMÁTICA ELIMINADA DE AQUÍ
     initSkillsChartsAnimation();
     initVideoCarousel();
     initFloatingButtons();
+
+    // =======================================================================
+    // ✅ INICIO: LÓGICA PARA CARRUSEL DE LOGOS (VERSIÓN FINAL)
+    // =======================================================================
+    const slider = document.querySelector('.logos-slider');
+
+    if (slider) {
+        const slideContainer = slider.querySelector('.logos-slide');
+
+        let autoScrollID;
+        const normalSpeed = 0.4; // Velocidad normal (45% más lento)
+        const hoverSpeed = 0.16; // Velocidad en hover (60% más lento que la normal)
+        let currentSpeed = normalSpeed;
+
+        const autoScroll = () => {
+            slider.scrollLeft += currentSpeed;
+
+            // Lógica para el bucle infinito
+            if (slider.scrollLeft >= slideContainer.offsetWidth / 2) {
+                slider.scrollLeft -= slideContainer.offsetWidth / 2;
+            }
+            autoScrollID = requestAnimationFrame(autoScroll);
+        };
+
+        // Eventos para cambiar la velocidad al pasar el mouse
+        slider.addEventListener('mouseenter', () => {
+            currentSpeed = hoverSpeed;
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            currentSpeed = normalSpeed;
+        });
+
+        // Iniciar la animación
+        autoScroll();
+    }
+    // =======================================================================
+    // ✅ FIN: LÓGICA PARA CARRUSEL DE LOGOS
+    // =======================================================================
 });
 /**
  * Inicializa el carrusel de videos del portafolio con autoplay.
@@ -663,6 +608,27 @@ function initVideoCarousel() {
     let autoPlayInterval;
     const autoPlayDelay = 5000; // 5 segundos
 
+    if (!window.heroSliderInitialized) {
+        window.heroSliderInitialized = true;
+
+        const words = ["Tu Marca", "Tus Servicios", "Tus Productos"]; // Ajusta tus palabras
+        const wordContainer = document.querySelector("#hero-words");
+
+        let currentIndex = 0;
+
+        function showNextWord() {
+            wordContainer.classList.remove("fade-in-up");
+            void wordContainer.offsetWidth;
+
+            wordContainer.textContent = words[currentIndex];
+            wordContainer.classList.add("fade-in-up");
+
+            currentIndex = (currentIndex + 1) % words.length;
+        }
+
+        showNextWord();
+        setInterval(showNextWord, 1500);
+    }
     // --- Funciones del Carrusel ---
 
     function getSlideWidth() {
@@ -878,3 +844,4 @@ function initFloatingButtons() {
     window.addEventListener('load', toggleButtons);
     document.addEventListener('scroll', toggleButtons);
 }
+
