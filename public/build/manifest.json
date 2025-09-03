@@ -43,12 +43,12 @@
     "src": "node_modules/boxicons/fonts/boxicons.woff2"
   },
   "resources/css/panel.css": {
-    "file": "assets/panel-BMZYQwZP.css",
+    "file": "assets/panel-C3aO9Kh9.css",
     "src": "resources/css/panel.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-BiG4IgzO.js",
+    "file": "assets/app-DAVvvN48.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -56,7 +56,7 @@
       "__commonjsHelpers-CqkleIqs.js"
     ],
     "css": [
-      "assets/app-Dyw7SFqi.css"
+      "assets/app-CZHT3Z68.css"
     ],
     "assets": [
       "assets/bootstrap-icons-mSm7cUeB.woff2",
@@ -69,7 +69,7 @@
     ]
   },
   "resources/js/panel.js": {
-    "file": "assets/panel-BkB0Qzxk.js",
+    "file": "assets/panel-CHNkKd6N.js",
     "name": "panel",
     "src": "resources/js/panel.js",
     "isEntry": true,
@@ -79,7 +79,7 @@
       "__commonjsHelpers-CqkleIqs.js"
     ],
     "css": [
-      "assets/panel-CBxcUUxS.css"
+      "assets/panel-BlZX27i6.css"
     ]
   },
   "resources/js/pusher_setup.js": {
@@ -93,7 +93,7 @@
     ]
   },
   "resources/js/user.js": {
-    "file": "assets/user-iX52eTf3.js",
+    "file": "assets/user-CVxSMWdd.js",
     "name": "user",
     "src": "resources/js/user.js",
     "isEntry": true,
