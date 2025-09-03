@@ -5,6 +5,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="{{ asset('pwa.json') }}">
     <title>{{ env('APP_NAME')}}</title>
     @vite([
     'resources/sass/app.scss',
@@ -13,10 +14,10 @@
     ])
 </head>
 
-<body class="min-h-screen p-4 sm:p-6 lg:p-8 flex items-center justify-center">
+<body class="h-screen p-4 sm:p-6 lg:p-8 flex items-center justify-center">
 
     <!-- Contenedor principal de la aplicación -->
-    <div id="app-container" class="w-full h-[90vh] max-w-7xl mx-auto flex rounded-2xl overflow-hidden shadow-2xl bg-white relative md:static">
+    <div id="app-container" class="w-full h-full mx-auto flex rounded-2xl overflow-hidden shadow-2xl bg-white relative md:static">
 
         <!-- Contenedor del botón de menú de hamburguesa, solo visible en móviles -->
         <div id="menu-button-container" class="md:hidden absolute top-2 left-4 z-50 transition-all duration-300 ease-in-out p-1 bg-white rounded-full shadow-md">
@@ -51,6 +52,10 @@
                     <x-heroicon-s-users class="w-6 h-6 text-white" />
                     <span class="text-sm md:hidden">Usuarios</span>
                 </button>
+                <button id="btn-products" class="menu-btn p-2 w-full text-white hover:bg-gray-700 rounded-full transition-colors duration-200 flex items-center justify-center cursor-pointer">
+                    <x-heroicon-s-squares-plus class="w-6 h-6 text-white" />
+                    <span class="text-sm md:hidden">Productos</span>
+                </button>
                 @endif
             </div>
             <!-- Perfil de usuario o avatar -->
@@ -67,33 +72,18 @@
     </div>
 
     <script>
-        window.currentMenu = '{{$menu}}'; 
+        window.currentMenu = '{{$menu}}';
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuButton = document.getElementById('menu-button');
-            const closeMenuButton = document.getElementById('close-menu-button');
-            const appContainer = document.getElementById('app-container');
-
-            const btn_default = document.getElementById('btn-{{$menu}}');
-            if (btn_default) {
-                btn_default.classList.add('bg-gray-700');
-            }
-
-            // Abrir el menú
-            if (menuButton && appContainer) {
-                menuButton.addEventListener('click', () => {
-                    appContainer.classList.add('nav-active');
-                });
-            }
-
-            // Cerrar el menú
-            if (closeMenuButton && appContainer) {
-                closeMenuButton.addEventListener('click', () => {
-                    appContainer.classList.remove('nav-active');
-                });
-            }
-        });
+        //APP para descargar
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/sw.js").then(() => {
+                /* console.log("✅ Service Worker registrado"); */
+            }).catch(err => {
+                console.error("❌ Error registrando SW:", err);
+            });
+        }
     </script>
+
 </body>
 
 </html>

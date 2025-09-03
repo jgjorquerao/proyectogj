@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id(); // PK autoincrement
 
             $table->text('message');
-            /* $table->string('client_phone'); */
             $table->timestamp('currentdate')->useCurrent();
 
             $table->boolean('client_message')
@@ -24,14 +23,9 @@ return new class extends Migration
             $table->boolean('processed')
                 ->default(0)
                 ->comment('indica si ya fue procesado por el sistema');
-
-            /* $table->unsignedBigInteger('company_id');
-            $table->unsignedBigInteger('user_id');
-
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); */
             $table->unsignedBigInteger('conversation_id');
             $table->foreign('conversation_id')->references('id')->on('conversations')->onDelete('cascade');
+            $table->string('wa_message_id')->nullable();
         });
     }
 

@@ -2,16 +2,9 @@
     <div class="container d-flex align-items-center justify-content-between">
 
         <!-- Logo -->
-        <a href="/" class="logo">
+        <a href="/" class="logo" id="logo">
             <img src="{{ asset('img/gylerdigital1.png') }}" alt="Logo Gyler Digital" class="img-fluid">
         </a>
-
-        <!-- Menú de Navegación -->
-        <!-- <nav id="navbar" class="navbar">
-            <ul>
-                <li><a class="nav-link scrollto active" href="/home">Inicio</a></li>
-            </ul>
-        </nav> -->
 
         <!-- Redes Sociales (Opcional, puedes moverlas o quitarlas) -->
         <div class="header-social-links">
@@ -22,3 +15,18 @@
 
     </div>
 </header>
+
+<script>
+    const logo = document.getElementById('logo');
+
+    if (
+        window.matchMedia('(display-mode: standalone)').matches ||
+        window.navigator.standalone
+    ) {
+        // App instalada → quitamos el href
+        logo.removeAttribute('href');
+    } else {
+        // Navegador normal → dejamos el href
+        logo.setAttribute('href', '/');
+    }
+</script>

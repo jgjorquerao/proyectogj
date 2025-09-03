@@ -14,10 +14,12 @@ class NewMessage implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
+    public $tempId; // 👈 nuevo
 
-    public function __construct(Whatsapp $message)
+    public function __construct(Whatsapp $message, $tempId = null)
     {
         $this->message = $message;
+        $this->tempId = $tempId;
     }
 
     /* public function broadcastOn()
@@ -34,11 +36,13 @@ class NewMessage implements ShouldBroadcast
 
     public function broadcastWith()
     {
-        // Fetch all messages for the conversation
         return [
-            'messages' => $this->message, // Pass the messages as an array
+            'messages' => array_merge($this->message->toArray(), [
+                'temp_id' => $this->tempId ?? null,
+            ]),
         ];
     }
+
 
     public function broadcastAs()
     {

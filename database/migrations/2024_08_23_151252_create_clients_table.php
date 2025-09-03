@@ -20,8 +20,6 @@ return new class extends Migration
             // Relación con company
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
-
-            /* $table->timestamps(); */
         });
     }
 

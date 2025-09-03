@@ -32,6 +32,7 @@
         "waypoints": "^4.0.1"
     },
     "dependencies": {
+        "croppie": "^2.6.5",
         "three": "^0.179.1"
     }
 }

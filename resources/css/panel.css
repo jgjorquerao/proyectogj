@@ -1,7 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import "croppie/croppie.css";
 
 body {
-    background: #69696d;
+    background: #c8c8e7;
     font-family: "Inter", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -57,13 +58,32 @@ body {
     }
 }
 
+@media (max-width: 767px) {
+    #app-container.user-active #user-list-panel {
+        transform: translateX(-100%);
+    }
+
+    #app-container.user-active #user-detail-panel {
+        transform: translateX(-100%);
+    }
+
+    #app-container:not(.user-active) #user-list-panel {
+        transform: translateX(0);
+    }
+
+    #app-container:not(.user-active) #user-detail-panel {
+        transform: translateX(0);
+    }
+}
+
 #main-content {
     display: flex;
     height: 100%;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
-/* Define la animación de "respiración" */
+/* Define la animación de "respiración" (AGENTE IA) */
 @keyframes pulse-green {
     0%,
     100% {
@@ -74,7 +94,94 @@ body {
     }
 }
 
-/* Clase para aplicar la animación */
+/* Clase para aplicar la animación (CHAT enviando...) */
 .is-breathing {
-    animation: pulse-green 2s infinite;
+    animation: pulse-green 5s infinite;
+}
+
+.loader {
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Animación respirando para burbujas de chat */
+@keyframes pulse-chat {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.03);
+        opacity: 1;
+    }
+}
+
+.bubble-breathing {
+    animation: pulse-chat 1s infinite;
+}
+
+/* Scrollbar para WebKit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #cbd5e0; /* gris claro */
+    border-radius: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+/* Firefox */
+/* Estilo solo para Firefox */
+@-moz-document url-prefix() {
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: #cbd5e0 transparent;
+    }
+}
+
+/* Estilos para el contenedor de Croppie.js */
+#croppie-container {
+    width: 100%;
+    height: 250px;
+}
+
+.upload-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border: 2px dashed #a0aec0;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.upload-area:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: #ffffff;
+}
+
+.upload-area-text {
+    color: #a0aec0;
+}
+
+.upload-icon {
+    color: #a0aec0;
 }
