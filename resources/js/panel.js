@@ -3,6 +3,7 @@ import axios from "axios";
 import "./chat.js";
 import "./pusher_setup.js";
 import "./user.js";
+import "./meeting.js";
 import "./products.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -48,6 +49,11 @@ const menus = {
         url: "/panel/products",
         init: window.initProductSection,
         btn: document.getElementById("btn-products"), // puede ser null si no es admin
+    },
+    meetings: {
+        url: "/panel/meetings",
+        init: window.initMeetingSection,
+        btn: document.getElementById("btn-meetings"),
     },
 };
 

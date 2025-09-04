@@ -1,21 +1,21 @@
 <!-- Panel de lista de usuarios -->
 <div id="user-list-panel" class="w-full md:w-1/3 h-full flex-shrink-0">
     <div class="flex flex-col h-full content-list border-r border-gray-200">
-        <!-- Título y botón de nuevo chat -->
+        <!-- Título y botón de nuevo usuario -->
         <div class="p-4 flex justify-center items-center border-b border-gray-200 relative">
             <h2 class="text-xl font-bold">Usuarios</h2>
             <button id="openModal" class="absolute right-4 flex btn-custom font-semibold py-2 px-4 rounded-lg shadow-md">
                 <x-heroicon-s-user-plus class="w-6 h-6" />
             </button>
         </div>
-        <!-- Barra de búsqueda de chats -->
+        <!-- Barra de búsqueda de usuarios -->
         <div class="p-4 border-b border-gray-200">
             <input type="text" placeholder="Buscar un usuario" class="w-full px-4 py-2 text-sm bg-gray-100 rounded-lg focus:outline-none">
         </div>
-        <!-- Contenedor de las tarjetas de chat -->
+        <!-- Contenedor de las tarjetas de usuario -->
         <div id="user-list" class="flex-1 overflow-y-auto">
-            <!-- Los chats se renderizarán aquí con JavaScript -->
-            <!-- Skeleton lista de chats -->
+            <!-- Los usuarios se renderizarán aquí con JavaScript -->
+            <!-- Skeleton lista de usuarios -->
             <div id="chat-items-skeleton">
                 <div class="p-4 space-y-4">
                     <div class="flex items-center space-x-4 animate-pulse">

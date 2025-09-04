@@ -57,6 +57,10 @@
                     <span class="text-sm md:hidden">Productos</span>
                 </button>
                 @endif
+                <button id="btn-meetings" class="menu-btn p-2 w-full text-white hover:bg-gray-700 rounded-full transition-colors duration-200 flex items-center justify-center cursor-pointer">
+                    <x-heroicon-s-calendar-days class="w-6 h-6 text-white" />
+                    <span class="text-sm md:hidden">Citas</span>
+                </button>
             </div>
             <!-- Perfil de usuario o avatar -->
             <div class="flex items-center space-x-2">
