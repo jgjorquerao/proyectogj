@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/js/panel.js',
                 'resources/js/pusher_setup.js',
                 'resources/js/user.js',
+                'resources/js/meeting.js',
             ],
             refresh: true,
         }),

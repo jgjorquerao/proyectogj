@@ -33,6 +33,12 @@
     box-shadow: 0 0 0 0.25rem rgba(76, 81, 191, 0.25);
 }
 
+.form-control-custom:disabled {
+    background-color: #373f4d;
+    border-color: #525d6d;
+    color: #8d8d92 !important;
+}
+
 /* Estilos para el checkbox */
 .form-check-input-custom {
     background-color: #4a5568 !important;

@@ -30,6 +30,17 @@ class UserController extends Controller
         return response()->json($users);
     }
 
+    public function getUsersForMeetings()
+    {
+        $creator = Auth::user();
+
+        $users = User::where('company_id', $creator->company_id)
+            ->orderBy('name', 'asc')
+            ->get(['id', 'name']); // Puedes agregar otros campos si quieres
+
+        return response()->json($users);
+    }
+
     public function store(Request $request)
     {
         $creator = Auth::user();
