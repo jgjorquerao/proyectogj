@@ -184,5 +184,28 @@ class GeneralSeeder extends Seeder
                 'wa_message_id' => Str::uuid(),
             ],
         ]);
+
+        // -----------------------------
+        // Schedules
+        // -----------------------------
+        $days = [
+            0, // Lunes
+            1, // Martes
+            2, // Miércoles
+            3, // Jueves
+            4, // Viernes
+            5, // Sábado
+            6, // Domingo
+        ];
+
+        foreach ($days as $day) {
+            DB::table('schedules')->insert([
+                'day' => $day,
+                'start_hour' => '08:00:00',
+                'end_hour' => '20:00:00',
+                'enabled' => 1,
+                'company_id' => 1,
+            ]);
+        }
     }
 }
