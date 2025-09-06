@@ -22,12 +22,10 @@ let selectedMonth = null;
 let selectedDay = null;
 let lastSelectedDate = null;
 let selectedMeetingId = null;
-let schedule = null;
+let schedules = [];
 let meetings = []; // Array de citas cargadas
 let clientList = []; // Array de clientes
 let userList = []; // Array de usuarios
-let validClientIds = []; // IDs válidos de clientes
-let validUserIds = []; // IDs válidos de usuarios
 let clientsFilled = false; // Boolean para asegurarse de que select de clientes esté relleno en el modal de agregar/editar
 let usersFilled = false; // Boolean para asegurarse de que select de usuarios esté relleno en el modal de agregar/editar
 
@@ -41,6 +39,24 @@ let timePickerModal,
     timePickerPM;
 let isPickerPM = false,
     activeTimeInput = null;
+
+// Variables de selección de cliente
+let addClientDropdownContainer,
+    editClientDropdownContainer,
+    clientDropdownBox,
+    clientDropdownList,
+    clientNoResults,
+    clientSearchInput;
+let activeClientInput = null;
+
+// Variables de selección de usuario
+let addUserDropdownContainer,
+    editUserDropdownContainer,
+    userDropdownBox,
+    userDropdownList,
+    userNoResults,
+    userSearchInput;
+let activeUserInput = null;
 
 // Variables del modal de agregar
 let openAddModal,
@@ -116,6 +132,21 @@ window.initMeetingSection = () => {
     timePickerAM = document.getElementById('ampm-am');
     timePickerPM = document.getElementById('ampm-pm');
 
+    // Referencias del DOM de la selección de cliente
+    addClientDropdownContainer = document.getElementById('addClientDropdownContainer');
+    clientDropdownBox = document.getElementById('client-dropdown-box');
+    clientDropdownList = document.getElementById('client-dropdown-list');
+    clientNoResults = document.getElementById('client-no-results');
+    clientSearchInput = document.getElementById('client-search-input');
+
+    // Referencias del DOM de la selección de usuario
+    addUserDropdownContainer = document.getElementById('addUserDropdownContainer');
+    editUserDropdownContainer = document.getElementById('editUserDropdownContainer');
+    userDropdownBox = document.getElementById('user-dropdown-box');
+    userDropdownList = document.getElementById('user-dropdown-list');
+    userNoResults = document.getElementById('user-no-results');
+    userSearchInput = document.getElementById('user-search-input');
+
     // Referencias del DOM del modal de agregar
     openAddModal = document.getElementById("openAddModal");
     closeAddModal = document.getElementById("closeAddModal");
@@ -177,6 +208,18 @@ window.initMeetingSection = () => {
         addModal.classList.add("hidden");
     });
 
+    // Actualizar tooltip de las horas cuando se cambie la fecha en el modal de ADD
+    addDateInput.addEventListener("change", function () {
+        const value = this.value;
+
+        // Revisar si la fecha es un valor valido
+        if (value && !isNaN(new Date(value).getTime())) {
+            // Es valido, establecer tooltip de las horas
+            const selectedDate = new Date(value);
+            setAddHourTooltip(selectedDate);
+        }
+    });
+
     // Cerrar modal ADD al hacer click fuera del contenido
     addModal.addEventListener("click", (e) => {
         if (e.target === addModal) {
@@ -230,59 +273,19 @@ window.initMeetingSection = () => {
     // Inicializar el time picker
     initTimePicker();
 
-    /* // Event listeners
-    clientInput.addEventListener('click', () => {
-        // Mostrar clientes si ya se rellenaron
-        if (clientsFilled) {
-            dropdownList.classList.remove('hidden');
-            searchInput.focus();
-            renderClientList(clientList);
-        }
-    });
+    // Inicializar la selección de cliente
+    initClientFillable();
 
-    searchInput.addEventListener('input', (event) => {
-        const searchTerm = event.target.value.toLowerCase();
-        const filteredClients = clientList.filter(client =>
-            client.client_name.toLowerCase().includes(searchTerm)
-        );
-        renderClientList(filteredClients);
-    });
-
-    document.addEventListener('mousedown', (event) => {
-        if (!dropdownContainer.contains(event.target)) {
-            dropdownList.classList.add('hidden');
-            searchInput.value = '';
-        }
-    }); */
+    // Inicializar la selección de usuario
+    initUserFillable();
 };
-
-/* // Function to render the client list
-function renderClientList(clients) {
-    clientListContainer.innerHTML = '';
-    if (clients.length === 0) {
-        noResults.classList.remove('hidden');
-    } else {
-        noResults.classList.add('hidden');
-        clients.forEach(client => {
-            const listItem = document.createElement('li');
-            listItem.textContent = client.client_name;
-            listItem.classList.add('p-3', 'text-white', 'cursor-pointer', 'hover:bg-blue-600', 'transition-colors', 'duration-200');
-            listItem.addEventListener('click', () => {
-                clientInput.value = btoa(client.client_id);
-                dropdownList.classList.add('hidden');
-                searchInput.value = ''; // Clear search input
-            });
-            clientListContainer.appendChild(listItem);
-        });
-    }
-} */
 
 // Función para traer citas desde el backend
 async function fetchMeetings() {
     try {
         const response = await axios.get("/panel/get_meetings");
         const data = response.data;
-        schedule = data.schedule;
+        schedules = data.schedules;
         meetings = data.meetings;
         initCalendar(); // Inicializar el calendario y la lista de citas
     } catch (error) {
@@ -654,27 +657,23 @@ function initTimePicker() {
     activeTimeInput = null;
     isPickerPM = false;
 
-    // El click de los input de hora del modal de añadir
-    addStartHourInput.addEventListener('click', (event) => {
-        event.stopPropagation();
-        showTimePicker(addStartHourInput);
-    });
+    // Función del click del input del time picker
+    function setupTimeInputClick(input, isEndHour = false) {
+        input.addEventListener('click', (event) => {
+            if (input != activeTimeInput) {
+                event.stopPropagation();
+                showTimePicker(input, isEndHour);
+            }
+        });
+    }
 
-    addEndHourInput.addEventListener('click', (event) => {
-        event.stopPropagation();
-        showTimePicker(addEndHourInput, true);
-    });
+    // El click de los input de hora del modal de añadir
+    setupTimeInputClick(addStartHourInput);
+    setupTimeInputClick(addEndHourInput, true);
 
     // El click de los input de hora del modal de editar
-    editStartHourInput.addEventListener('click', (event) => {
-        event.stopPropagation();
-        showTimePicker(editStartHourInput);
-    });
-
-    editEndHourInput.addEventListener('click', (event) => {
-        event.stopPropagation();
-        showTimePicker(editEndHourInput, true);
-    });
+    setupTimeInputClick(editStartHourInput);
+    setupTimeInputClick(editEndHourInput, true);
 
     // El click del botón de cancelar
     timePickerCancelBtn.addEventListener('click', (event) => {
@@ -763,8 +762,8 @@ function initTimePicker() {
     
     // Que el time picker se cierre al hacer click fuera
     document.addEventListener('click', (event) => {
-        if (!timePickerModal.contains(event.target) && event.target !== addStartHourInput && event.target !== addEndHourInput
-            && event.target !== editStartHourInput && event.target !== editEndHourInput) {
+        if (!timePickerModal.contains(event.target) && event.target !== activeTimeInput ) { //&& event.target !== addEndHourInput
+            //&& event.target !== editStartHourInput && event.target !== editEndHourInput
             hideTimePicker();
         }
     });
@@ -877,8 +876,8 @@ function handleAmpmClick(event) {
 function renderMonthYearSelection() {
     // Establecer estilos
     const selectDayBackColor = 'bg-black';
-    const currentMonthBackColor = 'bg-gray-200';
-    const hoverBackColor = "hover:bg-gray-300";
+    const currentMonthBackColor = 'bg-gray-300';
+    const hoverBackColor = "hover:bg-gray-200";
     const blackText = 'text-gray-800';
     const whiteText = 'text-white';
     const meetingBorder = 'ring-1';
@@ -942,79 +941,237 @@ function hideMonthYearModal() {
     monthYearModal.classList.add('hidden');
 }
 
+// Función para inicializar la selección de cliente
+function initClientFillable() {
+    activeClientInput = null;
+
+    // Función del click del input de cliente
+    function setupClientFillable(input) {
+        input.addEventListener('click', (event) => {
+            //event.stopPropagation();
+            // Mostrar clientes si ya se rellenaron
+            if (clientsFilled && activeClientInput != input) {
+                hideUserList();
+                renderClientList(clientList);
+                showClientList(input);
+            }
+        });
+    }
+
+    // Aplicar lógica de cuando se presiona el input de cliente
+    setupClientFillable(addClientInput);
+
+    clientSearchInput.addEventListener('input', (event) => {
+        const searchTerm = event.target.value.toLowerCase();
+        const filteredClients = clientList.filter(client =>
+            client.name.toLowerCase().includes(searchTerm)
+        );
+        renderClientList(filteredClients);
+    });
+
+    // Que el cuadro de clientes se cierre al hacer click fuera
+    document.addEventListener('click', (event) => {
+        if (!clientDropdownBox.contains(event.target) && event.target !== activeClientInput) {
+            hideClientList();
+        }
+    });
+}
+
+// Función para crear la lista de clientes
+function renderClientList(clients) {
+    clientDropdownList.innerHTML = '';
+    if (clients.length === 0) {
+        clientNoResults.classList.remove('hidden');
+    } else {
+        clientNoResults.classList.add('hidden');
+        clients.forEach(client => {
+            const listItem = document.createElement('li');
+            listItem.textContent = client.name;
+            listItem.classList.add('p-2', 'text-white', 'cursor-pointer', 'hover:bg-blue-600', 'transition-colors', 'duration-200');
+            listItem.addEventListener('click', () => {
+                if (!activeClientInput) return;
+                activeClientInput.value = client.name;
+                activeClientInput.dataset.client = btoa(client.id);
+                hideClientList();
+            });
+            clientDropdownList.appendChild(listItem);
+        });
+    }
+}
+
+// Función para abrir la lista de clientes
+function showClientList(input) {
+    activeClientInput = input;
+    const inEdit = input.id == editClientInput.id;
+    const container = inEdit ? editClientDropdownContainer : addClientDropdownContainer;
+    container.appendChild(clientDropdownBox);
+
+    clientSearchInput.focus();
+    clientSearchInput.value = '';
+    clientDropdownBox.classList.remove('hidden');
+}
+
+// Función para cerrar la lista de clientes
+function hideClientList() {
+    clientDropdownBox.classList.add('hidden');
+    clientSearchInput.value = '';
+    activeClientInput = null;
+}
+
+// Función para inicializar la selección de usuario
+function initUserFillable() {
+    activeUserInput = null;
+
+    // Función del click del input de usuario
+    function setupUserFillable(input) {
+        input.addEventListener('click', (event) => {
+            //event.stopPropagation();
+            // Mostrar usuarios si ya se rellenaron
+            if (usersFilled && activeUserInput != input) {
+                hideClientList();
+                renderUserList(userList);
+                showUserList(input);
+            }
+        });
+    }
+
+    // Aplicar lógica de cuando se presiona el input de usuario
+    setupUserFillable(addUserInput);
+    setupUserFillable(editUserInput);
+
+    userSearchInput.addEventListener('input', (event) => {
+        const searchTerm = event.target.value.toLowerCase();
+        const filteredUsers = userList.filter(user =>
+            user.name.toLowerCase().includes(searchTerm)
+        );
+        renderUserList(filteredUsers);
+    });
+
+    // Que el cuadro de usuarios se cierre al hacer click fuera
+    document.addEventListener('click', (event) => {
+        if (!userDropdownBox.contains(event.target) && event.target !== activeUserInput) {
+            hideUserList();
+        }
+    });
+}
+
+// Función para crear la lista de usuarios
+function renderUserList(users) {
+    userDropdownList.innerHTML = '';
+    if (users.length === 0) {
+        userNoResults.classList.remove('hidden');
+    } else {
+        userNoResults.classList.add('hidden');
+        users.forEach(user => {
+            const listItem = document.createElement('li');
+            listItem.textContent = user.name;
+            listItem.classList.add('p-2', 'text-white', 'cursor-pointer', 'hover:bg-blue-600', 'transition-colors', 'duration-200');
+            listItem.addEventListener('click', () => {
+                if (!activeUserInput) return;
+                activeUserInput.value = user.name;
+                activeUserInput.dataset.user = btoa(user.id);
+                hideUserList();
+            });
+            userDropdownList.appendChild(listItem);
+        });
+    }
+}
+
+// Función para abrir la lista de usuarios
+function showUserList(input) {
+    activeUserInput = input;
+    const inEdit = input.id == editUserInput.id;
+    const container = inEdit ? editUserDropdownContainer : addUserDropdownContainer;
+    container.appendChild(userDropdownBox);
+
+    userSearchInput.focus();
+    userSearchInput.value = '';
+    userDropdownBox.classList.remove('hidden');
+}
+
+// Función para cerrar la lista de usuarios
+function hideUserList() {
+    userDropdownBox.classList.add('hidden');
+    userSearchInput.value = '';
+    activeUserInput = null;
+}
+
 // Función para traer clientes al modal que corresponda
 async function fillModalClients(selectedClientId = "") {
     clientsFilled = false;
+    const inEdit = selectedClientId != "";
+    let clientInput = inEdit ? editClientInput : addClientInput;
+    let finalInputValue = "";
+    clientInput.value = "";
+    clientInput.placeholder = "Cargando clientes...";
+    clientInput.dataset.client = "";
+
     try {
-        let modalClientInput = addClientInput;
-        if (selectedClientId != "") { modalClientInput = editClientInput; }
-        modalClientInput.innerHTML = "";
-
-        // Crear opción default
-        const defaultOption = document.createElement("option");
-        defaultOption.value = "";
-        defaultOption.innerHTML = "Seleccione un cliente";
-        defaultOption.selected = true;
-        modalClientInput.appendChild(defaultOption);
-
         // Obtener lista de clientes del server
         const response = await axios.get("/panel/get_clients");
         clientList = response.data;
-        validClientIds = clientList.map(c => c.id); // establecer IDs validos
 
-        // Crear opciones de clientes
-        clientList.forEach(client => {
-            const option = document.createElement("option");
-            option.value = btoa(client.id);
-            option.textContent = client.name;
-            if (client.id == selectedClientId) { 
-                defaultOption.selected = false;
-                option.selected = true;
-            }
-            modalClientInput.appendChild(option);
-        });
     } catch (error) {
-        clientList = [];
-        validClientIds = [];
+        // clientList = [];
         console.error("Error al cargar clientes:", error);
     }
+
+    // Colocar valores correspondientes si se está editando
+    if (inEdit) {
+        let client = clientList.find((c) => c.id === Number(selectedClientId));
+        if (client) {
+            finalInputValue = client.name;
+        }
+        else
+        {
+            finalInputValue = "Error obteniendo cliente";
+            console.log("No se encontró en la lista un cliente con el id: "+selectedClientId);
+        }
+    }
+
+    clientInput.value = finalInputValue;
+    clientInput.placeholder = "Selecciona un cliente";
     clientsFilled = true;
 }
 
 // Función para traer usuarios al modal que corresponda
-async function fillModalUsers(selectedUserId = -1) {
+async function fillModalUsers(selectedUserId = "") {
     usersFilled = false;
+    const inEdit = selectedUserId != "";
+    let userInput = inEdit ? editUserInput : addUserInput;
+    let finalInputValue = "";
+    let finalInputDataset = "";
+    userInput.value = "";
+    userInput.placeholder = "Cargando usuarios...";
+    userInput.dataset.user = "";
+
     try {
-        let modalUserInput = addUserInput;
-        if (selectedUserId != -1) { modalUserInput = editUserInput; }
-        modalUserInput.innerHTML = "";
-
-        // Crear opción default
-        const defaultOption = document.createElement("option");
-        defaultOption.value = "";
-        defaultOption.innerHTML = "Seleccione un usuario";
-        defaultOption.selected = true;
-        modalUserInput.appendChild(defaultOption);
-
         // Obtener lista de usuarios del server
         const response = await axios.get("/panel/get_users_for_meetings");
         userList = response.data;
-        validUserIds = userList.map(u => u.id); // establecer IDs validos
 
-        // Crear opciones de usuarios
-        userList.forEach(user => {
-            const option = document.createElement("option");
-            option.value = btoa(user.id);
-            option.textContent = user.name;
-            if (user.id == selectedUserId) { 
-                defaultOption.selected = false;
-                option.selected = true; 
-            }
-            modalUserInput.appendChild(option);
-        });
     } catch (error) {
+        // userList = [];
         console.error("Error al cargar usuarios:", error);
     }
+
+    // Colocar valores correspondientes si se está editando
+    if (inEdit) {
+        let user = userList.find((u) => u.id === Number(selectedUserId));
+        if (user) {
+            finalInputValue = user.name;
+            finalInputDataset = btoa(user.id);
+        }
+        else
+        {
+            finalInputValue = "Error obteniendo usuario";
+            console.log("No se encontró en la lista un usuario con el id: "+selectedUserId);
+        }
+    }
+
+    userInput.value = finalInputValue;
+    userInput.dataset.user = finalInputDataset;
+    userInput.placeholder = "Selecciona un usuario";
     usersFilled = true;
 }
 
@@ -1034,15 +1191,17 @@ async function handleAddMeeting(e) {
     if (clientsFilled && usersFilled)
     {
         // Establecer valores
-        let isValid = true;
+        let dateAllGood = true;
+        let startHourAllGood = true;
+        let endHourAllGood = true;
         const theTimezone = GetTimezone();
         const now = GetCurrentDatetime();
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         const formDate = addDateInput.value.trim();
         const formStartHour = addStartHourInput.value.trim();
         const formEndHour = addEndHourInput.value.trim();
-        const formClient = safeAtob(addClientInput.value.trim());
-        const formUser = safeAtob(addUserInput.value.trim());
+        const formClient = safeAtob(addClientInput.dataset.client);
+        const formUser = safeAtob(addUserInput.dataset.user);
         
         // Limpiar errores anteriores
         cleanAddErrors();
@@ -1053,8 +1212,8 @@ async function handleAddMeeting(e) {
         const dateValid = formDate && dateRegex.test(formDate);
         const startHourValid = formStartHour && twelveHourRegex.test(formStartHour);
         const endHourValid = formEndHour && twelveHourRegex.test(formEndHour);
-        const clientValid = formClient && formClient != null && validClientIds.includes(Number(formClient));
-        const userValid = formUser && formUser != null && validUserIds.includes(Number(formUser));
+        const clientValid = formClient && formClient != null && clientList.some(c => c.id === Number(formClient));
+        const userValid = formUser && formUser != null && userList.some(u => u.id === Number(formUser));
         if (!dateValid || !startHourValid || !endHourValid || !clientValid || !userValid) {
             if (!dateValid) { addDateError.textContent = "Selecciona una fecha válida"; }
             if (!startHourValid) { addStartHourError.textContent = "Selecciona una hora de inicio válida"; }
@@ -1065,65 +1224,90 @@ async function handleAddMeeting(e) {
         }
         const startHour24 = to24HourFormat(formStartHour);
         const endHour24 = to24HourFormat(formEndHour);
-
-        // Verificar que la fecha no sea en el pasado y que la hora de inicio/término esté en el horario de trabajo
         const [year, month, day] = formDate.split("-").map(Number);
         const selectedDatetime = new Date(year, month - 1, day, 0, 0, 0, 0);
         const startHourTime = time24ToDate(startHour24);
         const endHourTime = time24ToDate(endHour24);
-        const scheduleStartTime = time24ToDate(schedule.start_hour);
-        const scheduleEndTime = time24ToDate(schedule.end_hour);
-        const startHourOffWork = startHourTime < scheduleStartTime || startHourTime > scheduleEndTime;
-        const endHourOffWork = endHourTime < scheduleStartTime || endHourTime > scheduleEndTime;
-        const dateIsPast = selectedDatetime < today;
+        const daySchedule = schedules.find((s) => s.day === getDayIndex(selectedDatetime));
+        const dayEnabled = daySchedule ? daySchedule.enabled : false;
 
-        if (startHourOffWork || endHourOffWork || dateIsPast)
+        if (daySchedule) console.log(daySchedule.enabled);
+
+        // Verificar que la fecha seleccionada no sea menor a la actual
+        const dateIsPast = selectedDatetime < today;
+        if (dateIsPast)
         {
+            // Fecha está en el pasado
+            addDateError.textContent = "*La fecha no puede ser anterior a la fecha actual";
+            dateAllGood = false;
+        }
+        else
+        {
+            // Fecha es hoy o posterior, verificar si se puede trabajar ese dia
+            if (!dayEnabled) {
+                // No se trabaja ese dia
+                addDateError.textContent = "*El "+GetDayName(daySchedule.day)+" no es un dia laboral";
+                dateAllGood = false;
+            }
+        }
+
+        // Si está todo bien con la fecha, continuar comprobando la hora de inicio y término
+        if (dateAllGood) {
+            // Verificar el horario de trabajo
+            const scheduleStartTime = time24ToDate(daySchedule.start_hour);
+            const scheduleEndTime = time24ToDate(daySchedule.end_hour);
+            const startHourOffWork = startHourTime < scheduleStartTime || startHourTime > scheduleEndTime;
+            const endHourOffWork = endHourTime < scheduleStartTime || endHourTime > scheduleEndTime;
+            const [startH, startM] = startHour24.split(":").map(Number);
+            const startDatetime = new Date(selectedDatetime);
+            startDatetime.setHours(startH, startM, 0, 0);
+
             // Verificar que la hora de inicio sea dentro del horario de trabajo
             if (startHourOffWork) {
+                // Hora de inicio fuera del horario de trabajo
                 addStartHourError.textContent = "*Hora de inicio fuera del horario de trabajo";
+                startHourAllGood = false;
+            }
+
+            // Si aún no tiene un problema, verificar que no sea en el pasado si la fecha es hoy
+            if (startHourAllGood) {
+                if (isSameDate(selectedDatetime, today)) {
+                    const startMinutesDiff = 5;
+                    const minStartTime = new Date(now.getTime() - startMinutesDiff * 60000);
+                    if (startDatetime < minStartTime) {
+                        // Hora de inicio es más de 5 minutos antes que hora actual
+                        addStartHourError.textContent = "Si la cita es hoy, la hora de inicio no puede ser anterior a la hora actual";
+                        startHourAllGood = false;
+                    }
+                }
             }
 
             // Verificar que la hora de término sea dentro del horario de trabajo
             if (endHourOffWork) {
+                // Hora de término fuera del horario de trabajo
                 addEndHourError.textContent = "*Hora de término fuera del horario de trabajo";
+                endHourAllGood = false;
             }
+            
+            // Si aún no tiene un problema, verificar que sea al menos 5 minutos más tarde que la hora de inicio
+            if (endHourAllGood) {
+                const [endH, endM] = endHour24.split(":").map(Number);
+                const endDatetime = new Date(selectedDatetime);
+                endDatetime.setHours(endH, endM, 0, 0);
 
-            // Verificar que la fecha seleccionada no sea menor a la actual
-            if (dateIsPast) {
-                addDateError.textContent = "*La fecha no puede ser anterior a la fecha actual";
-            }
-            isValid = false;
-            return; //Regresar si se encontró alguno de estos errores
-        }
-        
-        // Verificar que la hora de inicio no sea anterior a la hora actual si la fecha es hoy
-        const [startH, startM] = startHour24.split(":").map(Number);
-        const startDatetime = new Date(selectedDatetime);
-        startDatetime.setHours(startH, startM, 0, 0);
-
-        if (isSameDate(selectedDatetime, today)) { //selectedDatetime.getTime() === today.getTime()
-            const startMinutesDiff = 5;
-            const minStartTime = new Date(now.getTime() - startMinutesDiff * 60000);
-            if (startDatetime < minStartTime) {
-                addStartHourError.textContent = "Si la cita es hoy, la hora de inicio no puede ser anterior a la hora actual";
-                isValid = false;
+                const endMinutesDiff = 5;
+                const minEndTime = new Date(startDatetime.getTime() + endMinutesDiff * 60000);
+                if (endDatetime < minEndTime) {
+                    // Hora de término es menos de 5 minutos más tarde que hora de inicio
+                    addEndHourError.textContent = "La hora de término debe ser al menos 5 minutos más tarde que la hora de inicio";
+                    endHourAllGood = false;
+                }
             }
         }
 
-        // Verificar que la hora de término sea al menos 5 minutos más tarde de la hora de inicio
-        const [endH, endM] = endHour24.split(":").map(Number);
-        const endDatetime = new Date(selectedDatetime);
-        endDatetime.setHours(endH, endM, 0, 0);
-
-        const endMinutesDiff = 5;
-        const minEndTime = new Date(startDatetime.getTime() + endMinutesDiff * 60000);
-        if (endDatetime < minEndTime) {
-            addEndHourError.textContent = "La hora de término debe ser al menos 5 minutos más tarde que la hora de inicio";
-            isValid = false;
-        }
-
-        if (isValid == true)
+        // Verificar si todo está bien y no se encontraron errores
+        const allGood = dateAllGood && startHourAllGood && endHourAllGood;
+        if (allGood == true)
         {
             // Todos los datos recibidos son válidos, se puede enviar al backend
             try {
@@ -1185,7 +1369,9 @@ async function handleEditMeeting(e) {
         if (meeting)
         {
             // Establecer valores
-            let isValid = true;
+            let dateAllGood = true;
+            let startHourAllGood = true;
+            let endHourAllGood = true;
             const meetingId = meeting.id;
             const theTimezone = GetTimezone();
             const now = GetCurrentDatetime();
@@ -1193,7 +1379,7 @@ async function handleEditMeeting(e) {
             const formDate = editDateInput.value.trim();
             const formStartHour = editStartHourInput.value.trim();
             const formEndHour = editEndHourInput.value.trim();
-            const formUser = safeAtob(editUserInput.value.trim());
+            const formUser = safeAtob(editUserInput.dataset.user);
             
             // Limpiar errores anteriores
             cleanEditErrors();
@@ -1204,7 +1390,7 @@ async function handleEditMeeting(e) {
             const dateValid = formDate && dateRegex.test(formDate);
             const startHourValid = formStartHour && twelveHourRegex.test(formStartHour);
             const endHourValid = formEndHour && twelveHourRegex.test(formEndHour);
-            const userValid = formUser && formUser != null && validUserIds.includes(Number(formUser));
+            const userValid = formUser && formUser != null && userList.some(u => u.id === Number(formUser));
             if (!dateValid || !startHourValid || !endHourValid || !userValid) {
                 if (!dateValid) { editDateError.textContent = "Selecciona una fecha válida"; }
                 if (!startHourValid) { editStartHourError.textContent = "Selecciona una hora de inicio válida"; }
@@ -1214,12 +1400,14 @@ async function handleEditMeeting(e) {
             }
             const startHour24 = to24HourFormat(formStartHour);
             const endHour24 = to24HourFormat(formEndHour);
-
-            // Establecer si la cita ya empezó y si ya terminó
             const [year, month, day] = formDate.split("-").map(Number);
             const selectedDatetime = new Date(year, month - 1, day, 0, 0, 0, 0);
-            const scheduleStartTime = time24ToDate(schedule.start_hour);
-            const scheduleEndTime = time24ToDate(schedule.end_hour);
+            const startHourTime = time24ToDate(startHour24);
+            const endHourTime = time24ToDate(endHour24);
+            const daySchedule = schedules.find((s) => s.day === getDayIndex(selectedDatetime));
+            const dayEnabled = daySchedule ? daySchedule.enabled : false;
+
+            // Variables para controlar los cambios
             const originalStartDatetime = new Date(meeting.start_date);
             const originalEndDatetime = new Date(meeting.end_date);
             const canModifyStart = originalStartDatetime > now; // Solo se puede editar fecha y hora de inicio si la cita aún no empieza
@@ -1232,75 +1420,110 @@ async function handleEditMeeting(e) {
             // Si se puede modificar fecha/hora de inicio/hora de término, hacer las validaciones que les corresponda
             if (canModifyStart || canModifyEnd)
             {
+                let scheduleStartTime = '';
+                let scheduleEndTime = '';
+                if (dayEnabled) {
+                    scheduleStartTime = time24ToDate(daySchedule.start_hour);
+                    scheduleEndTime = time24ToDate(daySchedule.end_hour);
+                }
                 const [startH, startM] = startHour24.split(":").map(Number);
                 const startDatetime = new Date(selectedDatetime);
                 startDatetime.setHours(startH, startM, 0, 0);
 
-                // Aplicar validaciones para fecha y hora de inicio, si es que se pueden modificar
+                // Aplicar validaciones para fecha y hora de inicio, si es que se pueden editar
                 if (canModifyStart)
                 {
-                    // Verificar que la fecha seleccionada no sea menor a la actual, si es que fue editada
+                    // Verificar si la fecha fue editada
                     const normalizedOriginalStartDatetime = new Date(originalStartDatetime);
                     normalizedOriginalStartDatetime.setHours(0, 0, 0, 0);
                     dateChanged = selectedDatetime.getTime() !== normalizedOriginalStartDatetime.getTime();
                     if (dateChanged) {
+                        // La fecha fue editada, comprobar que no sea en el pasado
                         const dateIsPast = selectedDatetime < today;
                         if (dateIsPast) {
+                            // La fecha es en el pasado
                             editDateError.textContent = "*La fecha no puede ser anterior a la fecha actual";
-                            isValid = false;
+                            dateAllGood = false;
+                        }
+                        else
+                        {
+                            // Fecha es hoy o posterior, verificar si se puede trabajar ese dia
+                            if (!dayEnabled) {
+                                // No se trabaja ese dia
+                                editDateError.textContent = "*El "+GetDayName(daySchedule.day)+" no es un dia laboral";
+                                dateAllGood = false;
+                            }
                         }
                     }
 
-                    // Verificar que la hora de inicio sea dentro del horario de trabajo, si es que fue editada
-                    const startHourTime = time24ToDate(startHour24);
-                    const startHourOffWork = startHourTime < scheduleStartTime || startHourTime > scheduleEndTime;
-                    if (startHourOffWork) {
-                        editStartHourError.textContent = "*Hora de inicio fuera del horario de trabajo";
-                        isValid = false;
-                    }
-                    else
-                    {
-                        // Verificar que la hora de inicio no sea anterior a la hora actual si la fecha es hoy, si es que fue editada
+                    // Si está todo bien con la fecha, continuar comprobando la hora de inicio
+                    if (dateAllGood) {
+                        // Verificar si la hora de inicio fue editada
                         const originalStartHour = dateToTime24(originalStartDatetime);
                         startHourChanged = startHour24 !== originalStartHour;
-                        if (dateChanged || startHourChanged) { // Hay que incluir la validación para cuando se modifica la fecha
-                            if (isSameDate(selectedDatetime, today)) { //selectedDatetime.getTime() === today.getTime()
-                                const startMinutesDiff = 5;
-                                const minStartTime = new Date(now.getTime() - startMinutesDiff * 60000);
-                                if (startDatetime < minStartTime) {
-                                    editStartHourError.textContent = "Si la cita es hoy, la hora de inicio no puede ser anterior a la hora actual";
-                                    isValid = false;
+                        if (dateChanged || startHourChanged) { // Hay que incluir que se valide si la fecha cambió
+                            // La fecha u hora de inicio fue editada, verificar que esté dentro del horario de trabajo si se trabaja ese dia
+                            if (dayEnabled) {
+                                const startHourOffWork = startHourTime < scheduleStartTime || startHourTime > scheduleEndTime;
+                                if (startHourOffWork) {
+                                    // Hora de inicio fuera del horario de trabajo
+                                    editStartHourError.textContent = "*Hora de inicio fuera del horario de trabajo";
+                                    startHourAllGood = false;
+                                }
+                            }
+                            
+                            // Si aún no tiene un problema, verificar que no sea en el pasado si la fecha es hoy
+                            if (startHourAllGood) {
+                                if (isSameDate(selectedDatetime, today)) {
+                                    const startMinutesDiff = 5;
+                                    const minStartTime = new Date(now.getTime() - startMinutesDiff * 60000);
+                                    if (startDatetime < minStartTime) {
+                                        // Hora de inicio es más de 5 minutos antes que hora actual
+                                        editStartHourError.textContent = "Si la cita es hoy, la hora de inicio no puede ser anterior a la hora actual";
+                                        startHourAllGood = false;
+                                    }
                                 }
                             }
                         }
-                    }                
+                    }       
                 }
 
                 // Aplicar validaciones para hora de término, si es que se puede modificar
-                if (canModifyStart || canModifyEnd) // Incluir canModifyStart por si acaso (se debe validar la hora de término si se edita la hora de inicio)
+                if (canModifyStart || canModifyEnd) // Incluir canModifyStart (se debe validar la hora de término si se edita la hora de inicio o la fecha)
                 {
-                    // Verificar que la hora de término sea dentro del horario de trabajo, si es que fue editada
-                    const endHourTime = time24ToDate(endHour24);
-                    const endHourOffWork = endHourTime < scheduleStartTime || endHourTime > scheduleEndTime;
-                    if (endHourOffWork) {
-                        editEndHourError.textContent = "*Hora de término fuera del horario de trabajo";
-                        isValid = false;
-                    }
-                    else
-                    {
-                        // Verificar que la hora de término sea al menos 5 minutos más tarde de la hora de inicio, si es que fue editada
+                    // Si está todo bien con la fecha, continuar comprobando la hora de término
+                    if (dateAllGood) {
+                        // Verificar si la fecha u hora de término fue editada
                         const originalEndHour = dateToTime24(originalEndDatetime);
                         endHourChanged = endHour24 !== originalEndHour;
-                        if (startHourChanged || endHourChanged) { // Hay que incluir la validación para cuando se modifica la hora de inicio
-                            const [endH, endM] = endHour24.split(":").map(Number);
-                            const endDatetime = new Date(selectedDatetime);
-                            endDatetime.setHours(endH, endM, 0, 0);
+                        if (dateChanged || endHourChanged) {
+                            // La fecha u hora de término fue editada, verificar que esté dentro del horario de trabajo si se trabaja ese dia
+                            if (dayEnabled) {
+                                const endHourOffWork = endHourTime < scheduleStartTime || endHourTime > scheduleEndTime;
+                                if (endHourOffWork) {
+                                    // Hora de término fuera del horario de trabajo
+                                    editEndHourError.textContent = "*Hora de término fuera del horario de trabajo";
+                                    endHourAllGood = false;
+                                }
+                            }
+                        }
 
-                            const endMinutesDiff = 5;
-                            const minEndTime = new Date(startDatetime.getTime() + endMinutesDiff * 60000);
-                            if (endDatetime < minEndTime) {
-                                editEndHourError.textContent = "La hora de término debe ser al menos 5 minutos más tarde que la hora de inicio";
-                                isValid = false;
+                        // Si aún no tiene un problema, continuar verificando
+                        if (endHourAllGood) {
+                            // Verificar si la hora de inicio o término fue editada
+                            if (startHourChanged || endHourChanged) { // Incluir si la hora de inicio cambió, hora de término depende de la de inicio para su validación
+                                // La hora de inicio o término fue editada, verificar que la hora de término sea al menos 5 minutos más tarde de la hora de inicio
+                                const [endH, endM] = endHour24.split(":").map(Number);
+                                const endDatetime = new Date(selectedDatetime);
+                                endDatetime.setHours(endH, endM, 0, 0);
+
+                                const endMinutesDiff = 5;
+                                const minEndTime = new Date(startDatetime.getTime() + endMinutesDiff * 60000);
+                                if (endDatetime < minEndTime) {
+                                    // Hora de término es menos de 5 minutos más tarde que hora de inicio
+                                    editEndHourError.textContent = "La hora de término debe ser al menos 5 minutos más tarde que la hora de inicio";
+                                    endHourAllGood = false;
+                                }
                             }
                         }
                     }
@@ -1310,8 +1533,9 @@ async function handleEditMeeting(e) {
             // Verificar si usuario fue modificado
             userChanged = formUser != meeting.user_id;
 
-            // Continuar si no se detuvo flujo por algún problema
-            if (isValid == true)
+            // Verificar si todo está bien y no se encontraron errores
+            const allGood = dateAllGood && startHourAllGood && endHourAllGood;
+            if (allGood == true)
             {
                 // Enviar al backend si hay al menos 1 cambio
                 const anyChange = dateChanged || startHourChanged || endHourChanged || userChanged;
@@ -1387,6 +1611,9 @@ async function handleEditMeeting(e) {
                 {
                     console.log("No hay cambios que editar");
                     // No hay ningún cambio
+                    selectedMeetingId = null;
+                    editModal.classList.add("hidden");
+                    editMeetingForm.reset();
                 }
             }
 
@@ -1403,11 +1630,7 @@ function setAddModalData() {
     const todayStr = formatDate(now); // Formato de YYYY-MM-DD
 
     // Tooltip
-    const scheduleStart = to12HourFormat(schedule.start_hour, true);
-    const scheduleEnd = to12HourFormat(schedule.end_hour, true);
-    const hourTooltip = "Horario de trabajo: "+scheduleStart+" - "+scheduleEnd;
-    addStartHourInput.title = hourTooltip;
-    addEndHourInput.title = hourTooltip;
+    setAddHourTooltip(now);
 
     // Establecer valores
     addDateInput.value = todayStr;
@@ -1418,12 +1641,29 @@ function setAddModalData() {
     fillModalUsers();
 }
 
+function setAddHourTooltip(date) {
+    let hourTooltip = "";
+    const daySchedule = schedules.find((s) => s.day === getDayIndex(date));
+    const dayEnabled = daySchedule ? daySchedule.enabled : false;
+    if (dayEnabled) {
+        const scheduleStart = to12HourFormat(daySchedule.start_hour, true);
+        const scheduleEnd = to12HourFormat(daySchedule.end_hour, true);
+        hourTooltip = "Horario de trabajo: "+scheduleStart+" - "+scheduleEnd;
+    }
+    else
+    {
+        hourTooltip = "Ningún horario este dia";
+    }
+    addStartHourInput.title = hourTooltip;
+    addEndHourInput.title = hourTooltip;
+}
+
 // Establece estado y valores en el modal de editar
 function setEditModalData(meeting) {
     // Desactivar inputs y rellenar valores del modal
     handleEditDisable(true, meeting);
 
-    // Rellenar selects de clientes y usuarios
+    // Rellenar selección de cliente y usuario
     fillModalClients(meeting.client_id);
     fillModalUsers(meeting.user_id);
 }
@@ -1445,10 +1685,18 @@ function handleEditDisable(forceValues = false, meeting)
     editClientInput.disabled = true;
 
     // Tooltip
-    const scheduleStart = to12HourFormat(schedule.start_hour, true);
-    const scheduleEnd = to12HourFormat(schedule.end_hour, true);
-    const scheduleTooltip = "Horario de trabajo: "+scheduleStart+" - "+scheduleEnd;
-    editClientInput.title = "No se puede editar el cliente de una cita";
+    let scheduleTooltip ="";
+    const daySchedule = schedules.find((s) => s.day === getDayIndex(originalStartDatetime));
+    const dayEnabled = daySchedule ? daySchedule.enabled : false;
+    if (dayEnabled) {
+        const scheduleStart = to12HourFormat(daySchedule.start_hour, true);
+        const scheduleEnd = to12HourFormat(daySchedule.end_hour, true);
+        scheduleTooltip = "Horario de trabajo: "+scheduleStart+" - "+scheduleEnd;
+    }
+    else
+    {
+        scheduleTooltip = "Ningún horario este dia";
+    }
 
     let dateTooltip = "";
     let startTooltip = scheduleTooltip;
@@ -1468,6 +1716,7 @@ function handleEditDisable(forceValues = false, meeting)
         endTooltip = "No se puede editar, la cita ya terminó"
     }
     editEndHourInput.title = endTooltip;
+    editClientInput.title = "No se puede editar el cliente de una cita";
 
     // Colocar los valores de la meeting
     if (forceValues || !canModifyEnd || !canModifyStart)
@@ -1708,6 +1957,18 @@ function GetMonthName(monthIndex)
 // Obtener array de todos los nombres de los meses
 function GetAllMonthsArr() {
     return ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+}
+
+// Obtener el index del dia de una fecha
+function getDayIndex(date) {
+    let day = date.getDay();
+    return (day === 0) ? 6 : day - 1;
+}
+
+// Obtener el nombre de un dia de la semana
+function GetDayName(dayIndex){
+    const dayNames = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+    return dayNames[dayIndex];
 }
 
 // Descifrar de forma segura

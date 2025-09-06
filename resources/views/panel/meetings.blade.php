@@ -11,6 +11,10 @@
     .custom-diff-opacity {
         opacity: 35%;
     }
+
+    .custom-bottom-64 {
+        bottom: 64%;
+    }
 </style>
 
 <!-- Contenedor principal -->
@@ -117,7 +121,7 @@
 <div id="addMeetingModal" class="fixed inset-0 flex items-center justify-center hidden bg-black/30 backdrop-blur-[2px]">
     <div id="addMeetingModalContent" class="card-custom rounded-lg w-96 p-6 relative shadow-2xl">
         <button id="closeAddModal" class="absolute top-2 right-2 text-white mr-4 hover:text-gray-500">✕</button>
-        <h3 class="text-lg font-bold mb-4 text-white">Agregar Cita</h3>
+        <h3 class="text-lg font-bold mb-6 text-white">Agregar Cita</h3>
         <form id="addMeetingForm" class="space-y-4">
             <div>
                 <label for="addDateInput" class="form-label form-label-custom mb-1">Fecha</label>
@@ -141,17 +145,24 @@
                 <div class="flex text-red-500 text-sm mt-2 mb-0" id="addStartHourError"></div>
                 <div class="flex text-red-500 text-sm mb-0" id="addEndHourError"></div>
             </div>
-            <div>
-                <label for="addClientInput" class="form-label form-label-custom mb-1">Cliente</label>
-                <select id="addClientInput" name="addClientInput" class="form-control form-control-custom w-full px-4 py-1" required="" autofocus=""></select>
-                <div class="text-red-500 text-sm mt-1" id="addClientError"></div>
+            
+            <div class="relative" id="addClientDropdownContainer">
+                <div class="relative">
+                    <label for="addClientInput" class="form-label form-label-custom mb-1">Cliente</label>
+                    <input id="addClientInput" name="addClientInput" type="text" class="form-control form-control-custom w-full px-4 py-1" data-client="" required="" autofocus="" readonly/>
+                    <div class="text-red-500 text-sm mt-1" id="addClientError"></div>
+                </div>
             </div>
-            <div>
-                <label for="addUserInput" class="form-label form-label-custom mb-1">Usuario</label>
-                <select id="addUserInput" name="addUserInput" class="form-control form-control-custom w-full px-4 py-1" required="" autofocus=""></select>
-                <div class="text-red-500 text-sm mt-1" id="addUserError"></div>
+
+            <div class="relative" id="addUserDropdownContainer">
+                <div class="relative">
+                    <label for="addUserInput" class="form-label form-label-custom mb-1">Usuario</label>
+                    <input id="addUserInput" name="addUserInput" type="text" class="form-control form-control-custom w-full px-4 py-1" data-user="" required="" autofocus="" readonly/>
+                    <div class="text-red-500 text-sm mt-1" id="addUserError"></div>
+                </div>
             </div>
-            <button type="submit" class="w-full btn-custom text-white py-2 rounded-lg hover:bg-blue-600 mt-4">Agregar</button>
+
+            <button type="submit" class="w-full btn-custom text-white py-2 rounded-lg hover:bg-blue-600 mt-6">Agregar</button>
         </form>
     </div>
 </div>
@@ -160,7 +171,7 @@
 <div id="editMeetingModal" class="fixed inset-0 flex items-center justify-center hidden bg-black/30 backdrop-blur-[2px]">
     <div id="editMeetingModalContent" class="card-custom rounded-lg w-96 p-6 relative shadow-2xl">
         <button id="closeEditModal" class="absolute top-2 right-2 text-white mr-4 hover:text-gray-500">✕</button>
-        <h3 class="text-lg font-bold mb-4 text-white">Editar Cita</h3>
+        <h3 class="text-lg font-bold mb-6 text-white">Editar Cita</h3>
         <form id="editMeetingForm" class="space-y-4">
             <div>
                 <label for="editDateInput" class="form-label form-label-custom mb-1">Fecha</label>
@@ -186,15 +197,24 @@
             </div>
             <div>
                 <label for="editClientInput" class="form-label form-label-custom mb-1">Cliente</label>
-                <select id="editClientInput" name="editClientInput" class="form-control form-control-custom w-full px-4 py-1" required="" autofocus="" disabled></select>
+                <input id="editClientInput" name="editClientInput" type="text" class="form-control form-control-custom w-full px-4 py-1" required="" autofocus="" disabled/>
                 <div class="text-red-500 text-sm mt-1" id="editClientError"></div>
             </div>
-            <div>
+
+            <div class="relative" id="editUserDropdownContainer">
+                <div class="relative">
+                    <label for="editUserInput" class="form-label form-label-custom mb-1">Usuario</label>
+                    <input id="editUserInput" name="editUserInput" type="text" class="form-control form-control-custom w-full px-4 py-1" data-user="" required="" autofocus="" readonly/>
+                    <div class="text-red-500 text-sm mt-1" id="editUserError"></div>
+                </div>
+            </div>
+
+            <!-- <div>
                 <label for="editUserInput" class="form-label form-label-custom mb-1">Usuario</label>
                 <select id="editUserInput" name="editUserInput" class="form-control form-control-custom w-full px-4 py-1" required="" autofocus=""></select>
                 <div class="text-red-500 text-sm mt-1" id="editUserError"></div>
-            </div>
-            <button type="submit" class="w-full btn-custom text-white py-2 rounded-lg hover:bg-blue-600 mt-4">Editar</button>
+            </div> -->
+            <button type="submit" class="w-full btn-custom text-white py-2 rounded-lg hover:bg-blue-600 mt-6">Editar</button>
         </form>
     </div>
 </div>
@@ -250,6 +270,28 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- Cuadro de selección de cliente -->
+<div id="client-dropdown-box" class="hidden absolute z-10 w-full bg-slate-700 border border-slate-600 rounded-lg shadow-xl overflow-hidden max-h-40 overflow-y-auto">
+    <div class="p-2 text-sm text-gray-400 border-b border-slate-600 sticky top-0 bg-slate-700 z-20">
+        <input id="client-search-input" type="text" class="w-full px-3 py-1 bg-slate-800 text-white rounded-md focus:outline-none" placeholder="Buscar cliente..." autocomplete="off"/>
+    </div>
+    <ul id="client-dropdown-list">
+        <!-- Los clientes se generan a traves del JS -->
+    </ul>
+    <div id="client-no-results" class="p-2 text-center text-gray-400 hidden">Ningún cliente encontrado</div>
+</div>
+
+<!-- Cuadro de selección de usuario -->
+<div id="user-dropdown-box" class="hidden absolute z-10 w-full custom-bottom-64 bg-slate-700 border border-slate-600 rounded-lg shadow-xl overflow-hidden max-h-40 overflow-y-auto">
+    <div class="p-2 text-sm text-gray-400 border-b border-slate-600 sticky top-0 bg-slate-700 z-20">
+        <input id="user-search-input" type="text" class="w-full px-3 py-1 bg-slate-800 text-white rounded-md focus:outline-none" placeholder="Buscar usuario..." autocomplete="off"/>
+    </div>
+    <ul id="user-dropdown-list">
+        <!-- Los usuarios se generan a traves del JS -->
+    </ul>
+    <div id="user-no-results" class="p-2 text-center text-gray-400 hidden">Ningún usuario encontrado</div>
 </div>
 
 <!-- Modal para la selección de mes/año -->

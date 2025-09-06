@@ -37,9 +37,9 @@ let currentImageBase64 = null;
 
 let products = []; // Array de usuarios cargados
 
-window.addEventListener("load", function () {
+/* window.addEventListener("load", function () {
     initProductSection();
-});
+}); */
 
 window.initProductSection = () => {
     productList = document.getElementById("product-list");

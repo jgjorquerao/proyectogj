@@ -12,8 +12,10 @@ class Schedule extends Model
     protected $table = 'schedules';
 
     protected $fillable = [
+        'day',
         'start_hour',
         'end_hour',
+        'enabled',
         'company_id',
     ];
 
