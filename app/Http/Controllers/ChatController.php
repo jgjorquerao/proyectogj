@@ -220,6 +220,7 @@ class ChatController extends Controller
             'success'         => true,
             'conversation_id' => $conversation->id,
             'message_id'      => $msg->id,
+            'client_id'       => $client->id
         ]);
     }
 

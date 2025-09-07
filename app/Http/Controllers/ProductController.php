@@ -96,4 +96,27 @@ class ProductController extends Controller
             'product' => $product,
         ]);
     }
+
+    public function deleteProduct($id)
+    {
+        $product = Product::findOrFail($id);
+
+        // Eliminar imagen recortada si existe
+        if ($product->url_image && Storage::disk('public')->exists($product->url_image)) {
+            Storage::disk('public')->delete($product->url_image);
+        }
+
+        // Eliminar imagen original si existe
+        if ($product->url_original_image && Storage::disk('public')->exists($product->url_original_image)) {
+            Storage::disk('public')->delete($product->url_original_image);
+        }
+
+        // Eliminar producto
+        $product->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Producto eliminado correctamente'
+        ]);
+    }
 }

@@ -27,9 +27,9 @@ class MeetingController extends Controller
         $meetings = Meeting::whereHas('client', function ($q) use ($user) {
             $q->where('company_id', $user->company_id);
         })->orderBy('start_date', 'asc')->get()
-        ->map(function ($meeting) {
-            return $this->getMeetingDataFormatted($meeting);
-        });
+            ->map(function ($meeting) {
+                return $this->getMeetingDataFormatted($meeting);
+            });
 
         //Obtener schedules de la misma compañia que el usuario logueado
         $schedules = Schedule::where('company_id', $user->company_id)->get();
@@ -295,9 +295,10 @@ class MeetingController extends Controller
 
             // Recuperar la cita a editar
             $meeting = Meeting::find($request->id);
-            if ($meeting)
-            {
-                // Si se encontró, establecer fecha de inicio y fin en UTC (lo que se guarda en la BD)
+
+            if ($meeting) {
+                // Si se encontró
+                // Establecer fecha de inicio y fin en UTC (lo que se guarda en la BD)
                 $userTimezone = $request->user_timezone; // por ejemplo "America/Santiago"
                 $db_start_datetime = Carbon::parse($request->meeting_date . ' ' . $request->start_hour, $userTimezone)->setTimezone('UTC');
                 $db_end_datetime = Carbon::parse($request->meeting_date . ' ' . $request->end_hour, $userTimezone)->setTimezone('UTC');
@@ -431,12 +432,12 @@ class MeetingController extends Controller
                 // Revisar que no haya citas del mismo cliente en el mismo horario, si cambió el tiempo
                 if ($dateChanged || $startHourChanged || $endHourChanged) {
                     $clientMeetings = Meeting::where('client_id', $meeting->client_id)
-                    ->where('id', '!=', $request->id)
-                    ->where(function($q) use ($db_start_datetime, $db_end_datetime) {
-                        $q->where('start_date', '<', $db_end_datetime)
-                        ->where('end_date',   '>', $db_start_datetime);
-                    })
-                    ->exists();
+                        ->where('id', '!=', $request->id)
+                        ->where(function ($q) use ($db_start_datetime, $db_end_datetime) {
+                            $q->where('start_date', '<', $db_end_datetime)
+                                ->where('end_date',   '>', $db_start_datetime);
+                        })
+                        ->exists();
 
                     if ($clientMeetings) {
                         // Cliente en otra cita en ese horario
@@ -450,12 +451,12 @@ class MeetingController extends Controller
                 $userChanged = $meeting->user_id !== $request->user_id;
                 if ($dateChanged || $startHourChanged || $endHourChanged || $userChanged) {
                     $userMeetings = Meeting::where('user_id', $request->user_id)
-                    ->where('id', '!=', $request->id)
-                    ->where(function($q) use ($db_start_datetime, $db_end_datetime) {
-                        $q->where('start_date', '<', $db_end_datetime)
-                        ->where('end_date',   '>', $db_start_datetime);
-                    })
-                    ->exists();
+                        ->where('id', '!=', $request->id)
+                        ->where(function ($q) use ($db_start_datetime, $db_end_datetime) {
+                            $q->where('start_date', '<', $db_end_datetime)
+                                ->where('end_date',   '>', $db_start_datetime);
+                        })
+                        ->exists();
 
                     if ($userMeetings) {
                         // Usuario en otra cita en ese horario
@@ -492,9 +493,7 @@ class MeetingController extends Controller
                         'success' => true,
                         'meeting' => $this->getMeetingDataFormatted($meeting),
                     ]);
-                }
-                else
-                {
+                } else {
                     return response()->json([
                         'success' => false,
                         'meeting' => $this->getMeetingDataFormatted($meeting),
@@ -540,4 +539,215 @@ class MeetingController extends Controller
         $dayNames = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
         return $dayNames[$dayIndex];
     }
+    
+    public function addMeetingN8n(Request $request)
+    {
+        $is_valid = true;
+        $date_error = "";
+        $start_hour_error = "";
+        $end_hour_error = "";
+        $client_error = "";
+        $user_error = "";
+
+        try {
+            // Obtener al usuario logueado
+            $user = auth()->user();
+
+            // Validar datos de la request
+            $request->validate([
+                /* 'user_timezone' => 'required|string', */
+                'user_timezone' => 'nullable|string', //Se cambia a nullable para que pueda ser llamado desde n8n
+                'meeting_date' => 'required|date',
+                'start_hour' => 'required|date_format:H:i',
+                /* 'end_hour' => 'required|date_format:H:i|after:start_hour', */
+                'end_hour' => 'nullable|date_format:H:i|after:start_hour',
+                'client_id' => 'required|exists:clients,id',
+                /* 'user_id' => 'required|exists:users,id', */
+                'user_id' => 'nullable|exists:users,id', //Se cambia a nullable para que pueda ser llamado desde n8n
+            ]);
+
+            // Determinar company_id
+            if ($user) {
+                $company_id = $user->company_id;
+            } elseif ($request->company_id) {
+                $company_id = $request->company_id;
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'error' => 'No se proporcionó company_id ni hay usuario logueado'
+                ], 400);
+            }
+
+            // Si no viene el timezone, asignar el del servidor
+            if (!$request->user_timezone) {
+                $request->merge(['user_timezone' => config('app.timezone')]);
+            }
+
+            // Si no viene end_hour, asignar 1 hora después de start_hour
+            if (!$request->end_hour) {
+                $start_time = Carbon::createFromFormat('H:i', $request->start_hour);
+                $request->merge(['end_hour' => $start_time->copy()->addHour()->format('H:i')]);
+            }
+
+            // Establecer fecha de inicio y fin en UTC (lo que se guarda en la BD)
+            $userTimezone = $request->user_timezone; // por ejemplo "America/Santiago"
+            $db_start_datetime = Carbon::parse($request->meeting_date . ' ' . $request->start_hour, $userTimezone)->setTimezone('UTC');
+            $db_end_datetime = Carbon::parse($request->meeting_date . ' ' . $request->end_hour, $userTimezone)->setTimezone('UTC');
+
+            // Establecer datos para validaciones en la zona horaria del usuario (reflejar correctamente a nivel de usuario)
+            $now = Carbon::now('UTC')->setTimezone($userTimezone)->startOfMinute(); // Fecha y hora actual
+            $today = Carbon::now('UTC')->setTimezone($userTimezone)->startOfDay(); // Fecha actual
+            $meeting_date = Carbon::parse($request->meeting_date, $userTimezone)->startOfDay(); // Fecha de la cita
+
+            // Verificar que la fecha no sea en el pasado y que la hora de inicio/término esté en el horario de trabajo
+            $schedule = Schedule::where('company_id', $company_id)->first();
+            $schedule_start_hour_time = Carbon::createFromFormat('H:i', $schedule->start_hour);
+            $schedule_end_hour_time = Carbon::createFromFormat('H:i', $schedule->end_hour);
+            $start_hour_time = Carbon::createFromFormat('H:i', $request->start_hour);
+            $end_hour_time = Carbon::createFromFormat('H:i', $request->end_hour);
+            $startHourOffWork = $start_hour_time->lt($schedule_start_hour_time) || $start_hour_time->gt($schedule_end_hour_time);
+            $endHourOffWork = $end_hour_time->lt($schedule_start_hour_time) || $end_hour_time->gt($schedule_end_hour_time);
+            $dateIsPast = $meeting_date->lt($today);
+
+            if ($startHourOffWork || $endHourOffWork || $dateIsPast) {
+                if ($startHourOffWork) {
+                    $start_hour_error = "*Hora de inicio fuera del horario de trabajo";
+                }
+
+                if ($endHourOffWork) {
+                    $end_hour_error = "*Hora de término fuera del horario de trabajo";
+                }
+
+                if ($dateIsPast) {
+                    $date_error = "*La fecha no puede ser anterior a la fecha actual";
+                }
+                $is_valid = false;
+            }
+
+            // Realizar las demás validaciones del tiempo si es que las anteriores validaciones fueron un éxito
+            if ($is_valid) {
+                // Revisar que la hora de inicio no sea anterior a la hora actual, si la fecha es hoy
+                $new_start_datetime = $db_start_datetime->copy()->setTimezone($userTimezone)->startOfMinute();
+                if ($meeting_date->equalTo($today)) {
+                    $startMinutesDiff = 5;
+                    $min_start_time = $now->copy()->subMinutes($startMinutesDiff);
+
+                    if ($new_start_datetime->lt($min_start_time)) {
+                        $start_hour_error = "Si la cita es hoy, la hora de inicio no puede ser anterior a la hora actual";
+                        $is_valid = false;
+                    }
+                }
+
+                // Revisar que la hora de término sea al menos 5 minutos después de la hora de inicio
+                $new_end_datetime = $db_end_datetime->copy()->setTimezone($userTimezone)->startOfMinute();
+                $endMinutesDiff = 5;
+                $min_end_time = $new_start_datetime->copy()->addMinutes($endMinutesDiff);
+
+                if ($new_end_datetime->lt($min_end_time)) {
+                    $end_hour_error = "La hora de término debe ser al menos 5 minutos más tarde que la hora de inicio";
+                    $is_valid = false;
+                }
+            }
+
+            // Revisar que no haya citas del mismo cliente en el mismo horario
+            $clientMeetings = Meeting::where('client_id', $request->client_id)
+                ->where(function ($q) use ($db_start_datetime, $db_end_datetime) {
+                    $q->where('start_date', '<', $db_end_datetime)
+                        ->where('end_date',   '>', $db_start_datetime);
+                })
+                ->exists();
+
+            if ($clientMeetings) {
+                $client = Client::find($request->client_id);
+                $client_error = "El cliente " . $client->name . " ya está asignado a una cita en ese horario.";
+                $is_valid = false;
+            }
+
+            // Se agrega el user_id si es que no lo trae por el request (n8n)
+            if (!$request->user_id) {
+                $availableUser = User::whereDoesntHave('meetings', function ($q) use ($db_start_datetime, $db_end_datetime) {
+                    $q->where('start_date', '<', $db_end_datetime)
+                        ->where('end_date', '>', $db_start_datetime);
+                })->first();
+
+                if (!$availableUser) {
+                    return response()->json([
+                        'success' => false,
+                        'user_error' => 'No hay vendedores disponibles en ese horario'
+                    ]);
+                }
+
+                $request->merge(['user_id' => $availableUser->id]); // asignar automáticamente
+            }
+
+            // Revisar que no haya citas del mismo usuario en el mismo horario
+            $userMeetings = Meeting::where('user_id', $request->user_id)
+                ->where(function ($q) use ($db_start_datetime, $db_end_datetime) {
+                    $q->where('start_date', '<', $db_end_datetime)
+                        ->where('end_date',   '>', $db_start_datetime);
+                })
+                ->exists();
+
+            if ($userMeetings) {
+                $user = User::find($request->user_id);
+                $user_error = "El usuario " . $user->name . " ya está asignado a una cita en ese horario.";
+                $is_valid = false;
+            }
+
+            // Revisar si está todo bien
+            if ($is_valid == true) {
+                //Crear cita
+                $meeting = Meeting::create([
+                    'start_date' => $db_start_datetime,
+                    'end_date' => $db_end_datetime,
+                    'reminder_done' => false,
+                    'client_id' => $request->client_id,
+                    'user_id' => $request->user_id,
+                ]);
+
+                // Enviar notificación de que la cita se creó en este punto
+                /* //Crear mensaje de notificación
+                $msg = new Whatsapp();
+                $msg->conversation_id = $conversation->id;
+                $msg->message = $request->message;
+                $msg->client_message = 0; // enviado por nosotros
+                $msg->processed = 1;
+                $msg->currentdate = now();
+                $msg->save();
+
+                $clientPhone = $conversation->client->phone;
+                $clientPhone = ltrim($clientPhone, '+');
+                $response = Http::withToken(env('WHATSAPP_TOKEN'))
+                    ->post($url, [
+                        "messaging_product" => "whatsapp",
+                        "to" => ltrim($clientPhone, '+'),
+                        "type" => "text",
+                        "text" => ["body" => $request->message],
+                    ]);
+
+                event(new NewMessage($msg)); */
+
+                //Enviar respuesta
+                return response()->json([
+                    'success' => true,
+                    'meeting' => $this->getMeetingDataFormatted($meeting),
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'date_error' => $date_error,
+                    'start_hour_error' => $start_hour_error,
+                    'end_hour_error' => $end_hour_error,
+                    'client_error' => $client_error,
+                    'user_error' => $user_error,
+                ]);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
 }

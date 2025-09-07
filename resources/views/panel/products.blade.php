@@ -77,13 +77,6 @@
 
 
             <!-- Campo de imagen -->
-            <!-- <div>
-                <label for="image-input" class="form-label form-label-custom">Seleccionar Imagen</label>
-                <input type="file" id="image-input" name="image" accept="image/*"
-                    class="form-control form-control-custom w-full">
-                <div class="text-red-500 text-sm mt-1" id="errorImage"></div>
-            </div> -->
-            <!-- Nuevo campo de imagen con diseño mejorado -->
             <div>
                 <label class="form-label form-label-custom mb-2">Seleccionar Imagen</label>
                 <div id="image-upload-area" class="upload-area">
@@ -118,7 +111,7 @@
             <!-- Botones de acción -->
             <div class="flex justify-end space-x-4 mt-4 pt-4">
                 <button type="button" id="cancel-btn"
-                    class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300  w-30">Cancelar</button>
+                    class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300 w-30">Cancelar</button>
                 <button type="submit" class="btn-custom text-white font-semibold py-2 px-4 rounded-lg w-30">Guardar</button>
             </div>
         </form>
@@ -127,13 +120,13 @@
 
 
 <!-- Modal de Confirmación para Eliminar -->
-<div id="delete-confirm-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm modal-enter">
-        <h3 class="text-lg font-medium text-gray-900">Confirmar Eliminación</h3>
-        <p class="mt-2 text-sm text-gray-600">¿Estás seguro de que quieres eliminar este vehículo? Esta acción no se puede deshacer.</p>
+<div id="delete-confirm-modal" class="fixed inset-0 flex items-center justify-center hidden bg-black/30 backdrop-blur-[2px] z-50">
+    <div class="card-custom rounded-lg shadow-xl p-6 w-full max-w-sm modal-enter">
+        <h2 id="modal-title" class="text-2xl font-bold mb-6 text-center text-white">Confirmar Eliminación</h2>
+        <p class="mt-2 form-label-custom">¿Estás seguro de que quieres eliminar este vehículo? </p>
         <div class="mt-6 flex justify-end space-x-3">
-            <button id="cancel-delete-btn" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">Cancelar</button>
-            <button id="confirm-delete-btn" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">Eliminar</button>
+            <button id="cancel-delete-btn" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 w-30">Cancelar</button>
+            <button id="confirm-delete-btn" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 w-30">Eliminar</button>
         </div>
     </div>
 </div>

@@ -115,7 +115,7 @@ window.initProductSection = () => {
                 const croppedImageBase64 = await croppieInstance.result({
                     type: "base64",
                     format: "webp",
-                    size: "viewport",
+                    size: "original",
                 });
                 data.image = croppedImageBase64;
 
@@ -164,15 +164,31 @@ window.initProductSection = () => {
         }
     });
 
-    confirmDeleteBtn.addEventListener("click", () => {
+    confirmDeleteBtn.addEventListener("click", async () => {
         if (productToDeleteId) {
-            products = products.filter((v) => v.id != productToDeleteId);
-            const totalPages = Math.ceil(products.length / itemsPerPage);
-            if (currentPage > totalPages && totalPages > 0) {
-                currentPage = totalPages;
+            // Bloqueamos el botón y mostramos loader
+            confirmDeleteBtn.disabled = true;
+            const originalBtnHTML = confirmDeleteBtn.innerHTML;
+            confirmDeleteBtn.innerHTML = '<span class="loader"></span>';
+            try {
+                await axios.delete(`/panel/products/${productToDeleteId}`);
+
+                // Si se eliminó en backend, también lo eliminamos en frontend
+                products = products.filter((v) => v.id != productToDeleteId);
+
+                const totalPages = Math.ceil(products.length / itemsPerPage);
+                if (currentPage > totalPages && totalPages > 0) {
+                    currentPage = totalPages;
+                }
+
+                renderProducts();
+                hideDeleteConfirmModal();
+
+                confirmDeleteBtn.disabled = false;
+                confirmDeleteBtn.innerHTML = originalBtnHTML;
+            } catch (err) {
+                console.error("Error al eliminar producto:", err);
             }
-            renderProducts();
-            hideDeleteConfirmModal();
         }
     });
 
@@ -234,19 +250,6 @@ window.initProductSection = () => {
         imageUploadArea.classList.remove("border-blue-500");
     });
 
-    // Manejar el archivo soltado
-    /* imageUploadArea.addEventListener("drop", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        imageUploadArea.classList.remove("border-blue-500");
-
-        const files = e.dataTransfer.files;
-        if (files.length > 0) {
-            // Asignar el archivo al input file
-            imageInput.files = files;
-            uploadText.textContent = `Archivo seleccionado: ${files[0].name}`;
-        }
-    }); */
     // Manejar el archivo soltado
     imageUploadArea.addEventListener("drop", (e) => {
         e.preventDefault();
@@ -365,6 +368,13 @@ const renderProducts = () => {
             if (product) {
                 showModal("Editar Vehículo", product);
             }
+        });
+    });
+
+    const deleteButtons = document.querySelectorAll(".delete-btn");
+    deleteButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            showDeleteConfirmModal(btn.dataset.id);
         });
     });
 };

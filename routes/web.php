@@ -50,6 +50,7 @@ Route::get('/panel/products', function() {
 });
 Route::get('/panel/get_products', [ProductController::class, 'getProducts']);
 Route::post('/panel/save_product', [ProductController::class, 'saveProduct'])->name('products.save');
+Route::delete('/panel/products/{id}', [ProductController::class, 'deleteProduct'])->name('products.delete');
 
 //Meetings
 Route::get('/panel/meetings', function() {

@@ -106,9 +106,9 @@ let monthYearModal,
     monthYearOpenBtn,
     monthYearCloseBtn;
 
-window.addEventListener("load", function () {
+/* window.addEventListener("load", function () {
     initMeetingSection();
-});
+}); */
 
 window.initMeetingSection = () => {
     // Referencias generales del DOM

@@ -38,18 +38,18 @@
             </a>
             @endif
             @else
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" style="list-style: none;">
                 <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{ Auth::user()->name }}
+                    {{ explode(' ', Auth::user()->name)[0] }}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                     <li>
                         <a class="dropdown-item" href="{{ route('index') }}">
-                            Dashboard
+                            Panel
                         </a>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            Logout
+                            Cerrar Sesión
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
