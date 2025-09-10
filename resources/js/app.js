@@ -1,6 +1,3 @@
-// --- 1. IMPORTAR ESTILOS ---
-import '../css/custom.css';
-//import 'aos/dist/aos.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'boxicons/css/boxicons.min.css';
@@ -9,8 +6,7 @@ import 'swiper/swiper-bundle.css';
 import * as THREE from 'three';
 
 // --- 2. IMPORTAR LIBRERÍAS (JAVASCRIPT) ---
-//import AOS from 'aos';
-import * as bootstrap from 'bootstrap';
+/* import * as bootstrap from 'bootstrap'; */
 import GLightbox from 'glightbox';
 import Isotope from 'isotope-layout';
 import Swiper from 'swiper';
@@ -107,19 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('scroll', toggleBackToTop);
     }
 
-    const skillsContent = select('.skills-content');
-    if (skillsContent) {
-        new Waypoint({
-            element: skillsContent,
-            offset: '25%',
-            handler: function (direction) {
-                let progress = select('.progress .progress-bar', true);
-                progress.forEach((el) => {
-                    el.style.width = el.getAttribute('aria-valuenow') + '%';
-                });
-            }
-        });
-    }
 
     // --- Lógica para desplegar características de los planes (Definitiva) ---
     document.querySelectorAll('.pricing-item').forEach(card => {
@@ -148,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Lógica para efecto de perspectiva en tarjetas de planes ---
-    const pricingCards = document.querySelectorAll('.pricing .pricing-item');
+    /* const pricingCards = document.querySelectorAll('.pricing .pricing-item');
     pricingCards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
@@ -163,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         card.addEventListener('mouseleave', () => {
             card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
         });
-    });
+    }); */
 
     // --- Lógica para controles de video del portafolio ---
     let currentlyPlayingVideo = null;
@@ -289,219 +272,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
-    // ... (tu código app.js existente) ...
-    // ... (tu lógica principal existente de app.js) ...
-
-    // --- Lógica para gráficos circulares de Habilidades (Chart.js) ---
-    const skillData = {
-        capcut: 100,
-        premiere: 90,
-        photoshop: 75,
-        illustrator: 80,
-        gimp: 90,
-        metaAds: 75
-    };
-
-    function createPieChart(canvasId, percentage) {
-        const ctx = document.getElementById(canvasId);
-        if (!ctx) {
-            console.error(`Canvas element with ID '${canvasId}' not found.`);
-            return;
-        }
-
-        // Forzar dimensiones del canvas en JS también, como respaldo al CSS
-        ctx.width = 150;
-        ctx.height = 150;
-
-        const remaining = 100 - percentage;
-        let mainColor = '#149ddd'; // Color principal del gráfico (para modo claro)
-        let backgroundColor = '#f3f3f3'; // Color de fondo para el porcentaje restante (modo claro)
-
-        // Adaptar colores para el modo oscuro
-        if (document.body.classList.contains('dark-mode')) {
-            mainColor = '#50C878'; // Nuevo verde principal para el modo oscuro
-            backgroundColor = '#2B2E27'; // Fondo más oscuro para el porcentaje restante en modo oscuro
-        }
-
-        // Destruir gráficos existentes para evitar errores si se reinicia la función o la página no se recarga completamente
-        const existingChart = Chart.getChart(ctx);
-        if (existingChart) {
-            existingChart.destroy();
-        }
-
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [percentage, remaining],
-                    backgroundColor: [mainColor, backgroundColor],
-                    borderWidth: 0,
-                    cutout: '70%', // Para crear un gráfico de dona
-                    circumference: 360,
-                    rotation: -90, // Inicia desde arriba
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: { enabled: false }
-                }
-            }
-        });
-        console.log(`Gráfico ${canvasId} inicializado. Dimensiones: ${ctx.width}x${ctx.height}`); // Log para depuración
-    }
-
-    // Inicializar los gráficos
-    createPieChart('capcutChart', skillData.capcut);
-    createPieChart('premiereChart', skillData.premiere);
-    createPieChart('photoshopChart', skillData.photoshop);
-    createPieChart('illustratorChart', skillData.illustrator);
-    createPieChart('gimpChart', skillData.gimp);
-    createPieChart('metaAdsChart', skillData.metaAds);
-
-    // --- Lógica para la Animación 3D en el Hero ---
-    const canvas = document.getElementById('hero-animation-canvas');
-    if (!canvas) {
-        console.error('Canvas element not found!');
-        return;
-    }
-
-    // Crear la escena, la cámara y el renderer
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-
-    // Configurar el renderer
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-
-    // Colocar la cámara
-    camera.position.z = 100;
-
-    // Configurar la luz
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-    scene.add(ambientLight);
-
-    const mouse = new THREE.Vector2();
-    const sphereGroup = new THREE.Group();
-    const spheres = [];
-
-    // Inicializar las esferas en una cuadrícula 3D para formar una esfera grande
-    function initSpheres() {
-        sphereGroup.remove(...sphereGroup.children);
-        spheres.length = 0;
-
-        const gridSize = 5;
-        const sphereSize = 0.25;
-        const spacing = 6.35;
-
-        for (let x = -gridSize; x <= gridSize; x++) {
-            for (let y = -gridSize; y <= gridSize; y++) {
-                for (let z = -gridSize; z <= gridSize; z++) {
-                    const distance = Math.sqrt(x * x + y * y + z * z);
-                    if (distance > gridSize * 0.9) continue;
-
-                    const geometry = new THREE.SphereGeometry(sphereSize, 12, 12);
-                    const material = new THREE.MeshBasicMaterial({ color: 0xcccccc });
-                    const sphere = new THREE.Mesh(geometry, material);
-
-                    sphere.position.set(x * spacing, y * spacing, z * spacing);
-                    spheres.push(sphere);
-                    sphereGroup.add(sphere);
-                }
-            }
-        }
-
-        scene.add(sphereGroup);
-        sphereGroup.position.set(0, 0, 0);
-    }
-
-    // --- CREACIÓN DEL FONDO CON DEGRADADO (CORREGIDO) ---
-    // La lista de colores ahora se define fuera del bucle para no recrearla
-    const backgroundColors = [
-        new THREE.Color(0x4A4A4A), new THREE.Color(0x2B2E27), new THREE.Color(0x333333), new THREE.Color(0x2A2A2A),
-        new THREE.Color(0x262626), new THREE.Color(0x36454F), new THREE.Color(0x343434), new THREE.Color(0x1F262A)
-    ];
-    const backgroundColor1 = backgroundColors[(Math.floor(Math.random() * backgroundColors.length))];
-    const backgroundColor2 = backgroundColors[(Math.floor(Math.random() * backgroundColors.length))];
-
-    const backgroundGeometry = new THREE.PlaneGeometry(window.innerWidth * 2, window.innerHeight * 2);
-    const backgroundMaterial = new THREE.ShaderMaterial({
-        uniforms: {
-            color1: { value: backgroundColor1 },
-            color2: { value: backgroundColor2 },
-            u_time: { value: 0.25 },
-        },
-        vertexShader: `
-        void main() {
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-    `,
-        fragmentShader: `
-        uniform vec3 color1;
-        uniform vec3 color2;
-        uniform float u_time;
-
-        void main() {
-            vec2 uv = gl_FragCoord.xy / vec2(gl_FragCoord.x, gl_FragCoord.y);
-            float gradient = (sin(uv.x * 3.0 + u_time) + 1.0) / 2.0;
-            vec3 color = mix(color1, color2, gradient);
-            gl_FragColor = vec4(color, 1.0);
-        }
-    `,
-        depthWrite: false
-    });
-
-    const backgroundMesh = new THREE.Mesh(backgroundGeometry, backgroundMaterial);
-    backgroundMesh.position.z = -500;
-    scene.add(backgroundMesh);
-
-    // Detección de mouse
-    window.addEventListener('mousemove', (event) => {
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    });
-
-    // Bucle de animación
-    function animate() {
-        requestAnimationFrame(animate);
-
-        // Rotación automática por defecto
-        sphereGroup.rotation.x += 0.0025;
-        sphereGroup.rotation.y += 0.0025;
-
-        // Rotación adicional basada en el mouse
-        const mouseRotationSpeed = 0.005;
-        sphereGroup.rotation.x += mouse.y * mouseRotationSpeed;
-        sphereGroup.rotation.y += mouse.x * mouseRotationSpeed;
-
-        // Actualizar el tiempo para la animación del degradado
-        backgroundMaterial.uniforms.u_time.value = performance.now() / 1000;
-
-        renderer.render(scene, camera);
-    }
-
-    // Evento de redimensionamiento de ventana
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-
-        // Recrear el fondo para ajustar el tamaño del viewport
-        scene.remove(backgroundMesh);
-        const newBackgroundGeometry = new THREE.PlaneGeometry(window.innerWidth * 2, window.innerHeight * 2);
-        const newBackgroundMesh = new THREE.Mesh(newBackgroundGeometry, backgroundMaterial);
-        newBackgroundMesh.position.z = -500;
-        scene.add(newBackgroundMesh);
-    });
-
-    // Inicio de la animación// Inicio de la animación
-    camera.position.z = 50;
-    initSpheres();
-    animate();
-
     // Selecciona el contenedor de los filtros del portafolio.
     const filtersContainer = document.querySelector('.portfolio #portfolio-flters');
 
@@ -538,7 +308,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ✅ LÍNEA PROBLEMÁTICA ELIMINADA DE AQUÍ
-    initSkillsChartsAnimation();
     initVideoCarousel();
     initFloatingButtons();
 
@@ -580,6 +349,54 @@ document.addEventListener('DOMContentLoaded', () => {
     // =======================================================================
     // ✅ FIN: LÓGICA PARA CARRUSEL DE LOGOS
     // =======================================================================
+    initVideoCarousel();
+    initFloatingButtons();
+    function initFloatingButtons() {
+        const backToTopButton = document.querySelector('.back-to-top');
+        const whatsappButton = document.querySelector('.whatsapp-float');
+        const heroSection = document.getElementById('hero');
+
+        // Si no se encuentran los elementos necesarios, no hace nada.
+        if (!backToTopButton || !whatsappButton || !heroSection) {
+            return;
+        }
+
+        const toggleButtons = () => {
+            // Muestra los botones si el scroll ha pasado la altura de la sección hero.
+            if (window.scrollY > heroSection.offsetHeight) {
+                backToTopButton.classList.add('active');
+                whatsappButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+                whatsappButton.classList.remove('active');
+            }
+        };
+
+        // Ejecuta la función al cargar la página y al hacer scroll.
+        window.addEventListener('load', toggleButtons);
+        document.addEventListener('scroll', toggleButtons);
+    }
+
+    // AÑADIDO: Lógica para mostrar/ocultar los botones flotantes al hacer scroll
+    function initFloatingButtons() {
+        const whatsappButton = document.querySelector('.whatsapp-float');
+        // Para este caso, no necesitamos la sección hero ni el botón de "volver arriba",
+        // así que solo nos centramos en el botón de WhatsApp.
+        if (!whatsappButton) {
+            return;
+        }
+
+        const toggleButton = () => {
+            if (window.scrollY > 150) { // Mostrar el botón después de 150px de scroll
+                whatsappButton.classList.add('active');
+            } else {
+                whatsappButton.classList.remove('active');
+            }
+        };
+
+        window.addEventListener('load', toggleButton);
+        window.addEventListener('scroll', toggleButton);
+    }
 });
 /**
  * Inicializa el carrusel de videos del portafolio con autoplay.
@@ -608,7 +425,7 @@ function initVideoCarousel() {
     let autoPlayInterval;
     const autoPlayDelay = 5000; // 5 segundos
 
-    if (!window.heroSliderInitialized) {
+    /* if (!window.heroSliderInitialized) {
         window.heroSliderInitialized = true;
 
         const words = ["Tu Marca", "Tus Servicios", "Tus Productos"]; // Ajusta tus palabras
@@ -628,7 +445,7 @@ function initVideoCarousel() {
 
         showNextWord();
         setInterval(showNextWord, 1500);
-    }
+    } */
     // --- Funciones del Carrusel ---
 
     function getSlideWidth() {
@@ -742,105 +559,4 @@ function initVideoCarousel() {
     // Inicia todo
     moveTo(currentIndex);
     startAutoPlay();
-}
-
-/**
- * Lógica para observar y animar los gráficos de habilidades cuando son visibles.
- */
-function initSkillsChartsAnimation() {
-    const skillsSection = document.getElementById('skills');
-    if (!skillsSection) return;
-
-    // El Intersection Observer se encargará de activar la animación.
-    const observer = new IntersectionObserver((entries) => {
-        // entries[0] es la sección de "skills".
-        if (entries[0].isIntersecting) {
-            // Busca TODOS los canvas dentro de la sección de skills.
-            document.querySelectorAll('#skills .chart-container canvas').forEach(canvas => {
-                const percentage = canvas.getAttribute('data-percent');
-                if (percentage) {
-                    createPieChart(canvas.id, parseInt(percentage, 10));
-                }
-            });
-            // Una vez que se animan, dejamos de observar para no repetir la animación.
-            observer.unobserve(skillsSection);
-        }
-    }, {
-        threshold: 0.5 // Se activa cuando el 50% de la sección es visible.
-    });
-
-    // Inicia la observación de la sección de habilidades.
-    observer.observe(skillsSection);
-}
-
-// Llama a la función de inicialización desde tu DOMContentLoaded principal.
-// Asegúrate de que esta llamada esté dentro de tu listener principal.
-// Ejemplo:
-// document.addEventListener('DOMContentLoaded', () => {
-//     initSkillsChartsAnimation();
-//     // ... tu otro código ...
-// });
-function createPieChart(canvasId, percentage) {
-    const ctx = document.getElementById(canvasId);
-    if (!ctx) return; // Si no encuentra el canvas, no hace nada.
-
-    // Destruye cualquier gráfico que ya exista en este canvas para evitar errores.
-    const existingChart = Chart.getChart(ctx);
-    if (existingChart) {
-        existingChart.destroy();
-    }
-
-    const remaining = 100 - percentage;
-    const mainColor = document.body.classList.contains('dark-mode') ? '#50C878' : '#149ddd';
-    const backgroundColor = document.body.classList.contains('dark-mode') ? '#2B2E27' : '#f3f3f3';
-
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            datasets: [{
-                data: [percentage, remaining],
-                backgroundColor: [mainColor, backgroundColor],
-                borderWidth: 0,
-                cutout: '70%',
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            animation: {
-                animateScale: true,
-                animateRotate: true
-            },
-            plugins: {
-                legend: { display: false },
-                tooltip: { enabled: false }
-            }
-        }
-    });
-}
-
-function initFloatingButtons() {
-    const backToTopButton = document.querySelector('.back-to-top');
-    const whatsappButton = document.querySelector('.whatsapp-float');
-    const heroSection = document.getElementById('hero');
-
-    // Si no se encuentran los elementos necesarios, no hace nada.
-    if (!backToTopButton || !whatsappButton || !heroSection) {
-        return;
-    }
-
-    const toggleButtons = () => {
-        // Muestra los botones si el scroll ha pasado la altura de la sección hero.
-        if (window.scrollY > heroSection.offsetHeight) {
-            backToTopButton.classList.add('active');
-            whatsappButton.classList.add('active');
-        } else {
-            backToTopButton.classList.remove('active');
-            whatsappButton.classList.remove('active');
-        }
-    };
-
-    // Ejecuta la función al cargar la página y al hacer scroll.
-    window.addEventListener('load', toggleButtons);
-    document.addEventListener('scroll', toggleButtons);
 }

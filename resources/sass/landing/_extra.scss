@@ -1,0 +1,42 @@
+/* Back to top button */
+.back-to-top {
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    right: 30px;
+    bottom: 30px;
+    z-index: 996;
+    background: none !important;
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    transition: all 0.4s;
+}
+
+.back-to-top i {
+    display: none !important;
+}
+
+.back-to-top::before {
+    content: '';
+    position: relative;
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-top: 8px solid white;
+    border-left: 8px solid white;
+    transform: rotate(20deg);
+    transition: all 0.3s ease;
+    /* Añade el punto de origen de la transformación para centrarlo */
+    transform-origin: center center;
+}
+
+.back-to-top:hover::before {
+    /* Aquí la animación se hace desde el centro */
+    transform: rotate(45deg) scale(1.1) translateY(-3px);
+}
+
+.back-to-top.active {
+    visibility: visible;
+    opacity: 1;
+}

@@ -1,0 +1,156 @@
+#hero {
+  position: relative; 
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  
+  /* Usamos Flexbox para un centrado perfecto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#hero .hero-container {
+  /* Ya no necesita posicionamiento absoluto ni cálculos */
+  position: relative; /* Para que el z-index funcione */
+  z-index: 3;
+  width: 90%;
+  max-width: 1200px;
+}
+
+/* 3. Imagen de los triángulos (encima del color de fondo) */
+.hero-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+  /* Opcional: puedes bajarle la opacidad para que no sea tan prominente */
+  z-index: 2;
+  /* Capa 2: La imagen decorativa */
+}
+
+
+
+/* .static-text-container {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 56px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.dynamic-text-container {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 56px;
+  color: #149ddd;
+}
+ */
+#hero h1 {
+  margin: 0 0 10px 0;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 56px;
+  color: #fff;
+}
+
+#hero p {
+  color: #fff;
+  margin-bottom: 50px;
+  font-size: 26px;
+  display: inline-block;
+  text-align: left;
+  margin-left: 10px;
+}
+
+#hero p span {
+  color: #fff;
+  padding-bottom: 4px;
+  letter-spacing: 1px;
+}
+.custom-arrow-container {
+  position: absolute;
+  top:250px;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*   width: 39px;
+  height: 39px; */
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.custom-arrow::before {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-right: 25px solid white;
+  border-bottom: 25px solid white;
+  transform: rotate(45deg);
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.custom-arrow:hover {
+  transform: scale(1.2);
+}
+
+@media (min-width: 1024px) {
+  #hero {
+    background-attachment: fixed;
+  }
+}
+
+@media (max-width: 768px) {
+  #hero h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+}
+
+/*--------------------------------------------------------------
+# About
+--------------------------------------------------------------*/
+.about .content h3 {
+  font-weight: 700;
+  font-size: 26px;
+  color: #fff;
+}
+
+.about .content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.about .content ul li {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.about .content ul strong {
+  margin-right: 10px;
+}
+
+.about .content ul i {
+  font-size: 16px;
+  margin-right: 5px;
+  color: #149ddd;
+  /* MANTENIDO AZUL */
+  line-height: 0;
+}

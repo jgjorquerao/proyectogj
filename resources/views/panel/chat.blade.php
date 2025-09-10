@@ -1,8 +1,8 @@
 <div id="chat-list-panel" class="w-full md:w-1/3 h-full flex-shrink-0">
     <div class="flex flex-col h-full content-list border-r border-gray-200">
-        <div class="flex items-center p-4 border-b border-gray-200 bg-gray-900">
+        <!-- <div class="flex items-center p-4 border-b border-gray-200 bg-gray-900">
             <img src="{{ asset('img/gylerai3.png') }}" alt="Logo de mi aplicación" class="h-8 object-contain">
-        </div>
+        </div> -->
         <div class="p-4 flex justify-center items-center border-b border-gray-200">
             <h2 class="text-xl font-bold">Chat</h2>
         </div>

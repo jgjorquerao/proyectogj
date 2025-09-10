@@ -1,7 +1,3 @@
-{{-- ======================================================================= --}}
-{{-- ARCHIVO: resources/views/portfolio.blade.php --}}
-{{-- ======================================================================= --}}
-
 <section id="portfolio" class="portfolio section-bg">
     <div class="container">
 
@@ -66,8 +62,8 @@
                             </div>
                             <div class="carousel-slide">
                                 <div class="portfolio-wrap">
-                                    <video playsinline loop muted loading="lazy" poster="{{ asset('videos/2.jpg') }}">
-                                        <source src="{{ asset('videos/2.mp4') }}" type="video/mp4">
+                                    <video playsinline loop muted loading="lazy" poster="{{ asset('videos/7.jpg') }}">
+                                        <source src="{{ asset('videos/7.mp4') }}" type="video/mp4">
                                     </video>
                                 </div>
                             </div>
@@ -89,6 +85,13 @@
                                 <div class="portfolio-wrap">
                                     <video playsinline loop muted loading="lazy" poster="{{ asset('videos/5.jpg') }}">
                                         <source src="{{ asset('videos/5.mp4') }}" type="video/mp4">
+                                    </video>
+                                </div>
+                            </div>
+                            <div class="carousel-slide">
+                                <div class="portfolio-wrap">
+                                    <video playsinline loop muted loading="lazy" poster="{{ asset('videos/2.jpg') }}">
+                                        <source src="{{ asset('videos/2.mp4') }}" type="video/mp4">
                                     </video>
                                 </div>
                             </div>

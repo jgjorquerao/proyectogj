@@ -7,4 +7,4 @@
             Todos los Derechos Reservados.
         </div>
     </div>
-</footer><!-- End  Footer -->
+</footer>
