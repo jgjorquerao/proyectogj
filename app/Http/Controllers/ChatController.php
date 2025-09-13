@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\NewMessage;
 use App\Models\Client;
+use App\Models\User;
 use App\Models\Conversation;
 use Illuminate\Http\Request;
 use App\Models\Whatsapp;
@@ -61,12 +62,56 @@ class ChatController extends Controller
                 'avatar' => 'https://placehold.co/100x100/A3A3A3/FFFFFF?text=' . substr($conv->client->phone, -2),
                 'lastMessage' => $lastMsg ? $lastMsg['text'] : '',
                 'messages' => $messagesData,
+                'client_id' => $conv->client->id,
+                'client_rut' => $conv->client->rut,
                 'client_phone' => $conv->client->phone,
+                'user_id' => $conv->user->id ?? null,
                 'control_status' => $conv->control_status,
             ];
         });
 
         return response()->json($chatsData);
+    }
+
+    public function editChatUser(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer',
+            'user_id' => 'nullable|integer',
+        ]);
+
+        // Revisar si el chat existe
+        $chat = Conversation::find($request->id);
+        if ($chat) {
+            $newUserId = $request->user_id;
+            $isNew = $newUserId != $chat->user_id;
+            if ($isNew == true) {
+                if ($newUserId == null) {
+                    // Guardar el user_id como null
+                    $chat->user_id = $newUserId;
+                    $chat->save();
+                }
+                else
+                {
+                    // Revisar si el usuario existe para guardarlo
+                    $user = User::find($newUserId);
+                    if ($user) {
+                        $chat->user_id = $newUserId;
+                        $chat->save();
+                    }
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'success' => false,
+            ]);
+        }
     }
 
     public function sendMessage(Request $request)

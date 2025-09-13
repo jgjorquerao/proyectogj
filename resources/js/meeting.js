@@ -14,9 +14,7 @@ let calendarTemp,
     calendarPrevBtn,
     calendarNextBtn,
     meetingListContainer,
-    meetingListDate,
-    messageModal,
-    messageTextEl;
+    meetingListDate;
 let selectedYear = null;
 let selectedMonth = null;
 let selectedDay = null;
@@ -120,8 +118,6 @@ window.initMeetingSection = () => {
     calendarNextBtn = document.getElementById('calendar-next-btn');
     meetingListContainer = document.getElementById("meeting-list");
     meetingListDate = document.getElementById("meeting-list-date");
-    messageModal = document.getElementById("messageModal");
-    messageTextEl = document.getElementById("messageText");
 
     // Referencias del DOM del timepicker
     timePickerModal = document.getElementById('time-picker-modal');
@@ -278,6 +274,9 @@ window.initMeetingSection = () => {
 
     // Inicializar la selección de usuario
     initUserFillable();
+
+    window.selectedChatId = null; // Resetear la variable
+    window.selectedUserId = null; // Resetear la variable
 };
 
 // Función para traer citas desde el backend
@@ -562,8 +561,7 @@ function renderMeetingList() {
         const optionsMenuId = "options-menu-" + index;
         const optionsEditId = "edit-btn-" + index;
         const optionsDeleteId = "delete-btn-" + index;
-        item.className =
-            "p-4 relative flex items-center space-x-4 border-b border-gray-200";
+        item.className = "p-4 relative flex items-center space-x-4 border-b border-gray-200";
         item.dataset.meetingId = meeting.id;
 
         item.innerHTML = `
@@ -1194,7 +1192,7 @@ async function handleAddMeeting(e) {
         let dateAllGood = true;
         let startHourAllGood = true;
         let endHourAllGood = true;
-        const theTimezone = GetTimezone();
+        //const theTimezone = GetTimezone();
         const now = GetCurrentDatetime();
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         const formDate = addDateInput.value.trim();
@@ -1312,7 +1310,7 @@ async function handleAddMeeting(e) {
             // Todos los datos recibidos son válidos, se puede enviar al backend
             try {
                 const response = await axios.post("/panel/add_meeting", {
-                    user_timezone: theTimezone,
+                    //user_timezone: theTimezone,
                     meeting_date: formDate,
                     start_hour: startHour24,
                     end_hour: endHour24,
@@ -1373,7 +1371,7 @@ async function handleEditMeeting(e) {
             let startHourAllGood = true;
             let endHourAllGood = true;
             const meetingId = meeting.id;
-            const theTimezone = GetTimezone();
+            //const theTimezone = GetTimezone();
             const now = GetCurrentDatetime();
             const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
             const formDate = editDateInput.value.trim();
@@ -1547,7 +1545,7 @@ async function handleEditMeeting(e) {
                         // no son relevantes si es que no se pueden editar, ya que en ese caso se toman
                         // directamente los valores que ya tiene la cita en el backend
                         const response = await axios.post("/panel/edit_meeting", {
-                            user_timezone: theTimezone,
+                            //user_timezone: theTimezone,
                             id: meetingId,
                             meeting_date: formDate,
                             start_hour: startHour24,
@@ -1780,32 +1778,6 @@ async function handleDeleteMeeting() {
     }
 }
 
-// Muestra un mensaje de notificación flotante
-function showMessage(text, type = "info") {
-    messageTextEl.textContent = text;
-    if (type === "success") {
-        messageModal.classList.remove("bg-gray-800");
-        messageModal.classList.remove("bg-red-600");
-        messageModal.classList.add("bg-green-600");
-    }
-    else if (type === "error") {
-        messageModal.classList.remove("bg-gray-800");
-        messageModal.classList.remove("bg-green-600");
-        messageModal.classList.add("bg-red-600");
-    } 
-    else {
-        messageModal.classList.remove("bg-green-600");
-        messageModal.classList.remove("bg-red-600");
-        messageModal.classList.add("bg-gray-800");
-    }
-    messageModal.classList.remove("hidden");
-    messageModal.classList.add("animate-fade-in");
-    setTimeout(() => {
-        messageModal.classList.add("hidden");
-        messageModal.classList.remove("animate-fade-in");
-    }, 3000);
-}
-
 // Actualizar la fecha que aparece sobre la lista de citas
 function updateMeetingsHeader() {
     meetingListDate.innerHTML = ""+lastSelectedDate.getDate()+" de "+GetMonthName(lastSelectedDate.getMonth())+", "+lastSelectedDate.getFullYear();
@@ -1829,10 +1801,10 @@ function cleanEditErrors() {
     editUserError.textContent = "";
 }
 
-// Obtener la zona horaria del dispositivo
+/* // Obtener la zona horaria del dispositivo
 function GetTimezone() {
     return Intl.DateTimeFormat().resolvedOptions().timeZone;
-}
+} */
 
 // Obtener regex de la fecha
 function GetDateRegex() {

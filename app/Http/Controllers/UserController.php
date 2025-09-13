@@ -81,4 +81,31 @@ class UserController extends Controller
             'user' => $user
         ]);
     }
+
+    public function editUserName(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $user = Auth::user();
+        if ($user) {
+            $newName = $request->name;
+            $isNew = $newName != $user->name;
+            if ($isNew == true) {
+                $user->name = $newName;
+                $user->save();
+            }
+
+            return response()->json([
+                'success' => true,
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'success' => false,
+            ]);
+        }
+    }
 }

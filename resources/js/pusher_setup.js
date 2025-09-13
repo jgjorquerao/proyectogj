@@ -3,18 +3,18 @@ import Pusher from "pusher-js";
 
 window.Pusher = Pusher;
 
-window.Echo = new Echo({
+/* window.Echo = new Echo({
     broadcaster: "pusher",
     key: import.meta.env.VITE_PUSHER_APP_KEY,
     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
     forceTLS: true,
     authEndpoint: "/broadcasting/auth",
-});
+}); */
 
 const subscribedChatIds = new Set();
 
 window.subscribeToChats = (chats) => {
-    chats.forEach((chat) => {
+    /* chats.forEach((chat) => {
         if (!subscribedChatIds.has(chat.id)) {
             window.Echo.private(`chat.${chat.id}`).listen(
                 ".NewMessage",
@@ -63,5 +63,5 @@ window.subscribeToChats = (chats) => {
             );
             subscribedChatIds.add(chat.id);
         }
-    });
+    }); */
 };

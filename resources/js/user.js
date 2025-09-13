@@ -20,10 +20,8 @@ let deleteModal,
     closeDeleteModal,
     confirmDeleteBtn,
     cancelDeleteBtn,
-    userNameToDeleteEl,
-    messageModal,
-    messageTextEl;
-let selectedUserId = null;
+    userNameToDeleteEl;
+window.selectedUserId = null;
 
 let users = []; // Array de usuarios cargados
 
@@ -46,8 +44,6 @@ window.initUserSection = () => {
     confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
     cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
     userNameToDeleteEl = document.getElementById("userNameToDelete");
-    messageModal = document.getElementById("messageModal");
-    messageTextEl = document.getElementById("messageText");
     appContainer = document.getElementById("app-container");
     menuButton = document.getElementById("menu-button");
 
@@ -88,13 +84,13 @@ window.initUserSection = () => {
 
     // Lógica para confirmar la eliminación
     confirmDeleteBtn.addEventListener("click", () => {
-        if (selectedUserId) {
-            users = users.filter((user) => user.id !== selectedUserId);
+        if (window.selectedUserId) {
+            users = users.filter((user) => user.id !== window.selectedUserId);
             renderUserList();
             detailPanelContainer.innerHTML = `<div class="flex items-center justify-center h-full text-gray-500">
                                                 <span class="hidden md:block text-lg">Selecciona un usuario</span>
                                             </div>`;
-            selectedUserId = null;
+            window.selectedUserId = null;
             deleteModal.classList.add("hidden");
             showMessage("Usuario eliminado correctamente.", "success");
         }
@@ -110,6 +106,9 @@ window.initUserSection = () => {
 
     // Agregar usuario
     addUserForm.addEventListener("submit", handleAddUser);
+
+    window.selectedChatId = null; // Resetear la variable
+    window.selectedUserId = null; // Resetear la variable
 };
 
 // Función para traer usuarios desde el backend
@@ -132,7 +131,7 @@ function renderUserList() {
             "user-list-item p-4 flex items-center space-x-4 border-b border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors";
         item.dataset.userId = user.id;
 
-        if (selectedUserId === user.id) {
+        if (window.selectedUserId === user.id) {
             item.classList.add("active");
         }
 
@@ -148,7 +147,11 @@ function renderUserList() {
                     </div>
                 `;
 
-        item.addEventListener("click", () => handleSelectUser(user.id));
+        item.addEventListener("click", () => {
+            if (window.selectedUserId != user.id) {
+                handleSelectUser(user.id);
+            }
+        });
         userListContainer.appendChild(item);
     });
 }
@@ -190,10 +193,25 @@ function renderUserList() {
 async function handleAddUser(e) {
     e.preventDefault();
 
+    // Establecer valores
+    const formData = new FormData(addUserForm);
+    const formName = formData.get("name");
+    const formEmail = formData.get("email");
+
     // Limpiar errores anteriores
     errorName.textContent = "";
     errorEmail.textContent = "";
 
+    // Verificar que los valores no estén vacíos y sean válidos
+    const nameValid = formName;
+    const emailValid = formEmail;
+    if (!nameValid || !emailValid) {
+        if (!nameValid) { errorName.textContent = "El nombre está vacío" }
+        if (!emailValid) { errorEmail.textContent = "El email está vacío" }
+        return;
+    }
+
+    // Si son validos, continuar
     const submitBtn = addUserForm.querySelector('button[type="submit"]');
     const originalBtnHTML = submitBtn.innerHTML;
 
@@ -201,12 +219,10 @@ async function handleAddUser(e) {
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<span class="loader"></span>';
 
-    const formData = new FormData(addUserForm);
-
     try {
         const response = await axios.post("/panel/store_user", {
-            name: formData.get("name"),
-            email: formData.get("email"),
+            name: formName,
+            email: formEmail,
         });
 
         const newUser = response.data.user; // Usuario recién creado desde el backend
@@ -234,7 +250,7 @@ async function handleAddUser(e) {
 
 // Manejar selección de usuario
 function handleSelectUser(userId) {
-    selectedUserId = userId;
+    window.selectedUserId = userId;
     const user = users.find((u) => u.id === userId);
     if (!user) return;
 
@@ -393,27 +409,9 @@ function handleSendPasswordResetEmail(userId) {
     }
 }
 
-// Muestra un mensaje de notificación flotante
-function showMessage(text, type = "info") {
-    messageTextEl.textContent = text;
-    if (type === "success") {
-        messageModal.classList.remove("bg-gray-800");
-        messageModal.classList.add("bg-green-600");
-    } else {
-        messageModal.classList.remove("bg-green-600");
-        messageModal.classList.add("bg-gray-800");
-    }
-    messageModal.classList.remove("hidden");
-    messageModal.classList.add("animate-fade-in");
-    setTimeout(() => {
-        messageModal.classList.add("hidden");
-        messageModal.classList.remove("animate-fade-in");
-    }, 3000);
-}
-
 // Botón volver en móvil
 const handleBack = () => {
-    selectedUserId = null;
+    window.selectedUserId = null;
     appContainer.classList.remove("user-active");
     updateMenuButtonVisibility();
 };
@@ -422,7 +420,7 @@ const handleBack = () => {
 const updateMenuButtonVisibility = () => {
     if (!menuButton) return;
 
-    if (selectedUserId) {
+    if (window.selectedUserId) {
         menuButton.classList.add("hidden"); // Oculta cuando hay chat abierto
     } else {
         menuButton.classList.remove("hidden"); // Muestra cuando estamos en listado

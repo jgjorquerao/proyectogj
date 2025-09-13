@@ -6,10 +6,16 @@ import "./user.js";
 import "./meeting.js";
 import "./products.js";
 
+let messageModal,
+    messageTextEl;
+
 document.addEventListener("DOMContentLoaded", () => {
+    // Referencias generales del DOM
     const menuButton = document.getElementById("menu-button");
     const closeMenuButton = document.getElementById("close-menu-button");
     const appContainer = document.getElementById("app-container");
+    messageModal = document.getElementById("messageModal");
+    messageTextEl = document.getElementById("messageText");
 
     const btn_default = document.getElementById(`btn-${currentMenu}`);
     if (btn_default) {
@@ -29,6 +35,169 @@ document.addEventListener("DOMContentLoaded", () => {
             appContainer.classList.remove("nav-active");
         });
     }
+
+    // Referencias del cuadro de perfil
+    let isBoxVisible = false;
+    const nameMaxLength = 50;
+    const profileBtn = document.getElementById('profileBtn');
+    const profileBox = document.getElementById('profileBox');
+    const profileLogoutBtn = document.getElementById('profileLogoutBtn');
+    const profileLogoutForm = document.getElementById('profileLogoutForm');
+    const closeProfileBtn = document.getElementById('closeProfileBtn');
+    const profileNameDisplay = document.getElementById('profileNameDisplay');
+    const profileNameEditer = document.getElementById('profileNameEditer');
+    const profileNameEditOptions = document.getElementById('profileNameEditOptions');
+    const profileNameEditBtn = document.getElementById('profileNameEditBtn');
+    const profileNameInput = document.getElementById('profileNameInput');
+    const profileNameText = document.getElementById('profileNameText');
+    const profileNameSaveBtn = document.getElementById('profileNameSaveBtn');
+    //const profileNameCancelBtn = document.getElementById('profileNameCancelBtn');
+    const profileNameError = document.getElementById("profileNameError");
+    let currentProfileName = profileNameText.textContent.trim();
+    profileNameInput.maxLength = nameMaxLength;
+
+    // Funciones de mostrar / esconder cuadro de perfil
+    function ShowProfileBox() {
+        profileBox.classList.add('is-visible');
+        isBoxVisible = true;
+    }
+
+    function HideProfileBox() {
+        profileBox.classList.remove('is-visible');
+        isBoxVisible = false;
+    }
+
+    // El click del botón de perfil en el panel de la izquierda
+    profileBtn.addEventListener('click', (event) => {
+        if (isBoxVisible) {
+            HideProfileBox();
+        } else {
+            ShowProfileBox();
+        }
+    });
+
+    // Cerrar cuadro si se presiona fuera
+    document.addEventListener('click', (event) => {
+        if (isBoxVisible && !profileBox.contains(event.target) && !profileBtn.contains(event.target)) {
+            HideProfileBox();
+        }
+    });
+
+    // Cerrar cuadro si se presiona el botón de cerrar
+    closeProfileBtn.addEventListener("click", () => {
+        HideProfileBox();
+    });
+
+    // Funciones de mostrar / esconder editar nombre
+    function ShowEditProfileName() {
+        profileNameEditer.classList.remove('hidden');
+        profileNameEditer.classList.add('flex');
+        profileNameEditOptions.classList.remove('invisible');
+    }
+
+    function HideEditProfileName() {
+        profileNameEditer.classList.add('hidden');
+        profileNameEditer.classList.remove('flex');
+        profileNameEditOptions.classList.add('invisible');
+    }
+
+    function ShowDisplayProfileName() {
+        profileNameDisplay.classList.remove('hidden');
+    }
+
+    function HideDisplayProfileName() {
+        profileNameDisplay.classList.add('hidden');
+    }
+
+    async function SaveProfileName() {
+        const originalValue = currentProfileName;
+        const newValue = profileNameInput.value.trim();
+        profileNameError.textContent = "";
+
+        // Revisar si el nuevo valor está vacío
+        const isEmpty = newValue == "";
+        if (isEmpty) {
+            // Si está vacío, mostrar mensaje de error
+            showMessage("Tu nombre no puede estar vacío", "error");
+        }
+        else
+        {
+            // No está vacío, actualizar nombre actual
+            currentProfileName = newValue;
+        }
+
+        // Establecer valor a mostrar, terminar editar
+        profileNameText.textContent = currentProfileName;
+        HideEditProfileName(); // Esconder edit
+        ShowDisplayProfileName(); // Mostrar display
+
+        // Verificar si hay que actualizar en base de datos
+        let needUpdate = newValue !== originalValue;
+        if (!isEmpty && needUpdate) {
+        // Es diferente al original, enviar a backend
+            showMessage("Nombre de perfil actualizado.", "success");
+            try {
+                const response = await axios.post("/panel/edit_user_name", {
+                    name: newValue,
+                });
+            }
+            catch (error) {
+                console.error("Error al actualizar nombre de perfil: ", error);
+            }
+        }
+    }
+
+    // El click del botón para empezar a editar
+    profileNameEditBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        // Establecer valor del input
+        profileNameInput.value = currentProfileName;
+        HideDisplayProfileName(); // Esconder display
+        ShowEditProfileName(); // Mostrar edit
+        profileNameInput.focus();
+    });
+
+    // Verificar que el valor del input esté correcto
+    profileNameInput.addEventListener('input', (event) => {
+        let errorMessage = "";
+
+        // Limitar el tamaño máximo del nombre
+        if (profileNameInput.value.length > nameMaxLength) {
+            profileNameInput.value = profileNameInput.value.slice(0, nameMaxLength);
+        }
+
+        if (profileNameInput.value == "") {
+            // El nombre está vacío
+            errorMessage = "Nombre vacío";
+        }
+
+        profileNameError.textContent = errorMessage;
+    });
+
+    // Tratar de guardar el nombre cuando se pierde el focus del input
+    profileNameInput.addEventListener('blur', (event) => {
+        SaveProfileName();
+    });
+
+    // Tratar de guardar el nombre cuando se hace click en botón de OK
+    profileNameSaveBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        SaveProfileName();
+    });
+
+    /* // El click del botón para cancelar editar
+    profileNameCancelBtn.addEventListener('click', (event) => {
+        if (!updatingProfileName) {
+            event.stopPropagation();
+            HideEditProfileName(); // Esconder edit
+            ShowDisplayProfileName(); // Mostrar display
+        }
+    }); */
+
+    // El click para cerrar sesión
+    profileLogoutBtn.addEventListener('click', (event) => {
+        profileLogoutForm.submit();
+    });
 });
 
 const mainContent = document.getElementById("main-content");
@@ -142,3 +311,31 @@ window.highlightSelectedItem = (selector, selectedId) => {
         }
     });
 }
+
+// Muestra un mensaje de notificación flotante
+function showMessage(text, type = "info") {
+    messageTextEl.textContent = text;
+    if (type === "success") {
+        messageModal.classList.remove("bg-gray-800");
+        messageModal.classList.remove("bg-red-600");
+        messageModal.classList.add("bg-green-600");
+    }
+    else if (type === "error") {
+        messageModal.classList.remove("bg-gray-800");
+        messageModal.classList.remove("bg-green-600");
+        messageModal.classList.add("bg-red-600");
+    } 
+    else {
+        messageModal.classList.remove("bg-green-600");
+        messageModal.classList.remove("bg-red-600");
+        messageModal.classList.add("bg-gray-800");
+    }
+    messageModal.classList.remove("hidden");
+    messageModal.classList.add("animate-fade-in");
+    setTimeout(() => {
+        messageModal.classList.add("hidden");
+        messageModal.classList.remove("animate-fade-in");
+    }, 3000);
+}
+
+window.showMessage = showMessage;

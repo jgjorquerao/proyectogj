@@ -271,6 +271,9 @@ window.initProductSection = () => {
             reader.readAsDataURL(file);
         }
     });
+
+    window.selectedChatId = null; // Resetear la variable
+    window.selectedUserId = null; // Resetear la variable
 };
 
 // Función para traer usuarios desde el backend

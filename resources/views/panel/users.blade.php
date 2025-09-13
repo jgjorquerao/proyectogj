@@ -142,8 +142,3 @@
         </div>
     </div>
 </div>
-
-<!-- Modal para mensajes de notificación -->
-<div id="messageModal" class="fixed bottom-4 right-4 bg-gray-800 text-white py-3 px-6 rounded-lg shadow-xl hidden z-50 transition-opacity duration-300">
-    <p id="messageText"></p>
-</div>

@@ -31,9 +31,12 @@ Route::get('/chat/get_chats', [ChatController::class, 'getChats']);
 Route::post('/chat/send_message', [ChatController::class, 'sendMessage']);
 Route::post('/chat/toggle_status/{conversation_id}', [ChatController::class, 'toggleControlStatus']);
 Route::post('/chat/delete_message', [ChatController::class, 'deleteMessage'])->name('chat.delete');
+Route::post('/chat/edit_chat_user', [ChatController::class, 'editChatUser']);
 
 //Clients
 Route::get('/panel/get_clients', [ClientController::class, 'getClients']);
+Route::post('/panel/edit_client_name', [ClientController::class, 'editClientName']);
+Route::post('/panel/edit_client_rut', [ClientController::class, 'editClientRut']);
 
 //Users
 Route::get('/panel/users', function() {
@@ -41,8 +44,8 @@ Route::get('/panel/users', function() {
 });
 Route::get('/panel/get_users', [UserController::class, 'getUsers']);
 Route::get('/panel/get_users_for_meetings', [UserController::class, 'getUsersForMeetings']);
-
 Route::post('panel/store_user', [UserController::class, 'store'])->name('users.store');
+Route::post('panel/edit_user_name', [UserController::class, 'editUserName']);
 
 //Products
 Route::get('/panel/products', function() {
