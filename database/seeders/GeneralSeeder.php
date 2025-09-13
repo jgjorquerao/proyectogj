@@ -34,19 +34,19 @@ class GeneralSeeder extends Seeder
         DB::table('clients')->insert([
             [
                 'name' => 'Cliente A',
-                'rut' => '12345678-9',
+                'rut' => '8774094-3',
                 'phone' => '+56912345678',
                 'company_id' => 1,
             ],
             [
                 'name' => 'Cliente B',
-                'rut' => '98765432-1',
+                'rut' => '15542327-7',
                 'phone' => '+56987654321',
                 'company_id' => 1,
             ],
             [
                 'name' => 'Cliente C',
-                'rut' => '11111111-1',
+                'rut' => '23673354-8',
                 'phone' => '+56911111111',
                 'company_id' => 1,
             ],
@@ -58,7 +58,7 @@ class GeneralSeeder extends Seeder
             ],
             [
                 'name' => 'Cliente E',
-                'rut' => '55555555-5',
+                'rut' => '1799543-K',
                 'phone' => '+56933333333',
                 'company_id' => 1,
             ],

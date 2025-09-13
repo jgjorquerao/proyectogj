@@ -87,7 +87,7 @@ class MeetingController extends Controller
 
             // Validar datos de la request
             $request->validate([
-                'user_timezone' => 'required|string',
+                //'user_timezone' => 'required|string',
                 'meeting_date' => 'required|date',
                 'start_hour' => 'required|date_format:H:i',
                 'end_hour' => 'required|date_format:H:i|after:start_hour',
@@ -95,14 +95,14 @@ class MeetingController extends Controller
                 'user_id' => 'required|exists:users,id',
             ]);
 
-            // Establecer fecha de inicio y fin en UTC (lo que se guarda en la BD)
-            $userTimezone = $request->user_timezone; // por ejemplo "America/Santiago"
-            $db_start_datetime = Carbon::parse($request->meeting_date . ' ' . $request->start_hour, $userTimezone)->setTimezone('UTC');
-            $db_end_datetime = Carbon::parse($request->meeting_date . ' ' . $request->end_hour, $userTimezone)->setTimezone('UTC');
+            // Establecer fecha de inicio y fin que se guardan en la BD
+            $userTimezone = config('app.timezone'); //$request->user_timezone; // por ejemplo "America/Santiago"
+            $db_start_datetime = Carbon::parse($request->meeting_date . ' ' . $request->start_hour, $userTimezone)->startOfMinute();
+            $db_end_datetime = Carbon::parse($request->meeting_date . ' ' . $request->end_hour, $userTimezone)->startOfMinute();
 
             // Establecer datos para validaciones en la zona horaria del usuario (reflejar correctamente a nivel de usuario)
-            $now = Carbon::now('UTC')->setTimezone($userTimezone)->startOfMinute(); // Fecha y hora actual
-            $today = Carbon::now('UTC')->setTimezone($userTimezone)->startOfDay(); // Fecha actual
+            $now = Carbon::now()->setTimezone($userTimezone)->startOfMinute(); // Fecha y hora actual de Chile
+            $today = Carbon::now()->setTimezone($userTimezone)->startOfDay(); // Fecha actual
             $meeting_date = Carbon::parse($request->meeting_date, $userTimezone)->startOfDay(); // Fecha de la cita
             $dayIndex = $meeting_date->dayOfWeekIso - 1;
             $daySchedule = Schedule::where('company_id', $user->company_id)->where('day', $dayIndex)->first();
@@ -285,7 +285,7 @@ class MeetingController extends Controller
 
             // Validar datos de la request
             $request->validate([
-                'user_timezone' => 'required|string',
+                //'user_timezone' => 'required|string',
                 'id' => 'required|integer',
                 'meeting_date' => 'required|date',
                 'start_hour' => 'required|date_format:H:i',
@@ -295,17 +295,16 @@ class MeetingController extends Controller
 
             // Recuperar la cita a editar
             $meeting = Meeting::find($request->id);
-
-            if ($meeting) {
-                // Si se encontró
-                // Establecer fecha de inicio y fin en UTC (lo que se guarda en la BD)
-                $userTimezone = $request->user_timezone; // por ejemplo "America/Santiago"
-                $db_start_datetime = Carbon::parse($request->meeting_date . ' ' . $request->start_hour, $userTimezone)->setTimezone('UTC');
-                $db_end_datetime = Carbon::parse($request->meeting_date . ' ' . $request->end_hour, $userTimezone)->setTimezone('UTC');
+            if ($meeting)
+            {
+                // Si se encontró, establecer fecha de inicio y fin que se guardan en la BD
+                $userTimezone = config('app.timezone'); //$request->user_timezone; // por ejemplo "America/Santiago"
+                $db_start_datetime = Carbon::parse($request->meeting_date . ' ' . $request->start_hour, $userTimezone)->startOfMinute();
+                $db_end_datetime = Carbon::parse($request->meeting_date . ' ' . $request->end_hour, $userTimezone)->startOfMinute();
 
                 // Establecer datos para validaciones en la zona horaria del usuario (reflejar correctamente a nivel de usuario)
-                $now = Carbon::now('UTC')->setTimezone($userTimezone)->startOfMinute(); // Fecha y hora actual. Simular cambio local de tiempo -> Carbon::parse('2025-08-30 02:16:00', 'UTC')
-                $today = Carbon::now('UTC')->setTimezone($userTimezone)->startOfDay(); // Fecha actual
+                $now = Carbon::now()->setTimezone($userTimezone)->startOfMinute(); // Fecha y hora actual de Chile
+                $today = Carbon::now()->setTimezone($userTimezone)->startOfDay(); // Fecha actual
                 $meeting_date = Carbon::parse($request->meeting_date, $userTimezone)->startOfDay(); // Fecha de la cita
                 $start_hour_time = Carbon::createFromFormat('H:i', $request->start_hour);
                 $end_hour_time = Carbon::createFromFormat('H:i', $request->end_hour);
@@ -314,8 +313,8 @@ class MeetingController extends Controller
                 $dayEnabled = $daySchedule?->enabled ?? false;
 
                 // Variables para controlar los cambios
-                $original_start_datetime = Carbon::parse($meeting->start_date, "UTC")->setTimezone($userTimezone)->startOfMinute();
-                $original_end_datetime = Carbon::parse($meeting->end_date, "UTC")->setTimezone($userTimezone)->startOfMinute();
+                $original_start_datetime = Carbon::parse($meeting->start_date, $userTimezone)->startOfMinute();
+                $original_end_datetime = Carbon::parse($meeting->end_date, $userTimezone)->startOfMinute();
                 $can_modify_start = $original_start_datetime->gt($now); // Solo se puede editar fecha y hora de inicio si la cita aún no empieza
                 $can_modify_end = $original_end_datetime->gt($now); // Solo se puede editar la hora de término si la cita aún no termina
                 $dateChanged = false;
@@ -523,8 +522,8 @@ class MeetingController extends Controller
     {
         return [
             'id'         => $meeting->id,
-            'start_date' => $meeting->start_date->toISOString(),
-            'end_date'   => $meeting->end_date->toISOString(),
+            'start_date' => $meeting->start_date,
+            'end_date'   => $meeting->end_date,
             'reminder_done' => $meeting->reminder_done,
             'client_id' => $meeting->client_id,
             'user_id' => $meeting->user_id,

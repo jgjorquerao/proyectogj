@@ -185,3 +185,42 @@ body {
 .upload-icon {
     color: #a0aec0;
 }
+
+.profile-box {
+    width: calc(var(--spacing) * 72);
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.profile-box.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.chat-profile-box {
+    width: calc(var(--spacing) * 80);
+    height: calc(var(--spacing) * 86);
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.chat-profile-box.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.chat-profile-user-list {
+    height: calc(var(--spacing) * 62);
+}
+
+/* .chat-user-item-check {
+    width: calc(var(--spacing) * 3.25);
+    height: calc(var(--spacing) * 3.25);
+    left: calc(var(--spacing) * 1.25);
+} */
+
+/* .chat-user-item-text {
+    margin-left: calc(var(--spacing) * 4);
+} */
