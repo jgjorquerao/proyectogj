@@ -36,10 +36,6 @@ body {
     }
 }
 
-.content-list {
-    background: rgb(255, 255, 255);
-}
-
 @media (max-width: 767px) {
     #app-container.chat-active #chat-list-panel {
         transform: translateX(-100%);
@@ -215,12 +211,39 @@ body {
     height: calc(var(--spacing) * 62);
 }
 
-/* .chat-user-item-check {
-    width: calc(var(--spacing) * 3.25);
-    height: calc(var(--spacing) * 3.25);
-    left: calc(var(--spacing) * 1.25);
-} */
+.status-badge {
+    display: inline-block;
+    padding: 0.125rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 9999px;
+}
 
-/* .chat-user-item-text {
-    margin-left: calc(var(--spacing) * 4);
-} */
+.status-badge.Confirmada {
+    color: #166534;
+    background-color: #dcfce7;
+}
+
+.status-badge.Pendiente {
+    color: #854d0e;
+    background-color: #fef9c3;
+}
+
+.status-badge.Rechazada {
+    color: #991b1b;
+    background-color: #fee2e2;
+}
+
+.status-badge.Reprogramada {
+    color: #1e40af;
+    background-color: #dbeafe;
+}
+
+.status-badge.Realizada {
+    color: #ffffff;
+    background-image: linear-gradient(to right, #4c51bf, #805ad5);
+}

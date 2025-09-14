@@ -14,10 +14,10 @@
     ])
 </head>
 
-<body class="h-screen p-4 sm:p-6 lg:p-8 flex items-center justify-center">
+<body class="h-screen flex items-center justify-center">
 
     <!-- Contenedor principal de la aplicación -->
-    <div id="app-container" class="w-full h-full mx-auto flex rounded-2xl overflow-hidden shadow-2xl bg-white relative">
+    <div id="app-container" class="w-full h-full mx-auto flex overflow-hidden shadow-2xl bg-white relative">
         <!-- Contenedor de todo menos profile box -->
         <div class="w-full h-full mx-auto flex overflow-hidden relative md:static">
             <!-- Contenedor del botón de menú de hamburguesa, solo visible en móviles -->
@@ -30,7 +30,7 @@
             </div>
 
             <!-- Nuevo Panel de navegación lateral izquierda (fixed para móviles, estático para escritorio) -->
-            <div id="nav-panel" class="absolute inset-y-0 left-0 z-40 md:relative md:flex flex-col items-center justify-between p-3 bg-gray-900 md:w-16 text-white flex-shrink-0 transition-transform duration-300 ease-in-out">
+            <div id="nav-panel" class="absolute inset-y-0 left-0 z-40 md:relative md:flex flex-col items-center justify-between p-3 bg-gray-800 md:w-16 text-white flex-shrink-0 transition-transform duration-300 ease-in-out">
                 <!-- Íconos de navegación -->
                 <div class="flex flex-col items-center space-y-6 w-full">
                     <!-- Título y botón de cerrar menú para móviles -->
@@ -73,7 +73,7 @@
             </div>
 
             <!-- Contenedor que maneja el deslizamiento en móviles -->
-            <div id="main-content" class="flex w-full h-full transition-transform duration-300 ease-in-out">
+            <div id="main-content" class="flex w-full h-full transition-transform duration-300 ease-in-out bg-gray-900">
                 <!-- Panel de lista de chats -->
                 @include('panel.' . $menu)
             </div>
@@ -82,8 +82,8 @@
         <!-- Cuadro de perfil del usuario -->
         <div id="profileBox" class="profile-box absolute bottom-0 left-0 z-50">
             <div class="w-full relative">
-                <button id="closeProfileBtn" class="absolute top-2 right-2 mr-1 text-xl text-gray-800 hover:text-gray-500">✕</button>
-                <div class="bg-white rounded-lg shadow-xl p-6 min-h-[12rem] flex flex-col justify-between ring-1 ring-gray-300">
+                <button id="closeProfileBtn" class="absolute top-2 right-2 mr-1 text-xl text-white hover:text-gray-500">✕</button>
+                <div class="bg-slate-800 rounded-lg shadow-xl p-6 min-h-[12rem] flex flex-col justify-between border border-gray-600">
                     <!-- Información del usuario -->
                     <div>
                         <div class="flex items-center space-x-4 mb-4">
@@ -94,7 +94,7 @@
                             <div class="text-sm text-gray-500">Nombre</div>
                             <!-- Mostrar -->
                             <div id="profileNameDisplay" class="flex items-center justify-between">
-                                <span id="profileNameText" class="py-1 my-1 text-gray-800">{{ Auth::user()->name }}</span>
+                                <span id="profileNameText" class="py-1 my-1 text-white">{{ Auth::user()->name }}</span>
                                 <button id="profileNameEditBtn" class="p-1 rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors duration-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
                                         <path d="M21.731 2.269a2.25 2.25 0 0 0-3.182 0l-14.881 14.88a2.25 2.25 0 0 0-.583 1.015l-1.55 4.65a.75.75 0 0 0 .964 1.014l4.65-1.55a2.25 2.25 0 0 0 1.015-.583l14.88-14.88a2.25 2.25 0 0 0 0-3.182ZM15.75 6.75l-4.25 4.25-1.5-1.5 4.25-4.25 1.5 1.5Z" />
@@ -103,7 +103,7 @@
                             </div>
                             <!-- Editar -->
                             <div id="profileNameEditer" class="hidden flex-col items-end pt-1">
-                                <input type="text" id="profileNameInput" class="w-full px-2 py-1 mb-2 rounded-md text-gray-800 ring-1 ring-gray-500 focus:outline-none" autocomplete="off" required>
+                                <input type="text" id="profileNameInput" class="w-full px-2 py-1 mb-2 rounded-md text-white ring-1 ring-gray-500 focus:outline-none" autocomplete="off" required>
                             </div>
                             <div id="profileNameEditOptions" class="invisible flex w-full space-x-2">
                                 <div id="profileNameError" class="flex w-full text-red-500 text-xs"></div>
@@ -116,13 +116,13 @@
                         <div class="mb-8">
                             <div class="text-sm text-gray-500">Rol</div>
                             <div class="flex items-center justify-between">
-                                <span class="py-1 my-1 text-gray-800">{{ Auth::user()->is_admin ? 'Administrador' : 'Trabajador' }}</span>
+                                <span class="py-1 my-1 text-white">{{ Auth::user()->is_admin ? 'Administrador' : 'Trabajador' }}</span>
                             </div>
                         </div>
                     </div>
                     <!-- Botón para cerrar sesión -->
                     <div class="w-full mb-5 border-b-1 border-gray-200"></div>
-                    <button id="profileLogoutBtn" class="w-full text-red-500 py-2 px-4 rounded-lg border-1 border-gray-300 bg-white shadow-md hover:bg-gray-100 transition-colors duration-100">
+                    <button id="profileLogoutBtn" class="w-full text-red-500 py-2 px-4 rounded-lg border-1 border-gray-300 bg-gray-700 shadow-md hover:bg-gray-600 transition-colors duration-100">
                         Cerrar sesión
                     </button>
                     <form id="profileLogoutForm" action="{{ route('logout') }}" method="POST" class="hidden">

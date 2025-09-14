@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamp('start_date')->useCurrent();
             $table->timestamp('end_date')->useCurrent();
+            $table->enum('status', ['Pendiente','Confirmada', 'Rechazada', 'Reprogramada','Realizada'])
+              ->default('Pendiente');
             $table->boolean('reminder_done')
                 ->comment('0: recordatorio pendiente | 1: recordatorio listo');
             $table->unsignedBigInteger('client_id');

@@ -20,10 +20,10 @@ let menuButton;
 
 
 // Al cargar la página
-window.addEventListener("load", function () {
+/* window.addEventListener("load", function () {
     initChatSection();
 });
-
+ */
 // chat.js
 window.initChatSection = () => {
     // Referencias DOM dentro de la sección
@@ -67,7 +67,7 @@ window.fetchChats = async function () {
 const createChatListItem = (chat) => {
     const chatItem = document.createElement("div");
     // Agrega una clase CSS condicional para un estilo diferente si hay mensajes no leídos
-    chatItem.className = `flex items-center p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ${
+    chatItem.className = `flex items-center p-4 border-b border-gray-700 cursor-pointer hover:bg-gray-700/50 transition-colors duration-200 ${
         chat.isUnread ? "bg-blue-50" : ""
     }`;
     chatItem.dataset.chatId = chat.id;
@@ -80,9 +80,9 @@ const createChatListItem = (chat) => {
 
     chatItem.innerHTML = `
         <img src="${chat.avatar}" alt="${chat.name}" class="w-12 h-12 rounded-full mr-4" 
-             onerror="this.onerror=null;this.src='https://placehold.co/100x100/A3A3A3/FFFFFF?text=U';">
+             onerror="this.onerror=null;this.src='https://placehold.co/100x100/364153/FFFFFF?text=U';">
         <div class="flex-1 overflow-hidden">
-            <h3 class="chat-item-name font-semibold text-sm truncate">${chat.name}</h3>
+            <h3 class="chat-item-name font-semibold text-sm truncate text-white">${chat.name}</h3>
             <p class="text-gray-500 text-xs truncate">${chat.lastMessage}</p>
         </div>
         ${unreadIndicator}
@@ -115,7 +115,6 @@ const createChatWindow = (chat) => {
     const labelIA = chatWindow.querySelector(".label-ia");
     const labelManual = chatWindow.querySelector(".label-manual");
     const toggleContainer = chatWindow.querySelector(".toggle-container");
-    /* const messagesContainer = chatWindow.querySelector(".messages-container"); */
 
     // Rellenar datos
     avatar.src = chat.avatar;
@@ -141,7 +140,6 @@ const createChatWindow = (chat) => {
     // Modal
     const modal = document.getElementById("changeStatusModal");
     const modalText = document.getElementById("changeStatusModalText");
-    //const statusName = document.getElementById("statusName");
     const btnConfirm = document.getElementById("confirmChangeStatusBtn");
     const btnCancel = document.getElementById("cancelChangeStatusBtn");
     const btnClose = document.getElementById("closeChangeStatusModal");
@@ -157,8 +155,6 @@ const createChatWindow = (chat) => {
                 : "¿Deseas cambiar a modo <strong>Manual</strong>?"
             );
 
-        //const nuevoEstado = aiManualToggle.checked ? "Agente IA" : "Manual";
-        //statusName.textContent = nuevoEstado;
         modalText.innerHTML = nuevoTexto;
         modal.classList.remove("hidden");
 
@@ -250,10 +246,10 @@ const createChatWindow = (chat) => {
         </div>
         <!-- Sección del nombre -->
         <div class="mb-0">
-            <div class="text-xs text-gray-500">Nombre</div>
+            <div class="text-xs text-gray-400">Nombre</div>
             <!-- Mostrar -->
             <div class="chat-profile-name-display flex items-center justify-between">
-                <span class="chat-profile-name-text py-1 my-1 text-sm text-gray-800">${chat.name}</span>
+                <span class="chat-profile-name-text py-1 my-1 text-sm text-white">${chat.name}</span>
                 <button class="chat-profile-name-edit-btn p-1 rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors duration-100">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
                         <path d="M21.731 2.269a2.25 2.25 0 0 0-3.182 0l-14.881 14.88a2.25 2.25 0 0 0-.583 1.015l-1.55 4.65a.75.75 0 0 0 .964 1.014l4.65-1.55a2.25 2.25 0 0 0 1.015-.583l14.88-14.88a2.25 2.25 0 0 0 0-3.182ZM15.75 6.75l-4.25 4.25-1.5-1.5 4.25-4.25 1.5 1.5Z" />
@@ -262,7 +258,7 @@ const createChatWindow = (chat) => {
             </div>
             <!-- Editar -->
             <div class="chat-profile-name-editer hidden flex-col items-end pt-1">
-                <input type="text" class="chat-profile-name-input w-full px-2 py-1 mb-2 rounded-md text-sm text-gray-800 ring-1 ring-gray-500 focus:outline-none" autocomplete="off" required>
+                <input type="text" class="chat-profile-name-input w-full px-2 py-1 mb-2 rounded-md text-sm text-white ring-1 ring-gray-500 focus:outline-none" autocomplete="off" required>
             </div>
             <div class="chat-profile-name-edit-options invisible flex w-full space-x-2">
                 <div class="chat-profile-name-error flex w-full text-red-500 text-xs"></div>
@@ -273,10 +269,10 @@ const createChatWindow = (chat) => {
         </div>
         <!-- Sección del rut -->
         <div class="mb-0">
-            <div class="text-xs text-gray-500">Rut</div>
+            <div class="text-xs text-gray-400">Rut</div>
             <!-- Mostrar -->
             <div class="chat-profile-rut-display flex items-center justify-between">
-                <span class="chat-profile-rut-text py-1 my-1 text-sm text-gray-800">${profileRut}</span>
+                <span class="chat-profile-rut-text py-1 my-1 text-sm text-white">${profileRut}</span>
                 <button class="chat-profile-rut-edit-btn p-1 rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors duration-100">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
                         <path d="M21.731 2.269a2.25 2.25 0 0 0-3.182 0l-14.881 14.88a2.25 2.25 0 0 0-.583 1.015l-1.55 4.65a.75.75 0 0 0 .964 1.014l4.65-1.55a2.25 2.25 0 0 0 1.015-.583l14.88-14.88a2.25 2.25 0 0 0 0-3.182ZM15.75 6.75l-4.25 4.25-1.5-1.5 4.25-4.25 1.5 1.5Z" />
@@ -285,7 +281,7 @@ const createChatWindow = (chat) => {
             </div>
             <!-- Editar -->
             <div class="chat-profile-rut-editer hidden flex-col items-end pt-1">
-                <input type="text" class="chat-profile-rut-input w-full px-2 py-1 mb-2 rounded-md text-sm text-gray-800 ring-1 ring-gray-500 focus:outline-none" autocomplete="off" required>
+                <input type="text" class="chat-profile-rut-input w-full px-2 py-1 mb-2 rounded-md text-sm text-white ring-1 ring-gray-500 focus:outline-none" autocomplete="off" required>
             </div>
             <div class="chat-profile-rut-edit-options invisible flex w-full space-x-2">
                 <div class="chat-profile-rut-error flex w-full text-red-500 text-xs"></div>
@@ -296,9 +292,9 @@ const createChatWindow = (chat) => {
         </div>
         <!-- Sección del número -->
         <div class="mb-8">
-            <div class="text-xs text-gray-500">Número</div>
+            <div class="text-xs text-gray-400">Número</div>
             <div class="flex items-center justify-between">
-                <span class="py-1 my-1 text-sm text-gray-800">${chat.client_phone}</span>
+                <span class="py-1 my-1 text-sm text-white">${chat.client_phone}</span>
             </div>
         </div>
     `;
@@ -510,12 +506,12 @@ const createChatWindow = (chat) => {
 
         // Crear titulo
         const userTitle = document.createElement("div");
-        userTitle.className = "flex font-medium text-sm text-gray-800 mb-2";
+        userTitle.className = "flex font-medium text-sm text-white mb-2";
         userTitle.textContent = "Usuario asignado";
 
         // Crear contenedor de cargando
         userLoading = document.createElement("div");
-        userLoading.className = "py-2 text-xs text-gray-400";
+        userLoading.className = "py-2 text-xs text-white";
         userLoading.textContent = "Obteniendo usuarios...";
 
         // Crear contendor del contenido
@@ -527,7 +523,7 @@ const createChatWindow = (chat) => {
         userSearcher.type = "text";
         userSearcher.placeholder = "Buscar usuario...";
         userSearcher.autocomplete = "off";
-        userSearcher.className = "user-search-input w-full pl-1 pr-2 py-1 mt-1 mb-2 border-1 border-gray-300 text-xs text-gray-700 rounded-sm focus:outline-none";
+        userSearcher.className = "user-search-input w-full pl-1 pr-2 py-1 mt-1 mb-2 border-1 border-gray-300 text-xs text-white rounded-sm focus:outline-none";
 
         // Crear contenedor para lista y mensaje de vacío
         const userListParent = document.createElement("div");
@@ -555,7 +551,7 @@ const createChatWindow = (chat) => {
         // Función para crear la lista de usuarios
         renderUserList = function (users) {
             const textColorHighlight = 'text-blue-500';
-            const textColorNormal = 'text-gray-800';
+            const textColorNormal = 'text-white';
             userList.innerHTML = '';
 
             // Salir si no hay resultados
@@ -577,7 +573,7 @@ const createChatWindow = (chat) => {
             users.forEach(user => {
                 const isLinkedUser = user.id == chat.user_id;
                 const item = document.createElement("div");
-                item.className = "relative flex items-center space-x-1 px-1 py-2 rounded-md hover:bg-gray-100 cursor-pointer transition-colors duration-200";
+                item.className = "relative flex items-center space-x-1 px-1 py-2 rounded-md hover:bg-gray-600 cursor-pointer transition-colors duration-200";
 
                 // Crear el check del elemento
                 const itemCheckBox = document.createElement("div");
@@ -701,8 +697,8 @@ const createChatWindow = (chat) => {
 
                 // Remover estilo activo de los botones
                 tabButtons.forEach(btn => {
-                    btn.classList.remove('bg-gray-100', 'text-gray-900');
-                    btn.classList.add('text-gray-500', 'hover:bg-gray-50', 'hover:text-gray-900');
+                    btn.classList.remove('bg-gray-600', 'text-slate-300');
+                    btn.classList.add('text-slate-300', 'hover:bg-gray-600', 'hover:text-slate-200');
                 });
 
                 // Esconder todos los tab
@@ -711,8 +707,8 @@ const createChatWindow = (chat) => {
                 });
 
                 // Añadir estilo activo al botón que se presionó
-                button.classList.add('bg-gray-100', 'text-gray-900');
-                button.classList.remove('text-gray-500', 'hover:bg-gray-50', 'hover:text-gray-900');
+                button.classList.add('bg-gray-600', 'text-slate-300');
+                button.classList.remove('text-slate-300', 'hover:bg-gray-600', 'hover:text-slate-200');
 
                 // Mostrar la tab que corresponda
                 const activeContent = document.getElementById(`${selectedTab}-tab`);
@@ -724,80 +720,10 @@ const createChatWindow = (chat) => {
     setupTabBtn(profileTabBtn);
     if (userTabBtn) setupTabBtn(userTabBtn);
 
-    /* tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const targetTab = button.dataset.tab;
-            if (targetTab == 'user') {
-                userSearcher.value = '';
-            }
-
-            // Remover estilo activo de los botones
-            tabButtons.forEach(btn => {
-                btn.classList.remove('bg-gray-100', 'text-gray-900');
-                btn.classList.add('text-gray-500', 'hover:bg-gray-50', 'hover:text-gray-900');
-            });
-
-            // Esconder todos los tab
-            tabContents.forEach(content => {
-                content.classList.add('hidden');
-                //content.classList.remove('block');
-            });
-
-            // Añadir estilo activo al botón que se presionó
-            button.classList.add('bg-gray-100', 'text-gray-900');
-            button.classList.remove('text-gray-500', 'hover:bg-gray-50', 'hover:text-gray-900');
-
-            // Mostrar la tab que corresponda
-            const activeContent = document.getElementById(`${targetTab}-tab`);
-            activeContent.classList.remove('hidden');
-            //activeContent.classList.add('block');
-        });
-    }); */
-
     return chatWindow;
 };
 
 // Renderizar mensajes
-/* window.renderMessages = (messages) => {
-    const messagesContainer = document.getElementById("messages-container");
-    if (!messagesContainer) return;
-    messagesContainer.innerHTML = "";
-
-    messages.forEach((msg) => {
-        const messageBubble = document.createElement("div");
-        messageBubble.className = `flex ${
-            msg.sender === "user" ? "justify-end" : "justify-start"
-        }`;
-
-        const bubbleContent = document.createElement("div");
-        bubbleContent.className = `
-            max-w-xs md:max-w-md p-3 rounded-xl
-            ${
-                msg.sender === "user"
-                    ? "bg-sky-700 text-white rounded-br-none"
-                    : "bg-white text-gray-800 rounded-bl-none"
-            }
-            relative
-            min-w-10
-        `;
-
-        const date = new Date(msg.date);
-        const hours = date.getHours().toString().padStart(2, "0");
-        const minutes = date.getMinutes().toString().padStart(2, "0");
-        bubbleContent.innerHTML = `
-            <p class="text-sm mb-2 break-words"">${msg.text}</p>
-            <span class="text-[10px] ${
-                msg.sender === "user" ? "text-gray-100" : "text-gray-400"
-            } absolute bottom-1 right-2">${hours}:${minutes}</span>
-        `;
-        messageBubble.appendChild(bubbleContent);
-        messagesContainer.appendChild(messageBubble);
-    });
-
-    setTimeout(() => {
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }, 0);
-}; */
 window.renderMessages = (messages) => {
     const messagesContainer = document.getElementById("messages-container");
     if (!messagesContainer) return;
@@ -966,54 +892,6 @@ window.addMessageToChat = (message) => {
     }
 };
 
-/* const createMessageBubble = (msg) => {
-    const messageBubble = document.createElement("div");
-    messageBubble.className = `flex ${
-        msg.client_message === 0 ? "justify-end" : "justify-start"
-    }`;
-
-    const bubbleContent = document.createElement("div");
-    bubbleContent.className = `
-        max-w-xs md:max-w-md p-3 rounded-xl
-        ${
-            msg.client_message === 0
-                ? "bg-sky-700text-white rounded-br-none"
-                : "bg-white text-gray-800 rounded-bl-none"
-        }
-        relative min-w-10
-    `;
-
-    // Si el mensaje es temporal, agregamos la clase "respirando"
-    if (msg.status === "sending") {
-        bubbleContent.classList.add("bubble-breathing");
-        if (animationStartTime) {
-            const animationDuration = 1000; // 1s en milisegundos
-            const elapsedTime = performance.now() - animationStartTime;
-            const cycleTime = elapsedTime % animationDuration;
-            const delay = -cycleTime / 1000; // Convertir a segundos y hacer negativo
-            bubbleContent.style.animationDelay = `${delay}s`;
-        }
-    }
-
-    const date = new Date(msg.currentdate || Date.now());
-    const hours = date.getHours().toString().padStart(2, "0");
-    const minutes = date.getMinutes().toString().padStart(2, "0");
-
-    bubbleContent.innerHTML = `
-        <p class="text-sm mb-2 break-words">${msg.message}</p>
-        <span class="text-[10px] ${
-            msg.client_message === 0 ? "text-gray-100" : "text-gray-400"
-        } absolute bottom-1 right-2">
-            ${hours}:${minutes}
-        </span>
-    `;
-
-    messageBubble.appendChild(bubbleContent);
-
-    if (msg.id) messageBubble.dataset.id = msg.id;
-
-    return messageBubble;
-}; */
 const createMessageBubble = (msg) => {
     const messageBubble = document.createElement("div");
     messageBubble.className = `flex ${
@@ -1026,7 +904,7 @@ const createMessageBubble = (msg) => {
         ${
             msg.client_message === 0
                 ? "bg-sky-700 text-white rounded-br-none"
-                : "bg-white text-gray-800 rounded-bl-none"
+                : "bg-gray-700 text-slate-300 rounded-bl-none"
         }
         relative min-w-10
     `;
@@ -1048,7 +926,7 @@ const createMessageBubble = (msg) => {
     const minutes = date.getMinutes().toString().padStart(2, "0");
 
     bubbleContent.innerHTML = `
-        <p class="text-sm mb-2 break-words">${msg.message}</p>
+        <p class="text-sm mb-2 break-words ">${msg.message}</p>
         <span class="text-[10px] ${
             msg.client_message === 0 ? "text-gray-100" : "text-gray-400"
         } absolute bottom-1 right-2">
@@ -1081,7 +959,7 @@ window.updateChatListDOM = () => {
                 lastMessageEl.textContent = chat.lastMessage;
             }
             // Actualiza la clase para el fondo y agrega/remueve el indicador
-            item.className = `flex items-center p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ${
+            item.className = `flex items-center p-4 border-b border-gray-700 cursor-pointer hover:bg-gray-700/50 transition-colors duration-200 ${
                 chat.isUnread ? "bg-blue-50" : ""
             }`;
 

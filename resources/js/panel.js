@@ -185,19 +185,11 @@ document.addEventListener("DOMContentLoaded", () => {
         SaveProfileName();
     });
 
-    /* // El click del botón para cancelar editar
-    profileNameCancelBtn.addEventListener('click', (event) => {
-        if (!updatingProfileName) {
-            event.stopPropagation();
-            HideEditProfileName(); // Esconder edit
-            ShowDisplayProfileName(); // Mostrar display
-        }
-    }); */
-
     // El click para cerrar sesión
     profileLogoutBtn.addEventListener('click', (event) => {
         profileLogoutForm.submit();
     });
+    loadSection(window.currentMenu,true)
 });
 
 const mainContent = document.getElementById("main-content");
@@ -230,12 +222,14 @@ const menus = {
 let controller = null;
 
 // función genérica para cargar secciones
-async function loadSection(menuKey) {
+async function loadSection(menuKey, firstLoad = false) {
     const menu = menus[menuKey];
     if (!menu) return;
 
     // evitar recarga innecesaria
-    if (window.currentMenu === menuKey) return;
+    if(!firstLoad){
+        if (window.currentMenu === menuKey) return;
+    }
     window.currentMenu = menuKey;
 
     // cancelar request anterior si existe
@@ -295,7 +289,7 @@ window.highlightSelectedItem = (selector, selectedId) => {
     document.querySelectorAll(selector).forEach((el) => {
         if (el.dataset.chatId === String(selectedId) || el.dataset.userId === String(selectedId)) {
             el.classList.add(
-                "bg-indigo-50",
+                "bg-gray-700",
                 "border-l-4",
                 "border-indigo-500",
                 "border-l-indigo-500"
@@ -303,7 +297,7 @@ window.highlightSelectedItem = (selector, selectedId) => {
             el.classList.remove("border-b", "border", "divide-y");
         } else {
             el.classList.remove(
-                "bg-indigo-50",
+                "bg-gray-700",
                 "border-l-4",
                 "border-indigo-500",
                 "border-l-indigo-500"

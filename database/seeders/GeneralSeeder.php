@@ -7,6 +7,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\Company;
 
 class GeneralSeeder extends Seeder
 {
@@ -18,13 +19,13 @@ class GeneralSeeder extends Seeder
         // -----------------------------
         // Companies
         // -----------------------------
-        DB::table('companies')->insert([
-            ['name' => 'TechCorp'],
-            ['name' => 'Innova Solutions'],
-            ['name' => 'Alpha Systems'],
-            ['name' => 'GlobalSoft'],
-            ['name' => 'NextGen Labs'],
-        ]);
+
+        Company::create(['name' => 'TechCorp']);
+        Company::create(['name' => 'Innova Solutions']);
+        Company::create(['name' => 'Alpha Systems']);
+        Company::create(['name' => 'GlobalSoft']);
+        Company::create(['name' => 'NextGen Labs']);
+
 
         User::factory(10)->create();
 
@@ -70,55 +71,55 @@ class GeneralSeeder extends Seeder
         // Asumimos que las company_id van del 1 al 5
         DB::table('products')->insert([
             [
-                'brand' => 'Samsung',
-                'model' => 'Galaxy S21',
+                'brand' => 'Toyota',
+                'model' => 'Corolla',
                 'year' => '2021',
-                'price' => 800,
-                'description' => 'Smartphone de gama alta',
+                'price' => 14500,
+                'description' => 'Sedán compacto, económico y confiable',
                 'url_image' => null,
                 'company_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'brand' => 'Apple',
-                'model' => 'iPhone 13',
-                'year' => '2021',
-                'price' => 1000,
-                'description' => 'Smartphone premium',
-                'url_image' => null,
-                'company_id' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'brand' => 'Dell',
-                'model' => 'XPS 13',
+                'brand' => 'Hyundai',
+                'model' => 'Tucson',
                 'year' => '2022',
-                'price' => 1200,
-                'description' => 'Laptop ultraligera',
+                'price' => 22000,
+                'description' => 'SUV moderno, amplio y eficiente en consumo',
                 'url_image' => null,
                 'company_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'brand' => 'Sony',
-                'model' => 'WH-1000XM4',
+                'brand' => 'Chevrolet',
+                'model' => 'Spark GT',
                 'year' => '2020',
-                'price' => 350,
-                'description' => 'Auriculares inalámbricos',
+                'price' => 7800,
+                'description' => 'Hatchback ideal para ciudad, bajo consumo',
                 'url_image' => null,
                 'company_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'brand' => 'HP',
-                'model' => 'Envy 15',
-                'year' => '2022',
-                'price' => 1100,
-                'description' => 'Laptop de alto rendimiento',
+                'brand' => 'Ford',
+                'model' => 'Ranger',
+                'year' => '2023',
+                'price' => 28000,
+                'description' => 'Camioneta robusta, ideal para trabajo y carga',
+                'url_image' => null,
+                'company_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'brand' => 'Kia',
+                'model' => 'Rio',
+                'year' => '2021',
+                'price' => 12500,
+                'description' => 'Sedán versátil, cómodo y accesible',
                 'url_image' => null,
                 'company_id' => 1,
                 'created_at' => now(),
