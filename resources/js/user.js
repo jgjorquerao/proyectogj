@@ -25,9 +25,9 @@ window.selectedUserId = null;
 
 let users = []; // Array de usuarios cargados
 
-window.addEventListener("load", function () {
+/* window.addEventListener("load", function () {
     initUserSection();
-});
+}); */
 
 window.initUserSection = () => {
     // Referencias DOM
@@ -128,7 +128,7 @@ function renderUserList() {
     users.forEach((user) => {
         const item = document.createElement("div");
         item.className =
-            "user-list-item p-4 flex items-center space-x-4 border-b border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors";
+            "user-list-item p-4 flex items-center space-x-4 border-b border-gray-700 cursor-pointer hover:bg-gray-700/50 transition-colors";
         item.dataset.userId = user.id;
 
         if (window.selectedUserId === user.id) {
@@ -140,7 +140,7 @@ function renderUserList() {
                         ${user.name.charAt(0).toUpperCase()}
                     </div>
                     <div class="flex-1">
-                        <div class="font-semibold text-gray-900">${
+                        <div class="font-semibold text-white">${
                             user.name
                         }</div>
                         <div class="text-sm text-gray-500">${user.email}</div>

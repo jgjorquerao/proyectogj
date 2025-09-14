@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Events\NewMessage;
 use App\Models\Client;
 use App\Models\User;
+use App\Models\Company;
 use App\Models\Conversation;
 use Illuminate\Http\Request;
 use App\Models\Whatsapp;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class ChatController extends Controller
@@ -137,17 +139,18 @@ class ChatController extends Controller
         $msg->client_message = 0; // enviado por nosotros
         $msg->processed = 1;
         $msg->currentdate = now();
-        /* $msg->save(); */
 
         $clientPhone = $conversation->client->phone;
         $clientPhone = ltrim($clientPhone, '+');
 
+        $user = Auth::user();
+        $company = $user->company;
+
         // Llamada a WhatsApp Cloud API
-        $url = "https://graph.facebook.com/v22.0/" . env('WHATSAPP_PHONE_ID') . "/messages";
+        $url = "https://graph.facebook.com/v22.0/" . $company->PHONE_NUMBER_ID . "/messages";
 
         try {
-            //Comentado para no hacer tantas llamadas a la api, pero funciona bien
-            $response = Http::withToken(env('WHATSAPP_TOKEN'))
+            $response = Http::withToken($company->WHATSAPP_ACCESS_TOKEN)
                 ->post($url, [
                     "messaging_product" => "whatsapp",
                     "to" => ltrim($clientPhone, '+'),
@@ -175,7 +178,7 @@ class ChatController extends Controller
     }
 
     //FALTA USAR
-    public function deleteMessage(Request $request)
+    /* public function deleteMessage(Request $request)
     {
         $request->validate([
             'conversation_id' => 'required|integer',
@@ -214,7 +217,7 @@ class ChatController extends Controller
         $message->delete();
 
         return response()->json(['success' => true]);
-    }
+    } */
 
     //Evento desde n8n
     public function triggerEvent(Request $request)

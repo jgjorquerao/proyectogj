@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->uuid('uuid')->unique();
+            $table->text('WHATSAPP_ACCESS_TOKEN')->nullable();
+            $table->string('BUSINESS_ACCOUNT_ID')->nullable();
+            $table->string('PHONE_NUMBER_ID')->nullable();
         });
     }
 

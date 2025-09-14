@@ -1,9 +1,9 @@
 <!-- Panel de lista de productos -->
 <div class="container mx-auto p-4 sm:p-6 lg:p-8">
     <!-- Cabecera -->
-    <header class="mb-8 border-b border-gray-200">
-        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 text-center md:text-left">Gestión de Inventario</h1>
-        <p class="text-gray-600 my-2 text-center md:text-left">Administra los vehículos de tu automotora.</p>
+    <header class="mb-8 border-b border-gray-700">
+        <h1 class="text-3xl sm:text-4xl font-bold text-white text-center md:text-left">Gestión de Inventario</h1>
+        <p class="text-gray-400 my-2 text-center md:text-left">Administra los vehículos de tu automotora.</p>
     </header>
 
     <!-- Botón para agregar nuevo vehículo -->
@@ -25,7 +25,7 @@
 </div>
 <!-- Modal para agregar/editar vehículo -->
 <div id="product-modal" class="fixed inset-0 flex items-center justify-center hidden bg-black/30 backdrop-blur-[2px] z-50">
-    <div id="modal-content" class="card-custom rounded-lg w-11/12 max-w-lg p-6 relative shadow-2xl">
+    <div id="modal-content" class="card-custom rounded-lg w-11/12 max-w-lg p-6 relative shadow-2xl overflow-auto max-h-[90vh]">
         <!-- Botón de cierre -->
         <button id="close-product-modal" class="absolute top-2 right-2 text-white text-lg mr-4 hover:text-gray-400">✕</button>
 
@@ -109,7 +109,7 @@
             </div>
 
             <!-- Botones de acción -->
-            <div class="flex justify-end space-x-4 mt-4 pt-4">
+            <div class="flex justify-end space-x-4 mt-4 py-4">
                 <button type="button" id="cancel-btn"
                     class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300 w-30">Cancelar</button>
                 <button type="submit" class="btn-custom text-white font-semibold py-2 px-4 rounded-lg w-30">Guardar</button>

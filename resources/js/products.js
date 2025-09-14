@@ -305,7 +305,7 @@ const formatPrice = (price) =>
     }).format(price);
 
 const getPlaceholderImage = (brand, model) =>
-    `https://placehold.co/600x400/94a3b8/ffffff?text=${encodeURIComponent(
+    `https://placehold.co/600x400/364153/ffffff?text=${encodeURIComponent(
         brand
     )}+${encodeURIComponent(model)}`;
 
@@ -324,7 +324,7 @@ const renderProducts = () => {
         paginatedProducts.forEach((product) => {
             const card = document.createElement("div");
             card.className =
-                "bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-all duration-300 flex flex-col";
+                "bg-gray-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-all duration-300 flex flex-col border border-gray-700";
             const imageSrc = product.url_image
                 ? `/storage/${product.url_image}`
                 : getPlaceholderImage(product.brand, product.model);
@@ -337,10 +337,10 @@ const renderProducts = () => {
                 product.model
             )}';">
                             <div class="p-4 flex flex-col flex-grow">
-                                <h3 class="text-lg font-bold">${
+                                <h3 class="text-lg font-bold text-white">${
                                     product.brand
                                 } ${product.model}</h3>
-                                <p class="text-gray-600">${product.year}</p>
+                                <p class="text-gray-400">${product.year}</p>
                                 <p class="text-xl font-semibold text-blue-600 mt-2">${formatPrice(
                                     product.price
                                 )}</p>
@@ -348,7 +348,7 @@ const renderProducts = () => {
                                     <button class="edit-btn p-2 rounded-full hover:bg-gray-200 transition-colors" data-id="${
                                         product.id
                                     }" title="Editar">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                     </button>
                                     <button class="delete-btn p-2 rounded-full hover:bg-gray-200 transition-colors" data-id="${
                                         product.id

@@ -1,16 +1,16 @@
 <!-- Panel de lista de usuarios -->
-<div id="user-list-panel" class="w-full md:w-1/3 h-full flex-shrink-0">
-    <div class="flex flex-col h-full content-list border-r border-gray-200">
+<div id="user-list-panel" class="w-full md:w-1/3 h-full flex-shrink-0 p-5 md:pe-0">
+    <div class="flex flex-col h-full content-list bg-gray-800 rounded-xl border border-gray-700">
         <!-- Título y botón de nuevo usuario -->
-        <div class="p-4 flex justify-center items-center border-b border-gray-200 relative">
-            <h2 class="text-xl font-bold">Usuarios</h2>
+        <div class="p-4 flex justify-center items-center border-b border-gray-700 relative">
+            <h2 class="text-xl font-bold text-white">Usuarios</h2>
             <button id="openModal" class="absolute right-4 flex btn-custom font-semibold py-2 px-4 rounded-lg shadow-md">
                 <x-heroicon-s-user-plus class="w-6 h-6" />
             </button>
         </div>
         <!-- Barra de búsqueda de usuarios -->
-        <div class="p-4 border-b border-gray-200">
-            <input type="text" placeholder="Buscar un usuario" class="w-full px-4 py-2 text-sm bg-gray-100 rounded-lg focus:outline-none">
+        <div class="p-4 border-b border-gray-700">
+            <input type="text" placeholder="Buscar un usuario" class="w-full px-4 py-2 text-sm bg-gray-700 rounded-lg focus:outline-none placeholder-slate-500">
         </div>
         <!-- Contenedor de las tarjetas de usuario -->
         <div id="user-list" class="flex-1 overflow-y-auto">
@@ -48,25 +48,25 @@
 </div>
 
 <!-- Panel de ventana de usuario -->
-<div id="user-detail-panel" class="w-full md:w-2/3 h-full flex-shrink-0 flex flex-col">
-    <div id="user-empty-state" class="flex items-center justify-center h-full text-gray-500">
+<div id="user-detail-panel" class="w-full md:w-2/3 h-full flex-shrink-0 flex flex-col p-5">
+    <div id="user-empty-state" class="flex items-center justify-center h-full rounded-xl text-gray-500 bg-gray-800 border border-gray-700">
         <span class="hidden md:block text-lg">Selecciona un usuario</span>
     </div>
 
-    <div id="user-detail-card" class="w-[90%] h-[90%] m-auto bg-white rounded-xl shadow-2xl overflow-hidden hidden">
+    <div id="user-detail-card" class="w-full h-full m-auto rounded-xl shadow-2xl overflow-hidden hidden bg-gray-800 border border-gray-700">
         <!-- Cabecera del perfil -->
-        <div class="p-8 bg-gray-800 text-white flex items-center justify-between space-x-6">
-             <div class="flex items-center space-x-4">
-        <button id="back-button" class="md:hidden p-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-        </button>
-        <div id="user-avatar" class="w-16 h-16 flex-shrink-0 bg-emerald-700 rounded-full flex items-center justify-center text-3xl font-bold border-2 border-white border-opacity-30 shadow-inner">
-            A
-        </div>
-        <span id="user-name" data-field="name" class="font-bold text-2xl"></span>
-    </div>
+        <div class="p-8 bg-gray-800 text-white flex items-center justify-between space-x-6 border-b border-gray-700">
+            <div class="flex items-center space-x-4">
+                <button id="back-button" class="md:hidden p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <div id="user-avatar" class="w-16 h-16 flex-shrink-0 bg-emerald-700 rounded-full flex items-center justify-center text-3xl font-bold border-2 border-white border-opacity-30 shadow-inner">
+                    A
+                </div>
+                <span id="user-name" data-field="name" class="font-bold text-2xl"></span>
+            </div>
             <button id="deleteUserBtn" class="text-white hover:text-red-300 transition-colors">
                 <x-heroicon-s-trash class="w-6 h-6" />
             </button>

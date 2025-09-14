@@ -398,10 +398,10 @@ function initCalendar() {
 // Función para crear el calendario
 function renderCalendar() {
     // Establecer estilos
-    const selectBackColor = 'bg-black'; // bg-indigo-600
+    const selectBackColor = 'bg-gray-700'; // bg-indigo-600
     const meetingBorder = 'ring-1';
     const diffMonthOpacity = 'custom-diff-opacity';
-    const hoverBackColor = "hover:bg-gray-100";
+    const hoverBackColor = "hover:bg-gray-600";
     const blackText = 'text-gray-800';
     const whiteText = 'text-white';
 
@@ -427,7 +427,7 @@ function renderCalendar() {
         const elementDate = new Date(year, month, day);
 
         const dayEl = document.createElement('div');
-        dayEl.className = 'py-2 '+diffMonthOpacity+' text-center other-month-day cursor-pointer rounded-lg transition-colors duration-100';
+        dayEl.className = 'py-2 '+diffMonthOpacity+' text-center other-month-day cursor-pointer rounded-lg transition-colors duration-100 text-slate-300';
         dayEl.textContent = day;
         dayEl.dataset.day = day;
         dayEl.dataset.month = month;
@@ -462,7 +462,7 @@ function renderCalendar() {
         const elementDate = new Date(selectedYear, selectedMonth, day);
 
         const dayEl = document.createElement('div');
-        dayEl.className = 'py-2 text-center font-medium cursor-pointer rounded-lg transition-colors duration-100';
+        dayEl.className = 'py-2 text-center font-medium cursor-pointer rounded-lg transition-colors duration-100 text-slate-200';
         dayEl.textContent = day;
         dayEl.dataset.day = day;
         dayEl.dataset.month = selectedMonth;
@@ -501,7 +501,7 @@ function renderCalendar() {
         const elementDate = new Date(year, month, day);
 
         const dayEl = document.createElement('div');
-        dayEl.className = 'py-2 '+diffMonthOpacity+' text-center other-month-day cursor-pointer rounded-lg transition-colors duration-100';
+        dayEl.className = 'py-2 '+diffMonthOpacity+' text-center other-month-day cursor-pointer rounded-lg transition-colors duration-100 text-slate-200';
         dayEl.textContent = day;
         dayEl.dataset.day = day;
         dayEl.dataset.month = month;
@@ -561,7 +561,7 @@ function renderMeetingList() {
         const optionsMenuId = "options-menu-" + index;
         const optionsEditId = "edit-btn-" + index;
         const optionsDeleteId = "delete-btn-" + index;
-        item.className = "p-4 relative flex items-center space-x-4 border-b border-gray-200";
+        item.className = "p-4 relative flex items-center space-x-4 border-b border-gray-700";
         item.dataset.meetingId = meeting.id;
 
         item.innerHTML = `
@@ -569,7 +569,7 @@ function renderMeetingList() {
                         ${meeting.client_name.charAt(0).toUpperCase()}
                     </div>
                     <div class="flex-1">
-                        <div class="font-semibold text-gray-900">
+                        <div class="font-semibold text-white">
                             ${meeting.client_name}
                         </div>
                         <div class="flex flex-col mt-2">
@@ -586,8 +586,11 @@ function renderMeetingList() {
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" data-slot="icon" aria-hidden="true" class="w-4 h-4 text-gray-500">
                                     <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clip-rule="evenodd" />
                                 </svg>
-                                <div class="text-sm text-gray-500">
+                                <div class="text-sm text-gray-500 w-full">
                                     ${startHourStr} - ${endHourStr}
+                                    <div class="float-end status-badge ${meeting.status}">
+                                        ${meeting.status}
+                                    </div>
                                 </div>
                             </div>
                         </div>

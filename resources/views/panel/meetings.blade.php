@@ -1,9 +1,4 @@
 <style>
-    /* input[type="time"]::-webkit-calendar-picker-indicator {
-        display: none;
-        -webkit-appearance: none;
-    } */
-
     ::-webkit-calendar-picker-indicator {
         filter: invert(1);
     }
@@ -28,7 +23,7 @@
         </div>
 
         <!-- Contenedor de calendario -->
-        <div id="calendar-container" class="hidden w-full max-w-xl bg-white border border-gray-300 rounded-xl shadow-lg p-4 md:p-8">
+        <div id="calendar-container" class="hidden w-full max-w-xl bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-4 md:p-8">
             <!-- Header del calendario -->
             <div class="flex justify-between items-center mb-6">
                 <button id="calendar-prev-btn" class="text-gray-500 hover:bg-gray-200 p-2 rounded-full transition-colors duration-100">
@@ -36,8 +31,8 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                     </svg>
                 </button>
-                <button id="monthYearOpenBtn" class="w-3/4 px-3 py-2 rounded-xl hover:bg-gray-100 transition-colors duration-100">
-                    <h2 id="calendar-header" class="text-center text-lg md:text-xl font-bold text-gray-800"></h2>
+                <button id="monthYearOpenBtn" class="w-3/4 px-3 py-2 rounded-xl hover:bg-gray-600 transition-colors duration-100">
+                    <h2 id="calendar-header" class="text-center text-lg md:text-xl font-bold text-white"></h2>
                 </button>
                 <button id="calendar-next-btn" class="text-gray-500 hover:bg-gray-200 p-2 rounded-full transition-colors duration-100">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -65,20 +60,20 @@
     </div>
 
     <!-- Panel de lista de citas -->
-    <div id="meeting-list-panel" class="w-full md:w-1/3 flex-shrink-0 flex flex-col">
-        <div class="flex flex-col h-full border-l border-gray-200 content-list">
+    <div id="meeting-list-panel" class="w-full md:w-1/3 flex-shrink-0 flex flex-col p-5">
+        <div class="flex flex-col h-full border border-gray-700 content-list bg-gray-800 rounded-xl">
 
             <!-- Título y botón de nueva cita -->
-            <div class="p-4 flex justify-center items-center border-b border-gray-200 relative">
-                <h2 class="text-xl font-bold">Citas</h2>
+            <div class="p-4 flex justify-center items-center border-b border-gray-700 relative">
+                <h2 class="text-xl font-bold text-white">Citas</h2>
                 <button id="openAddModal" class="absolute right-4 flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
                     <x-heroicon-s-plus-circle class="w-6 h-6 text-gray-500" />
                 </button>
             </div>
 
             <!-- Barra de búsqueda de citas -->
-            <div class="p-4 border-b border-gray-200">
-                <h3 id="meeting-list-date" class="text-gray-700" style="min-height:1.5rem;"></h3>
+            <div class="p-4 border-b border-gray-700">
+                <h3 id="meeting-list-date" class="text-gray-400" style="min-height:1.5rem;"></h3>
             </div>
 
             <!-- Contenedor de las tarjetas de citas -->
