@@ -224,23 +224,31 @@ class MeetingController extends Controller
                 // Enviar notificación de que la cita se creó en este punto
                 $templateName = 'confirm_created_meeting';
 
-                $this->sendTemplateMessage(
-                        $request->client_id,
-                        $templateName,
-                        [$formattedDate, $formattedTime],
+                $carbonDate = Carbon::parse($db_start_datetime);
+
+                // Fecha en formato "16 de septiembre"
+                $formattedDate = $carbonDate->locale('es_CL')->isoFormat('D [de] MMMM');
+
+                // Hora en formato "08:00 AM"
+                $formattedTime = $carbonDate->format('h:i A');
+
+                /* $this->sendTemplateMessage(
+                    $request->client_id,
+                    $templateName,
+                    [$formattedDate, $formattedTime],
+                    [
                         [
-                            [
-                                'sub_type' => 'quick_reply',
-                                'type' => 'payload',
-                                'payload' => json_encode([
-                                    'action' => 'CONFIRM_MEETING',
-                                    'date' => $request->date,
-                                    'time' => $request->time,
-                                    'client_id' => $request->client_id
-                                ])
-                            ]
+                            'sub_type' => 'quick_reply',
+                            'type' => 'payload',
+                            'payload' => json_encode([
+                                'action' => 'CONFIRM_MEETING',
+                                'date' => $request->date,
+                                'time' => $request->time,
+                                'client_id' => $request->client_id
+                            ])
                         ]
-                );
+                    ]
+                ); */
 
                 //Enviar respuesta
                 return response()->json([
@@ -294,8 +302,7 @@ class MeetingController extends Controller
 
             // Recuperar la cita a editar
             $meeting = Meeting::find($request->id);
-            if ($meeting)
-            {
+            if ($meeting) {
                 // Si se encontró, establecer fecha de inicio y fin que se guardan en la BD
                 $userTimezone = config('app.timezone'); //$request->user_timezone; // por ejemplo "America/Santiago"
                 $db_start_datetime = Carbon::parse($request->meeting_date . ' ' . $request->start_hour, $userTimezone)->startOfMinute();

@@ -66,7 +66,9 @@
                 <!-- Perfil de usuario o avatar -->
                 <div class="absolute mb-2 bottom-0 left-0 right-0 p-2">
                     <div id="profileBtn" class="flex py-1 w-full items-center justify-center text-white hover:bg-gray-700 rounded-full transition-colors duration-200 space-x-2 cursor-pointer">
-                        <img src="https://placehold.co/40x40/cccccc/333333?text=PF" alt="Foto de perfil" class="w-10 h-10 m-0 rounded-full border-2 border-gray-700">
+                        <span class="w-10 h-10 m-0 rounded-full border-2 border-gray-700 bg-gray-300 flex items-center justify-center font-bold text-gray-800">
+                            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                        </span>
                         <div id="profile-sidebar-name" class="ml-1 text-sm items-center justify-center md:hidden">{{ Auth::user()->name }}</div>
                     </div>
                 </div>
@@ -87,7 +89,8 @@
                     <!-- Información del usuario -->
                     <div>
                         <div class="flex items-center space-x-4 mb-4">
-                            <img src="https://placehold.co/40x40/cccccc/333333?text=PF" alt="Foto de perfil" class="w-16 h-16 m-0 rounded-full border-2 border-gray-500">
+                            <img src="https://placehold.co/40x40/cccccc/333333?text={{ strtoupper(substr(Auth::user()->name, 0, 1)) }}"
+                                alt="Foto de perfil" class="w-16 h-16 m-0 rounded-full border-2 border-gray-500">
                         </div>
                         <!-- Sección del nombre -->
                         <div class="mb-0">
