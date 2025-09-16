@@ -34,6 +34,50 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+    // =======================================================================
+    // ✅ INICIO: NUEVA LÓGICA DE SCROLL SPY PARA LA NAVEGACIÓN
+    // =======================================================================
+    const navLinks = select('#navbar .scrollto', true);
+    if (navLinks.length > 0) {
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = `#${entry.target.id}`;
+                    
+                    // Quita 'active' de todos los enlaces
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    
+                    // Añade 'active' al enlace correspondiente
+                    const activeLink = select(`#navbar a[href="${sectionId}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                    }
+                }
+            });
+        };
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.4 // Se activa cuando el 40% de la sección es visible
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        // Observa cada sección vinculada desde la barra de navegación
+        navLinks.forEach(link => {
+            const section = select(link.hash);
+            if (section) {
+                observer.observe(section);
+            }
+        });
+    }
+    // =======================================================================
+    // ✅ FIN: LÓGICA DE SCROLL SPY
+    // =======================================================================
+
 
     // --- Inicialización de otras librerías ---
     new PureCounter();
@@ -129,24 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
-
-    // --- Lógica para efecto de perspectiva en tarjetas de planes ---
-    /* const pricingCards = document.querySelectorAll('.pricing .pricing-item');
-    pricingCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = card.offsetWidth / 2;
-            const centerY = card.offsetHeight / 2;
-            const rotateX = ((y - centerY) / centerY) * -7;
-            const rotateY = ((x - centerX) / centerX) * 7;
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-        });
-    }); */
 
     // --- Lógica para controles de video del portafolio ---
     let currentlyPlayingVideo = null;
@@ -272,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
-    // Selecciona el contenedor de los filtros del portafolio.
+    /* // Selecciona el contenedor de los filtros del portafolio.
     const filtersContainer = document.querySelector('.portfolio #portfolio-flters');
 
     // Solo ejecuta el código si el contenedor existe.
@@ -305,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Resetea la transformación para que vuelva a su estado original.
             filtersContainer.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
         });
-    }
+    } */
 
     // ✅ LÍNEA PROBLEMÁTICA ELIMINADA DE AQUÍ
     initVideoCarousel();
@@ -425,29 +451,6 @@ function initVideoCarousel() {
     let autoPlayInterval;
     const autoPlayDelay = 5000; // 5 segundos
 
-    /* if (!window.heroSliderInitialized) {
-        window.heroSliderInitialized = true;
-
-        const words = ["Tu Marca", "Tus Servicios", "Tus Productos"]; // Ajusta tus palabras
-        const wordContainer = document.querySelector("#hero-words");
-
-        let currentIndex = 0;
-
-        function showNextWord() {
-            wordContainer.classList.remove("fade-in-up");
-            void wordContainer.offsetWidth;
-
-            wordContainer.textContent = words[currentIndex];
-            wordContainer.classList.add("fade-in-up");
-
-            currentIndex = (currentIndex + 1) % words.length;
-        }
-
-        showNextWord();
-        setInterval(showNextWord, 1500);
-    } */
-    // --- Funciones del Carrusel ---
-
     function getSlideWidth() {
         return slides[0].getBoundingClientRect().width;
     }
@@ -559,4 +562,5 @@ function initVideoCarousel() {
     // Inicia todo
     moveTo(currentIndex);
     startAutoPlay();
+    
 }

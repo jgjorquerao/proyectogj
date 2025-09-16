@@ -1,7 +1,6 @@
 <?php
-
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ChatController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\PasswordSetupController;
 use App\Http\Controllers\ProductController;
@@ -12,17 +11,17 @@ use Illuminate\Support\Facades\Route;
 
 //Auth
 Auth::routes();
-
-//Gyler
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::post('/contact', [HomeController::class, 'send'])->name('contact.send');
-Route::get('/privacy_policies', [HomeController::class, 'privacy_policies'])->name('privacy_policies');
+// Creamos un grupo de rutas que usarán el PageController.
+Route::controller(PageController::class)->group(function () {
+    Route::get('/', 'index')->name('landing.home');
+    Route::post('/contact', 'send')->name('contact.send');
+});
 
 //Panel
 Route::get('/panel', [PanelController::class, 'index'])->name('index');
 
 //Chats
-Route::get('/panel/chats', function() {
+Route::get('/panel/chats', function () {
     return view('panel.chat')->with('menu', 'chat');
 });
 Route::get('/chat/get_chats', [ChatController::class, 'getChats']);
@@ -31,14 +30,14 @@ Route::post('/chat/toggle_status/{conversation_id}', [ChatController::class, 'to
 Route::post('/chat/delete_message', [ChatController::class, 'deleteMessage'])->name('chat.delete');
 
 //Users
-Route::get('/panel/users', function() {
+Route::get('/panel/users', function () {
     return view('panel.users')->with('menu', 'users');
 });
 Route::get('/panel/get_users', [UserController::class, 'getUsers']);
 Route::post('panel/store_user', [UserController::class, 'store'])->name('users.store');
 
 //Products
-Route::get('/panel/products', function() {
+Route::get('/panel/products', function () {
     return view('panel.products')->with('menu', 'products');
 });
 Route::get('/panel/get_products', [ProductController::class, 'getProducts']);

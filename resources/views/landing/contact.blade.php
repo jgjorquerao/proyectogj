@@ -1,3 +1,4 @@
+
 <section id="contact" class="contact section-bg">
     <div class="container">
 
@@ -9,7 +10,7 @@
 
         <div class="row" data-aos="fade-in">
 
-            <div class="col-lg-5 d-flex align-items-stretch">
+            <!-- <div class="col-lg-5 d-flex align-items-stretch">
                 <div class="info">
                     <div class="address">
                         <i class="bi bi-geo-alt"></i>
@@ -28,17 +29,10 @@
                         <h4>Llamar:</h4>
                         <p>+56 961607574</p>
                     </div>
-
-                    <div class="maps">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47838.478148188486!2d-72.98921763857973!3d-41.462978250064054!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x96183a4d6920f407%3A0x86a3f15a79a5c9df!2sPuerto%20Montt%2C%20Los%20Lagos!5e0!3m2!1ses!2scl!4v1747524509913!5m2!1ses!2scl"
-                            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
                 </div>
 
 
-            </div>
+            </div> -->
 
             <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
                 <form action="{{ route('contact.send') }}" method="post" role="form" class="php-email-form">

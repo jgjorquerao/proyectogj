@@ -1,7 +1,4 @@
 @extends('layouts.app')
-
-@include('header_short')
-
 @section('content')
     <div class="container d-flex justify-content-center mt-5" style="min-height: 100vh;">
         <div class="row w-100 justify-content-center">

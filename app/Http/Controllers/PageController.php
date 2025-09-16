@@ -5,29 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactMessage;
+use Illuminate\View\View;
 
-class HomeController extends Controller
+class PageController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    /* public function __construct()
-    {
-        $this->middleware('auth')->except('index');
-    } */
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
+    public function index(): View
     {
-        return view('home');
+        return view('landing.home');
     }
-    
+    public function privacy_policies()
+    {
+        return view('privacypolicies');
+    }
+
     public function send(Request $request)
     {
         $data = $request->validate([
@@ -56,10 +47,5 @@ class HomeController extends Controller
                 'message' => 'Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.'
             ], 500);
         }
-    }
-
-    public function privacy_policies()
-    {
-        return view('privacypolicies');
     }
 }

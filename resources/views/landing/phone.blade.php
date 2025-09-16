@@ -1,7 +1,5 @@
-<section>
-    
+<section>  
     <body>
-
         <!-- Section 1: The chat animation container -->
         <section class="scroll-section" id="chat-animation-section">
             <div id="phone-mockup" class="phone-mockup">

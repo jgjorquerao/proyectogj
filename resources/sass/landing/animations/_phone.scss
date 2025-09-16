@@ -13,7 +13,7 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     background-color: #f0f2f5;
-    color: #333;
+    color: #333;    
 }
 
 /* --- Page Sections --- */
@@ -24,7 +24,7 @@ body {
     /* Center children horizontally */
     justify-content: flex-start;
     /* Align children to the top of the container */
-    height: 150vh;
+    height: 100vh;
     /* Make section taller to provide scroll space for the animation */
     position: relative;
 }
@@ -56,73 +56,38 @@ body {
     color: #334155;
 }
 
-/* --- Phone Mockup --- */
 .phone-mockup {
     --iphone-outer-radius: 40px;
-    /* Radio exterior del chasis */
     --iphone-inner-radius: 30px;
-    /* Radio de la pantalla interna */
     --iphone-bezel-width: 15px;
-    /* Ancho del bisel (borde negro) */
-    --iphone-button-color: #1b1b1b; // Color de los botones
-    /*     --scale: 1.25; */
-    /* Factor de escala (1.25 = 125%) */
-
+    --iphone-button-color: #1b1b1b;
     width: s(380px);
     height: s(730px);
     background-color: #111;
     border-radius: s(40px);
-    /*     padding: s(15px); */
     border: s(2px) solid #333;
-    /* <-- AÑADIDO: Borde sólido y negro */
-    /* box-shadow: 0 s(20px) s(40px) rgba(0, 0, 0, 0.3); */
-    /* <-- MODIFICADO: Solo la sombra de profundidad */
     position: relative;
     top: 50%;
     transform: translateY(-50%) scale(var(--scale, 1)); // Asumo que el scale ya estaba aquí, si no, agrégalo.
     transform-origin: center center;
-
-    /* Necesario para posicionar los pseudo-elementos */
-    position: relative;
-    overflow: hidden;
-    /* Asegura que nada se salga del chasis */
+    z-index: 2;
 }
-
-.phone-mockup::before {
-    /* O puedes usar ::after si prefieres */
+/* .phone-mockup::before {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     width: s(700px);
-    /* Ajusta el tamaño de la luz, hazlo más grande que el teléfono */
     height: s(700px);
-    /* Ajusta el tamaño de la luz */
     transform: translate(-50%, -50%);
-    /* Centrar el pseudo-elemento */
-    border-radius: 50%;
-    /* Para que sea circular u ovalado */
+    border-radius:50%;
     filter: blur(s(120px));
-    /* Mucho desenfoque para el efecto de halo */
     opacity: 100%;
-    /* Ajusta la opacidad según desees */
     z-index: -1;
-    /* ¡MUY IMPORTANTE! Que esté detrás del teléfono */
-
-    // El degradado radial para el destello
     background: radial-gradient(circle at center,
-            rgba(0, 150, 255, 0.7) 0%,
-            /* <-- MÁS INTENSO: Azul más brillante y más opaco en el centro */
-            rgba(0, 150, 255, 0.4) 40%,
-            /* <-- MÁS DURADERO: El azul se mantiene más opaco hasta el 40% */
-            rgba(0, 0, 0, 0) 85%
-            /* <-- MÁS DURADERO: Transparente un poco más lejos */
+            rgba(0, 150, 255, 0.4)0%,
         );
-}
-
-/* --- NUEVO SISTEMA DE BOTONES CON CLASES --- */
-
-/* 1. Estilos compartidos para todos los botones */
+} */
 .button {
     position: absolute;
     background-color: var(--iphone-button-color);
@@ -229,7 +194,6 @@ body {
 .contact-info .name {
     text-align: left;
     font-weight: 500;
-    /*     https: //www.w3schools.com/ */
 }
 
 .contact-info .status {
@@ -255,7 +219,7 @@ body {
     overflow-y: auto;
     /* Smooth scrolling for the auto-scroll effect */
     scroll-behavior: smooth;
-    background-color: #fff;
+    background-color: #dadada;
     /* <--- AÑADE el fondo blanco aquí */
 }
 
@@ -271,7 +235,6 @@ body {
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-/* This class is added by JS on scroll */
 .message.visible {
     opacity: 1;
     transform: translateY(0);
@@ -301,20 +264,11 @@ body {
 
 .message .time {
     font-size: 0.7rem;
-    color: rgba(0, 0, 0, 0.45);
+    color: rgb(255, 255, 255);
     align-self: flex-end;
     display: flex;
     align-items: center;
 }
-
-.message.sent .time svg {
-    width: s(16px);
-    height: s(16px);
-    margin-left: s(4px);
-    color: #34b7f1;
-}
-
-/* Styles for file attachments */
 .file-attachment {
     display: flex;
     align-items: center;

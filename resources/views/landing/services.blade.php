@@ -1,11 +1,13 @@
 <section id="services" class="services">
+    {{-- ✅ La imagen ahora es hija directa de la sección --}}
+    <!-- <img src="{{ asset('img/bck3.png') }}" class="section-bg-image" alt="Fondo decorativo"> -->
     <div class="container">
         <div class="section-title">
             <h2>Los agentes de IA más completos del mercado, diseñados para vender.</h2>
         </div>
 
         <div class="phone-container">
-            @include('phone')
+            @include('landing/phone')
         </div>
 
         <div class="section-title">

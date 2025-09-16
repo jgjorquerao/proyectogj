@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Gyler AI</title>
+    <title>Gyler AI | Agentes de Inteligencia Artificial</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -17,16 +17,17 @@
 
 {{-- AÑADIMOS LA CLASE 'dark-mode' PARA ACTIVAR LOS ESTILOS OSCUROS --}}
 
-<body class="dark-mode">
-
+<body class="landing">
+    @include('landing.header')
     {{-- Botón flotante de WhatsApp --}}
     <a href="https://wa.me/56961607574?text=Hola!,%2C%20vi%20tu%20sitio%20web%20y%20me%20interesa%20tus%20servicios%20de%20edici%C3%B3n%20de%20video"
         class="whatsapp-float" target="_blank" title="Contáctame por WhatsApp">
         <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp">
     </a>
     <main id="main">
-        @yield(section: 'content')
+        @yield('content')
     </main>
+    @include('landing.footer')
     <a href="#" class="back-to-top"></a>
     {{-- Script de Chart.js desde CDN --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>

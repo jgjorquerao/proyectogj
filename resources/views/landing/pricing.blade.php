@@ -1,3 +1,4 @@
+
 <section id="pricing" class="pricing section-bg">
 
     <!-- Section Title -->
@@ -16,8 +17,8 @@
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
                 <div class="pricing-item">
                     <div class="pricing-icon"><i class="bi bi-star"></i></div>
-                    <h3>Estandar</h3>
-                    <a href="#contact" class="btn-pricing">Cotizar</a>
+                    <h3 class="pricing-title">Estandar</h3>
+                    <a href="#contact" class="btn-pricing1">Cotizar</a>
                     <p class="description">Para automotoras que quieren comenzar a destacar sus vehiculos en Instagram,
                         TikTok y Facebook con contenido profesional y efectivo.</p>
                     <div class="features-wrapper">
@@ -36,7 +37,7 @@
                             <span style="color: #28a745; font-weight: bold;"> $1.350.000</span>
                             <span style="color: #dc3545; font-weight: bold;"> (25% OFF)</span>
                         </div>
-                        <div class="price"><span class="currency">$</span>149.990<span class="period">/mes</span></div>
+                        <div class="price"><span class="currency">$</span>199.990<span class="period">/mes</span></div>
                     </div>
                 </div>
             </div><!-- End Basic Plan -->
@@ -48,7 +49,7 @@
                     <!-- NUEVO CONTENEDOR INTERNO PARA EL LISTÓN -->
                     <div class="pricing-content-wrapper">
                         <div class="pricing-icon"><i class="bi bi-stars"></i></div>
-                        <h3> Profesional</h3>
+                        <h3 class="pricing-title"> Profesional</h3>
                         <a href="#contact" class="btn-pricing">Cotizar</a>
                         <p class="description">Ideal para automotoras que buscan destacar sus mejores vehículos,
                             optimizar su presencia online y conectar con compradores potenciales de forma profesional.
@@ -71,7 +72,7 @@
                                 <span style="color: #28a745; font-weight: bold;"> $2.250.000</span>
                                 <span style="color: #dc3545; font-weight: bold;"> (25% OFF)</span>
                             </div>
-                            <div class="price"><span class="currency">$</span>249.990<span class="period">/mes</span>
+                            <div class="price"><span class="currency">$</span>299.990<span class="period">/mes</span>
                             </div>
                         </div>
                     </div>
@@ -82,8 +83,8 @@
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
                 <div class="pricing-item">
                     <div class="pricing-icon"><i class="bi bi-star-fill"></i></div>
-                    <h3> Competitivo</h3>
-                    <a href="#contact" class="btn-pricing">Cotizar</a>
+                    <h3 class="pricing-title"> Competitivo</h3>
+                    <a href="#contact" class="btn-pricing3">Cotizar</a>
                     <p class="description">Pensado para automotoras que quieren posicionarse como líderes en su zona,
                         atraer más clientes y diferenciarse con contenido de alto nivel.</p>
                     <div class="features-wrapper">
@@ -110,7 +111,7 @@
                             <span style="color: #28a745; font-weight: bold;"> $3.150.000</span>
                             <span style="color: #dc3545; font-weight: bold;"> (25% OFF)</span>
                         </div>
-                        <div class="price"><span class="currency">$</span>349.990<span class="period">/mes</span></div>
+                        <div class="price"><span class="currency">$</span>399.990<span class="period">/mes</span></div>
                     </div>
                 </div>
             </div><!-- End Ultimate Plan -->

@@ -1,3 +1,19 @@
+/* 3. Capa de LUZ ANIMADA (intermedia) */
+/* .portfolio::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at top, 
+    rgba(0, 150, 255, 0.4) 0%, 
+    transparent 60%
+  );
+  pointer-events: none;
+  opacity: 100%;
+} */
 .portfolio .portfolio-item {
   margin-bottom: 30px;
 }
@@ -9,6 +25,7 @@
   z-index: 1;
   border-radius: 16px;
 }
+
 
 .portfolio .portfolio-wrap::before {
   content: "";
@@ -38,7 +55,6 @@
 
 /* Portfolio Filters */
 .portfolio #portfolio-flters {
-/*   background: rgba(40, 40, 40, 0.75); */
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -109,7 +125,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(255, 255, 255, 0.8);
+  background-image: linear-gradient(to right, #4c51bf, #805ad5);
+  /* background-color: rgba(255, 255, 255, 0.8); */
   border-radius: 50%;
   width: 70px;
   height: 70px;
@@ -122,7 +139,7 @@
 }
 
 .video-play-button i {
-  color: #000000;
+  color: #ffffff;
   font-size: 36px;
   line-height: 0;
   padding-left: 4px;
@@ -222,7 +239,7 @@
   object-fit: cover;
 }
 
-.carousel-arrow {
+/* .carousel-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -256,7 +273,7 @@
   cursor: default;
   pointer-events: none;
 }
-
+ */
 @media (max-width: 991px) {
   .carousel-slide {
     flex-basis: 50%;

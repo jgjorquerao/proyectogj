@@ -1,50 +1,33 @@
-section {
-    padding: 60px 0;
-    overflow: hidden;
-    background-color: white;
-}
-
-.section-bg {
-    background: #f5f8fd;
-}
-
-.section-title {
-    padding-bottom: 30px;
-}
-
-.section-title p {
-    margin-bottom: 0;
-}
-
 #main {
-    padding-top: 90px;
+    padding-top: 0px;
 }
 
-body.dark-mode {
+body.landing {
     color: #c9d1d9;
     background: #1A1E29;
     overflow-x: hidden;
 }
 
-body.dark-mode section {
+body.landing section {
     background-color: #1A1E29;
+    box-sizing: content-box;
 }
 
-body.dark-mode .section-bg {
+body.landing .section-bg {
     background: #1A1E29;
 }
 
-body.dark-mode .section-title h2,
-body.dark-mode .facts .count-box span,
-body.dark-mode .pricing .pricing-item h3 {
+body.landing .section-title h2,
+body.landing .facts .count-box span,
+body.landing .pricing .pricing-item h3 {
     color: #f0f6fc;
 }
 
-body.dark-mode a {
+body.landing a {
     color: #e9e9e9;
 }
 
-body.dark-mode a:hover {
+body.landing a:hover {
     color: #a7a7a7;
 }
 
@@ -60,10 +43,11 @@ body.dark-mode .navbar .active {
     color: #f0f6fc;
 }
 
-body.dark-mode .contact .info,
+/* body.dark-mode .contact .info,
 body.dark-mode .contact .php-email-form,
 body.dark-mode .pricing .pricing-item,
 body.dark-mode .testimonials .testimonial-item p {
+
     background: #2A2F3A;
     box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.4);
 }
@@ -71,48 +55,7 @@ body.dark-mode .testimonials .testimonial-item p {
 body.dark-mode .contact .php-email-form input,
 body.dark-mode .contact .php-email-form textarea {
     background: #2A2F3A;
-    border-color: #707070;
-    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
 }
-
-/*--------------------------------------------------------------
-# Sections General
---------------------------------------------------------------*/
-section {
-    padding: 60px 0;
-    overflow: hidden;
-}
-
-.section-bg {
-    background: #f5f8fd;
-}
-
-.section-title {
-    padding-bottom: 30px;
-}
-
-.section-title h2 {
-    font-size: 40px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    position: relative;
-    color: #636363;
-}
-
-.section-title h2::after {
-    content: "";
-    position: absolute;
-    display: block;
-    width: 50px;
-    height: 3px;
-    background: #636363;
-    bottom: 0;
-    left: 0;
-}
-
-
-
-.section-title p {
-    margin-bottom: 0;
-}
+ */

@@ -1,54 +1,51 @@
+html {
+    scroll-padding-top: 80px;
+
+    /* Esto hace que el desplazamiento sea suave. Es opcional pero
+    muy recomendado para una mejor experiencia de usuario.
+  */
+    scroll-behavior: smooth;
+}
+#hero::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at top, 
+    rgba(0, 150, 255, 0.4) 0%, 
+    transparent 60%
+  );
+  pointer-events: none;
+  opacity: 100%;
+}
+
+#hero .hero-container {
+  position: relative;
+  z-index: 2;
+}
 #hero {
-  position: relative; 
+  position: relative;
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  
-  /* Usamos Flexbox para un centrado perfecto */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 #hero .hero-container {
-  /* Ya no necesita posicionamiento absoluto ni cálculos */
-  position: relative; /* Para que el z-index funcione */
+  position: relative;
+  /* Para que el z-index funcione */
   z-index: 3;
-  width: 90%;
+  width: 100%;
   max-width: 1200px;
 }
 
 /* 3. Imagen de los triángulos (encima del color de fondo) */
-.hero-bg-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.3;
-  /* Opcional: puedes bajarle la opacidad para que no sea tan prominente */
-  z-index: 2;
-  /* Capa 2: La imagen decorativa */
-}
 
-
-
-/* .static-text-container {
-  font-size: 64px;
-  font-weight: 700;
-  line-height: 56px;
-  color: #fff;
-  margin-bottom: 10px;
-}
-
-.dynamic-text-container {
-  font-size: 64px;
-  font-weight: 700;
-  line-height: 56px;
-  color: #149ddd;
-}
- */
 #hero h1 {
   margin: 0 0 10px 0;
   font-size: 64px;
@@ -71,9 +68,10 @@
   padding-bottom: 4px;
   letter-spacing: 1px;
 }
+
 .custom-arrow-container {
   position: absolute;
-  top:250px;
+  top: 250px;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);

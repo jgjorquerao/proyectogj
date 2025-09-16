@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+/* document.addEventListener("DOMContentLoaded", () => {
     const phoneMockup = document.getElementById("phone-mockup");
     const screen = phoneMockup.querySelector(".screen");
     const chatBody = document.getElementById("chat-body");
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
         enableBodyScroll(); // vuelve el scroll global
         screen.style.overflowY = "auto"; // mantiene scroll interno
     };
-});
+}); */
 
 document.addEventListener('DOMContentLoaded', () => {
     const messages = document.querySelectorAll('.message');

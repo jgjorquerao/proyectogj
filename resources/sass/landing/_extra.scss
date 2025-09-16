@@ -23,17 +23,16 @@
     display: block;
     width: 30px;
     height: 30px;
-    border-top: 8px solid white;
-    border-left: 8px solid white;
-    transform: rotate(20deg);
+    border-top: 10px solid white;
+    border-left: 10px solid white;
+    transform: rotate(45deg);
     transition: all 0.3s ease;
     /* Añade el punto de origen de la transformación para centrarlo */
     transform-origin: center center;
 }
 
 .back-to-top:hover::before {
-    /* Aquí la animación se hace desde el centro */
-    transform: rotate(45deg) scale(1.1) translateY(-3px);
+    transform: rotate(45deg) scale(1.1);
 }
 
 .back-to-top.active {

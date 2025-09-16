@@ -1,3 +1,4 @@
+
 @use '../css/login.css';
 @use "landing/_body";
 @use "landing/_header";
@@ -10,6 +11,7 @@
 @use "landing/_contact";
 @use "landing/_footer";
 @use "landing/_extra";
+@use "landing/_section";
 @use "landing/_whatsapp";
 @use "landing/animations/phone";
-@use "dashboard/_dashboard";
+@use "panel/_panel";

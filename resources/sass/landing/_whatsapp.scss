@@ -1,8 +1,8 @@
 /* --- ESTILOS PARA BOTONES FLOTANTES --- */
 .whatsapp-float {
     position: fixed;
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     right: 15px;
     bottom: 15px;
     z-index: 999;
@@ -12,7 +12,7 @@
     justify-content: center;
     transition: transform 0.3s ease;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    bottom: 250px;
+    bottom: 30px;
     background-color: #25d366;
     left: 15px;
     /* La visibilidad se controla con la clase 'active' */
@@ -29,7 +29,7 @@
 
 .whatsapp-float:hover,
 .back-to-top:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
 
 /* ✅ CAMBIO: Clase para hacer visible el botón cuando se ha hecho scroll */

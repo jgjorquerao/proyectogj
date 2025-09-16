@@ -1,3 +1,4 @@
+
 <section id="portfolio" class="portfolio section-bg">
     <div class="container">
 
@@ -49,7 +50,7 @@
             {{-- NUEVO CARRUSEL DE VIDEOS --}}
             <div class="col-12 portfolio-item filter-videos">
                 <div class="video-carousel-container">
-                    <button class="carousel-arrow prev" id="prevVideo">&#10094;</button>
+<!--                     <button class="carousel-arrow prev" id="prevVideo">&#10094;</button> -->
                     <div class="video-carousel-slider">
                         <div class="video-carousel-track">
                             {{-- Los videos van aquí, envueltos en un div 'carousel-slide' --}}
@@ -104,7 +105,7 @@
                             </div>
                         </div>
                     </div>
-                    <button class="carousel-arrow next" id="nextVideo">&#10095;</button>
+<!--                     <button class="carousel-arrow next" id="nextVideo">&#10095;</button> -->
                 </div>
             </div>
             {{-- DISEÑO GRÁFICO (WEB) --}}

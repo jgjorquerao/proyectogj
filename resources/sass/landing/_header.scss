@@ -1,81 +1,98 @@
 .navbar .dropdown .dropdown-menu {
-  display: block;
-  position: absolute;
-  top: calc(100% + 15px); /* Ajuste de posición */
-  left: auto;
-  right: 0; /* Alineado a la derecha del nombre */
-  margin: 0;
-  padding: 10px 0;
-  z-index: 99;
-  opacity: 0;
-  visibility: hidden;
-  background: #1a1a1a;
-  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.25);
-  transition: opacity 0.3s, top 0.3s;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+    display: block;
+    position: absolute;
+    top: calc(100% + 15px);
+    /* Ajuste de posición */
+    left: auto;
+    right: 0;
+    /* Alineado a la derecha del nombre */
+    margin: 0;
+    padding: 10px 0;
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    background: #1a1a1a;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.25);
+    transition: opacity 0.3s, top 0.3s;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Flecha superior del menú */
 .navbar .dropdown .dropdown-menu::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  right: 20px; /* Alineada a la derecha */
-  left: auto;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 10px 10px 10px;
-  border-color: transparent transparent #1a1a1a transparent;
-  z-index: 1;
+    content: "";
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    /* Alineada a la derecha */
+    left: auto;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent #1a1a1a transparent;
+    z-index: 1;
 }
 
 /* Muestra el menú cuando el elemento padre tiene la clase 'show' (controlado por JS de Bootstrap) */
 .navbar .dropdown:hover>.dropdown-menu {
-  opacity: 1;
-  top: 100%;
-  visibility: visible;
+    opacity: 1;
+    top: 100%;
+    visibility: visible;
 }
 
 /* Estilo de cada elemento (enlace) del menú */
 .navbar .dropdown .dropdown-menu .dropdown-item {
-  padding: 10px 20px;
-  font-size: 15px;
-  text-transform: none;
-  font-weight: 500;
-  color: #a8a9b4;
-  background-color: transparent; /* Aseguramos fondo transparente */
+    padding: 10px 20px;
+    font-size: 15px;
+    text-transform: none;
+    font-weight: 500;
+    color: #a8a9b4;
+    background-color: transparent;
+    /* Aseguramos fondo transparente */
 }
 
 /* Efecto hover en los enlaces */
 .navbar .dropdown .dropdown-menu .dropdown-item:hover {
-  color: #fff;
-  background-color: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 #header {
     position: fixed;
-    top: 0;
+    top: 20px;
     left: 0;
-    width: 100%;
+    right: 0;
+    width: auto;
     height: 77px;
-    /*     background: rgba(40, 62, 78, 0.575) !important; */
-    backdrop-filter: blur(15px);
     z-index: 9997;
     transition: all 0.3s ease;
     padding: 0;
     display: flex;
-    align-items: center;
-    border-bottom: 1px solid rgba(22, 22, 22, 0.1);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-#header .container {
+#header .container-fluid {
+  
+    width: 95%;
+    /* Ocupa el 95% del ancho de la pantalla */
+    max-width: 1400px;
+    /* Un ancho máximo para pantallas muy grandes */
     padding: 0 30px !important;
-    display: flex;
+    background: rgba(26, 26, 26, 0);
+    /* Fondo semitransparente */
+    backdrop-filter: blur(10px);
+    /* Efecto de desenfoque (glassmorphism) */
+    border-radius: 50px;
+    /* Bordes completamente redondeados */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Borde sutil */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    /* Sombra para dar profundidad */
     align-items: center;
     justify-content: space-between;
+    height: 70px;
+    padding: 0 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 #header .logo {
@@ -88,13 +105,13 @@
     width: auto !important;
 }
 
-#header .logo .logo-text {
+/* #header .logo .logo-text {
     font-weight: bold;
     color: #fff;
     margin-left: 5px;
     font-size: 15px;
 }
-
+ */
 .navbar {
     padding: 0;
 }
@@ -105,10 +122,13 @@
     display: flex;
     list-style: none;
     align-items: center;
+    
 }
 
 .navbar li {
     position: relative;
+    padding: 5px;
+
 }
 
 .navbar a,
@@ -117,24 +137,35 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px 15px;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.7);
+    /* Color base semi-transparente */
     white-space: nowrap;
-    transition: 0.3s;
+    transition: color 0.3s ease-in-out;
+    /* Transición suave para el color */
     font-size: 16px;
     font-weight: 600;
     text-decoration: none;
 }
-
 .navbar a i,
 .navbar a:focus i {
     display: none;
 }
 
 .navbar a:hover,
-.navbar .active,
-.navbar .active:focus,
 .navbar li:hover>a {
+    border-radius: 50px;
+    background: #2A2F3A;
     color: #fff;
+
+}
+
+.navbar .active,
+.navbar .active:focus {
+    border-radius: 50px;
+    background: #2A2F3A;
+    color: #fff;
+    padding: 10px 20px;
+    margin: 0 5px;
 }
 
 .header-social-links {
@@ -243,6 +274,3 @@
         margin-left: 0;
     }
 }
-
-    
-    

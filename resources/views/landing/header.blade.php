@@ -1,5 +1,5 @@
 <header id="header" class="d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
 
         <!-- Logo -->
         <a href="" class="logo">
@@ -11,11 +11,13 @@
         <nav id="navbar" class="navbar">
             <ul>
                 <li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
-                <li><a class="nav-link scrollto" href="#about">Sobre nosotros</a></li>
-                <li><a class="nav-link scrollto" href="#portfolio">Portafolio</a></li>
                 <li><a class="nav-link scrollto" href="#services">Servicios</a></li>
+                <li><a class="nav-link scrollto" href="#portfolio">Portafolio</a></li>
                 <li><a class="nav-link scrollto" href="#pricing">Planes</a></li>
+                <li><a class="nav-link scrollto" href="#agentesia">Agentes IA</a></li>
+                <li><a class="nav-link scrollto" href="#testimonials">Testimonios</a></li>
                 <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
+                
             </ul>
         </nav>
 
