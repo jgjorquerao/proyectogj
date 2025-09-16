@@ -43,12 +43,12 @@
     "src": "node_modules/boxicons/fonts/boxicons.woff2"
   },
   "resources/css/panel.css": {
-    "file": "assets/panel-BMZYQwZP.css",
+    "file": "assets/panel-Dd7gGPgC.css",
     "src": "resources/css/panel.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-BiG4IgzO.js",
+    "file": "assets/app-wwFWR5mk.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -56,7 +56,7 @@
       "__commonjsHelpers-CqkleIqs.js"
     ],
     "css": [
-      "assets/app-Dyw7SFqi.css"
+      "assets/app-5hjf5av3.css"
     ],
     "assets": [
       "assets/bootstrap-icons-mSm7cUeB.woff2",
@@ -69,7 +69,7 @@
     ]
   },
   "resources/js/panel.js": {
-    "file": "assets/panel-BkB0Qzxk.js",
+    "file": "assets/panel-uLp0lrhq.js",
     "name": "panel",
     "src": "resources/js/panel.js",
     "isEntry": true,
@@ -79,8 +79,14 @@
       "__commonjsHelpers-CqkleIqs.js"
     ],
     "css": [
-      "assets/panel-CBxcUUxS.css"
+      "assets/panel-SFdsZ-Ba.css"
     ]
+  },
+  "resources/js/phone.js": {
+    "file": "assets/phone-DpUP_drN.js",
+    "name": "phone",
+    "src": "resources/js/phone.js",
+    "isEntry": true
   },
   "resources/js/pusher_setup.js": {
     "file": "assets/pusher_setup-CBfJKFuh.js",
@@ -93,7 +99,7 @@
     ]
   },
   "resources/js/user.js": {
-    "file": "assets/user-iX52eTf3.js",
+    "file": "assets/user-CVxSMWdd.js",
     "name": "user",
     "src": "resources/js/user.js",
     "isEntry": true,
@@ -102,7 +108,7 @@
     ]
   },
   "resources/sass/app.scss": {
-    "file": "assets/app-DuGosLi4.css",
+    "file": "assets/app-2wLrJbPI.css",
     "src": "resources/sass/app.scss",
     "isEntry": true
   }

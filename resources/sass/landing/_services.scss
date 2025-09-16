@@ -1,0 +1,77 @@
+.services .icon-box {
+  margin-bottom: 20px;
+  z-index: 2;
+}
+.services .icon {
+  float: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+}
+
+.services .icon i {
+  color: #ffffff;
+  font-size: 40px;
+  line-height: 0;
+}
+
+.services .title {
+  margin-left: 80px;
+  font-weight: 700;
+  margin-bottom: 15px;
+/*   font-size: 18px; */
+
+}
+
+.services .title a {
+  color: #343a40;
+}
+
+.services .title a:hover {
+  color: #000000;
+  /* MANTENIDO AZUL */
+
+}
+
+.services .description {
+  margin-left: 80px;
+  line-height: 24px;
+  font-size: 14px;
+}
+#services {
+  
+  position: relative;
+  padding-top: 0px; 
+  overflow: visible;
+}
+
+#services::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; 
+  
+  background: radial-gradient(
+    ellipse at bottom, 
+    rgba(0, 150, 255, 0.4) 0%, 
+    transparent 70% 
+  );
+  
+  z-index: 2; 
+  pointer-events: none;
+}
+/* .services .section-bg-image {
+position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+  z-index: 2;
+}
+ */

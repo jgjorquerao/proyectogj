@@ -1,0 +1,10 @@
+@extends('layouts.landing')
+@section('content')
+    @include('landing.hero')
+    @include('landing.services')
+    @include('landing.portfolio')
+    @include('landing.pricing')
+    @include('landing.facts')
+    @include('landing.testimonials')
+    @include('landing.contact')
+@endsection

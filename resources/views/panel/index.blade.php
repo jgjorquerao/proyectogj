@@ -6,11 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="{{ asset('pwa.json') }}">
-    <title>{{ env('APP_NAME')}}</title>
+    <title>Defiant AI</title>
+    <link href="{{ asset('img/gylerr.png') }}" rel="icon">
     @vite([
-    'resources/sass/app.scss',
-    'resources/css/panel.css',
-    'resources/js/panel.js',
+        'resources/sass/app.scss',
+        'resources/css/panel.css',
+        'resources/js/panel.js',
     ])
 </head>
 

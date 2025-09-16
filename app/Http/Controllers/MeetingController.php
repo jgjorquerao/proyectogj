@@ -225,11 +225,7 @@ class MeetingController extends Controller
                 $templateName = 'confirm_created_meeting';
 
                 $carbonDate = Carbon::parse($db_start_datetime);
-
-                // Fecha en formato "16 de septiembre"
                 $formattedDate = $carbonDate->locale('es_CL')->isoFormat('D [de] MMMM');
-
-                // Hora en formato "08:00 AM"
                 $formattedTime = $carbonDate->format('h:i A');
 
                 /* $this->sendTemplateMessage(

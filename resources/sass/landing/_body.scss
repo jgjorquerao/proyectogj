@@ -1,0 +1,61 @@
+#main {
+    padding-top: 0px;
+}
+
+body.landing {
+    color: #c9d1d9;
+    background: #1A1E29;
+    overflow-x: hidden;
+}
+
+body.landing section {
+    background-color: #1A1E29;
+    box-sizing: content-box;
+}
+
+body.landing .section-bg {
+    background: #1A1E29;
+}
+
+body.landing .section-title h2,
+body.landing .facts .count-box span,
+body.landing .pricing .pricing-item h3 {
+    color: #f0f6fc;
+}
+
+body.landing a {
+    color: #e9e9e9;
+}
+
+body.landing a:hover {
+    color: #a7a7a7;
+}
+
+
+
+body.dark-mode .navbar a,
+body.dark-mode .navbar a:focus {
+    color: #fff;
+}
+
+body.dark-mode .navbar a:hover,
+body.dark-mode .navbar .active {
+    color: #f0f6fc;
+}
+
+/* body.dark-mode .contact .info,
+body.dark-mode .contact .php-email-form,
+body.dark-mode .pricing .pricing-item,
+body.dark-mode .testimonials .testimonial-item p {
+
+    background: #2A2F3A;
+    box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .contact .php-email-form input,
+body.dark-mode .contact .php-email-form textarea {
+    background: #2A2F3A;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+}
+ */

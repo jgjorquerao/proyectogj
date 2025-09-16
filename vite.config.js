@@ -12,6 +12,7 @@ export default defineConfig({
                 'resources/js/pusher_setup.js',
                 'resources/js/user.js',
                 'resources/js/meeting.js',
+                'resources/js/phone.js',
             ],
             refresh: true,
         }),

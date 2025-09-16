@@ -1,0 +1,49 @@
+section {
+    padding: 60px 0;
+    overflow: hidden;
+}
+
+.section-bg {
+    background: #f5f8fd;
+}
+
+.section-title {
+    padding-bottom: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+.section-title h2 {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    color: #636363;
+}
+
+.section-title h2::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 70px;
+    height: 5px;
+    background: #636363;
+    bottom: 0;
+    left: 0;
+}
+.section-bg-image {
+position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.3;
+  z-index: 1;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 0%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 60%, transparent 100%);
+}
+.section-title p {
+    margin-bottom: 0;
+}

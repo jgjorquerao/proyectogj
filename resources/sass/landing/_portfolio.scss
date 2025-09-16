@@ -1,0 +1,315 @@
+/* 3. Capa de LUZ ANIMADA (intermedia) */
+/* .portfolio::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at top, 
+    rgba(0, 150, 255, 0.4) 0%, 
+    transparent 60%
+  );
+  pointer-events: none;
+  opacity: 100%;
+} */
+.portfolio .portfolio-item {
+  margin-bottom: 30px;
+}
+
+.portfolio .portfolio-wrap {
+  transition: 0.3s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  border-radius: 16px;
+}
+
+
+.portfolio .portfolio-wrap::before {
+  content: "";
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transition: all ease-in-out 0.3s;
+  z-index: 2;
+  opacity: 0;
+}
+
+.portfolio .portfolio-wrap:hover::before {
+  opacity: 0 !important;
+}
+
+.portfolio-item .portfolio-wrap img {
+  border-radius: 16px;
+  transition: transform 0.4s ease;
+}
+
+.portfolio-item .portfolio-wrap:hover img {
+  transform: scale(1.1);
+}
+
+/* Portfolio Filters */
+.portfolio #portfolio-flters {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  padding: 10px 20px;
+  margin: 0 auto 40px auto;
+  list-style: none;
+  text-align: center;
+  transition: transform 0.1s linear;
+  transform-style: preserve-3d;
+}
+
+.portfolio #portfolio-flters li {
+  color: #f0f6fc;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-radius: 50px;
+  padding: 10px 20px;
+  margin: 0 5px;
+  background: transparent;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.portfolio #portfolio-flters li.filter-active,
+.portfolio #portfolio-flters li:hover {
+  background: #2A2F3A;
+  color: #fff;
+}
+
+/* Portfolio Videos */
+.portfolio-item.filter-videos .portfolio-wrap {
+  position: relative;
+  background: #1a1814;
+  aspect-ratio: 9 / 16;
+  height: auto !important;
+  overflow: hidden;
+  margin-bottom: 30px;
+  border-radius: 16px !important;
+  cursor: pointer;
+}
+
+.portfolio-item.filter-videos .portfolio-wrap video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 16px !important;
+  transform: scale(1);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1;
+}
+
+.portfolio-wrap:hover video {
+  transform: scale(1.05) !important;
+}
+
+.portfolio-wrap.is-playing::before {
+  opacity: 0;
+}
+
+.video-play-button {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: linear-gradient(to right, #4c51bf, #805ad5);
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.video-play-button i {
+  color: #ffffff;
+  font-size: 36px;
+  line-height: 0;
+  padding-left: 4px;
+}
+
+.video-play-button:hover {
+  background-color: rgb(206, 206, 206);
+}
+
+.portfolio-wrap.is-playing .video-play-button {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.portfolio-wrap.is-playing:hover .video-play-button {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Client Logos Carousel */
+.logos-slider {
+  overflow: hidden;
+  padding: 60px 0;
+  position: relative;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  white-space: nowrap;
+}
+
+.logos-slide {
+  display: flex;
+  animation: scroll 40s infinite linear;
+  user-select: none;
+}
+
+.logos-slide img {
+  width: 140px !important;
+  height: auto !important;
+  object-fit: contain;
+  margin: 0 40px !important;
+  flex-shrink: 0 !important;
+  pointer-events: none;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(calc(-280px * 6));
+    /* (width + margin*2) * num_images */
+  }
+}
+
+/* Video Carousel */
+.video-carousel-container {
+  position: relative;
+  width: 100%;
+  padding: 0 60px;
+  box-sizing: border-box;
+  margin-bottom: 30px;
+}
+
+.video-carousel-slider {
+  overflow: hidden;
+  cursor: grab;
+}
+
+.video-carousel-slider.active {
+  cursor: grabbing;
+}
+
+.video-carousel-track {
+  display: flex;
+}
+
+.carousel-slide {
+  flex: 0 0 33.333%;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.carousel-slide .portfolio-wrap {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  background-color: #000;
+}
+
+.carousel-slide .portfolio-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* .carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(30, 30, 30, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 24px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.carousel-arrow:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.carousel-arrow.prev {
+  left: 0;
+}
+
+.carousel-arrow.next {
+  right: 0;
+}
+
+.carousel-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+ */
+@media (max-width: 991px) {
+  .carousel-slide {
+    flex-basis: 50%;
+  }
+}
+
+@media (max-width: 767px) {
+  .video-carousel-container {
+    padding: 0 15px;
+  }
+
+  .carousel-slide {
+    flex-basis: 100%;
+  }
+
+  .carousel-arrow {
+    display: none;
+  }
+
+  .portfolio #portfolio-flters {
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding: 10px 15px;
+  }
+
+  .portfolio #portfolio-flters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .portfolio #portfolio-flters li {
+    flex-shrink: 0;
+  }
+}

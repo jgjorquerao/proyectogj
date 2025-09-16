@@ -53,18 +53,16 @@
 /* Estilos para el botón de login */
 .btn-custom {
     background-image: linear-gradient(to right, #4c51bf, #805ad5);
-    border: none;
     color: white !important;
     font-weight: bold;
-    letter-spacing: 0.05em;
-    transition: all 0.3s ease;
-    transform: scale(1.0);
+    border-radius: 50px;
 }
 
 .btn-custom:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
     background-image: linear-gradient(to right, #434190, #6641a2);
     color: white;
+    border-radius: 50px;
 }
 
 /* Estilos para el enlace de "Olvidaste tu contraseña?" */
