@@ -227,6 +227,15 @@ body {
     height: calc(var(--spacing) * 62);
 }
 
+.user-pass-container {
+    background-color: rgb(51 65 85 / 0.5);
+}
+
+.user-pass-condition-circle {
+    width: calc(var(--spacing) * 2);
+    height: calc(var(--spacing) * 2);
+}
+
 .status-badge {
     display: inline-block;
     padding: 0.125rem 0.625rem;

@@ -118,7 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
     async function SaveProfileName() {
         const originalValue = currentProfileName;
         const newValue = profileNameInput.value.trim();
-        profileNameError.textContent = "";
 
         // Revisar si el nuevo valor está vacío
         const isEmpty = newValue == "";
@@ -132,6 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Establecer valor a mostrar, terminar editar
         profileNameText.textContent = currentProfileName;
+        profileNameError.textContent = "";
         HideEditProfileName(); // Esconder edit
         ShowDisplayProfileName(); // Mostrar display
 
@@ -142,6 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
             showMessage("Nombre de perfil actualizado.", "success");
             try {
                 const response = await axios.post("/panel/edit_user_name", {
+                    id: null,
                     name: newValue,
                 });
             } catch (error) {

@@ -91,14 +91,14 @@
                     <div>
                         <div class="flex items-center space-x-4 mb-4">
                             <img src="https://placehold.co/40x40/cccccc/333333?text={{ strtoupper(substr(Auth::user()->name, 0, 1)) }}"
-                                alt="Foto de perfil" class="w-16 h-16 m-0 rounded-full border-2 border-gray-500">
+                                alt="Foto de perfil" class="w-16 h-16 m-0 rounded-full border-2 border-white border-opacity-30 shadow-inner">
                         </div>
                         <!-- Sección del nombre -->
                         <div class="mb-0">
-                            <div class="text-sm text-gray-500">Nombre</div>
+                            <div class="text-sm text-gray-400">Nombre</div>
                             <!-- Mostrar -->
                             <div id="profileNameDisplay" class="flex items-center justify-between">
-                                <span id="profileNameText" class="py-1 my-1 text-white">{{ Auth::user()->name }}</span>
+                                <span id="profileNameText" class="py-1 my-1 text-white truncate">{{ Auth::user()->name }}</span>
                                 <button id="profileNameEditBtn" class="p-1 rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors duration-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
                                         <path d="M21.731 2.269a2.25 2.25 0 0 0-3.182 0l-14.881 14.88a2.25 2.25 0 0 0-.583 1.015l-1.55 4.65a.75.75 0 0 0 .964 1.014l4.65-1.55a2.25 2.25 0 0 0 1.015-.583l14.88-14.88a2.25 2.25 0 0 0 0-3.182ZM15.75 6.75l-4.25 4.25-1.5-1.5 4.25-4.25 1.5 1.5Z" />
@@ -118,15 +118,15 @@
                         </div>
                         <!-- Sección del rol -->
                         <div class="mb-8">
-                            <div class="text-sm text-gray-500">Rol</div>
+                            <div class="text-sm text-gray-400">Rol</div>
                             <div class="flex items-center justify-between">
-                                <span class="py-1 my-1 text-white">{{ Auth::user()->is_admin ? 'Administrador' : 'Trabajador' }}</span>
+                                <span class="py-1 my-1 text-white truncate">{{ Auth::user()->is_admin ? 'Administrador' : 'Trabajador' }}</span>
                             </div>
                         </div>
                     </div>
                     <!-- Botón para cerrar sesión -->
-                    <div class="w-full mb-5 border-b-1 border-gray-200"></div>
-                    <button id="profileLogoutBtn" class="w-full text-red-500 py-2 px-4 rounded-lg border-1 border-gray-300 bg-gray-700 shadow-md hover:bg-gray-600 transition-colors duration-100">
+                    <div class="w-full mb-5 border-b-1 border-gray-500"></div>
+                    <button id="profileLogoutBtn" class="w-full text-red-500 py-2 px-4 rounded-lg border-1 border-gray-500 bg-gray-800 shadow-md hover:bg-gray-700 transition-colors duration-100">
                         Cerrar sesión
                     </button>
                     <form id="profileLogoutForm" action="{{ route('logout') }}" method="POST" class="hidden">
