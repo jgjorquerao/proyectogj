@@ -4,8 +4,8 @@
         <!-- Título y botón de nuevo usuario -->
         <div class="p-4 flex justify-center items-center border-b border-gray-700 relative">
             <h2 class="text-xl font-bold text-white">Usuarios</h2>
-            <button id="openModal" class="absolute right-4 flex btn-custom font-semibold py-2 px-4 rounded-lg shadow-md">
-                <x-heroicon-s-user-plus class="w-6 h-6" />
+            <button class="absolute right-4 flex btn-custom font-semibold py-2 px-4 rounded-lg shadow-md cursor-pointer" data-modal-open="addUserModal">
+                <x-heroicon-s-user-plus class="w-4 h-4" />
             </button>
         </div>
         <!-- Barra de búsqueda de usuarios -->
@@ -18,27 +18,27 @@
             <!-- Skeleton lista de usuarios -->
             <div id="chat-items-skeleton">
                 <div class="p-4 space-y-4">
-                    <div class="flex items-center space-x-4 animate-pulse">
-                        <div class="w-12 h-12 bg-gray-300 rounded-full"></div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-gray-500 rounded-full"></div>
                         <div class="flex-1 space-y-2 py-1">
-                            <div class="h-4 bg-gray-300 rounded w-3/4"></div>
-                            <div class="h-3 bg-gray-300 rounded w-1/2"></div>
+                            <div class="h-4 bg-gray-500 rounded w-3/4"></div>
+                            <div class="h-3 bg-gray-500 rounded w-1/2"></div>
                         </div>
                     </div>
 
-                    <div class="flex items-center space-x-4 animate-pulse">
-                        <div class="w-12 h-12 bg-gray-300 rounded-full"></div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-gray-500 rounded-full"></div>
                         <div class="flex-1 space-y-2 py-1">
-                            <div class="h-4 bg-gray-300 rounded w-2/3"></div>
-                            <div class="h-3 bg-gray-300 rounded w-1/3"></div>
+                            <div class="h-4 bg-gray-500 rounded w-2/3"></div>
+                            <div class="h-3 bg-gray-500 rounded w-1/3"></div>
                         </div>
                     </div>
 
-                    <div class="flex items-center space-x-4 animate-pulse">
-                        <div class="w-12 h-12 bg-gray-300 rounded-full"></div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-gray-500 rounded-full"></div>
                         <div class="flex-1 space-y-2 py-1">
-                            <div class="h-4 bg-gray-300 rounded w-3/5"></div>
-                            <div class="h-3 bg-gray-300 rounded w-1/4"></div>
+                            <div class="h-4 bg-gray-500 rounded w-3/5"></div>
+                            <div class="h-3 bg-gray-500 rounded w-1/4"></div>
                         </div>
                     </div>
                 </div>
@@ -101,9 +101,9 @@
 
 
 <!-- Modal ADD -->
-<div id="addUserModal" class="fixed inset-0 flex items-center justify-center hidden bg-black/30 backdrop-blur-[2px]">
+<div id="addUserModal" class="fixed inset-0 flex items-center justify-center hidden bg-black/30 backdrop-blur-[2px]" data-on-open="resetUserForm">
     <div class="card-custom rounded-lg w-96 p-6 relative shadow-2xl">
-        <button id="closeAddModal" class="absolute top-2 right-2 text-white mr-4 hover:text-gray-500">✕</button>
+        <button id="closeAddModal" class="absolute top-2 right-2 text-white mr-4 hover:text-gray-500 cursor-pointer" data-modal-close>✕</button>
         <h3 class="text-lg font-bold mb-4 text-white">Agregar Usuario</h3>
         <form id="addUserForm" class="space-y-4">
             <div>
@@ -116,7 +116,7 @@
                 <input id="email" type="email" class="form-control form-control-custom w-full px-4 py-1" name="email" value="" autocomplete="email" required="" autofocus="">
                 <div class="text-red-500 text-sm mt-1" id="errorEmail"></div>
             </div>
-            <button type="submit" class="w-full btn-custom text-white py-2 rounded-lg hover:bg-blue-600 mt-4 w-30">Agregar</button>
+            <button type="submit" class="w-full btn-custom text-white py-2 rounded-lg hover:bg-blue-600 mt-4 w-30 cursor-pointer">Agregar</button>
         </form>
 
     </div>

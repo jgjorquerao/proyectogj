@@ -5,9 +5,9 @@ import "./pusher_setup.js";
 import "./user.js";
 import "./meeting.js";
 import "./products.js";
+import "./modal.js";
 
-let messageModal,
-    messageTextEl;
+let messageModal, messageTextEl;
 
 document.addEventListener("DOMContentLoaded", () => {
     // Referencias generales del DOM
@@ -39,18 +39,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // Referencias del cuadro de perfil
     let isBoxVisible = false;
     const nameMaxLength = 50;
-    const profileBtn = document.getElementById('profileBtn');
-    const profileBox = document.getElementById('profileBox');
-    const profileLogoutBtn = document.getElementById('profileLogoutBtn');
-    const profileLogoutForm = document.getElementById('profileLogoutForm');
-    const closeProfileBtn = document.getElementById('closeProfileBtn');
-    const profileNameDisplay = document.getElementById('profileNameDisplay');
-    const profileNameEditer = document.getElementById('profileNameEditer');
-    const profileNameEditOptions = document.getElementById('profileNameEditOptions');
-    const profileNameEditBtn = document.getElementById('profileNameEditBtn');
-    const profileNameInput = document.getElementById('profileNameInput');
-    const profileNameText = document.getElementById('profileNameText');
-    const profileNameSaveBtn = document.getElementById('profileNameSaveBtn');
+    const profileBtn = document.getElementById("profileBtn");
+    const profileBox = document.getElementById("profileBox");
+    const profileLogoutBtn = document.getElementById("profileLogoutBtn");
+    const profileLogoutForm = document.getElementById("profileLogoutForm");
+    const closeProfileBtn = document.getElementById("closeProfileBtn");
+    const profileNameDisplay = document.getElementById("profileNameDisplay");
+    const profileNameEditer = document.getElementById("profileNameEditer");
+    const profileNameEditOptions = document.getElementById(
+        "profileNameEditOptions"
+    );
+    const profileNameEditBtn = document.getElementById("profileNameEditBtn");
+    const profileNameInput = document.getElementById("profileNameInput");
+    const profileNameText = document.getElementById("profileNameText");
+    const profileNameSaveBtn = document.getElementById("profileNameSaveBtn");
     //const profileNameCancelBtn = document.getElementById('profileNameCancelBtn');
     const profileNameError = document.getElementById("profileNameError");
     let currentProfileName = profileNameText.textContent.trim();
@@ -58,17 +60,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Funciones de mostrar / esconder cuadro de perfil
     function ShowProfileBox() {
-        profileBox.classList.add('is-visible');
+        profileBox.classList.add("is-visible");
         isBoxVisible = true;
     }
 
     function HideProfileBox() {
-        profileBox.classList.remove('is-visible');
+        profileBox.classList.remove("is-visible");
         isBoxVisible = false;
     }
 
     // El click del botón de perfil en el panel de la izquierda
-    profileBtn.addEventListener('click', (event) => {
+    profileBtn.addEventListener("click", (event) => {
         if (isBoxVisible) {
             HideProfileBox();
         } else {
@@ -77,8 +79,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Cerrar cuadro si se presiona fuera
-    document.addEventListener('click', (event) => {
-        if (isBoxVisible && !profileBox.contains(event.target) && !profileBtn.contains(event.target)) {
+    document.addEventListener("click", (event) => {
+        if (
+            isBoxVisible &&
+            !profileBox.contains(event.target) &&
+            !profileBtn.contains(event.target)
+        ) {
             HideProfileBox();
         }
     });
@@ -90,23 +96,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Funciones de mostrar / esconder editar nombre
     function ShowEditProfileName() {
-        profileNameEditer.classList.remove('hidden');
-        profileNameEditer.classList.add('flex');
-        profileNameEditOptions.classList.remove('invisible');
+        profileNameEditer.classList.remove("hidden");
+        profileNameEditer.classList.add("flex");
+        profileNameEditOptions.classList.remove("invisible");
     }
 
     function HideEditProfileName() {
-        profileNameEditer.classList.add('hidden');
-        profileNameEditer.classList.remove('flex');
-        profileNameEditOptions.classList.add('invisible');
+        profileNameEditer.classList.add("hidden");
+        profileNameEditer.classList.remove("flex");
+        profileNameEditOptions.classList.add("invisible");
     }
 
     function ShowDisplayProfileName() {
-        profileNameDisplay.classList.remove('hidden');
+        profileNameDisplay.classList.remove("hidden");
     }
 
     function HideDisplayProfileName() {
-        profileNameDisplay.classList.add('hidden');
+        profileNameDisplay.classList.add("hidden");
     }
 
     async function SaveProfileName() {
@@ -119,9 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (isEmpty) {
             // Si está vacío, mostrar mensaje de error
             showMessage("Tu nombre no puede estar vacío", "error");
-        }
-        else
-        {
+        } else {
             // No está vacío, actualizar nombre actual
             currentProfileName = newValue;
         }
@@ -134,21 +138,20 @@ document.addEventListener("DOMContentLoaded", () => {
         // Verificar si hay que actualizar en base de datos
         let needUpdate = newValue !== originalValue;
         if (!isEmpty && needUpdate) {
-        // Es diferente al original, enviar a backend
+            // Es diferente al original, enviar a backend
             showMessage("Nombre de perfil actualizado.", "success");
             try {
                 const response = await axios.post("/panel/edit_user_name", {
                     name: newValue,
                 });
-            }
-            catch (error) {
+            } catch (error) {
                 console.error("Error al actualizar nombre de perfil: ", error);
             }
         }
     }
 
     // El click del botón para empezar a editar
-    profileNameEditBtn.addEventListener('click', (event) => {
+    profileNameEditBtn.addEventListener("click", (event) => {
         event.stopPropagation();
         // Establecer valor del input
         profileNameInput.value = currentProfileName;
@@ -158,12 +161,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Verificar que el valor del input esté correcto
-    profileNameInput.addEventListener('input', (event) => {
+    profileNameInput.addEventListener("input", (event) => {
         let errorMessage = "";
 
         // Limitar el tamaño máximo del nombre
         if (profileNameInput.value.length > nameMaxLength) {
-            profileNameInput.value = profileNameInput.value.slice(0, nameMaxLength);
+            profileNameInput.value = profileNameInput.value.slice(
+                0,
+                nameMaxLength
+            );
         }
 
         if (profileNameInput.value == "") {
@@ -175,21 +181,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Tratar de guardar el nombre cuando se pierde el focus del input
-    profileNameInput.addEventListener('blur', (event) => {
+    profileNameInput.addEventListener("blur", (event) => {
         SaveProfileName();
     });
 
     // Tratar de guardar el nombre cuando se hace click en botón de OK
-    profileNameSaveBtn.addEventListener('click', (event) => {
+    profileNameSaveBtn.addEventListener("click", (event) => {
         event.stopPropagation();
         SaveProfileName();
     });
 
     // El click para cerrar sesión
-    profileLogoutBtn.addEventListener('click', (event) => {
+    profileLogoutBtn.addEventListener("click", (event) => {
         profileLogoutForm.submit();
     });
-    loadSection(window.currentMenu,true)
+    loadSection(window.currentMenu, true);
 });
 
 const mainContent = document.getElementById("main-content");
@@ -227,7 +233,7 @@ async function loadSection(menuKey, firstLoad = false) {
     if (!menu) return;
 
     // evitar recarga innecesaria
-    if(!firstLoad){
+    if (!firstLoad) {
         if (window.currentMenu === menuKey) return;
     }
     window.currentMenu = menuKey;
@@ -287,7 +293,10 @@ Object.keys(menus).forEach((key) => {
 //Resalta el item seleccionado y desmarca los demás
 window.highlightSelectedItem = (selector, selectedId) => {
     document.querySelectorAll(selector).forEach((el) => {
-        if (el.dataset.chatId === String(selectedId) || el.dataset.userId === String(selectedId)) {
+        if (
+            el.dataset.chatId === String(selectedId) ||
+            el.dataset.userId === String(selectedId)
+        ) {
             el.classList.add(
                 "bg-gray-700",
                 "border-l-4",
@@ -304,7 +313,7 @@ window.highlightSelectedItem = (selector, selectedId) => {
             );
         }
     });
-}
+};
 
 // Muestra un mensaje de notificación flotante
 function showMessage(text, type = "info") {
@@ -313,13 +322,11 @@ function showMessage(text, type = "info") {
         messageModal.classList.remove("bg-gray-800");
         messageModal.classList.remove("bg-red-600");
         messageModal.classList.add("bg-green-600");
-    }
-    else if (type === "error") {
+    } else if (type === "error") {
         messageModal.classList.remove("bg-gray-800");
         messageModal.classList.remove("bg-green-600");
         messageModal.classList.add("bg-red-600");
-    } 
-    else {
+    } else {
         messageModal.classList.remove("bg-green-600");
         messageModal.classList.remove("bg-red-600");
         messageModal.classList.add("bg-gray-800");

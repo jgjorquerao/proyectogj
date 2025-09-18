@@ -18,7 +18,7 @@
 <body class="h-screen flex items-center justify-center">
 
     <!-- Contenedor principal de la aplicación -->
-    <div id="app-container" class="w-full h-full mx-auto flex overflow-hidden shadow-2xl bg-white relative">
+    <div id="app-container" class="w-full h-full mx-auto flex overflow-hidden shadow-2xl bg-gray-900 relative">
         <!-- Contenedor de todo menos profile box -->
         <div class="w-full h-full mx-auto flex overflow-hidden relative md:static">
             <!-- Contenedor del botón de menú de hamburguesa, solo visible en móviles -->
@@ -44,22 +44,22 @@
                     </div>
                     <!-- Ícono de Chat (activo por defecto) -->
                     <!-- bg-gray-700  -->
-                    <button id="btn-chat" class="menu-btn p-2 w-full text-white hover:bg-gray-700 rounded-full transition-colors duration-200 flex items-center justify-center cursor-pointer">
+                    <button id="btn-chat" type="button" class="menu-btn p-2 w-full text-white hover:bg-gray-700 rounded-full transition-colors duration-200 flex items-center justify-center cursor-pointer">
                         <x-heroicon-s-chat-bubble-oval-left-ellipsis class="w-6 h-6 text-white" />
                         <span class="ml-1 text-sm md:hidden">Chats</span>
                     </button>
                     <!-- Ícono de Configuración (ejemplo) -->
                     @if(Auth::user()->is_admin)
-                    <button id="btn-users" class="menu-btn p-2 w-full text-white hover:bg-gray-700 rounded-full transition-colors duration-200 flex items-center justify-center cursor-pointer">
+                    <button id="btn-users" type="button" class="menu-btn p-2 w-full text-white hover:bg-gray-700 rounded-full transition-colors duration-200 flex items-center justify-center cursor-pointer">
                         <x-heroicon-s-users class="w-6 h-6 text-white" />
                         <span class="ml-1 text-sm md:hidden">Usuarios</span>
                     </button>
-                    <button id="btn-products" class="menu-btn p-2 w-full text-white hover:bg-gray-700 rounded-full transition-colors duration-200 flex items-center justify-center cursor-pointer">
+                    <button id="btn-products" type="button" class="menu-btn p-2 w-full text-white hover:bg-gray-700 rounded-full transition-colors duration-200 flex items-center justify-center cursor-pointer">
                         <x-heroicon-s-squares-plus class="w-6 h-6 text-white" />
                         <span class="ml-1 text-sm md:hidden">Productos</span>
                     </button>
                     @endif
-                    <button id="btn-meetings" class="menu-btn p-2 w-full text-white hover:bg-gray-700 rounded-full transition-colors duration-200 flex items-center justify-center cursor-pointer">
+                    <button id="btn-meetings" type="button" class="menu-btn p-2 w-full text-white hover:bg-gray-700 rounded-full transition-colors duration-200 flex items-center justify-center cursor-pointer">
                         <x-heroicon-s-calendar-days class="w-6 h-6 text-white" />
                         <span class="ml-1 text-sm md:hidden">Citas</span>
                     </button>
