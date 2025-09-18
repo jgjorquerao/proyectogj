@@ -18,7 +18,6 @@ let chatItemsContainer;
 let chatWindowPanel;
 let menuButton;
 
-
 // Al cargar la página
 /* window.addEventListener("load", function () {
     initChatSection();
@@ -82,7 +81,7 @@ const createChatListItem = (chat) => {
         <img src="${chat.avatar}" alt="${chat.name}" class="w-12 h-12 rounded-full mr-4" 
              onerror="this.onerror=null;this.src='https://placehold.co/100x100/364153/FFFFFF?text=U';">
         <div class="flex-1 overflow-hidden">
-            <h3 class="chat-item-name font-semibold text-sm truncate text-white">${chat.name}</h3>
+            <h3 class="chat-item-name font-semibold text-sm truncate text-white pe-3">${chat.name}</h3>
             <p class="text-gray-500 text-xs truncate">${chat.lastMessage}</p>
         </div>
         ${unreadIndicator}
@@ -148,15 +147,19 @@ const createChatWindow = (chat) => {
         e.preventDefault();
 
         // If a custom message was passed in the event, use it
-        const nuevoTexto = e.detail && e.detail.message ? 
+        /* const nuevoTexto = e.detail && e.detail.message ? 
             e.detail.message
             : (aiManualToggle.checked
                 ? "¿Deseas cambiar a modo <strong>Agente IA</strong>?"
                 : "¿Deseas cambiar a modo <strong>Manual</strong>?"
-            );
+            ); */
+        const message = aiManualToggle.checked
+            ? "¿Deseas cambiar a modo <strong>Manual</strong>?"
+            : "¿Deseas cambiar a modo <strong>Agente IA</strong>?";
 
-        modalText.innerHTML = nuevoTexto;
-        modal.classList.remove("hidden");
+        /* modalText.innerHTML = nuevoTexto; */
+        /* modal.classList.remove("hidden"); */
+        window.openModal("changeStatusModal", { message: message });
 
         btnConfirm.onclick = () => {
             aiManualToggle.disabled = true;
@@ -171,7 +174,7 @@ const createChatWindow = (chat) => {
                 .then(() => {
                     const nuevoEstadoToggle = !aiManualToggle.checked;
                     updateUI(nuevoEstadoToggle);
-                    modal.classList.add("hidden");
+                    window.closeModal(modal);
                 })
                 .catch((error) => {
                     console.error("Error al actualizar estado:", error);
@@ -185,38 +188,38 @@ const createChatWindow = (chat) => {
                 });
         };
 
-        const cerrarModal = () => modal.classList.add("hidden");
-        btnCancel.onclick = cerrarModal;
-        btnClose.onclick = cerrarModal;
+        /* const cerrarModal = () => modal.classList.add("hidden"); */
+        /* btnCancel.onclick = cerrarModal; */
+        /* btnClose.onclick = cerrarModal; */
     });
 
     // Referencias del cuadro de perfil del cliente en chat
     let isBoxVisible = false;
     const profileBtn = chatWindow.querySelector(".chat-profile-btn");
     const profileBox = chatWindow.querySelector(".chat-profile-box");
-    const profileCloseBtn = chatWindow.querySelector('.chat-profile-close-btn');
-    const profileTabBtn = chatWindow.querySelector('.chat-profile-tab-btn');
-    const userTabBtn = chatWindow.querySelector('.chat-user-tab-btn');
-    const tabButtons = chatWindow.querySelectorAll('.tab-btn');
-    const tabContents = chatWindow.querySelectorAll('.tab-content');
+    const profileCloseBtn = chatWindow.querySelector(".chat-profile-close-btn");
+    const profileTabBtn = chatWindow.querySelector(".chat-profile-tab-btn");
+    const userTabBtn = chatWindow.querySelector(".chat-user-tab-btn");
+    const tabButtons = chatWindow.querySelectorAll(".tab-btn");
+    const tabContents = chatWindow.querySelectorAll(".tab-content");
     let selectedTab = null;
     let fillingUsers = false;
 
     // Funciones de mostrar / esconder cuadro de perfil de chat
     function ShowChatProfileBox() {
         profileTabBtn.click();
-        profileBox.classList.add('is-visible');
+        profileBox.classList.add("is-visible");
         isBoxVisible = true;
     }
 
     function HideChatProfileBox() {
-        profileBox.classList.remove('is-visible');
+        profileBox.classList.remove("is-visible");
         isBoxVisible = false;
         selectedTab = null;
     }
 
     // El click del botón de perfil en el panel de la izquierda
-    profileBtn.addEventListener('click', (event) => {
+    profileBtn.addEventListener("click", (event) => {
         if (isBoxVisible) {
             HideChatProfileBox();
         } else {
@@ -230,16 +233,20 @@ const createChatWindow = (chat) => {
     });
 
     // Cerrar cuadro si se presiona fuera
-    document.addEventListener('click', (event) => {
-        if (isBoxVisible && !profileBox.contains(event.target) && !profileBtn.contains(event.target)) {
+    document.addEventListener("click", (event) => {
+        if (
+            isBoxVisible &&
+            !profileBox.contains(event.target) &&
+            !profileBtn.contains(event.target)
+        ) {
             HideChatProfileBox();
         }
     });
 
     // Establecer contenido de tab de perfil
-    const emptyRutDisplay = '';
+    const emptyRutDisplay = "";
     const profileRut = chat.client_rut ? chat.client_rut : emptyRutDisplay;
-    const profileTab = chatWindow.querySelector('.chat-profile-tab');
+    const profileTab = chatWindow.querySelector(".chat-profile-tab");
     profileTab.innerHTML = `
         <div class="flex items-center space-x-4 mt-1 mb-5">
             <img src="${chat.avatar}" alt="Foto de perfil" class="w-12 h-12 m-0 rounded-full border-2 border-gray-500">
@@ -300,43 +307,60 @@ const createChatWindow = (chat) => {
     `;
 
     // Función de editar
-    function setupInputEdit(type, maxLength, allowEmpty, emptyDisplay = '') {
+    function setupInputEdit(type, maxLength, allowEmpty, emptyDisplay = "") {
         const inputMaxLength = maxLength;
-        const profileDisplay = chatWindow.querySelector('.chat-profile-'+type+'-display');
-        const profileEditer = chatWindow.querySelector('.chat-profile-'+type+'-editer');
-        const profileEditOptions = chatWindow.querySelector('.chat-profile-'+type+'-edit-options');
-        const profileEditBtn = chatWindow.querySelector('.chat-profile-'+type+'-edit-btn');
-        const profileInput = chatWindow.querySelector('.chat-profile-'+type+'-input');
-        const profileText = chatWindow.querySelector('.chat-profile-'+type+'-text');
-        const profileSaveBtn = chatWindow.querySelector('.chat-profile-'+type+'-save-btn');
-        const profileError = chatWindow.querySelector(".chat-profile-"+type+"-error");
+        const profileDisplay = chatWindow.querySelector(
+            ".chat-profile-" + type + "-display"
+        );
+        const profileEditer = chatWindow.querySelector(
+            ".chat-profile-" + type + "-editer"
+        );
+        const profileEditOptions = chatWindow.querySelector(
+            ".chat-profile-" + type + "-edit-options"
+        );
+        const profileEditBtn = chatWindow.querySelector(
+            ".chat-profile-" + type + "-edit-btn"
+        );
+        const profileInput = chatWindow.querySelector(
+            ".chat-profile-" + type + "-input"
+        );
+        const profileText = chatWindow.querySelector(
+            ".chat-profile-" + type + "-text"
+        );
+        const profileSaveBtn = chatWindow.querySelector(
+            ".chat-profile-" + type + "-save-btn"
+        );
+        const profileError = chatWindow.querySelector(
+            ".chat-profile-" + type + "-error"
+        );
         let currentValue = profileText.textContent.trim();
         profileInput.maxLength = inputMaxLength;
 
         // Funciones de mostrar / esconder editar nombre
         function ShowEditProfileName() {
-            profileEditer.classList.remove('hidden');
-            profileEditer.classList.add('flex');
-            profileEditOptions.classList.remove('invisible');
+            profileEditer.classList.remove("hidden");
+            profileEditer.classList.add("flex");
+            profileEditOptions.classList.remove("invisible");
         }
 
         function HideEditProfileName() {
-            profileEditer.classList.add('hidden');
-            profileEditer.classList.remove('flex');
-            profileEditOptions.classList.add('invisible');
+            profileEditer.classList.add("hidden");
+            profileEditer.classList.remove("flex");
+            profileEditOptions.classList.add("invisible");
         }
 
         function ShowDisplayProfileName() {
-            profileDisplay.classList.remove('hidden');
+            profileDisplay.classList.remove("hidden");
         }
 
         function HideDisplayProfileName() {
-            profileDisplay.classList.add('hidden');
+            profileDisplay.classList.add("hidden");
         }
 
         async function SaveProfileName() {
             let allGood = true;
-            const originalValue = allowEmpty && currentValue == emptyDisplay ? '' : currentValue;
+            const originalValue =
+                allowEmpty && currentValue == emptyDisplay ? "" : currentValue;
             let newValue = profileInput.value.trim();
             profileError.textContent = "";
 
@@ -360,19 +384,16 @@ const createChatWindow = (chat) => {
                         currentValue = newValue;
                     }
                 }
-            }
-            else
-            {
+            } else {
                 // Si está vacío, revisar si se permite que esté vacío
                 if (!allowEmpty) {
                     // No se permite, mostrar mensaje de error
                     allGood = false;
                     let message = "";
-                    if (type == 'name') message = "El nombre no puede estar vacío";
+                    if (type == "name")
+                        message = "El nombre no puede estar vacío";
                     showMessage(message, "error");
-                }
-                else
-                {
+                } else {
                     // Si se permite, establecer valor actual a emptyDisplay
                     currentValue = emptyDisplay;
                 }
@@ -391,86 +412,107 @@ const createChatWindow = (chat) => {
             if (needUpdate) {
                 // Es diferente al original
                 // Verificar tipo
-                if (type == 'name') {
+                if (type == "name") {
                     // Actualizar valor del nombre del chat en JS
                     chat.name = newValue;
-                    const chatItem = document.querySelector(`[data-chat-id="${chat.id}"]`);
+                    const chatItem = document.querySelector(
+                        `[data-chat-id="${chat.id}"]`
+                    );
                     if (chatItem) {
                         // Actualizar nombre de la lista
-                        const listNameEl = chatItem.querySelector(".chat-item-name");
+                        const listNameEl =
+                            chatItem.querySelector(".chat-item-name");
                         if (listNameEl) {
                             listNameEl.textContent = newValue;
                         }
                     }
 
-                    const chatBtn = document.querySelector('.chat-profile-btn');
+                    const chatBtn = document.querySelector(".chat-profile-btn");
                     if (chatBtn) {
                         // Actualizar nombre del chat
-                        const btnNameEl = chatBtn.querySelector('.chat-name');
+                        const btnNameEl = chatBtn.querySelector(".chat-name");
                         if (btnNameEl) {
                             btnNameEl.textContent = newValue;
                         }
                     }
-                }
-                else if (type == 'rut') {
+                } else if (type == "rut") {
                     // Actualizar valor del rut del chat en JS, si está vacío que el nuevo valor sea null
-                    const actualNewValue = allowEmpty && currentValue == emptyDisplay ? null : newValue;
+                    const actualNewValue =
+                        allowEmpty && currentValue == emptyDisplay
+                            ? null
+                            : newValue;
                     chat.client_rut = actualNewValue;
                 }
-                let message = type == 'name' ? "Nombre de cliente actualizado" : "Rut de cliente actualizado";
+                let message =
+                    type == "name"
+                        ? "Nombre de cliente actualizado"
+                        : "Rut de cliente actualizado";
                 showMessage(message, "success");
 
                 // Enviar a backend
-                if (type == 'name') {
+                if (type == "name") {
                     try {
-                        const response = await axios.post("/panel/edit_client_name", {
-                            id: chat.client_id,
-                            name: newValue,
-                        });
+                        const response = await axios.post(
+                            "/panel/edit_client_name",
+                            {
+                                id: chat.client_id,
+                                name: newValue,
+                            }
+                        );
+                    } catch (error) {
+                        console.error(
+                            "Error al actualizar nombre de cliente: ",
+                            error
+                        );
                     }
-                    catch (error) {
-                        console.error("Error al actualizar nombre de cliente: ", error);
-                    }
-                }
-                else if (type == 'rut') {
+                } else if (type == "rut") {
                     try {
-                        const response = await axios.post("/panel/edit_client_rut", {
-                            id: chat.client_id,
-                            rut: newValue,
-                        });
-                    }
-                    catch (error) {
-                        console.error("Error al actualizar rut de cliente: ", error);
+                        const response = await axios.post(
+                            "/panel/edit_client_rut",
+                            {
+                                id: chat.client_id,
+                                rut: newValue,
+                            }
+                        );
+                    } catch (error) {
+                        console.error(
+                            "Error al actualizar rut de cliente: ",
+                            error
+                        );
                     }
                 }
             }
         }
 
         // El click del botón para empezar a editar
-        profileEditBtn.addEventListener('click', (event) => {
+        profileEditBtn.addEventListener("click", (event) => {
             event.stopPropagation();
             // Establecer valor del input
-            profileInput.value = allowEmpty && currentValue == emptyDisplay ? '' : currentValue;
+            profileInput.value =
+                allowEmpty && currentValue == emptyDisplay ? "" : currentValue;
             HideDisplayProfileName(); // Esconder display
             ShowEditProfileName(); // Mostrar edit
             profileInput.focus();
         });
 
         // Verificar que el valor del input esté correcto
-        profileInput.addEventListener('input', (event) => {
+        profileInput.addEventListener("input", (event) => {
             let errorMessage = "";
 
             // Limitar el tamaño máximo del nombre
             if (profileInput.value.length > inputMaxLength) {
-                profileInput.value = profileInput.value.slice(0, inputMaxLength);
+                profileInput.value = profileInput.value.slice(
+                    0,
+                    inputMaxLength
+                );
             }
 
             if (profileInput.value == "") {
                 if (!allowEmpty) {
                     // El input está vacío
                     let errorStart = "";
-                    if (type == 'name') errorStart = 'Nombre ';
-                    errorMessage = errorStart+" vacío";
+                    if (type == "name") errorStart = "Nombre ";
+                    errorMessage = errorStart + " vacío";
                 }
             }
 
@@ -478,12 +520,12 @@ const createChatWindow = (chat) => {
         });
 
         // Tratar de guardar cuando se pierde el focus del input
-        profileInput.addEventListener('blur', (event) => {
+        profileInput.addEventListener("blur", (event) => {
             SaveProfileName();
         });
 
         // Tratar de guardar cuando se hace click en botón de OK
-        profileSaveBtn.addEventListener('click', (event) => {
+        profileSaveBtn.addEventListener("click", (event) => {
             event.stopPropagation();
             SaveProfileName();
         });
@@ -491,18 +533,18 @@ const createChatWindow = (chat) => {
 
     // Aplicar lógica de editar nombre
     const nameMaxLength = 50;
-    setupInputEdit('name', nameMaxLength, false);
+    setupInputEdit("name", nameMaxLength, false);
 
     // Aplicar lógica de editar rut
     const rutMaxLength = 12;
-    setupInputEdit('rut', rutMaxLength, true, emptyRutDisplay);
+    setupInputEdit("rut", rutMaxLength, true, emptyRutDisplay);
 
     // Establecer contenido de tab de usuario
     let renderUserList = null;
     let userSearcher, userContent, userLoading, userList, userListEmpty;
-    const userTab = chatWindow.querySelector('.chat-user-tab');
+    const userTab = chatWindow.querySelector(".chat-user-tab");
     if (userTab) {
-        userTab.innerHTML = '';
+        userTab.innerHTML = "";
 
         // Crear titulo
         const userTitle = document.createElement("div");
@@ -523,7 +565,8 @@ const createChatWindow = (chat) => {
         userSearcher.type = "text";
         userSearcher.placeholder = "Buscar usuario...";
         userSearcher.autocomplete = "off";
-        userSearcher.className = "user-search-input w-full pl-1 pr-2 py-1 mt-1 mb-2 border-1 border-gray-300 text-xs text-white rounded-sm focus:outline-none";
+        userSearcher.className =
+            "user-search-input w-full pl-1 pr-2 py-1 mt-1 mb-2 border-1 border-gray-300 text-xs text-white rounded-sm focus:outline-none";
 
         // Crear contenedor para lista y mensaje de vacío
         const userListParent = document.createElement("div");
@@ -531,11 +574,13 @@ const createChatWindow = (chat) => {
 
         // Crear lista
         userList = document.createElement("div");
-        userList.className = "chat-profile-user-list overflow-y-auto space-y-1 pr-1";
+        userList.className =
+            "chat-profile-user-list overflow-y-auto space-y-1 pr-1";
 
         // Crear mensaje cuando lista está vacía
         userListEmpty = document.createElement("div");
-        userListEmpty.className = "w-full absolute top-0 p-2 text-center text-xs text-gray-400 hidden";
+        userListEmpty.className =
+            "w-full absolute top-0 p-2 text-center text-xs text-gray-400 hidden";
         userListEmpty.textContent = "Ningún usuario encontrado";
 
         userListParent.appendChild(userList);
@@ -550,34 +595,37 @@ const createChatWindow = (chat) => {
 
         // Función para crear la lista de usuarios
         renderUserList = function (users) {
-            const textColorHighlight = 'text-blue-500';
-            const textColorNormal = 'text-white';
-            userList.innerHTML = '';
+            const textColorHighlight = "text-blue-500";
+            const textColorNormal = "text-white";
+            userList.innerHTML = "";
 
             // Salir si no hay resultados
             if (users.length === 0) {
-                userListEmpty.classList.remove('hidden');
+                userListEmpty.classList.remove("hidden");
                 return;
             }
 
             // Si hay un usuario seleccionado moverlo al principio
             if (chat.user_id != null) {
-                const linkedIndex = users.findIndex(u => u.id == chat.user_id);
+                const linkedIndex = users.findIndex(
+                    (u) => u.id == chat.user_id
+                );
                 if (linkedIndex !== -1) {
                     const [linkedUser] = users.splice(linkedIndex, 1);
                     users.unshift(linkedUser);
                 }
             }
 
-            userListEmpty.classList.add('hidden');
-            users.forEach(user => {
+            userListEmpty.classList.add("hidden");
+            users.forEach((user) => {
                 const isLinkedUser = user.id == chat.user_id;
                 const item = document.createElement("div");
-                item.className = "relative flex items-center space-x-1 px-1 py-2 rounded-md hover:bg-gray-600 cursor-pointer transition-colors duration-200";
+                item.className =
+                    "relative flex items-center space-x-1 px-1 py-2 rounded-md hover:bg-gray-600 cursor-pointer transition-colors duration-200";
 
                 // Crear el check del elemento
                 const itemCheckBox = document.createElement("div");
-                const checkVisibleClass = isLinkedUser ? '' : "hidden";
+                const checkVisibleClass = isLinkedUser ? "" : "hidden";
                 itemCheckBox.className = `chat-user-item-check absolute left-1 flex items-center justify-center text-blue-500 transition-opacity duration-200 ${checkVisibleClass}`;
                 itemCheckBox.innerHTML = `
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-3" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
@@ -588,57 +636,78 @@ const createChatWindow = (chat) => {
 
                 // Crear el texto dentro del elemento
                 const itemText = document.createElement("span");
-                const textColorClass = isLinkedUser ? textColorHighlight : textColorNormal;
-                const textWeightClass = isLinkedUser ? 'font-medium' : '';
+                const textColorClass = isLinkedUser
+                    ? textColorHighlight
+                    : textColorNormal;
+                const textWeightClass = isLinkedUser ? "font-medium" : "";
                 itemText.className = `chat-user-item-text ml-4 text-xs ${textWeightClass} ${textColorClass}`;
                 itemText.textContent = `${user.name}`;
                 item.appendChild(itemText);
 
                 // El click del elemento
-                item.addEventListener('click', async () => {
+                item.addEventListener("click", async () => {
                     // El elemento se debería seleccionar aquí, luego actualizar en base de datos
                     if (user.id != chat.user_id) {
                         // Usuario es diferente, hay que seleccionarlo
                         chat.user_id = user.id;
 
                         // Quitar check
-                        document.querySelectorAll('.chat-user-item-check').forEach((el) => {
-                            if (!el.classList.contains('hidden')) el.classList.add('hidden');
-                        });
+                        document
+                            .querySelectorAll(".chat-user-item-check")
+                            .forEach((el) => {
+                                if (!el.classList.contains("hidden"))
+                                    el.classList.add("hidden");
+                            });
 
                         // Quitar texto azul
-                        document.querySelectorAll('.chat-user-item-text').forEach((el) => {
-                            if (!el.classList.contains(textColorNormal)) el.classList.add(textColorNormal);
-                            if (el.classList.contains(textColorHighlight)) el.classList.remove(textColorHighlight);
-                            if (el.classList.contains('font-medium')) el.classList.remove('font-medium');
-                        });
+                        document
+                            .querySelectorAll(".chat-user-item-text")
+                            .forEach((el) => {
+                                if (!el.classList.contains(textColorNormal))
+                                    el.classList.add(textColorNormal);
+                                if (el.classList.contains(textColorHighlight))
+                                    el.classList.remove(textColorHighlight);
+                                if (el.classList.contains("font-medium"))
+                                    el.classList.remove("font-medium");
+                            });
 
                         // Seleccionar nuevo
-                        if (itemCheckBox.classList.contains('hidden')) itemCheckBox.classList.remove('hidden');
-                        if (itemText.classList.contains(textColorNormal)) itemText.classList.remove(textColorNormal);
-                        if (!itemText.classList.contains(textColorHighlight)) itemText.classList.add(textColorHighlight);
-                        if (!itemText.classList.contains('font-medium')) itemText.classList.add('font-medium');
-                    }
-                    else
-                    {
+                        if (itemCheckBox.classList.contains("hidden"))
+                            itemCheckBox.classList.remove("hidden");
+                        if (itemText.classList.contains(textColorNormal))
+                            itemText.classList.remove(textColorNormal);
+                        if (!itemText.classList.contains(textColorHighlight))
+                            itemText.classList.add(textColorHighlight);
+                        if (!itemText.classList.contains("font-medium"))
+                            itemText.classList.add("font-medium");
+                    } else {
                         // Usuario es el que ya está seleccionado, hay que deseleccionar
                         chat.user_id = null;
 
                         // Dejar de seleccionar
-                        if (!itemCheckBox.classList.contains('hidden')) itemCheckBox.classList.add('hidden');
-                        if (!itemText.classList.contains(textColorNormal)) itemText.classList.add(textColorNormal);
-                        if (itemText.classList.contains(textColorHighlight)) itemText.classList.remove(textColorHighlight);
-                        if (itemText.classList.contains('font-medium')) itemText.classList.remove('font-medium');
+                        if (!itemCheckBox.classList.contains("hidden"))
+                            itemCheckBox.classList.add("hidden");
+                        if (!itemText.classList.contains(textColorNormal))
+                            itemText.classList.add(textColorNormal);
+                        if (itemText.classList.contains(textColorHighlight))
+                            itemText.classList.remove(textColorHighlight);
+                        if (itemText.classList.contains("font-medium"))
+                            itemText.classList.remove("font-medium");
                     }
-                    
+
                     try {
-                        const response = await axios.post("/chat/edit_chat_user", {
-                            id: chat.id,
-                            user_id: chat.user_id,
-                        });
-                    }
-                    catch (error) {
-                        console.error("Error al actualizar usuario de chat: ", error);
+                        const response = await axios.post(
+                            "/chat/edit_chat_user",
+                            {
+                                id: chat.id,
+                                user_id: chat.user_id,
+                            }
+                        );
+                    } catch (error) {
+                        console.error(
+                            "Error al actualizar usuario de chat: ",
+                            error
+                        );
                     }
                 });
                 userList.appendChild(item);
@@ -647,11 +716,11 @@ const createChatWindow = (chat) => {
             setTimeout(() => {
                 userList.scrollTop = 0;
             }, 0);
-        }
+        };
 
-        userSearcher.addEventListener('input', (event) => {
+        userSearcher.addEventListener("input", (event) => {
             const searchTerm = event.target.value.toLowerCase();
-            const filteredUsers = chatUsers.filter(user =>
+            const filteredUsers = chatUsers.filter((user) =>
                 user.name.toLowerCase().includes(searchTerm)
             );
             renderUserList(filteredUsers);
@@ -660,12 +729,12 @@ const createChatWindow = (chat) => {
 
     async function fetchChatUsers() {
         if (!renderUserList) return;
-        userSearcher.value = '';
-        
+        userSearcher.value = "";
+
         if (!fillingUsers) {
             fillingUsers = true;
-            userContent.classList.add('hidden');
-            userLoading.classList.remove('hidden');
+            userContent.classList.add("hidden");
+            userLoading.classList.remove("hidden");
 
             try {
                 const response = await axios.get("/panel/get_users");
@@ -675,44 +744,54 @@ const createChatWindow = (chat) => {
                 console.error("Error al cargar usuarios:", error);
             }
 
-            userContent.classList.remove('hidden');
-            userLoading.classList.add('hidden');
+            userContent.classList.remove("hidden");
+            userLoading.classList.add("hidden");
             fillingUsers = false;
         }
     }
 
     // Cambio de tab
     function setupTabBtn(button) {
-        button.addEventListener('click', () => {
+        button.addEventListener("click", () => {
             const targetTab = button.dataset.tab;
             if (targetTab != selectedTab) {
                 selectedTab = targetTab;
 
                 // Rellenar lista de usuarios si es la tab de user
                 if (renderUserList) {
-                    if (selectedTab == 'user') {
+                    if (selectedTab == "user") {
                         fetchChatUsers();
                     }
                 }
 
                 // Remover estilo activo de los botones
-                tabButtons.forEach(btn => {
-                    btn.classList.remove('bg-gray-600', 'text-slate-300');
-                    btn.classList.add('text-slate-300', 'hover:bg-gray-600', 'hover:text-slate-200');
+                tabButtons.forEach((btn) => {
+                    btn.classList.remove("bg-gray-600", "text-slate-300");
+                    btn.classList.add(
+                        "text-slate-300",
+                        "hover:bg-gray-600",
+                        "hover:text-slate-200"
+                    );
                 });
 
                 // Esconder todos los tab
-                tabContents.forEach(content => {
-                    content.classList.add('hidden');
+                tabContents.forEach((content) => {
+                    content.classList.add("hidden");
                 });
 
                 // Añadir estilo activo al botón que se presionó
-                button.classList.add('bg-gray-600', 'text-slate-300');
-                button.classList.remove('text-slate-300', 'hover:bg-gray-600', 'hover:text-slate-200');
+                button.classList.add("bg-gray-600", "text-slate-300");
+                button.classList.remove(
+                    "text-slate-300",
+                    "hover:bg-gray-600",
+                    "hover:text-slate-200"
+                );
 
                 // Mostrar la tab que corresponda
-                const activeContent = document.getElementById(`${selectedTab}-tab`);
-                activeContent.classList.remove('hidden');
+                const activeContent = document.getElementById(
+                    `${selectedTab}-tab`
+                );
+                activeContent.classList.remove("hidden");
             }
         });
     }
@@ -780,7 +859,7 @@ const handleSelectChat = (chatId) => {
     appContainer.classList.add("chat-active");
 
     highlightSelectedItem("[data-chat-id]", chatId);
-    updateMenuButtonVisibility(); 
+    updateMenuButtonVisibility();
 };
 
 // Variable global para guardar el tiempo de inicio de la animación
@@ -796,12 +875,18 @@ const handleSendMessage = async () => {
     const aiManualToggle = document.querySelector(".ai-manual-toggle");
     if (aiManualToggle.checked) {
         // No está en modo manual, mostrar modal
-        aiManualToggle.dispatchEvent(new CustomEvent("click", {
-            detail: { message: "Para enviar mensajes debes cambiar de modo. ¿Deseas cambiar a modo <strong>Manual</strong>?" }
-        }));
-    }
-    else
-    {
+        /* aiManualToggle.dispatchEvent(
+            new CustomEvent("click", {
+                detail: {
+                    message:
+                        "Para enviar mensajes debes cambiar de modo. ¿Deseas cambiar a modo <strong>Manual</strong>?",
+                },
+            })
+        ); */
+        /* const customMessage = "Para enviar mensajes debes cambiar de modo. ¿Deseas cambiar a modo <strong>Manual</strong>?";
+        window.openModal('changeStatusModal', { message: customMessage }); */
+        window.openModal("changeStatusModal", {onOpenCallback: updateStatusModalTextBySendButton});
+    } else {
         // Si está manual, enviar mensaje
         messageInput.value = "";
 
@@ -1043,21 +1128,40 @@ function validateAndFormatRut(rut) {
     const trimmed = rut.trim();
 
     // Limpiar todo excepto números
-    const clean = trimmed.replace(/[^0-9kK]/g, '');
+    const clean = trimmed.replace(/[^0-9kK]/g, "");
 
-    if (!/^[0-9]+[0-9kK]{1}$/.test( clean )) // /^[0-9]+[-|‐]{1}[0-9kK]{1}$/
+    if (!/^[0-9]+[0-9kK]{1}$/.test(clean))
+        // /^[0-9]+[-|‐]{1}[0-9kK]{1}$/
         return null;
 
     var body = clean.slice(0, -1);
     var digv = clean.slice(-1).toLowerCase();
 
-    const allGood = (dv(body) == digv );
+    const allGood = dv(body) == digv;
     return allGood ? `${body}-${digv}` : null;
 }
 
-function dv(T){
-    var M = 0, S = 1;
-    for(; T; T = Math.floor(T / 10))
-        S = (S + T % 10 * (9 - M++ % 6)) % 11;
-    return S ? String(S - 1) : 'k';
+function dv(T) {
+    var M = 0,
+        S = 1;
+    for (; T; T = Math.floor(T / 10)) S = (S + (T % 10) * (9 - (M++ % 6))) % 11;
+    return S ? String(S - 1) : "k";
+}
+
+window.updateStatusModalTextBySendButton = (modal) => {
+    const customMessage =
+        "Para enviar mensajes debes cambiar de modo. ¿Deseas cambiar a modo <strong>Manual</strong>?";
+    const modalTextElement = modal.querySelector("#changeStatusModalText");
+    if (modalTextElement) {
+        modalTextElement.innerHTML = customMessage;
+    }
+}
+
+window.updateStatusModalText = (modal) => {
+    const status = aiManualToggle.checked ?  "Agente IA" : "Manual";
+    const customMessage =  `¿Deseas cambiar a modo <span id="statusName" class="font-bold">${status}</span>?`;
+    const modalTextElement = modal.querySelector("#changeStatusModalText");
+    if (modalTextElement) {
+        modalTextElement.innerHTML = customMessage;
+    }
 }

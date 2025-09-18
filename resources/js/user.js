@@ -6,8 +6,7 @@ axios.defaults.headers.common["X-CSRF-TOKEN"] = document.querySelector(
 ).content;
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
-let openAddModal,
-    closeAddModal,
+let closeAddModal,
     addModal,
     addUserForm,
     errorName,
@@ -31,7 +30,7 @@ let users = []; // Array de usuarios cargados
 
 window.initUserSection = () => {
     // Referencias DOM
-    openAddModal = document.getElementById("openModal");
+    /* openAddModal = document.getElementById("openModal"); */
     closeAddModal = document.getElementById("closeAddModal");
     addModal = document.getElementById("addUserModal");
     addUserForm = document.getElementById("addUserForm");
@@ -47,28 +46,28 @@ window.initUserSection = () => {
     appContainer = document.getElementById("app-container");
     menuButton = document.getElementById("menu-button");
 
-    if (!openAddModal || !closeAddModal || !addModal) return;
+    if (!closeAddModal || !addModal) return;
 
     // Abrir modal ADD
-    openAddModal.addEventListener("click", () => {
+    /* openAddModal.addEventListener("click", () => {
         addModal.classList.remove("hidden");
-    });
+    }); */
 
     // Cerrar modal ADD
-    closeAddModal.addEventListener("click", () => {
+    /* closeAddModal.addEventListener("click", () => {
         addModal.classList.add("hidden");
         addUserForm.reset();
         errorName.textContent = "";
         errorEmail.textContent = "";
-    });
+    }); */
 
     // Cerrar modal ADD al hacer click fuera del contenido
-    addModal.addEventListener("click", (e) => {
+    /* addModal.addEventListener("click", (e) => {
         if (e.target === addModal) {
             addModal.classList.add("hidden");
             addUserForm.reset();
         }
-    });
+    }); */
 
     // Cerrar modal de eliminar al hacer click fuera
     deleteModal.addEventListener("click", (e) => {
@@ -140,9 +139,7 @@ function renderUserList() {
                         ${user.name.charAt(0).toUpperCase()}
                     </div>
                     <div class="flex-1">
-                        <div class="font-semibold text-white">${
-                            user.name
-                        }</div>
+                        <div class="font-semibold text-white">${user.name}</div>
                         <div class="text-sm text-gray-500">${user.email}</div>
                     </div>
                 `;
@@ -206,8 +203,12 @@ async function handleAddUser(e) {
     const nameValid = formName;
     const emailValid = formEmail;
     if (!nameValid || !emailValid) {
-        if (!nameValid) { errorName.textContent = "El nombre está vacío" }
-        if (!emailValid) { errorEmail.textContent = "El email está vacío" }
+        if (!nameValid) {
+            errorName.textContent = "El nombre está vacío";
+        }
+        if (!emailValid) {
+            errorEmail.textContent = "El email está vacío";
+        }
         return;
     }
 
@@ -425,4 +426,10 @@ const updateMenuButtonVisibility = () => {
     } else {
         menuButton.classList.remove("hidden"); // Muestra cuando estamos en listado
     }
+};
+
+window.resetUserForm = () =>{
+    addUserForm.reset();
+    errorName.textContent = "";
+    errorEmail.textContent = "";
 };

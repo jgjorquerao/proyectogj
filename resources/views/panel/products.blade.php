@@ -8,7 +8,7 @@
 
     <!-- Botón para agregar nuevo vehículo -->
     <div class="flex justify-end mb-6">
-        <button id="add-product-btn" class="btn-custom font-semibold py-2 px-4 rounded-lg shadow-md">
+        <button id="add-product-btn" class="btn-custom font-semibold py-2 px-4 rounded-lg shadow-md cursor-pointer">
             + Agregar Vehículo
         </button>
     </div>
@@ -27,7 +27,7 @@
 <div id="product-modal" class="fixed inset-0 flex items-center justify-center hidden bg-black/30 backdrop-blur-[2px] z-50">
     <div id="modal-content" class="card-custom rounded-lg w-11/12 max-w-lg p-6 relative shadow-2xl overflow-auto max-h-[90vh]">
         <!-- Botón de cierre -->
-        <button id="close-product-modal" class="absolute top-2 right-2 text-white text-lg mr-4 hover:text-gray-400">✕</button>
+        <button id="close-product-modal" class="absolute top-2 right-2 text-white text-lg mr-4 hover:text-gray-400 cursor-pointer">✕</button>
 
         <!-- Título del modal -->
         <h2 id="modal-title" class="text-2xl font-bold mb-6 text-center text-white">Agregar Nuevo Vehículo</h2>
@@ -111,8 +111,9 @@
             <!-- Botones de acción -->
             <div class="flex justify-end space-x-4 mt-4 py-4">
                 <button type="button" id="cancel-btn"
-                    class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300 w-30">Cancelar</button>
-                <button type="submit" class="btn-custom text-white font-semibold py-2 px-4 rounded-lg w-30">Guardar</button>
+                    class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-[50px] hover:bg-gray-400 focus:outline-none focus:ring-2 
+                    focus:ring-gray-500 transition duration-300 w-30 cursor-pointer">Cancelar</button>
+                <button type="submit" class="btn-custom text-white font-semibold py-2 px-4 rounded-lg w-30 cursor-pointer">Guardar</button>
             </div>
         </form>
     </div>
@@ -125,8 +126,8 @@
         <h2 id="modal-title" class="text-2xl font-bold mb-6 text-center text-white">Confirmar Eliminación</h2>
         <p class="mt-2 form-label-custom">¿Estás seguro de que quieres eliminar este vehículo? </p>
         <div class="mt-6 flex justify-end space-x-3">
-            <button id="cancel-delete-btn" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 w-30">Cancelar</button>
-            <button id="confirm-delete-btn" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 w-30">Eliminar</button>
+            <button id="cancel-delete-btn" class="cursor-pointer px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 w-30">Cancelar</button>
+            <button id="confirm-delete-btn" class="cursor-pointer px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 w-30">Eliminar</button>
         </div>
     </div>
 </div>

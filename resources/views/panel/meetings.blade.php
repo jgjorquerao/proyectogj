@@ -81,27 +81,27 @@
                 <!-- Skeleton lista de citas -->
                 <div id="chat-items-skeleton">
                     <div class="p-4 space-y-4">
-                        <div class="flex items-center space-x-4 animate-pulse">
-                            <div class="w-12 h-12 bg-gray-300 rounded-full"></div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-gray-500 rounded-full"></div>
                             <div class="flex-1 space-y-2 py-1">
-                                <div class="h-4 bg-gray-300 rounded w-3/4"></div>
-                                <div class="h-3 bg-gray-300 rounded w-1/2"></div>
+                                <div class="h-4 bg-gray-500 rounded w-3/4"></div>
+                                <div class="h-3 bg-gray-500 rounded w-1/2"></div>
                             </div>
                         </div>
 
-                        <div class="flex items-center space-x-4 animate-pulse">
-                            <div class="w-12 h-12 bg-gray-300 rounded-full"></div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-gray-500 rounded-full"></div>
                             <div class="flex-1 space-y-2 py-1">
-                                <div class="h-4 bg-gray-300 rounded w-2/3"></div>
-                                <div class="h-3 bg-gray-300 rounded w-1/3"></div>
+                                <div class="h-4 bg-gray-500 rounded w-2/3"></div>
+                                <div class="h-3 bg-gray-500 rounded w-1/3"></div>
                             </div>
                         </div>
 
-                        <div class="flex items-center space-x-4 animate-pulse">
-                            <div class="w-12 h-12 bg-gray-300 rounded-full"></div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-gray-500 rounded-full"></div>
                             <div class="flex-1 space-y-2 py-1">
-                                <div class="h-4 bg-gray-300 rounded w-3/5"></div>
-                                <div class="h-3 bg-gray-300 rounded w-1/4"></div>
+                                <div class="h-4 bg-gray-500 rounded w-3/5"></div>
+                                <div class="h-3 bg-gray-500 rounded w-1/4"></div>
                             </div>
                         </div>
                     </div>
@@ -157,7 +157,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="w-full btn-custom text-white py-2 rounded-lg hover:bg-blue-600 mt-6">Agregar</button>
+            <button type="submit" class="w-full btn-custom text-white py-2 rounded-lg hover:bg-blue-600 mt-6 cursor-pointer">Agregar</button>
         </form>
     </div>
 </div>
