@@ -196,12 +196,12 @@ window.initMeetingSection = () => {
         addMeetingForm.reset();
         cleanAddErrors();
         setAddModalData();
-        addModal.classList.remove("hidden");
+        addModal.classList.remove('hidden');
     });
 
     // Cerrar modal ADD
     closeAddModal.addEventListener("click", () => {
-        addModal.classList.add("hidden");
+        addModal.classList.add('hidden');
     });
 
     // Actualizar tooltip de las horas cuando se cambie la fecha en el modal de ADD
@@ -219,7 +219,7 @@ window.initMeetingSection = () => {
     // Cerrar modal ADD al hacer click fuera del contenido
     addModal.addEventListener("click", (e) => {
         if (e.target === addModal) {
-            addModal.classList.add("hidden");
+            addModal.classList.add('hidden');
         }
     });
 
@@ -228,13 +228,13 @@ window.initMeetingSection = () => {
 
     // Cerrar modal de editar
     closeEditModal.addEventListener("click", () => {
-        editModal.classList.add("hidden");
+        editModal.classList.add('hidden');
     });
 
     // Cerrar modal de editar al hacer click fuera del contenido
     editModal.addEventListener("click", (e) => {
         if (e.target === editModal) {
-            editModal.classList.add("hidden");
+            editModal.classList.add('hidden');
         }
     });
 
@@ -244,13 +244,13 @@ window.initMeetingSection = () => {
     // Cerrar modal de eliminar al hacer click fuera
     deleteModal.addEventListener("click", (e) => {
         if (e.target === deleteModal) {
-            deleteModal.classList.add("hidden");
+            deleteModal.classList.add('hidden');
         }
     });
 
     // Cerrar modal de eliminar
     closeDeleteModal.addEventListener("click", () => {
-        deleteModal.classList.add("hidden");
+        deleteModal.classList.add('hidden');
     });
 
     // Lógica para confirmar la eliminación
@@ -260,7 +260,7 @@ window.initMeetingSection = () => {
 
     // Lógica para cancelar la eliminación
     cancelDeleteBtn.addEventListener("click", () => {
-        deleteModal.classList.add("hidden");
+        deleteModal.classList.add('hidden');
     });
 
     // Cargar citas desde backend -> inicializar calendario -> crear citas
@@ -633,13 +633,13 @@ function renderMeetingList() {
             editMeetingForm.reset();
             cleanEditErrors();
             setEditModalData(meeting);
-            editModal.classList.remove("hidden");
+            editModal.classList.remove('hidden');
             optionsMenu.classList.add("hidden");
         });
 
         // El click del botón de eliminar
         item.querySelector("#"+optionsDeleteId).addEventListener("click", () => {
-            showDeleteConfirmationModal();
+            deleteModal.classList.remove('hidden');
             optionsMenu.classList.add("hidden");
         });
 
@@ -1332,7 +1332,7 @@ async function handleAddMeeting(e) {
 
                     // Cerrar modal y limpiar form
                     showMessage("Cita agregada correctamente.", "success");
-                    addModal.classList.add("hidden");
+                    addModal.classList.add('hidden');
                     addMeetingForm.reset();
                 }
                 else
@@ -1571,7 +1571,7 @@ async function handleEditMeeting(e) {
                         {
                             // Se editó exitosamente
                             selectedMeetingId = null;
-                            editModal.classList.add("hidden");
+                            editModal.classList.add('hidden');
                             editMeetingForm.reset();
                             showMessage("Cita editada correctamente.", "success");
                         }
@@ -1595,7 +1595,7 @@ async function handleEditMeeting(e) {
                                 meetings = meetings.filter((meeting) => meeting.id !== selectedMeetingId);
                                 selectedMeetingId = null;
                                 renderCalendar(); // Crear calendario otra vez
-                                editModal.classList.add("hidden");
+                                editModal.classList.add('hidden');
                                 editMeetingForm.reset();
                                 showMessage("La cita no existe", "error");
                             }
@@ -1613,7 +1613,7 @@ async function handleEditMeeting(e) {
                     console.log("No hay cambios que editar");
                     // No hay ningún cambio
                     selectedMeetingId = null;
-                    editModal.classList.add("hidden");
+                    editModal.classList.add('hidden');
                     editMeetingForm.reset();
                 }
             }
@@ -1743,11 +1743,6 @@ function handleEditDisable(forceValues = false, meeting)
     }
 }
 
-// Muestra el modal de confirmación para eliminar
-function showDeleteConfirmationModal() {
-    deleteModal.classList.remove("hidden");
-}
-
 // Eliminar cita seleccionada
 async function handleDeleteMeeting() {
     if (selectedMeetingId) {
@@ -1759,7 +1754,7 @@ async function handleDeleteMeeting() {
             meetings = meetings.filter((meeting) => meeting.id !== selectedMeetingId);
             selectedMeetingId = null;
             renderCalendar(); // Crear calendario otra vez
-            deleteModal.classList.add("hidden");
+            deleteModal.classList.add('hidden');
             showMessage("Cita eliminada correctamente.", "success");
         } catch (error) {
             if (error.response) {
@@ -1771,7 +1766,7 @@ async function handleDeleteMeeting() {
                     meetings = meetings.filter((meeting) => meeting.id !== selectedMeetingId);
                     selectedMeetingId = null;
                     renderCalendar(); // Crear calendario otra vez
-                    deleteModal.classList.add("hidden");
+                    deleteModal.classList.add('hidden');
                     showMessage("La cita no existe", "error");
                 }
             } else {

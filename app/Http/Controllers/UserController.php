@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -22,10 +23,18 @@ class UserController extends Controller
         $creator = Auth::user();
 
         $users = User::where('company_id', $creator->company_id)
-            ->where('is_admin', false)           // Excluye a los admins
-            ->where('id', '!=', $creator->id)
-            ->orderBy('name', 'asc')
-            ->get(['id', 'name', 'email']); // Puedes agregar otros campos si quieres
+        ->where('is_admin', false)           // Excluye a los admins
+        ->where('id', '!=', $creator->id)
+        ->orderBy('name', 'asc')
+        ->get(['id', 'name', 'email', 'created_at', 'password']) // Puedes agregar otros campos si quieres
+        ->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'created_at' => $user->created_at,
+            ];
+        });
 
         return response()->json($users);
     }
@@ -39,6 +48,31 @@ class UserController extends Controller
             ->get(['id', 'name']); // Puedes agregar otros campos si quieres
 
         return response()->json($users);
+    }
+
+    public function deleteUser(Request $request)
+    {
+        // Validar que se obtuvo el id del usuario
+        $request->validate([
+            'id' => 'required|integer',
+        ]);
+
+        // Buscar cita
+        $user = User::find($request->id);
+
+        if ($user) {
+            // Si se encontró, borrar
+            $user->delete();
+
+            return response()->json([
+                'success' => true
+            ], 200);
+        } else {
+            // Si no se encontró, enviar error 404
+            return response()->json([
+                'success' => false,
+            ], 404);
+        }
     }
 
     public function store(Request $request)
@@ -62,20 +96,8 @@ class UserController extends Controller
             'password' => null,
         ]);
 
-        // Generar token temporal
-        $token = Str::random(60);
-        DB::table('password_reset_tokens')->insert([
-            'email' => $user->email,
-            'token' => $token,
-            'created_at' => Carbon::now(),
-        ]);
+        $this->sendPasswordSetupEmail($user);
 
-        // Enviar email
-        /* Mail::send('emails.password_setup', ['token' => $token], function ($message) use ($user) {
-            $message->to($user->email)
-                ->subject('Configura tu contraseña');
-        });
- */
         return response()->json([
             'success' => true,
             'user' => $user
@@ -85,10 +107,14 @@ class UserController extends Controller
     public function editUserName(Request $request)
     {
         $request->validate([
+            'id' => 'nullable|integer',
             'name' => 'required|string|max:255',
         ]);
 
         $user = Auth::user();
+        if ($request->id != null) {
+            $user = User::find($request->id);
+        }
         if ($user) {
             $newName = $request->name;
             $isNew = $newName != $user->name;
@@ -103,9 +129,120 @@ class UserController extends Controller
         }
         else
         {
+            // Si no se encontró, enviar error 404
             return response()->json([
                 'success' => false,
+                'message' => 'Usuario no encontrado'
+            ], 404);
+        }
+    }
+
+    public function editUserEmail(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer',
+            'email' => 'required|string|max:255',
+        ]);
+
+        $user = User::find($request->id);
+        if ($user) {
+            $newEmail = $request->email;
+            $isNew = $newEmail != $user->email;
+            if ($isNew == true) {
+                $user->email = $newEmail;
+                $user->save();
+            }
+
+            return response()->json([
+                'success' => true,
             ]);
         }
+        else
+        {
+            // Si no se encontró, enviar error 404
+            return response()->json([
+                'success' => false,
+                'message' => 'Usuario no encontrado'
+            ], 404);
+        }
+    }
+
+    public function editUserPasswordManual(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer',
+            'password' => 'required|string|max:255',
+        ]);
+
+        $user = User::find($request->id);
+        if ($user) {
+            $newPassword = $request->password;
+            $isNew = !Hash::check($newPassword, $user->password);
+            if ($isNew == true) {
+                $user->password = Hash::make($newPassword);
+                $user->save();
+
+                return response()->json([
+                    'success' => true,
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'La nueva contraseña no puede ser igual a la anterior'
+                ]);
+            }
+        }
+        else
+        {
+            // Si no se encontró, enviar error 404
+            return response()->json([
+                'success' => false,
+                'message' => 'Usuario no encontrado'
+            ], 404);
+        }
+    }
+
+    public function editUserPasswordMail(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer',
+        ]);
+
+        $user = User::find($request->id);
+        if ($user) {
+            $this->sendPasswordSetupEmail($user);
+        }
+        else
+        {
+            // Si no se encontró, enviar error 404
+            return response()->json([
+                'success' => false,
+                'message' => 'Usuario no encontrado'
+            ], 404);
+        }
+    }
+
+    protected function sendPasswordSetupEmail(User $user)
+    {
+        // Generar token temporal
+        $token = Str::random(60);
+        DB::table('password_reset_tokens')->updateOrInsert(
+            ['email' => $user->email],
+            [
+                'token' => $token,
+                'created_at' => Carbon::now(),
+            ]
+        );
+
+        // Enviar email
+        Mail::send('emails.password_email', [
+            'token' => $token,
+            'user' => $user,
+        ], function ($message) use ($user) {
+            $message->to($user->email)
+                ->subject('Configura tu contraseña');
+        });
     }
 }

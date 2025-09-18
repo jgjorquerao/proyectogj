@@ -54,51 +54,125 @@
     </div>
 
     <div id="user-detail-card" class="w-full h-full m-auto rounded-xl shadow-2xl overflow-hidden hidden bg-gray-800 border border-gray-700">
-        <!-- Cabecera del perfil -->
-        <div class="p-8 bg-gray-800 text-white flex items-center justify-between space-x-6 border-b border-gray-700">
-            <div class="flex items-center space-x-4">
-                <button id="back-button" class="md:hidden p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </button>
-                <div id="user-avatar" class="w-16 h-16 flex-shrink-0 bg-emerald-700 rounded-full flex items-center justify-center text-3xl font-bold border-2 border-white border-opacity-30 shadow-inner">
-                    A
-                </div>
-                <span id="user-name" data-field="name" class="font-bold text-2xl"></span>
-            </div>
-            <button id="deleteUserBtn" class="text-white hover:text-red-300 transition-colors">
-                <x-heroicon-s-trash class="w-6 h-6" />
-            </button>
-        </div>
+        <!-- El detalle del usuario se genera a traves del JS -->
+    </div>
+</div>
 
-        <!-- Cuerpo -->
-        <div class="p-8 space-y-6">
-            <div>
-                <p class="text-sm font-bold text-gray-600 mb-1">Correo Electrónico:</p>
-                <span id="user-email" data-field="email" class="text-gray-800 text-lg"></span>
-            </div>
-            <div>
-                <p class="text-sm font-bold text-gray-600 mb-1">Clave:</p>
-                <div class="flex items-center justify-between space-x-2">
-                    <span id="user-password" data-field="password" class="text-gray-800 text-lg">********</span>
-                    <button id="sendResetBtn" class="btn-custom font-semibold py-2 px-4 rounded-lg shadow-md">
-                        Enviar correo
-                    </button>
+<!-- Modal de opciones para reestablecer contraseña -->
+<div id="resetPassModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-[2px] flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-slate-800 border border-slate-700 rounded-xl w-full max-w-md p-6 relative">
+        <button id="closeResetPassBtn" class="absolute top-2 right-2 text-white mr-4 hover:text-gray-500">✕</button>
+        <h3 class="text-xl font-semibold text-white mb-2">Nueva Contraseña</h3>
+        <p class="text-slate-400 mb-6">Elige una de las opciones:</p>
+        <div class="space-y-4">
+            <!-- Opción 1: Manual -->
+            <button id="manualResetPassBtn" class="w-full text-left flex items-start gap-4 p-4 rounded-lg bg-slate-700 hover:bg-slate-600 border border-slate-600 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-gray-500">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
+                </svg>
+                <div>
+                    <h4 class="font-semibold text-white">Establecer contraseña manualmente</h4>
+                    <p class="text-sm text-slate-400">Crea una nueva contraseña para el usuario directamente.</p>
                 </div>
-            </div>
-            <div>
-                <p class="text-sm font-bold text-gray-600 mb-1">Rol:</p>
-                <span id="user-role" data-field="role" class="text-gray-800 text-lg"></span>
-            </div>
-            <div>
-                <p class="text-sm font-bold text-gray-600 mb-1">Creado:</p>
-                <p id="user-created" class="text-gray-800 text-lg"></p>
-            </div>
+            </button>
+            <!-- Opción 2: Enviar Correo -->
+            <button id="mailResetPassBtn" class="w-full text-left flex items-start gap-4 p-4 rounded-lg bg-slate-700 hover:bg-slate-600 border border-slate-600 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-gray-500">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"></path>
+                </svg>
+                <div>
+                    <h4 class="font-semibold text-white">Enviar enlace de restablecimiento</h4>
+                    <p class="text-sm text-slate-400">El usuario recibirá un correo para cambiar su contraseña.</p>
+                </div>
+            </button>
         </div>
     </div>
 </div>
 
+<!-- Modal para restablecer contraseña manualmente -->
+<div id="manualResetPassModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-[2px] flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-slate-800 border border-slate-700 rounded-xl w-full max-w-md p-6 relative">
+        <button id="closeManualResetBtn" class="absolute top-2 right-2 text-white mr-4 hover:text-gray-500">✕</button>
+        <h3 class="text-xl font-semibold text-white mb-6">Crear nueva contraseña</h3>
+        <form id="manualResetPassForm">
+            <div class="space-y-4">
+                <!-- Sección de la nueva contraseña -->
+                <div class="relative mb-1">
+                    <label for="newPassInput" class="block text-sm font-medium text-slate-400 mb-2">Nueva contraseña</label>
+                    <div>
+                        <input type="password" id="newPassInput" class="w-full bg-slate-700 border border-slate-600 rounded-lg pr-12 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" required="" autofocus="" autocomplete="off">
+                        <button id="newPassToggle" type="button" class="absolute inset-y-0 right-0 top-6 px-3 flex items-center text-slate-400 hover:text-white transition-colors">
+                            <div class="eye-slash"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-300">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+                            </svg></div>
+                            <div class="eye-normal hidden"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-300">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
+                            </svg></div>
+                        </button>
+                    </div>
+                </div>
+                <div class="text-red-500 text-sm" id="errorNewPass"></div>
+                <!-- Sección de confirmar la contraseña -->
+                <div class="relative mb-1">
+                    <label for="confirmPassInput" class="block text-sm font-medium text-slate-400 mb-2">Confirmar nueva contraseña</label>
+                    <div>
+                        <input type="password" id="confirmPassInput" class="w-full bg-slate-700 border border-slate-600 rounded-lg pr-12 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" required="" autofocus="" autocomplete="off">
+                        <button id="confirmPassToggle" type="button" class="absolute inset-y-0 right-0 top-6 px-3 flex items-center text-slate-400 hover:text-white transition-colors">
+                            <div class="eye-slash"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-300">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+                            </svg></div>
+                            <div class="eye-normal hidden"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-300">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
+                            </svg></div>
+                        </button>
+                    </div>
+                </div>
+                <div class="text-red-500 text-sm" id="errorConfirmPass"></div>
+            </div>
+            <!-- Sección de condiciones de validación -->
+            <div class="mt-6 p-4 bg-slate-700/50 border border-slate-600 rounded-lg">
+                <ul class="space-y-2 text-sm">
+                    <li id="passLengthCondition" class="flex items-center gap-2 text-slate-500">
+                        <span class="user-pass-condition-circle rounded-full bg-slate-500"></span>
+                        <span>Al menos 8 caracteres</span>
+                    </li>
+                    <li id="passMatchCondition" class="flex items-center gap-2 text-slate-500">
+                        <span class="user-pass-condition-circle rounded-full bg-slate-500"></span>
+                        <span>Las contraseñas deben coincidir</span>
+                    </li>
+                </ul>
+            </div>
+            <!-- Sección de botones -->
+            <div class="flex justify-end gap-4 mt-8">
+                <button type="button" id="backManualResetBtn" class="bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-2 px-4 rounded-full shadow-md transition-colors">
+                    Volver
+                </button>
+                <button type="submit" class="btn-custom font-semibold py-2 px-4 shadow-md">
+                    Confirmar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal de correo enviado -->
+<div id="mailResetPassModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-[2px] flex items-center justify-center p-4 z-50 modal-transition hidden">
+    <div class="bg-slate-800 border border-slate-700 rounded-xl w-full max-w-md p-6 relative text-center">
+        <button id="closePassMailSentBtn" class="absolute top-2 right-2 text-white mr-4 hover:text-gray-500">✕</button>
+        <div class="flex flex-col items-center gap-4">
+            <div><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-green-500">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+            </svg></div>
+            <h3 class="text-2xl font-semibold text-white">¡Enlace enviado!</h3>
+            <p id="mailResetPassText" class="text-slate-400 text-center"></p>
+            <button id="confirmPassMailSentBtn" class="mt-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 px-5 rounded-lg transition-colors">
+                Aceptar
+            </button>
+        </div>
+    </div>
+</div>
 
 <!-- Modal ADD -->
 <div id="addUserModal" class="fixed inset-0 flex items-center justify-center hidden bg-black/30 backdrop-blur-[2px]" data-on-open="resetUserForm">

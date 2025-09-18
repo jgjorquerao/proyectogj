@@ -44,7 +44,11 @@ Route::get('/panel/users', function () {
 Route::get('/panel/get_users', [UserController::class, 'getUsers']);
 Route::get('/panel/get_users_for_meetings', [UserController::class, 'getUsersForMeetings']);
 Route::post('panel/store_user', [UserController::class, 'store'])->name('users.store');
-Route::post('panel/edit_user_name', [UserController::class, 'editUserName']);
+Route::post('/panel/delete_user', [UserController::class, 'deleteUser']);
+Route::post('/panel/edit_user_name', [UserController::class, 'editUserName']);
+Route::post('/panel/edit_user_email', [UserController::class, 'editUserEmail']);
+Route::post('/panel/edit_user_password_manual', [UserController::class, 'editUserPasswordManual']);
+Route::post('/panel/edit_user_password_mail', [UserController::class, 'editUserPasswordMail']);
 
 //Products
 Route::get('/panel/products', function () {

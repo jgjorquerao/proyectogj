@@ -249,14 +249,14 @@ const createChatWindow = (chat) => {
     const profileTab = chatWindow.querySelector(".chat-profile-tab");
     profileTab.innerHTML = `
         <div class="flex items-center space-x-4 mt-1 mb-5">
-            <img src="${chat.avatar}" alt="Foto de perfil" class="w-12 h-12 m-0 rounded-full border-2 border-gray-500">
+            <img src="${chat.avatar}" alt="Foto de perfil" class="w-12 h-12 m-0 rounded-full border-2 border-white border-opacity-30 shadow-inner">
         </div>
         <!-- Sección del nombre -->
         <div class="mb-0">
             <div class="text-xs text-gray-400">Nombre</div>
             <!-- Mostrar -->
             <div class="chat-profile-name-display flex items-center justify-between">
-                <span class="chat-profile-name-text py-1 my-1 text-sm text-white">${chat.name}</span>
+                <span class="chat-profile-name-text py-1 my-1 text-sm text-white truncate">${chat.name}</span>
                 <button class="chat-profile-name-edit-btn p-1 rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors duration-100">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
                         <path d="M21.731 2.269a2.25 2.25 0 0 0-3.182 0l-14.881 14.88a2.25 2.25 0 0 0-.583 1.015l-1.55 4.65a.75.75 0 0 0 .964 1.014l4.65-1.55a2.25 2.25 0 0 0 1.015-.583l14.88-14.88a2.25 2.25 0 0 0 0-3.182ZM15.75 6.75l-4.25 4.25-1.5-1.5 4.25-4.25 1.5 1.5Z" />
@@ -279,7 +279,7 @@ const createChatWindow = (chat) => {
             <div class="text-xs text-gray-400">Rut</div>
             <!-- Mostrar -->
             <div class="chat-profile-rut-display flex items-center justify-between">
-                <span class="chat-profile-rut-text py-1 my-1 text-sm text-white">${profileRut}</span>
+                <span class="chat-profile-rut-text py-1 my-1 text-sm text-white truncate">${profileRut}</span>
                 <button class="chat-profile-rut-edit-btn p-1 rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors duration-100">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
                         <path d="M21.731 2.269a2.25 2.25 0 0 0-3.182 0l-14.881 14.88a2.25 2.25 0 0 0-.583 1.015l-1.55 4.65a.75.75 0 0 0 .964 1.014l4.65-1.55a2.25 2.25 0 0 0 1.015-.583l14.88-14.88a2.25 2.25 0 0 0 0-3.182ZM15.75 6.75l-4.25 4.25-1.5-1.5 4.25-4.25 1.5 1.5Z" />
@@ -301,7 +301,7 @@ const createChatWindow = (chat) => {
         <div class="mb-8">
             <div class="text-xs text-gray-400">Número</div>
             <div class="flex items-center justify-between">
-                <span class="py-1 my-1 text-sm text-white">${chat.client_phone}</span>
+                <span class="py-1 my-1 text-sm text-white truncate">${chat.client_phone}</span>
             </div>
         </div>
     `;
@@ -309,31 +309,15 @@ const createChatWindow = (chat) => {
     // Función de editar
     function setupInputEdit(type, maxLength, allowEmpty, emptyDisplay = "") {
         const inputMaxLength = maxLength;
-        const profileDisplay = chatWindow.querySelector(
-            ".chat-profile-" + type + "-display"
-        );
-        const profileEditer = chatWindow.querySelector(
-            ".chat-profile-" + type + "-editer"
-        );
-        const profileEditOptions = chatWindow.querySelector(
-            ".chat-profile-" + type + "-edit-options"
-        );
-        const profileEditBtn = chatWindow.querySelector(
-            ".chat-profile-" + type + "-edit-btn"
-        );
-        const profileInput = chatWindow.querySelector(
-            ".chat-profile-" + type + "-input"
-        );
-        const profileText = chatWindow.querySelector(
-            ".chat-profile-" + type + "-text"
-        );
-        const profileSaveBtn = chatWindow.querySelector(
-            ".chat-profile-" + type + "-save-btn"
-        );
-        const profileError = chatWindow.querySelector(
-            ".chat-profile-" + type + "-error"
-        );
-        let currentValue = profileText.textContent.trim();
+        const profileDisplay = chatWindow.querySelector('.chat-profile-'+type+'-display');
+        const profileEditer = chatWindow.querySelector('.chat-profile-'+type+'-editer');
+        const profileEditOptions = chatWindow.querySelector('.chat-profile-'+type+'-edit-options');
+        const profileEditBtn = chatWindow.querySelector('.chat-profile-'+type+'-edit-btn');
+        const profileInput = chatWindow.querySelector('.chat-profile-'+type+'-input');
+        const profileText = chatWindow.querySelector('.chat-profile-'+type+'-text');
+        const profileSaveBtn = chatWindow.querySelector('.chat-profile-'+type+'-save-btn');
+        const profileError = chatWindow.querySelector(".chat-profile-"+type+"-error");
+        let currentValue = null;
         profileInput.maxLength = inputMaxLength;
 
         // Funciones de mostrar / esconder editar nombre
@@ -359,10 +343,9 @@ const createChatWindow = (chat) => {
 
         async function SaveProfileName() {
             let allGood = true;
-            const originalValue =
-                allowEmpty && currentValue == emptyDisplay ? "" : currentValue;
+            const originalValue = currentValue;
             let newValue = profileInput.value.trim();
-            profileError.textContent = "";
+            let newText = originalValue == null || allowEmpty && newValue == '' ? emptyDisplay : currentValue;
 
             // Revisar si el nuevo valor está vacío
             const isEmpty = newValue == "";
@@ -370,7 +353,7 @@ const createChatWindow = (chat) => {
                 // No está vacío, revisar tipo
                 if (type == "name") {
                     // Ninguna otra comprobación, actualizar valor actual
-                    currentValue = newValue;
+                    newText = newValue;
                 } else if (type == "rut") {
                     // Comprobar si el rut ingresado es válido
                     const formattedRut = validateAndFormatRut(newValue);
@@ -381,7 +364,7 @@ const createChatWindow = (chat) => {
                     } else {
                         // Rut válido, actualizar valor actual
                         newValue = formattedRut;
-                        currentValue = newValue;
+                        newText = newValue;
                     }
                 }
             } else {
@@ -393,14 +376,12 @@ const createChatWindow = (chat) => {
                     if (type == "name")
                         message = "El nombre no puede estar vacío";
                     showMessage(message, "error");
-                } else {
-                    // Si se permite, establecer valor actual a emptyDisplay
-                    currentValue = emptyDisplay;
                 }
             }
 
             // Establecer valor a mostrar, terminar editar
-            profileText.textContent = currentValue;
+            profileText.textContent = newText;
+            profileError.textContent = "";
             HideEditProfileName(); // Esconder edit
             ShowDisplayProfileName(); // Mostrar display
 
@@ -408,9 +389,12 @@ const createChatWindow = (chat) => {
             if (!allGood) return;
 
             // Verificar si hay que actualizar en base de datos
+            if (isEmpty) newValue = null;
             let needUpdate = newValue !== originalValue;
             if (needUpdate) {
                 // Es diferente al original
+                currentValue = newValue;
+
                 // Verificar tipo
                 if (type == "name") {
                     // Actualizar valor del nombre del chat en JS
@@ -435,13 +419,10 @@ const createChatWindow = (chat) => {
                             btnNameEl.textContent = newValue;
                         }
                     }
-                } else if (type == "rut") {
-                    // Actualizar valor del rut del chat en JS, si está vacío que el nuevo valor sea null
-                    const actualNewValue =
-                        allowEmpty && currentValue == emptyDisplay
-                            ? null
-                            : newValue;
-                    chat.client_rut = actualNewValue;
+                }
+                else if (type == 'rut') {
+                    // Actualizar valor del rut del chat en JS
+                    chat.client_rut = newValue;
                 }
                 let message =
                     type == "name"
@@ -488,8 +469,9 @@ const createChatWindow = (chat) => {
         profileEditBtn.addEventListener("click", (event) => {
             event.stopPropagation();
             // Establecer valor del input
-            profileInput.value =
-                allowEmpty && currentValue == emptyDisplay ? "" : currentValue;
+            if (type == 'name') currentValue = chat.name;
+            if (type == 'rut') currentValue = chat.client_rut;
+            profileInput.value = currentValue == null ? '' : currentValue;
             HideDisplayProfileName(); // Esconder display
             ShowEditProfileName(); // Mostrar edit
             profileInput.focus();
@@ -511,8 +493,8 @@ const createChatWindow = (chat) => {
                 if (!allowEmpty) {
                     // El input está vacío
                     let errorStart = "";
-                    if (type == "name") errorStart = "Nombre ";
-                    errorMessage = errorStart + " vacío";
+                    if (type == 'name') errorStart = 'Nombre vacío';
+                    errorMessage = errorStart;
                 }
             }
 
@@ -553,7 +535,7 @@ const createChatWindow = (chat) => {
 
         // Crear contenedor de cargando
         userLoading = document.createElement("div");
-        userLoading.className = "py-2 text-xs text-white";
+        userLoading.className = "py-2 text-xs text-gray-300";
         userLoading.textContent = "Obteniendo usuarios...";
 
         // Crear contendor del contenido
@@ -751,6 +733,11 @@ const createChatWindow = (chat) => {
     }
 
     // Cambio de tab
+    const backActiveColor = 'bg-gray-600';
+    const textActiveColor = 'text-slate-200';
+    const textNormalColor = 'text-slate-300';
+    const hoverTextColor = 'hover:text-slate-200';
+    const hoverBackColor = 'hover:bg-gray-600';
     function setupTabBtn(button) {
         button.addEventListener("click", () => {
             const targetTab = button.dataset.tab;
@@ -765,13 +752,9 @@ const createChatWindow = (chat) => {
                 }
 
                 // Remover estilo activo de los botones
-                tabButtons.forEach((btn) => {
-                    btn.classList.remove("bg-gray-600", "text-slate-300");
-                    btn.classList.add(
-                        "text-slate-300",
-                        "hover:bg-gray-600",
-                        "hover:text-slate-200"
-                    );
+                tabButtons.forEach(btn => {
+                    btn.classList.remove(backActiveColor, textActiveColor);
+                    btn.classList.add(textNormalColor, hoverBackColor, hoverTextColor);
                 });
 
                 // Esconder todos los tab
@@ -780,12 +763,8 @@ const createChatWindow = (chat) => {
                 });
 
                 // Añadir estilo activo al botón que se presionó
-                button.classList.add("bg-gray-600", "text-slate-300");
-                button.classList.remove(
-                    "text-slate-300",
-                    "hover:bg-gray-600",
-                    "hover:text-slate-200"
-                );
+                button.classList.add(backActiveColor, textActiveColor);
+                button.classList.remove(textNormalColor, hoverBackColor, hoverTextColor);
 
                 // Mostrar la tab que corresponda
                 const activeContent = document.getElementById(
