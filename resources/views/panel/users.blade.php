@@ -61,7 +61,7 @@
 <!-- Modal de opciones para reestablecer contraseña -->
 <div id="resetPassModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-[2px] flex items-center justify-center p-4 z-50 hidden">
     <div class="bg-slate-800 border border-slate-700 rounded-xl w-full max-w-md p-6 relative">
-        <button id="closeResetPassBtn" class="absolute top-2 right-2 text-white mr-4 hover:text-gray-500">✕</button>
+        <button id="closeResetPassBtn" class="absolute top-2 right-2 text-white mr-4 hover:text-gray-500" data-modal-close>✕</button>
         <h3 class="text-xl font-semibold text-white mb-2">Nueva Contraseña</h3>
         <p class="text-slate-400 mb-6">Elige una de las opciones:</p>
         <div class="space-y-4">
@@ -92,7 +92,7 @@
 <!-- Modal para restablecer contraseña manualmente -->
 <div id="manualResetPassModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-[2px] flex items-center justify-center p-4 z-50 hidden">
     <div class="bg-slate-800 border border-slate-700 rounded-xl w-full max-w-md p-6 relative">
-        <button id="closeManualResetBtn" class="absolute top-2 right-2 text-white mr-4 hover:text-gray-500">✕</button>
+        <button class="absolute top-2 right-2 text-white mr-4 hover:text-gray-500 cursor-pointer" data-modal-close>✕</button>
         <h3 class="text-xl font-semibold text-white mb-6">Crear nueva contraseña</h3>
         <form id="manualResetPassForm">
             <div class="space-y-4">
@@ -160,7 +160,7 @@
 <!-- Modal de correo enviado -->
 <div id="mailResetPassModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-[2px] flex items-center justify-center p-4 z-50 modal-transition hidden">
     <div class="bg-slate-800 border border-slate-700 rounded-xl w-full max-w-md p-6 relative text-center">
-        <button id="closePassMailSentBtn" class="absolute top-2 right-2 text-white mr-4 hover:text-gray-500">✕</button>
+        <button class="absolute top-2 right-2 text-white mr-4 hover:text-gray-500 cursor-pointer" data-modal-close>✕</button>
         <div class="flex flex-col items-center gap-4">
             <div><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-green-500">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
@@ -177,7 +177,7 @@
 <!-- Modal ADD -->
 <div id="addUserModal" class="fixed inset-0 flex items-center justify-center hidden bg-black/30 backdrop-blur-[2px]" data-on-open="resetUserForm">
     <div class="card-custom rounded-lg w-96 p-6 relative shadow-2xl">
-        <button id="closeAddModal" class="absolute top-2 right-2 text-white mr-4 hover:text-gray-500 cursor-pointer" data-modal-close>✕</button>
+        <button class="absolute top-2 right-2 text-white mr-4 hover:text-gray-500 cursor-pointer" data-modal-close>✕</button>
         <h3 class="text-lg font-bold mb-4 text-white">Agregar Usuario</h3>
         <form id="addUserForm" class="space-y-4">
             <div>
@@ -197,13 +197,9 @@
 </div>
 
 <!-- Nuevo modal para confirmar la eliminación de usuario -->
-<div id="deleteUserModal" class="fixed inset-0 flex items-center justify-center hidden bg-black/30 backdrop-blur-[2px] z-50">
+<div id="deleteUserModal" class="fixed inset-0 flex items-center justify-center hidden bg-black/30 backdrop-blur-[2px]" data-on-open="setupDeleteUserModal">
     <div class="card-custom rounded-xl w-96 p-6 relative shadow-2xl text-center">
-        <button id="closeDeleteModal" class="absolute top-2 right-2 text-white mr-2 mt-2 hover:text-gray-400 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
+        <button class="absolute top-2 right-2 text-white mr-4 hover:text-gray-500 cursor-pointer" data-modal-close>✕</button>
         <h3 class="text-lg font-bold mb-4 text-white">Confirmar Eliminación</h3>
         <p class="text-gray-300 mb-6">¿Estás seguro de que deseas eliminar a <span id="userNameToDelete" class="font-bold"></span>?</p>
         <div class="flex justify-center space-x-4">

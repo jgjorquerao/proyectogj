@@ -8,8 +8,7 @@ axios.defaults.headers.common["X-CSRF-TOKEN"] = document.querySelector(
 ).content;
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
-let closeAddModal,
-    addModal,
+let addModal,
     addUserForm,
     errorName,
     errorEmail,
@@ -19,14 +18,11 @@ let closeAddModal,
     appContainer,
     menuButton;
 let resetPassModal,
-    closeResetPassBtn,
     mailResetPassBtn,
     mailResetPassModal,
     mailResetPassText,
-    closePassMailSentBtn,
     confirmPassMailSentBtn;
 let deleteModal,
-    closeDeleteModal,
     confirmDeleteBtn,
     cancelDeleteBtn,
     userNameToDeleteEl;
@@ -41,14 +37,12 @@ let users = []; // Array de usuarios cargados
 window.initUserSection = () => {
     // Referencias DOM
     /* openAddModal = document.getElementById("openModal"); */
-    closeAddModal = document.getElementById("closeAddModal");
     addModal = document.getElementById("addUserModal");
     addUserForm = document.getElementById("addUserForm");
     errorName = document.getElementById("errorName");
     errorEmail = document.getElementById("errorEmail");
     userListContainer = document.getElementById("user-list");
     deleteModal = document.getElementById("deleteUserModal");
-    closeDeleteModal = document.getElementById("closeDeleteModal");
     confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
     cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
     userNameToDeleteEl = document.getElementById("userNameToDelete");
@@ -61,14 +55,12 @@ window.initUserSection = () => {
 
     // Referencias DOM de contraseña
     resetPassModal = document.getElementById('resetPassModal');
-    closeResetPassBtn = document.getElementById('closeResetPassBtn');
     mailResetPassBtn = document.getElementById('mailResetPassBtn');
     mailResetPassModal = document.getElementById('mailResetPassModal');
     mailResetPassText = document.getElementById('mailResetPassText');
-    closePassMailSentBtn = document.getElementById('closePassMailSentBtn');
     confirmPassMailSentBtn = document.getElementById('confirmPassMailSentBtn');
 
-    if (!closeAddModal || !addModal) return;
+    if (!addModal) return;
 
     // Abrir modal ADD
     /* openAddModal.addEventListener("click", () => {
@@ -91,18 +83,6 @@ window.initUserSection = () => {
         }
     }); */
 
-    // Cerrar modal de eliminar al hacer click fuera
-    deleteModal.addEventListener("click", (e) => {
-        if (e.target === deleteModal) {
-            deleteModal.classList.add('hidden');
-        }
-    });
-
-    // Cerrar modal de eliminar
-    closeDeleteModal.addEventListener("click", () => {
-        deleteModal.classList.add('hidden');
-    });
-
     // Click para eliminar el usuario
     confirmDeleteBtn.addEventListener("click", () => {
         handleDeleteUser();
@@ -110,19 +90,7 @@ window.initUserSection = () => {
 
     // Lógica para cancelar la eliminación
     cancelDeleteBtn.addEventListener("click", () => {
-        deleteModal.classList.add('hidden');
-    });
-
-    // Cerrar modal de resetear contraseña al hacer clic en el botón de cerrar
-    closeResetPassBtn.addEventListener('click', () => {
-        resetPassModal.classList.add('hidden');
-    });
-    
-    // Cerrar modal de resetear contraseña al hacer clic fuera del contenido del modal
-    resetPassModal.addEventListener('click', (e) => {
-        if (e.target == resetPassModal) {
-            resetPassModal.classList.add('hidden');
-        }
+        window.closeModal(deleteModal);
     });
 
     // Click del botón de enviar contraseña al email
@@ -130,21 +98,9 @@ window.initUserSection = () => {
         handleMailResetPass();
     });
 
-    // Cerrar modal de correo enviado al hacer clic en el botón de cerrar
-    closePassMailSentBtn.addEventListener('click', () => {
-        mailResetPassModal.classList.add('hidden');
-    });
-
     // Cerrar modal de correo enviado al hacer clic en el botón de aceptar
     confirmPassMailSentBtn.addEventListener('click', () => {
-        mailResetPassModal.classList.add('hidden');
-    });
-    
-    // Cerrar modal de correo enviado al hacer clic fuera del contenido del modal
-    mailResetPassModal.addEventListener('click', (e) => {
-        if (e.target == mailResetPassModal) {
-            mailResetPassModal.classList.add('hidden');
-        }
+        window.closeModal(mailResetPassModal);
     });
 
     // LLamar función de password_setup.js para inicializar formulario de nueva contraseña
@@ -260,7 +216,7 @@ async function handleAddUser(e) {
 
         // Cerrar modal y limpiar form
         showMessage("Usuario creado correctamente.", "success");
-        addModal.classList.add('hidden');
+        window.closeModal(addModal);
         addUserForm.reset();
     } catch (error) {
         if (error.response && error.response.status === 422) {
@@ -319,7 +275,7 @@ function renderUserDetail(user) {
                 </div>
                 <span class="user-title font-bold text-2xl"></span>
             </div>
-            <button class="delete-user-btn text-white hover:text-red-300 transition-colors">
+            <button class="text-white hover:text-red-300 transition-colors" data-modal-open="deleteUserModal">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                 </svg>
@@ -418,7 +374,7 @@ function renderUserDetail(user) {
                 <span class="text-lg font-bold text-white">Contraseña</span>
                 <div class="user-pass-container flex flex-row items-center justify-between rounded-lg p-4 mt-2">
                     <p class="user-password text-slate-300"></p>
-                    <button class="reset-password-btn btn-custom font-semibold text-sm py-3 px-3 rounded-lg shadow-md">
+                    <button class="btn-custom font-semibold text-sm py-3 px-3 rounded-lg shadow-md" data-modal-open="resetPassModal">
                         Nueva contraseña
                     </button>
                 </div>
@@ -436,7 +392,6 @@ function renderUserDetail(user) {
     const userDetailEmail = userDetailCard.querySelector(".user-email-text");
     const userDetailRole = userDetailCard.querySelector(".user-role-text");
     const userDetailCreated = userDetailCard.querySelector(".user-created-text");
-    const resetPassBtn = userDetailCard.querySelector('.reset-password-btn');
 
     // Rellenar info
     userDetailAvatar.textContent = user.name
@@ -452,9 +407,9 @@ function renderUserDetail(user) {
         user.created_at
     ).toLocaleDateString();
 
-    // Botón eliminar
+    /* // Botón eliminar
     const deleteBtn = userDetailCard.querySelector(".delete-user-btn");
-    deleteBtn.onclick = () => showDeleteConfirmationModal(user);
+    deleteBtn.onclick = () => showDeleteConfirmationModal(user); */
 
     // Función de editar
     function setupInputEdit(type, maxLength, allowEmpty, emptyDisplay = '') {
@@ -659,11 +614,6 @@ function renderUserDetail(user) {
     // Aplicar lógica de editar email
     const emailMaxLength = 254;
     setupInputEdit('email', emailMaxLength, false);
-
-    // Click del botón de nueva contraseña
-    resetPassBtn.addEventListener('click', () => {
-        resetPassModal.classList.remove('hidden');
-    });
 }
 
 async function handleDeleteUser() {
@@ -700,7 +650,7 @@ function removeSelectedUser() {
         userEmptyState.classList.remove("hidden");
         userDetailCard.classList.add("hidden");
         userDetailCard.innerHTML = '';
-        deleteModal.classList.add('hidden');
+        window.closeModal(deleteModal);
         console.log(users);
     }
 }
@@ -790,10 +740,14 @@ function enableInlineEdit(element) {
 } */
 
 // Muestra el modal de confirmación para eliminar
-function showDeleteConfirmationModal(user) {
-    userNameToDeleteEl.textContent = user.name;
-    deleteModal.classList.remove('hidden');
-}
+window.setupDeleteUserModal = () =>{
+    if (window.selectedUserId) {
+        const user = users.find(u => u.id === window.selectedUserId);
+        if (user) {
+            userNameToDeleteEl.textContent = user.name;
+        }
+    }
+};
 
 // Función para enviar correo para reestablecer contraseña
 async function handleMailResetPass() {
@@ -808,8 +762,8 @@ async function handleMailResetPass() {
                 id: window.selectedUserId,
             });
 
-            resetPassModal.classList.add('hidden');
-            mailResetPassModal.classList.remove('hidden');
+            window.closeModal(resetPassModal);
+            window.openModal(mailResetPassModal.id);
             showMessage('Email enviado al correo del usuario', 'success');
         } catch (error) {
             if (error.response) {
@@ -819,7 +773,7 @@ async function handleMailResetPass() {
                 if (error.response.status === 404)
                 {
                     removeSelectedUser();
-                    resetPassModal.classList.add('hidden');
+                    window.closeModal(resetPassModal);
                     showMessage("El usuario no existe", "error");
                 }
             } else {
