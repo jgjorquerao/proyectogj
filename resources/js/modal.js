@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function closeModal(modalElement) {
+    function closeModal(modalElement, options = {}) {
         if (modalElement) {
             modalElement.classList.add("hidden");
             modalElement.classList.remove("flex");

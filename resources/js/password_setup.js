@@ -78,7 +78,6 @@ function setupPasswordForm(isModal, getUser) {
         const resetPassModal = document.getElementById('resetPassModal');
         const manualResetPassBtn = document.getElementById('manualResetPassBtn');
         const backManualResetBtn = document.getElementById('backManualResetBtn');
-        const closeManualResetBtn = document.getElementById('closeManualResetBtn');
         manualResetPassModal = document.getElementById('manualResetPassModal');
 
         // Función para resetear los inputs / iconos
@@ -99,26 +98,14 @@ function setupPasswordForm(isModal, getUser) {
             resetInput(newPassInput, newPassToggle);
             resetInput(confirmPassInput, confirmPassToggle);
             validatePasswords();
-            resetPassModal.classList.add('hidden');
-            manualResetPassModal.classList.remove('hidden');
-        });
-
-        // Cerrar al hacer clic fuera del contenido del modal
-        manualResetPassModal.addEventListener('click', (e) => {
-            if (e.target == manualResetPassModal) {
-                manualResetPassModal.classList.add('hidden');
-            }
+            window.closeModal(resetPassModal);
+            window.openModal(manualResetPassModal.id);
         });
 
         // Cerrar al hacer clic en el botón de volver
         backManualResetBtn.addEventListener('click', () => {
-            manualResetPassModal.classList.add('hidden');
-            resetPassModal.classList.remove('hidden');
-        });
-
-        // Cerrar al hacer clic en el botón de cerrar
-        closeManualResetBtn.addEventListener('click', () => {
-            manualResetPassModal.classList.add('hidden');
+            window.closeModal(manualResetPassModal);
+            window.openModal(resetPassModal.id);
         });
     }
 
@@ -171,7 +158,7 @@ function setupPasswordForm(isModal, getUser) {
                     {
                         // Cerrar modal y limpiar form
                         showMessage("Contraseña actualizada correctamente.", "success");
-                        manualResetPassModal.classList.add('hidden');
+                        window.closeModal(manualResetPassModal);
                     }
                     else
                     {
